@@ -8,12 +8,13 @@ export default function Nav() {
         <li className={s.logo_container}>
           <Image
             src="/guanaco-rental-logo.svg"
-            width="50"
-            height="50"
+            width="75"
+            height="75"
             objectFit="contain"
           />
         </li>
         <li>RESERVAS</li>
+        <li>FAQ</li>
         <li>INICIAR SESION</li>
         <li>REGISTRARSE</li>
       </ul>
