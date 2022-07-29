@@ -1,0 +1,21 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start:dev": "nodemon -L"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^4.1.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "prisma": "^4.1.1"
+  },
+  "keywords": [],
+  "description": ""
+}
