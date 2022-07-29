@@ -20,3 +20,20 @@ model User {
   updatedAt               DateTime     @updatedAt @map(name: "updated_at")
   @@map(name: "users")
 }
+
+model Category {
+  id                      String       @default(cuid()) @id
+  name                    String
+  equipments              Equipment[]
+}
+
+model Equipment {
+  id                      String      @default(cuid()) @id
+  name                    String
+  brand                   String
+  model                   String
+  quantity                Int
+  price                   String
+  category                Category    @relation(fields: [categoryId], references: [id])
+  categoryId              String
+}
