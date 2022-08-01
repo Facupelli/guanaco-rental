@@ -36,4 +36,6 @@ model Equipment {
   price                   String
   category                Category    @relation(fields: [categoryId], references: [id])
   categoryId              String
+  owner                   String      @default("Giaccaglia")
+  location                String      @default("San Juan")
 }

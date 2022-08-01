@@ -1,10 +1,9 @@
-const { PrismaClient } = require("@prisma/client");
 const express = require("express");
+const routes = require('./routes/index')
 
-const prisma = new PrismaClient();
 const app = express();
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 
@@ -12,13 +11,9 @@ app.use(express.json());
 
 // app.use("/recipe", recipeRoutes);
 
-app.get("/", async (req, res) => {
-//   const posts = await prisma.post.findMany({
-//     where: { published: true },
-//     include: { author: true },
-//   });
-  res.json({John: "DOE"});
-});
+app.use('/', routes)
+
+
 
 const server = app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
