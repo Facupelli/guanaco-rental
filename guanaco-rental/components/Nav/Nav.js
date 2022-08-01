@@ -15,7 +15,9 @@ export default function Nav() {
         </li>
         <li>RESERVAS</li>
         <li>FAQ</li>
-        <li>INICIAR SESION</li>
+        <li>
+          <a href="/api/auth/login">INICIAR SESION</a>
+        </li>
         <li>REGISTRARSE</li>
       </ul>
     </nav>
