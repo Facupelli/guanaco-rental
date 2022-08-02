@@ -1,0 +1,13 @@
+@import "../../styles/app.scss";
+
+.container {
+  @include app_width;
+  margin-top: 3rem;
+
+  .equipment_grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 19% 79%;
+    column-gap: 2%;
+  }
+}
