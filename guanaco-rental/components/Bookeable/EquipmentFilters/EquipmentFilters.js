@@ -18,9 +18,18 @@ export default function EquipmentFilters() {
   const category = watch("category");
 
   const getEquipment = async () => {
-    const equipment = await fetch(`http://localhost:3001/equipment?category=${category}`)
-      .then((response) => response.json())
-      .catch((e) => console.log("fecth error:", e));
+    let equipment;
+    if (category === "all") {
+      equipment = await fetch(`http://localhost:3001/equipment`)
+        .then((response) => response.json())
+        .catch((e) => console.log("fecth error:", e));
+    } else {
+      equipment = await fetch(
+        `http://localhost:3001/equipment?category=${category}`
+      )
+        .then((response) => response.json())
+        .catch((e) => console.log("fecth error:", e));
+    }
     dispatch(setEquipment(equipment));
   };
 
@@ -41,7 +50,7 @@ export default function EquipmentFilters() {
           <option value="sonido">SONIDO</option>
           <option value="grip">GRIP</option>
           <option value="otros">OTROS</option>
-          <option value="drone">DRONE</option>
+          <option value="drones">DRONES</option>
         </select>
       </form>
     </section>
