@@ -14,8 +14,6 @@ async function getEquipment(req, res, next) {
     };
   }
 
-  console.log(order, !!order);
-
   if (order && order !== "undefined" && order !== "none") {
     pipeline.orderBy = { price: order };
   }

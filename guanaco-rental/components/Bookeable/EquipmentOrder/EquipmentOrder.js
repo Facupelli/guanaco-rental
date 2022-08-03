@@ -38,7 +38,7 @@ export default function EquipmentOrder({ filters }) {
     <form className={s.container} onSubmit={handleSubmit(onSubmit)}>
       <label>Ordenar por precio</label>
       <select defaultValue="none" {...register("order")}>
-        <option value="none">predeterminado</option>
+        <option value="none">estandar</option>
         <option value="desc">descendente</option>
         <option value="asc">ascendente</option>
       </select>
