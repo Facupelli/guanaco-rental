@@ -1,14 +1,21 @@
 import { useUser } from "@auth0/nextjs-auth0";
+import { useDispatch } from "react-redux";
 import Head from "next/head";
+import { useEffect } from "react";
 import Bookeable from "../components/Bookeable/Bookeable";
 import Nav from "../components/Nav/Nav";
 import styles from "../styles/Home.module.scss";
+import { setEquipment } from "../redux/features/equipment/equipmentSlice";
 
 export default function Home({ equipment }) {
+  const dispatch = useDispatch();
   const { user, error, isLoading } = useUser();
 
-  console.log("USER", user);
-  console.log("EQUIPMENT", equipment);
+  // console.log("USER", user);
+
+  // useEffect(() => {
+  //   dispatch(setEquipment(equipment));
+  // }, []);
 
   return (
     <div className={styles.container}>

@@ -10,7 +10,7 @@ export default function Bookeable({ equipment }) {
       <EquipmentOrder />
       <section className={s.equipment_grid}>
         <EquipmentFilters />
-        <EquipmentList equipment={equipment} />
+        <EquipmentList />
       </section>
     </article>
   );

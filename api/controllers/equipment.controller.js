@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 async function getEquipment(req, res, next) {
   const { category } = req.query;
 
-  if (category) {
+  if (category && category !== "all") {
     console.log(category);
     const equipment = await prisma.category.findMany({
       where: {

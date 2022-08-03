@@ -1,23 +1,48 @@
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { setEquipment } from "../../../redux/features/equipment/equipmentSlice";
+
 import s from "./EquipmentFilters.module.scss";
 
 export default function EquipmentFilters() {
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
+  const category = watch("category");
+
+  const getEquipment = async () => {
+    const equipment = await fetch(`http://localhost:3001/equipment?category=${category}`)
+      .then((response) => response.json())
+      .catch((e) => console.log("fecth error:", e));
+    dispatch(setEquipment(equipment));
+  };
+
+  useEffect(() => {
+    getEquipment();
+  }, [category]);
+
   return (
     <section>
-      <form>
-        <select>
-          <option>TODOS</option>
-          <option>CAMARAS</option>
-          <option>LENTES</option>
-          <option>MONITORES</option>
-          <option>ESTABILIZADORES/TRIPODES</option>
-          <option>ILUMINACION</option>
-          <option>SONIDO</option>
-          <option>GRIP</option>
-          <option>OTROS</option>
-          <option>DRONE</option>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <select defaultValue="all" {...register("category")}>
+          <option value="all">TODOS</option>
+          <option value="camaras">CAMARAS</option>
+          <option value="lentes">LENTES</option>
+          <option value="monitores">MONITORES</option>
+          <option value="estabilizadores">ESTABILIZADORES/TRIPODES</option>
+          <option value="iluminacion">ILUMINACION</option>
+          <option value="sonido">SONIDO</option>
+          <option value="grip">GRIP</option>
+          <option value="otros">OTROS</option>
+          <option value="drone">DRONE</option>
         </select>
-
-    
       </form>
     </section>
   );
