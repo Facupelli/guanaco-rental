@@ -5,7 +5,7 @@ import { setEquipment } from "../../../redux/features/equipment/equipmentSlice";
 
 import s from "./EquipmentFilters.module.scss";
 
-export default function EquipmentFilters() {
+export default function EquipmentFilters({ setFilters }) {
   const dispatch = useDispatch();
   const {
     register,
@@ -17,24 +17,22 @@ export default function EquipmentFilters() {
 
   const category = watch("category");
 
+  console.log(category);
+
   const getEquipment = async () => {
-    let equipment;
-    if (category === "all") {
-      equipment = await fetch(`http://localhost:3001/equipment`)
-        .then((response) => response.json())
-        .catch((e) => console.log("fecth error:", e));
-    } else {
-      equipment = await fetch(
-        `http://localhost:3001/equipment?category=${category}`
-      )
-        .then((response) => response.json())
-        .catch((e) => console.log("fecth error:", e));
-    }
+    const equipment = await fetch(
+      `http://localhost:3001/equipment?category=${category}`
+    )
+      .then((response) => response.json())
+      .catch((e) => console.log("fecth error:", e));
     dispatch(setEquipment(equipment));
   };
 
   useEffect(() => {
-    getEquipment();
+    setFilters((prev) => ({ ...prev, category }));
+    if (category) {
+      getEquipment();
+    }
   }, [category]);
 
   return (
