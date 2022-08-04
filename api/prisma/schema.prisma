@@ -38,4 +38,5 @@ model Equipment {
   categoryId              String
   owner                   String      @default("Giaccaglia")
   location                String      @default("San Juan")
+  bookings                String[]
 }

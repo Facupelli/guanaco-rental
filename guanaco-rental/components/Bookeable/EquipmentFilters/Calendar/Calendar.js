@@ -1,26 +1,14 @@
-import { es } from "date-fns/locale";
+import Calendar from "react-calendar";
 import { useState } from "react";
-import { DateRange } from "react-date-range";
 
 import s from "./Calendar.module.scss";
 
-export default function Calendar({
-  startDate,
-  endDate,
-  setStartDate,
-  setEndDate,
+export default function CalendarComponent({
+  dateRange,
+  setDateRange,
   setDatePickup,
 }) {
-  const selectionRange = {
-    startDate: startDate,
-    endDate: endDate,
-    key: "selection",
-  };
-
-  const handleSelect = (ranges) => {
-    setStartDate(ranges.selection.startDate);
-    setEndDate(ranges.selection.endDate);
-  };
+  console.log(dateRange);
 
   const handleClickOk = () => {
     setDatePickup(false);
@@ -28,14 +16,13 @@ export default function Calendar({
 
   return (
     <aside className={s.calendar_container}>
-      <DateRange
-        ranges={[selectionRange]}
+      <Calendar
+        className={s.calendar}
+        onChange={setDateRange}
+        value={dateRange}
+        selectRange={true}
+        locale="es-419"
         minDate={new Date()}
-        onChange={handleSelect}
-        moveRangeOnFirstSelection={false}
-        months={1}
-        open={false}
-        locale={es}
       />
       <div className={s.btn_container}>
         <button type="button" onClick={handleClickOk}>

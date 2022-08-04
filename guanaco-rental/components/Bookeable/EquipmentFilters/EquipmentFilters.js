@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setEquipment } from "../../../redux/features/equipment/equipmentSlice";
-import Calendar from "./Calendar/Calendar";
+import CalendarComponent from "./Calendar/Calendar";
 
 import s from "./EquipmentFilters.module.scss";
 
 export default function EquipmentFilters({ setFilters }) {
   const [datePickup, setDatePickup] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [dateRange, setDateRange] = useState(new Date());
 
   const dispatch = useDispatch();
   const {
@@ -43,11 +42,9 @@ export default function EquipmentFilters({ setFilters }) {
   return (
     <section>
       {datePickup && (
-        <Calendar
-          startDate={startDate}
-          endDate={endDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
+        <CalendarComponent
+          dateRange={dateRange}
+          setDateRange={setDateRange}
           setDatePickup={setDatePickup}
         />
       )}
@@ -58,9 +55,9 @@ export default function EquipmentFilters({ setFilters }) {
             fecha
           </button>
           <p>Retiro: </p>
-          <p>{startDate.toDateString()}</p>
+          <p>{dateRange[0] && dateRange[0].toLocaleDateString("en-US")}</p>
           <p>Devolución:</p>
-          <p>{endDate.toDateString()}</p>
+          <p>{dateRange[1] && dateRange[1].toLocaleDateString()}</p>
         </div>
         <div>
           <label>Categoría:</label>

@@ -3,8 +3,7 @@ import { Provider } from "react-redux";
 import store from "../redux/store";
 
 //calendar
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import 'react-calendar/dist/Calendar.css';
 //gloabl app
 import "../styles/globals.css";
 
