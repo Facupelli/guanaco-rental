@@ -1,4 +1,5 @@
 .calendar_container {
+  border-radius: .5rem;
   background-color: white;
   position: absolute;
   left: 350px;
@@ -8,6 +9,8 @@
 
   .calendar {
     border: none;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
 
     .react-calendar__month-view__days__day--weekend {
       color: #dfdfdf;
