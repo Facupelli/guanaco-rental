@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import store from "../redux/store";
 
 //calendar
-import 'react-calendar/dist/Calendar.css';
+import '../styles/reactcalendar.css';
 //gloabl app
 import "../styles/globals.css";
 
