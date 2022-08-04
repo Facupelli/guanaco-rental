@@ -8,6 +8,9 @@ import s from "./EquipmentFilters.module.scss";
 
 export default function EquipmentFilters({ setFilters }) {
   const [datePickup, setDatePickup] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
   const dispatch = useDispatch();
   const {
     register,
@@ -39,11 +42,25 @@ export default function EquipmentFilters({ setFilters }) {
 
   return (
     <section>
-      {datePickup && <Calendar />}
+      {datePickup && (
+        <Calendar
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          setDatePickup={setDatePickup}
+        />
+      )}
       <form onSubmit={handleSubmit(onSubmit)} className={s.form_container}>
         <div className={s.flex_column}>
           <label>Retiro</label>
-          <button type="button" onClick={() => setDatePickup(!datePickup)}>fecha</button>
+          <button type="button" onClick={() => setDatePickup(!datePickup)}>
+            fecha
+          </button>
+          <p>Retiro: </p>
+          <p>{startDate.toDateString()}</p>
+          <p>Devolución:</p>
+          <p>{endDate.toDateString()}</p>
         </div>
         <div>
           <label>Categoría:</label>
