@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { setEquipment } from "../../../redux/features/equipment/equipmentSlice";
+import {
+  filterByDateRange,
+  setEquipment,
+} from "../../../redux/features/equipment/equipmentSlice";
 import CalendarComponent from "./Calendar/Calendar";
 
 import s from "./EquipmentFilters.module.scss";
 
 export default function EquipmentFilters({ setFilters }) {
   const [datePickup, setDatePickup] = useState(false);
-  const [dateRange, setDateRange] = useState(new Date());
+  const [dateRange, setDateRange] = useState(null);
 
   const dispatch = useDispatch();
   const {
@@ -20,8 +23,6 @@ export default function EquipmentFilters({ setFilters }) {
   const onSubmit = (data) => console.log(data);
 
   const category = watch("category");
-
-  console.log(category);
 
   const getEquipment = async () => {
     const equipment = await fetch(
@@ -39,6 +40,14 @@ export default function EquipmentFilters({ setFilters }) {
     }
   }, [category]);
 
+  useEffect(() => {
+    if (dateRange) {
+      const dates = dateRange.map((date) => date.toLocaleDateString());
+      console.log(dates)
+      dispatch(filterByDateRange(dates));
+    }
+  }, [dateRange]);
+
   return (
     <section>
       {datePickup && (
@@ -55,9 +64,9 @@ export default function EquipmentFilters({ setFilters }) {
             fecha
           </button>
           <p>Retiro: </p>
-          <p>{dateRange[0] && dateRange[0].toLocaleDateString("en-US")}</p>
+          <p>{dateRange && dateRange[0].toLocaleDateString("en-US")}</p>
           <p>Devolución:</p>
-          <p>{dateRange[1] && dateRange[1].toLocaleDateString()}</p>
+          <p>{dateRange && dateRange[1].toLocaleDateString()}</p>
         </div>
         <div>
           <label>Categoría:</label>

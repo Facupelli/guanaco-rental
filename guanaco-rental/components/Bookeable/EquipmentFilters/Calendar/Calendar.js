@@ -8,7 +8,6 @@ export default function CalendarComponent({
   setDateRange,
   setDatePickup,
 }) {
-  console.log(dateRange);
 
   const handleClickOk = () => {
     setDatePickup(false);
