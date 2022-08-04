@@ -5,6 +5,7 @@ import {
   filterByDateRange,
   setEquipment,
 } from "../../../redux/features/equipment/equipmentSlice";
+import { setDate } from "../../../redux/features/pickupDate/pickupDateSlice";
 import CalendarComponent from "./Calendar/Calendar";
 
 import s from "./EquipmentFilters.module.scss";
@@ -41,10 +42,14 @@ export default function EquipmentFilters({ setFilters }) {
   }, [category]);
 
   useEffect(() => {
+    // if (dateRange) {
+    //   const dates = dateRange.map((date) => date.toLocaleDateString());
+    //   console.log(dates)
+    //   dispatch(filterByDateRange(dates));
+    // }
     if (dateRange) {
       const dates = dateRange.map((date) => date.toLocaleDateString());
-      console.log(dates)
-      dispatch(filterByDateRange(dates));
+      dispatch(setDate(dates));
     }
   }, [dateRange]);
 

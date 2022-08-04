@@ -1,6 +1,14 @@
+import { useSelector } from "react-redux";
 import s from "./EquipmentCard.module.scss";
 
 export default function EquipmentCard({ gear }) {
+  const dates = useSelector((state) => state.date.date_range);
+
+  const isAvailable =
+    gear.bookings.filter((date) => dates.indexOf(date) >= 0).length > 0
+      ? false
+      : true;
+
   return (
     <div className={s.container}>
       <p>{gear.brand}</p>
@@ -12,6 +20,7 @@ export default function EquipmentCard({ gear }) {
           maximumSignificantDigits: 12,
         }).format(gear.price)}
       </p>
+      <p>{isAvailable ? "Disponible" : "Reservado"}</p>
       <button>Agregar al carrito</button>
     </div>
   );

@@ -13,13 +13,13 @@ export const equipmentSlice = createSlice({
     },
     filterByDateRange: (state, action) => {
       const dateRange = action.payload;
-      const productsTaken = state.products.filter(
-        (product) =>
-          product.bookings.filter((date) => dateRange.indexOf(date) >= 0)
-            .length === 0
-      );
-      console.log("SLICE", productsTaken)
-      state.products = productsTaken;
+      // const productsTaken = state.products.filter(
+      //   (product) =>
+      //     product.bookings.filter((date) => dateRange.indexOf(date) >= 0)
+      //       .length === 0
+      // );
+      // console.log("SLICE", productsTaken)
+      // state.products = state.products;
     },
   },
 });
