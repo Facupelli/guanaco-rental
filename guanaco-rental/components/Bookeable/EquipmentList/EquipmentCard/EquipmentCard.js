@@ -22,7 +22,9 @@ export default function EquipmentCard({ gear }) {
           maximumSignificantDigits: 12,
         }).format(gear.price)}
       </p>
-      <p>{isAvailable ? "Disponible" : "Reservado"}</p>
+      <p className={isAvailable ? `${s.green}` : `${s.red}`}>
+        {isAvailable ? "Disponible" : "Reservado"}
+      </p>
       <button>Agregar al carrito</button>
     </div>
   );
