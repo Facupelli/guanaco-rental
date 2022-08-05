@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import Bookeable from "../components/Bookeable/Bookeable";
 import Nav from "../components/Nav/Nav";
 import styles from "../styles/Home.module.scss";
-import { setEquipment } from "../redux/features/equipment/equipmentSlice";
 
 export default function Home({ equipment }) {
   const dispatch = useDispatch();
@@ -29,7 +28,6 @@ export default function Home({ equipment }) {
       </Head>
 
       <Nav />
-
       <Bookeable equipment={equipment} />
 
       <main className={styles.main}></main>

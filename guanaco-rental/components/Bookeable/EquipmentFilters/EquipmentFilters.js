@@ -100,7 +100,7 @@ export default function EquipmentFilters({ setFilters }) {
       )}
       <form onSubmit={handleSubmit(onSubmit)} className={s.form_container}>
         <div className={s.flex_column}>
-          <label>Retiro</label>
+          <label>Filtrar por:</label>
           <button type="button" onClick={() => setDatePickup(!datePickup)}>
             fecha
           </button>

@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../../../redux/features/cart/cartSlice";
 import CalendarComponent from "../../EquipmentFilters/Calendar/Calendar";
 
 import s from "./EquipmentCard.module.scss";
 
 export default function EquipmentCard({ gear }) {
+  const dispatch = useDispatch()
   const [showCalendar, setShowCalendar] = useState(false);
 
   const handleSeeMore = () => {
@@ -12,6 +14,7 @@ export default function EquipmentCard({ gear }) {
   };
 
   const dates = useSelector((state) => state.date.date_range);
+  const cart = useSelector((state) => state.cart.items)
 
   // console.log("equipCard: dates", dates)
 
@@ -19,6 +22,13 @@ export default function EquipmentCard({ gear }) {
     gear.bookings.filter((date) => dates.indexOf(date) >= 0).length > 0
       ? false
       : true;
+
+  const addItemToCart = () => {
+    if(cart.filter(item => item.id === gear.id).length > 0){
+      return
+    }
+    dispatch(addToCart(gear))
+  }
 
   return (
     <>
@@ -47,7 +57,7 @@ export default function EquipmentCard({ gear }) {
             ver más
           </button>
         </div>
-        <button type="button">Agregar al carrito</button>
+        <button type="button" onClick={addItemToCart}>Agregar al carrito</button>
       </div>
     </>
   );

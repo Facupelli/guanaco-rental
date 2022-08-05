@@ -19,6 +19,7 @@ export default function Nav() {
           <a href="/api/auth/login">INICIAR SESION</a>
         </li>
         <li>REGISTRARSE</li>
+        <li>CARRITO</li>
       </ul>
     </nav>
   );
