@@ -1,12 +1,14 @@
 import { useUser } from "@auth0/nextjs-auth0";
 import { useDispatch } from "react-redux";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Bookeable from "../components/Bookeable/Bookeable";
 import Nav from "../components/Nav/Nav";
 import styles from "../styles/Home.module.scss";
+import CartModal from "../components/CartModal/CartModal";
 
 export default function Home({ equipment }) {
+  const [showCart, setShowCart] = useState(false);
   const dispatch = useDispatch();
   const { user, error, isLoading } = useUser();
 
@@ -27,7 +29,8 @@ export default function Home({ equipment }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Nav />
+      {showCart && <CartModal setShowCart={setShowCart} />}
+      <Nav setShowCart={setShowCart}/>
       <Bookeable equipment={equipment} />
 
       <main className={styles.main}></main>

@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../../redux/features/cart/cartSlice";
 import CalendarComponent from "../../EquipmentFilters/Calendar/Calendar";
+import { formatPrice } from "../../../../utils/price_formater";
 
 import s from "./EquipmentCard.module.scss";
 
 export default function EquipmentCard({ gear }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [showCalendar, setShowCalendar] = useState(false);
 
   const handleSeeMore = () => {
@@ -14,7 +15,7 @@ export default function EquipmentCard({ gear }) {
   };
 
   const dates = useSelector((state) => state.date.date_range);
-  const cart = useSelector((state) => state.cart.items)
+  const cart = useSelector((state) => state.cart.items);
 
   // console.log("equipCard: dates", dates)
 
@@ -24,11 +25,11 @@ export default function EquipmentCard({ gear }) {
       : true;
 
   const addItemToCart = () => {
-    if(cart.filter(item => item.id === gear.id).length > 0){
-      return
+    if (cart.filter((item) => item.id === gear.id).length > 0) {
+      return;
     }
-    dispatch(addToCart(gear))
-  }
+    dispatch(addToCart(gear));
+  };
 
   return (
     <>
@@ -42,13 +43,7 @@ export default function EquipmentCard({ gear }) {
       <div className={s.container}>
         <p>{gear.brand}</p>
         <p>{gear.model}</p>
-        <p>
-          {new Intl.NumberFormat("es-AR", {
-            style: "currency",
-            currency: "ARS",
-            maximumSignificantDigits: 12,
-          }).format(gear.price)}
-        </p>
+        <p>{formatPrice(gear.price)}</p>
         <div className={s.see_more_flex}>
           <p className={isAvailable ? `${s.green}` : `${s.red}`}>
             {isAvailable ? "Disponible" : "Reservado"}
@@ -57,7 +52,9 @@ export default function EquipmentCard({ gear }) {
             ver más
           </button>
         </div>
-        <button type="button" onClick={addItemToCart}>Agregar al carrito</button>
+        <button type="button" onClick={addItemToCart}>
+          Agregar al carrito
+        </button>
       </div>
     </>
   );
