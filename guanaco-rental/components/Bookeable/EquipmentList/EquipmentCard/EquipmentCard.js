@@ -4,6 +4,8 @@ import s from "./EquipmentCard.module.scss";
 export default function EquipmentCard({ gear }) {
   const dates = useSelector((state) => state.date.date_range);
 
+  // console.log("equipCard: dates", dates)
+
   const isAvailable =
     gear.bookings.filter((date) => dates.indexOf(date) >= 0).length > 0
       ? false
