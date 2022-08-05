@@ -10,4 +10,18 @@
   .red {
     color: red;
   }
+
+  .see_more_flex{
+    display: flex;
+    align-items: baseline;
+    gap: .5rem;
+
+    button{
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: gray;
+      font-size: .8em;
+    }
+  }
 }

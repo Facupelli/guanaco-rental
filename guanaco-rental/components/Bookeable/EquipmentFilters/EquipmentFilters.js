@@ -49,7 +49,8 @@ export default function EquipmentFilters({ setFilters }) {
     //   dispatch(filterByDateRange(dates));
     // }
     if (dateRange) {
-      const dates = dateRange.map((date) => date.toLocaleDateString());
+      const dates = dateRange.map((date) => date.toLocaleDateString("es-EN"));
+      console.log(dates)
       const allDates = [];
 
       const pickup_month = Number(dates[0].split("/")[1]);
@@ -62,7 +63,7 @@ export default function EquipmentFilters({ setFilters }) {
         if (pickup_month === return_month) {
           for (let i = pickup_day; i <= return_day; i++) {
             days += 1;
-            allDates.push(`${i}/${pickup_month}/${dates[0].split("/")[2]}`);
+            allDates.push(`${pickup_month}/${i}/${dates[0].split("/")[2]}`);
             console.log(allDates)
           }
         }
@@ -73,11 +74,11 @@ export default function EquipmentFilters({ setFilters }) {
             i++
           ) {
             days += 1;
-            allDates.push(`${i}/${pickup_month}/${dates[0].split("/")[2]}`);
+            allDates.push(`${pickup_month}/${i}/${dates[0].split("/")[2]}`);
           }
           for (let i = 1; i <= return_day; i++) {
             days += 1;
-            allDates.push(`${i}/${return_month}/${dates[1].split("/")[2]}`);
+            allDates.push(`${return_month}/${i}/${dates[1].split("/")[2]}`);
           }
         }
         return days;
@@ -104,7 +105,7 @@ export default function EquipmentFilters({ setFilters }) {
             fecha
           </button>
           <p>Retiro: </p>
-          <p>{dateRange && dateRange[0].toLocaleDateString("en-US")}</p>
+          <p>{dateRange && dateRange[0].toLocaleDateString()}</p>
           <p>Devolución:</p>
           <p>{dateRange && dateRange[1].toLocaleDateString()}</p>
         </div>

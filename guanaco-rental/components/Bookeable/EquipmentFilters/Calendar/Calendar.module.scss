@@ -19,13 +19,17 @@
     }
   }
 
-  .booking_tile {
+  .booked_tile {
     border-bottom: 3px solid red;
     // color: black;
     // max-width: 100%;
     // padding: 10px 6.6667px;
     // text-align: center;
     // line-height: 16px;
+  }
+
+  .free_tile{
+    border-bottom: 3px solid green;
   }
 
   .btn_container {

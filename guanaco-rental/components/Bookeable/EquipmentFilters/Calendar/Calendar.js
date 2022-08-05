@@ -7,13 +7,14 @@ export default function CalendarComponent({
   dateRange,
   setDateRange,
   setDatePickup,
+  daysTaken = [],
+  freeTileClass,
 }) {
-
   const handleClickOk = () => {
     setDatePickup(false);
   };
 
-  const days_taken = ["8/13/2022"];
+  // const days_taken = ["8/13/2022"];
 
   return (
     <aside className={s.calendar_container}>
@@ -26,16 +27,16 @@ export default function CalendarComponent({
         minDate={new Date()}
         tileClassName={({ date, view }) => {
           if (
-            days_taken.find((day) => new Date(day).getTime() === date.getTime())
+            daysTaken.find((day) => new Date(day).getTime() === date.getTime())
           ) {
-            return s.booking_tile;
+            return s.booked_tile;
           } else {
-            return;
+            return freeTileClass ? s.free_tile : null;
           }
         }}
         tileDisabled={({ date }) => {
           if (
-            days_taken.find((day) => new Date(day).getTime() === date.getTime())
+            daysTaken.find((day) => new Date(day).getTime() === date.getTime())
           ) {
             return true;
           } else {
