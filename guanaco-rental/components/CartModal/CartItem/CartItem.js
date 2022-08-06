@@ -20,7 +20,7 @@ export default function CartItem({ item }) {
         </button>
       </div>
       <p>{item.model}</p>
-      <ItemCounter itemId={item.id} stock={item.quantity} />
+      <ItemCounter itemId={item.id} stock={item.stock} />
       <p>{formatPrice(item.price)}</p>
     </div>
   );

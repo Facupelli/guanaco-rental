@@ -15,13 +15,12 @@ export const cartSlice = createSlice({
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
     addQuantity: (state, action) => {
-      console.log(action.payload);
-      const item = state.items.filter((item) => action.payload.id === item.id);
-      const newItem = { ...item, quantity: action.payload.quantity };
-      const newState = state.items.filter(
-        (item) => item.id !== action.payload.id
-      );
-      state.items = [...newState, newItem];
+      const newState = state.items.map((item) => {
+        if (item.id === action.payload.id) {
+          return { ...item, quantity: action.payload.quantity };
+        }
+      });
+      state.items = newState;
     },
   },
 });

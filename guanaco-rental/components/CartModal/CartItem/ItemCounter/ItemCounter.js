@@ -11,7 +11,7 @@ export default function ItemCounter({ itemId, stock }) {
   const handleAddQty = () => {
     if (itemQuantity < stock) {
       setItemQuntity((prev) => (prev += 1));
-      dispatch(addQuantity({ id: itemId, quantity: itemQuantity }));
+      dispatch(addQuantity({ id: itemId, quantity: itemQuantity + 1 }));
     }
   };
 
