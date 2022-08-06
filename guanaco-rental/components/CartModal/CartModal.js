@@ -8,6 +8,8 @@ export default function CartModal({ setShowCart, setDatePickup, dateRange }) {
   const cart = useSelector((state) => state.cart.items);
   const date = useSelector((state) => state.date.date_range);
 
+  console.log("CARTMODAL, cart:", cart);
+
   const handleCloseCart = () => {
     setShowCart(false);
   };
@@ -35,7 +37,9 @@ export default function CartModal({ setShowCart, setDatePickup, dateRange }) {
           seleccionar fecha de alquiler
         </button>
       )}
-      {cart && cart.length > 0 && cart.map((item) => <CartItem key={item.id} item={item} />)}
+      {cart &&
+        cart.length > 0 &&
+        cart.map((item) => <CartItem key={item.id} item={item} />)}
       <button type="button" onClick={handleCloseCart}>
         seguir alquilando
       </button>

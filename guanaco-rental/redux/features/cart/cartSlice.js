@@ -21,6 +21,8 @@ export const cartSlice = createSlice({
             ...item,
             quantity: (item.quantity ? item.quantity : 1) + 1,
           };
+        } else {
+          return item;
         }
       });
       state.items = newState;
@@ -32,6 +34,8 @@ export const cartSlice = createSlice({
             ...item,
             quantity: (item.quantity ? item.quantity : 1) - 1,
           };
+        } else {
+          return item;
         }
       });
       state.items = newState;
