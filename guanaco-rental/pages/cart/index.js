@@ -38,11 +38,11 @@ export default function CartPage() {
           </div>
           {cart &&
             cart.length > 0 &&
-            cart.map((item) => <CartPageItem item={item} />)}
+            cart.map((item) => <CartPageItem key={item.id} item={item} />)}
         </div>
         <div className={s.summary}>
           {date && date.length > 0 ? (
-            <div>
+            <div className={s.date_range}>
               <p>Retiro:</p>
               <p>{date && date.length > 0 && date[0]}</p>
               <p>Devolución:</p>

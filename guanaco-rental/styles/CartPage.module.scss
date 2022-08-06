@@ -14,6 +14,13 @@
   }
 
   .summary {
+    .date_range{
+      display: flex;
+      gap: .5rem;
+      justify-content: center;
+      align-items: baseline;
+    }
+
     .btns_wrapper {
       margin-top: 1rem;
       display: flex;
