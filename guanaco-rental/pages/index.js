@@ -71,7 +71,7 @@ export default function Home({ equipment }) {
           name="description"
           content="Guanaco rental website, book filming equipment online. San Juan, Argentina."
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo-favicon.ico" />
       </Head>
 
       {datePickup && (

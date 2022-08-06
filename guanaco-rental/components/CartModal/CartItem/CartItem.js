@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../../redux/features/cart/cartSlice";
 import { formatPrice } from "../../../utils/price_formater";
+import ItemCounter from "./ItemCounter/ItemCounter";
 import s from "./CartItem.module.scss";
 
 export default function CartItem({ item }) {
@@ -19,6 +20,7 @@ export default function CartItem({ item }) {
         </button>
       </div>
       <p>{item.model}</p>
+      <ItemCounter itemId={item.id} stock={item.quantity} />
       <p>{formatPrice(item.price)}</p>
     </div>
   );

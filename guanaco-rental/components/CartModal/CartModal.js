@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem/CartItem";
 
@@ -34,12 +35,14 @@ export default function CartModal({ setShowCart, setDatePickup, dateRange }) {
           seleccionar fecha de alquiler
         </button>
       )}
-      {cart && cart.length > 0 && cart.map((item) => <CartItem item={item} />)}
+      {cart && cart.length > 0 && cart.map((item) => <CartItem key={item.id} item={item} />)}
       <button type="button" onClick={handleCloseCart}>
         seguir alquilando
       </button>
       <div className={s.next_btn_wrapper}>
-        <button type="button">VER CARRITO</button>
+        <Link href="/cart">
+          <button type="button">VER CARRITO</button>
+        </Link>
         <button type="button">ALQUILAR</button>
       </div>
     </aside>
