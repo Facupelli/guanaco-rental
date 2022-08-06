@@ -1,0 +1,23 @@
+@import "./app.scss";
+
+.main {
+  @include app_width;
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: 69% 29%;
+  column-gap: 2%;
+
+  .summary_wrapper {
+    position: relative;
+
+    .summary {
+      position: fixed;
+    }
+  }
+
+  .table_titles {
+    display: grid;
+    grid-template-columns: 70% 15% 15%;
+    margin-bottom: 1rem;
+  }
+}

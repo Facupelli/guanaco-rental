@@ -1,0 +1,13 @@
+.item_container {
+  display: grid;
+  grid-template-columns: 70% 15% 15%;
+  justify-items: flex-start;
+  padding: .5rem 0rem;
+  border-bottom: 2px solid rgb(192, 190, 190);
+
+  .item_title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}

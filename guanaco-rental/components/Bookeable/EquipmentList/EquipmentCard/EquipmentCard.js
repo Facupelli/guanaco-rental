@@ -41,6 +41,7 @@ export default function EquipmentCard({ gear }) {
         />
       )}
       <div className={s.container}>
+        <p>{gear.name}</p>
         <p>{gear.brand}</p>
         <p>{gear.model}</p>
         <p>{formatPrice(gear.price)}</p>

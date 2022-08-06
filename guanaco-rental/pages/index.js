@@ -1,14 +1,14 @@
+import Head from "next/head";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useDispatch } from "react-redux";
-import Head from "next/head";
 import { useEffect, useState } from "react";
+import { setDate } from "../redux/features/pickupDate/pickupDateSlice";
 import Bookeable from "../components/Bookeable/Bookeable";
 import Nav from "../components/Nav/Nav";
 import CartModal from "../components/CartModal/CartModal";
 import CalendarComponent from "../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 
 import styles from "../styles/Home.module.scss";
-import { setDate } from "../redux/features/pickupDate/pickupDateSlice";
 
 export default function Home({ equipment }) {
   const [showCart, setShowCart] = useState(false);
