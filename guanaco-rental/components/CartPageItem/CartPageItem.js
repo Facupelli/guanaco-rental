@@ -20,6 +20,7 @@ export default function CartPageItem({ item }) {
         <p>{item.model}</p>
       </div>
       <ItemCounter
+        key={item.id}
         itemId={item.id}
         stock={item.stock}
         quantity={item.quantity}
