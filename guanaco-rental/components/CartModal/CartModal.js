@@ -37,12 +37,14 @@ export default function CartModal({ setShowCart, setDatePickup, dateRange }) {
           seleccionar fecha de alquiler
         </button>
       )}
-      {cart &&
-        cart.length > 0 &&
-        cart.map((item) => <CartItem key={item.id} item={item} />)}
-      <button type="button" onClick={handleCloseCart}>
+      <div className={s.cart_list}>
+        {cart &&
+          cart.length > 0 &&
+          cart.map((item) => <CartItem key={item.id} item={item} />)}
+      </div>
+      {/* <button type="button" onClick={handleCloseCart}>
         seguir alquilando
-      </button>
+      </button> */}
       <div className={s.next_btn_wrapper}>
         <Link href="/cart">
           <button type="button">VER CARRITO</button>
