@@ -7,17 +7,25 @@
   grid-template-columns: 69% 29%;
   column-gap: 2%;
 
-  .summary_wrapper {
-    position: relative;
-
-    .summary {
-      position: fixed;
-    }
-  }
-
   .table_titles {
     display: grid;
     grid-template-columns: 70% 15% 15%;
     margin-bottom: 1rem;
+  }
+
+  .summary {
+    .btns_wrapper {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .total_price_wrapper {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }
