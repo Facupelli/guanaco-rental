@@ -33,7 +33,9 @@ export default function Nav({ setShowCart, cartPage }) {
             <li>
               <a href="/api/auth/login">INICIAR SESION</a>
             </li>
-            <li>REGISTRARSE</li>
+            <li>
+              <a href="/api/signup">REGISTRARSE</a>
+            </li>
           </>
         )}
         <li onClick={cartPage ? null : handleShowCart}>CARRITO</li>
