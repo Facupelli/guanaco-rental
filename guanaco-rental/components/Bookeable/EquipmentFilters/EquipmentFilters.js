@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   filterByDateRange,
   setEquipment,
@@ -18,6 +18,7 @@ export default function EquipmentFilters({
   datePickup,
 }) {
   const dispatch = useDispatch();
+  const date = useSelector((state) => state.date.date_range);
   const {
     register,
     handleSubmit,
@@ -53,9 +54,9 @@ export default function EquipmentFilters({
             fecha
           </button>
           <p>Retiro: </p>
-          <p>{dateRange && dateRange[0].toLocaleDateString()}</p>
+          <p>{new Date(date[0]).toLocaleDateString()}</p>
           <p>Devolución:</p>
-          <p>{dateRange && dateRange[1].toLocaleDateString()}</p>
+          <p>{new Date(date[date.length - 1]).toLocaleDateString()}</p>
         </div>
         <div>
           <label>Categoría:</label>

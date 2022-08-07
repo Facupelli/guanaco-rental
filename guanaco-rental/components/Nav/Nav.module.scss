@@ -24,6 +24,13 @@
 
     li {
       cursor: pointer;
+      font-weight: 600;
+
+      a{
+        &:visited{
+          color: $m-white;
+        }
+      }
     }
   }
 }

@@ -8,8 +8,6 @@ export default function CartModal({ setShowCart, setDatePickup, dateRange }) {
   const cart = useSelector((state) => state.cart.items);
   const date = useSelector((state) => state.date.date_range);
 
-  console.log("CARTMODAL, cart:", cart);
-
   const handleCloseCart = () => {
     setShowCart(false);
   };
@@ -28,11 +26,9 @@ export default function CartModal({ setShowCart, setDatePickup, dateRange }) {
       </div>
       {date.length > 0 ? (
         <div className={s.date_range}>
-          {/* <p>{dateRange[0].toLocaleDateString()}</p> */}
           <p>{new Date(date[0]).toLocaleDateString()}</p>
           <p>{"->"}</p>
           <p>{new Date(date[date.length - 1]).toLocaleDateString()}</p>
-          {/* <p>{dateRange[1].toLocaleDateString()}</p> */}
         </div>
       ) : (
         <button className={s.select_date_btn} onClick={handleSelectDateRange}>
