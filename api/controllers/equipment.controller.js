@@ -18,19 +18,6 @@ async function getEquipment(req, res, next) {
     pipeline.orderBy = { price: order };
   }
 
-  // if (order || category) {
-  //   const equipment = await prisma.equipment.findMany({
-  //     where: {
-  //       category: {
-  //         name: category === "all" ? undefined : category,
-  //       },
-  //     },
-  //     orderBy: { price: order },
-  //   });
-  //   res.json(equipment);
-  //   return;
-  // }
-
   const equipment = await prisma.equipment.findMany(pipeline);
 
   res.json(equipment);
