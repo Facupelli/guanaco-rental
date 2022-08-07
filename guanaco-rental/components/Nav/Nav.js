@@ -1,10 +1,10 @@
 import Image from "next/image";
 import s from "./Nav.module.scss";
 
-export default function Nav({setShowCart}) {
-  const handleShowCart = () =>{
-    setShowCart(true)
-  }
+export default function Nav({ setShowCart, cartPage }) {
+  const handleShowCart = () => {
+    setShowCart(true);
+  };
 
   return (
     <nav className={s.nav_container}>
@@ -23,7 +23,7 @@ export default function Nav({setShowCart}) {
           <a href="/api/auth/login">INICIAR SESION</a>
         </li>
         <li>REGISTRARSE</li>
-        <li onClick={handleShowCart} >CARRITO</li>
+        <li onClick={cartPage ? null : handleShowCart}>CARRITO</li>
       </ul>
     </nav>
   );

@@ -49,7 +49,7 @@ export default function CartPage() {
         />
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
-      <Nav />
+      <Nav cartPage />
       {datePickup && (
         <CalendarComponent
           dateRange={dateRange}
@@ -74,7 +74,7 @@ export default function CartPage() {
               <p>Retiro:</p>
               <p>{date && date.length > 0 && date[0]}</p>
               <p>Devolución:</p>
-              <p>{date && date.length > 0 && date[1]}</p>
+              <p>{date && date.length > 0 && date[date.length - 1]}</p>
             </div>
           ) : (
             <button
