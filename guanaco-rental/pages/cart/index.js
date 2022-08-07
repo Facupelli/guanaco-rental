@@ -13,7 +13,7 @@ export default function CartPage() {
 
   const getTotalPrice = () => {
     const totalPrice = cart.reduce((curr, acc) => {
-      return curr + acc.price;
+      return curr + (acc.quantity ? acc.price * acc.quantity : acc.price);
     }, 0);
     return formatPrice(totalPrice);
   };
