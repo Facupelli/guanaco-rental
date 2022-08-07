@@ -14,9 +14,13 @@
   }
 
   .summary {
-    .date_range{
+    .select_date_btn {
+      width: 100%;
+    }
+
+    .date_range {
       display: flex;
-      gap: .5rem;
+      gap: 0.5rem;
       justify-content: center;
       align-items: baseline;
     }

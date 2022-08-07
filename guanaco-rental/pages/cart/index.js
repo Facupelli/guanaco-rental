@@ -1,15 +1,36 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { formatPrice } from "../../utils/price_formater";
+import { generateAllDates } from "../../utils/generate_all_dates";
+import { setDate } from "../../redux/features/pickupDate/pickupDateSlice";
 import CartPageItem from "../../components/CartPageItem/CartPageItem";
 import Nav from "../../components/Nav/Nav";
+import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 
 import s from "../../styles/CartPage.module.scss";
-import { formatPrice } from "../../utils/price_formater";
 
 export default function CartPage() {
+  const dispatch = useDispatch();
+
+  const [datePickup, setDatePickup] = useState(false);
+  const [dateRange, setDateRange] = useState(null);
+
   const cart = useSelector((state) => state.cart.items);
   const date = useSelector((state) => state.date.date_range);
+
+  const handleSelectDateRange = () => {
+    setDatePickup(true);
+  };
+
+  useEffect(() => {
+    if (dateRange) {
+      const allDates = generateAllDates(dateRange);
+
+      dispatch(setDate(allDates));
+    }
+  }, [dateRange]);
 
   const getTotalPrice = () => {
     const totalPrice = cart.reduce((curr, acc) => {
@@ -21,7 +42,7 @@ export default function CartPage() {
   return (
     <div>
       <Head>
-        <title>Guanaco Rental</title>
+        <title>Guanaco Cart</title>
         <meta
           name="description"
           content="Guanaco rental website, book filming equipment online. San Juan, Argentina."
@@ -29,6 +50,13 @@ export default function CartPage() {
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
       <Nav />
+      {datePickup && (
+        <CalendarComponent
+          dateRange={dateRange}
+          setDateRange={setDateRange}
+          setDatePickup={setDatePickup}
+        />
+      )}
       <main className={s.main}>
         <div>
           <div className={s.table_titles}>
@@ -49,7 +77,13 @@ export default function CartPage() {
               <p>{date && date.length > 0 && date[1]}</p>
             </div>
           ) : (
-            <button>Seleccionar Fecha</button>
+            <button
+              type="button"
+              onClick={handleSelectDateRange}
+              className={s.select_date_btn}
+            >
+              Seleccionar Fecha de Alquiler
+            </button>
           )}
           <div className={s.btns_wrapper}>
             <button type="button" disabled={date.length <= 0 ? true : false}>
