@@ -10,6 +10,8 @@ import CartModal from "../components/CartModal/CartModal";
 import CalendarComponent from "../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 
 import styles from "../styles/Home.module.scss";
+import { getOrCreateUser } from "../utils/fetch_users";
+import { setUserId } from "../redux/features/user/userSlice";
 
 export default function Home({ equipment }) {
   const [showCart, setShowCart] = useState(false);
@@ -22,24 +24,9 @@ export default function Home({ equipment }) {
 
   // console.log("USER", user);
 
-  const getOrCreateUser = async () => {
-    const data = JSON.stringify({ email: user.email });
-
-    await fetch("http://localhost:3001/users", {
-      method: "POST",
-      body: data,
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((res) => console.log(res));
-  };
-
   useEffect(() => {
     if (user) {
-      getOrCreateUser(user.email);
+      getOrCreateUser(user).then((res) => dispatch(setUserId(res.id)));
     }
   }, [user]);
 
