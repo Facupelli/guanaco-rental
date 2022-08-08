@@ -10,13 +10,17 @@ import Nav from "../../components/Nav/Nav";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 
 import s from "../../styles/CartPage.module.scss";
+import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
 
 export default function CartPage() {
   const dispatch = useDispatch();
 
+  const [showCompleteProfile, setShowCompleteProfile] = useState(false);
+
   const [datePickup, setDatePickup] = useState(false);
   const [dateRange, setDateRange] = useState(null);
 
+  const userData = useSelector((state) => state.user.data);
   const cart = useSelector((state) => state.cart.items);
   const date = useSelector((state) => state.date.date_range);
 
@@ -39,6 +43,13 @@ export default function CartPage() {
     return formatPrice(totalPrice);
   };
 
+  const handleClickBookOrder = () => {
+    if (!userData.phone && !userData.dni.length > 0) {
+      console.log("completa tu perfil");
+      setShowCompleteProfile(true);
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -55,6 +66,12 @@ export default function CartPage() {
           dateRange={dateRange}
           setDateRange={setDateRange}
           setDatePickup={setDatePickup}
+        />
+      )}
+      {showCompleteProfile && (
+        <CompleteProfileModal
+          user={userData}
+          setShowCompleteProfile={setShowCompleteProfile}
         />
       )}
       <main className={s.main}>
@@ -89,6 +106,7 @@ export default function CartPage() {
             <button
               type="button"
               disabled={date.length > 0 && cart.length > 0 ? false : true}
+              onClick={handleClickBookOrder}
             >
               agendar pedido
             </button>

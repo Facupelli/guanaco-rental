@@ -14,7 +14,7 @@ import { getOrCreateUser } from "../utils/fetch_users";
 import { setUserId } from "../redux/features/user/userSlice";
 
 export default function Home({ equipment }) {
-  const userId = useSelector((state) => state.user.userId);
+  const userData = useSelector((state) => state.user.data);
 
   const [showCart, setShowCart] = useState(false);
 
@@ -24,12 +24,10 @@ export default function Home({ equipment }) {
   const dispatch = useDispatch();
   const { user, error, isLoading } = useUser();
 
-  // console.log("USER", user);
-
   useEffect(() => {
     if (user) {
-      if (!userId) {
-        getOrCreateUser(user).then((res) => dispatch(setUserId(res.id)));
+      if (!userData) {
+        getOrCreateUser(user).then((res) => dispatch(setUserId(res)));
       }
     }
   }, [user]);

@@ -9,8 +9,6 @@ export default function Nav({ setShowCart, cartPage }) {
 
   const { user, error, isLoading } = useUser();
 
-  console.log("USER", user);
-
   return (
     <nav className={s.nav_container}>
       <ul>
