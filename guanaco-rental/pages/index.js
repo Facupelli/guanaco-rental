@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useUser } from "@auth0/nextjs-auth0";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setDate } from "../redux/features/pickupDate/pickupDateSlice";
 import { generateAllDates } from "../utils/generate_all_dates";
@@ -14,6 +14,8 @@ import { getOrCreateUser } from "../utils/fetch_users";
 import { setUserId } from "../redux/features/user/userSlice";
 
 export default function Home({ equipment }) {
+  const userId = useSelector((state) => state.user.userId);
+
   const [showCart, setShowCart] = useState(false);
 
   const [datePickup, setDatePickup] = useState(false);
@@ -26,7 +28,9 @@ export default function Home({ equipment }) {
 
   useEffect(() => {
     if (user) {
-      getOrCreateUser(user).then((res) => dispatch(setUserId(res.id)));
+      if (!userId) {
+        getOrCreateUser(user).then((res) => dispatch(setUserId(res.id)));
+      }
     }
   }, [user]);
 

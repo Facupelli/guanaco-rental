@@ -86,7 +86,10 @@ export default function CartPage() {
             </button>
           )}
           <div className={s.btns_wrapper}>
-            <button type="button" disabled={date.length <= 0 ? true : false}>
+            <button
+              type="button"
+              disabled={date.length > 0 && cart.length > 0 ? false : true}
+            >
               agendar pedido
             </button>
             <Link href="/">
