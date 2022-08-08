@@ -16,10 +16,12 @@ export default function CompleteProfileModal({ user, setShowCompleteProfile }) {
     setShowCompleteProfile(false);
   };
 
+  console.log(watch("dniPhoto"));
+
   return (
     <div className={s.modal_container}>
-      <h1>AGENDAR PEDIDO</h1>
-      <form className={s.form}>
+      <h1>FORMULARIO ALTA DE CLIENTE </h1>
+      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.labels_wrapper}>
           <p>Email:</p>
           <label>Número de celular:</label>

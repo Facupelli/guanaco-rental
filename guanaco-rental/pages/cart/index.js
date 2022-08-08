@@ -47,7 +47,9 @@ export default function CartPage() {
     if (!userData.phone && !userData.dni.length > 0) {
       console.log("completa tu perfil");
       setShowCompleteProfile(true);
+      return;
     }
+    console.log("enviar pedido");
   };
 
   return (
