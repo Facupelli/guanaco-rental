@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 70% 15% 10% 5%;
   justify-items: flex-start;
+  align-items: baseline;
   padding: 0.5rem 0rem;
   border-bottom: 2px solid rgb(192, 190, 190);
 
@@ -11,11 +12,29 @@
     gap: 1rem;
   }
 
-  > button {
-    padding: 0 0.2rem;
-    border: none;
-    background-color: transparent;
-    font-weight: bold;
-    color: gray;
+  .availability_wrapper {
+    font-size: 0.8em;
+
+    .green {
+      color: green;
+    }
+
+    .red {
+      color: red;
+    }
+  }
+
+  .btn_wrapper {
+    display: flex;
+    align-items: baseline;
+
+    button {
+      padding: 0 0.2rem;
+      border: none;
+      background-color: transparent;
+      font-weight: bold;
+      color: gray;
+      cursor: pointer;
+    }
   }
 }

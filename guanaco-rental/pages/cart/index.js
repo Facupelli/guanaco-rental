@@ -43,6 +43,16 @@ export default function CartPage() {
     return formatPrice(totalPrice);
   };
 
+  const areAllItemsAvailable = () => {
+    let availability = true;
+    cart.map((item) => {
+      if (item.bookings.filter((bookingDate) => date.indexOf(bookingDate) >= 0).length > 0) {
+        availability = false;
+      }
+    });
+    return availability;
+  };
+
   const handleClickBookOrder = () => {
     if (!userData.phone && !userData.dni.length > 0) {
       console.log("completa tu perfil");
@@ -85,7 +95,9 @@ export default function CartPage() {
           </div>
           {cart &&
             cart.length > 0 &&
-            cart.map((item) => <CartPageItem key={item.id} item={item} />)}
+            cart.map((item) => (
+              <CartPageItem key={item.id} item={item} dates={date} />
+            ))}
         </div>
         <div className={s.summary}>
           {date && date.length > 0 ? (
@@ -107,7 +119,7 @@ export default function CartPage() {
           <div className={s.btns_wrapper}>
             <button
               type="button"
-              disabled={date.length > 0 && cart.length > 0 ? false : true}
+              disabled={date.length > 0 && cart.length > 0 && areAllItemsAvailable() ? false : true}
               onClick={handleClickBookOrder}
             >
               agendar pedido

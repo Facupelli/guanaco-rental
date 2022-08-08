@@ -53,7 +53,7 @@ export default function EquipmentCard({ gear }) {
             ver más
           </button>
         </div>
-        <button type="button" onClick={addItemToCart}>
+        <button type="button" onClick={addItemToCart} disabled={!isAvailable}>
           Agregar al carrito
         </button>
       </div>

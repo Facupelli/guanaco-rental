@@ -5,19 +5,31 @@ import { removeFromCart } from "../../redux/features/cart/cartSlice";
 
 import s from "./CartPageItem.module.scss";
 
-export default function CartPageItem({ item }) {
+export default function CartPageItem({ item, dates }) {
   const dispatch = useDispatch();
 
   const handleRemoveFromCart = () => {
     dispatch(removeFromCart(item.id));
   };
 
+  const isAvailable =
+    item.bookings.filter((date) => dates.indexOf(date) >= 0).length > 0
+      ? false
+      : true;
+
   return (
     <div className={s.item_container}>
-      <div className={s.item_title}>
-        <p>{item.name}</p>
-        <p>{item.brand}</p>
-        <p>{item.model}</p>
+      <div>
+        <div className={s.item_title}>
+          <p>{item.name}</p>
+          <p>{item.brand}</p>
+          <p>{item.model}</p>
+        </div>
+        <div className={s.availability_wrapper}>
+          <p className={isAvailable ? `${s.green}` : `${s.red}`}>
+            {isAvailable ? "Disponible" : "Reservado"}
+          </p>
+        </div>
       </div>
       <ItemCounter
         key={item.id}
@@ -30,9 +42,11 @@ export default function CartPageItem({ item }) {
           ? formatPrice(item.quantity * item.price)
           : formatPrice(item.price)}
       </p>
-      <button type="button" onClick={handleRemoveFromCart}>
-        X
-      </button>
+      <div className={s.btn_wrapper}>
+        <button type="button" onClick={handleRemoveFromCart}>
+          X
+        </button>
+      </div>
     </div>
   );
 }
