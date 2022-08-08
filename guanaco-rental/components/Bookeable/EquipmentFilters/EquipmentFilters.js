@@ -54,9 +54,9 @@ export default function EquipmentFilters({
             fecha
           </button>
           <p>Retiro: </p>
-          <p>{new Date(date[0]).toLocaleDateString()}</p>
+          <p>{date && date.length > 0 && new Date(date[0]).toLocaleDateString()}</p>
           <p>Devolución:</p>
-          <p>{new Date(date[date.length - 1]).toLocaleDateString()}</p>
+          <p>{date && date.length > 0 && new Date(date[date.length - 1]).toLocaleDateString()}</p>
         </div>
         <div>
           <label>Categoría:</label>

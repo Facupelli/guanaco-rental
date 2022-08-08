@@ -2,11 +2,19 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function postUser(req, res, next) {
-  const { username, email } = req.query;
+  const data = req.body;
 
-  console.log(username, email)
+  const upsertUser = await prisma.user.upsert({
+    where: {
+      email: data.email,
+    },
+    update: {},
+    create: {
+      email: data.email,
+    },
+  });
 
-  res.json({username, email});
+  res.json(upsertUser);
 }
 
 module.exports = { postUser };
