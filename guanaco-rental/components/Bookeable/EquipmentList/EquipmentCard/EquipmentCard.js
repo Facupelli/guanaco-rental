@@ -19,10 +19,21 @@ export default function EquipmentCard({ gear }) {
 
   // console.log("equipCard: dates", dates)
 
-  const isAvailable =
-    gear.bookings.filter((book) => dates.indexOf(book.date) >= 0).length > 0
-      ? false
-      : true;
+  // const isAvailable = gear.bookings.filter((book) => {
+    // console.log(dates.indexOf(book.date >= 0))
+    // return dates.indexOf(book.date >= gear.stock).length > 0 ? false : true;
+  // });
+
+  const isAvailable = () => {
+    if (dates) {
+      const datesfiltered = dates.map((date) =>
+        gear.bookings.filter((book) => book.date === date)
+      );
+      return datesfiltered.filter(el => el.length === gear.stock).length > 0 ? false : true;
+    }
+  };
+
+  // console.log("PRUEBA", availableIs());
 
   const addItemToCart = () => {
     if (cart.filter((item) => item.id === gear.id).length > 0) {
@@ -46,14 +57,14 @@ export default function EquipmentCard({ gear }) {
         <p>{gear.model}</p>
         <p>{formatPrice(gear.price)}</p>
         <div className={s.see_more_flex}>
-          <p className={isAvailable ? `${s.green}` : `${s.red}`}>
-            {isAvailable ? "Disponible" : "Reservado"}
+          <p className={isAvailable() ? `${s.green}` : `${s.red}`}>
+            {isAvailable() ? "Disponible" : "Reservado"}
           </p>
           <button type="button" onClick={handleSeeMore}>
             ver más
           </button>
         </div>
-        <button type="button" onClick={addItemToCart} disabled={!isAvailable}>
+        <button type="button" onClick={addItemToCart} disabled={!isAvailable()}>
           Agregar al carrito
         </button>
       </div>

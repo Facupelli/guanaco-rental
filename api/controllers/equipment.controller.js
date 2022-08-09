@@ -21,6 +21,14 @@ async function getEquipment(req, res, next) {
   const equipment = await prisma.equipment.findMany(pipeline);
 
   res.json(equipment);
+
+  // const bookings = await prisma.equipment.findMany({
+  //   where: {
+  //     id: "cl6dtamsf0456xcuwebahtec3",
+  //   },
+  //   include: { bookings: { where: { date: "8/21/2022" } } },
+  // });
+  // res.json(bookings);
 }
 
 module.exports = { getEquipment };

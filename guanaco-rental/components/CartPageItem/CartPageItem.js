@@ -12,10 +12,21 @@ export default function CartPageItem({ item, dates }) {
     dispatch(removeFromCart(item.id));
   };
 
-  const isAvailable =
-    item.bookings.filter((book) => dates.indexOf(book.date) >= 0).length > 0
-      ? false
-      : true;
+  const isAvailable = () => {
+    if (dates) {
+      const datesfiltered = dates.map((date) =>
+        item.bookings.filter((book) => book.date === date)
+      );
+      return datesfiltered.filter(
+        (el) =>
+          el.length === item.stock || item.quantity + el.length > item.stock
+      ).length > 0
+        ? false
+        : true;
+    }
+  };
+
+  console.log(isAvailable());
 
   return (
     <div className={s.item_container}>
@@ -26,8 +37,8 @@ export default function CartPageItem({ item, dates }) {
           <p>{item.model}</p>
         </div>
         <div className={s.availability_wrapper}>
-          <p className={isAvailable ? `${s.green}` : `${s.red}`}>
-            {isAvailable ? "Disponible" : "Reservado"}
+          <p className={isAvailable() ? `${s.green}` : `${s.red}`}>
+            {isAvailable() ? "Disponible" : "Reservado"}
           </p>
         </div>
       </div>
