@@ -46,7 +46,7 @@ export default function CartPage() {
   const areAllItemsAvailable = () => {
     let availability = true;
     cart.map((item) => {
-      if (item.bookings.filter((bookingDate) => date.indexOf(bookingDate) >= 0).length > 0) {
+      if (item.bookings.filter((book) => date.indexOf(book.date) >= 0).length > 0) {
         availability = false;
       }
     });

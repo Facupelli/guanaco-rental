@@ -20,7 +20,7 @@ export default function EquipmentCard({ gear }) {
   // console.log("equipCard: dates", dates)
 
   const isAvailable =
-    gear.bookings.filter((date) => dates.indexOf(date) >= 0).length > 0
+    gear.bookings.filter((book) => dates.indexOf(book.date) >= 0).length > 0
       ? false
       : true;
 
@@ -36,7 +36,7 @@ export default function EquipmentCard({ gear }) {
       {showCalendar && (
         <CalendarComponent
           setDatePickup={setShowCalendar}
-          daysTaken={gear.bookings}
+          daysTaken={gear.bookings.map((book) => book.date)}
           freeTileClass={true}
         />
       )}

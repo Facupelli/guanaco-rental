@@ -13,7 +13,7 @@ export default function CartPageItem({ item, dates }) {
   };
 
   const isAvailable =
-    item.bookings.filter((date) => dates.indexOf(date) >= 0).length > 0
+    item.bookings.filter((book) => dates.indexOf(book.date) >= 0).length > 0
       ? false
       : true;
 
