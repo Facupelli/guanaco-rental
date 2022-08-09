@@ -2,6 +2,7 @@ import ItemCounter from "../CartModal/CartItem/ItemCounter/ItemCounter";
 import { formatPrice } from "../../utils/price_formater";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/features/cart/cartSlice";
+import { isAvailable } from "../../utils/generate_all_dates";
 
 import s from "./CartPageItem.module.scss";
 
@@ -12,21 +13,7 @@ export default function CartPageItem({ item, dates }) {
     dispatch(removeFromCart(item.id));
   };
 
-  const isAvailable = () => {
-    if (dates) {
-      const datesfiltered = dates.map((date) =>
-        item.bookings.filter((book) => book.date === date)
-      );
-      return datesfiltered.filter(
-        (el) =>
-          el.length === item.stock || item.quantity + el.length > item.stock
-      ).length > 0
-        ? false
-        : true;
-    }
-  };
-
-  console.log(isAvailable());
+  const availability = isAvailable(dates, item) 
 
   return (
     <div className={s.item_container}>
@@ -37,8 +24,8 @@ export default function CartPageItem({ item, dates }) {
           <p>{item.model}</p>
         </div>
         <div className={s.availability_wrapper}>
-          <p className={isAvailable() ? `${s.green}` : `${s.red}`}>
-            {isAvailable() ? "Disponible" : "Reservado"}
+          <p className={availability ? `${s.green}` : `${s.red}`}>
+            {availability ? "Disponible" : "Reservado"}
           </p>
         </div>
       </div>

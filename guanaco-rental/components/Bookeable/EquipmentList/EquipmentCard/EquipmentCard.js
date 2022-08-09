@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../../redux/features/cart/cartSlice";
 import CalendarComponent from "../../EquipmentFilters/Calendar/Calendar";
 import { formatPrice } from "../../../../utils/price_formater";
+import { isAvailable } from "../../../../utils/generate_all_dates";
 
 import s from "./EquipmentCard.module.scss";
 
@@ -17,21 +18,7 @@ export default function EquipmentCard({ gear }) {
   const dates = useSelector((state) => state.date.date_range);
   const cart = useSelector((state) => state.cart.items);
 
-  // console.log("equipCard: dates", dates)
-
-  // const isAvailable = gear.bookings.filter((book) => {
-    // console.log(dates.indexOf(book.date >= 0))
-    // return dates.indexOf(book.date >= gear.stock).length > 0 ? false : true;
-  // });
-
-  const isAvailable = () => {
-    if (dates) {
-      const datesfiltered = dates.map((date) =>
-        gear.bookings.filter((book) => book.date === date)
-      );
-      return datesfiltered.filter(el => el.length === gear.stock).length > 0 ? false : true;
-    }
-  };
+  const availability = isAvailable(dates, gear)
 
   // console.log("PRUEBA", availableIs());
 
@@ -57,14 +44,14 @@ export default function EquipmentCard({ gear }) {
         <p>{gear.model}</p>
         <p>{formatPrice(gear.price)}</p>
         <div className={s.see_more_flex}>
-          <p className={isAvailable() ? `${s.green}` : `${s.red}`}>
-            {isAvailable() ? "Disponible" : "Reservado"}
+          <p className={availability ? `${s.green}` : `${s.red}`}>
+            {availability ? "Disponible" : "Reservado"}
           </p>
           <button type="button" onClick={handleSeeMore}>
             ver más
           </button>
         </div>
-        <button type="button" onClick={addItemToCart} disabled={!isAvailable()}>
+        <button type="button" onClick={addItemToCart} disabled={!availability}>
           Agregar al carrito
         </button>
       </div>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatPrice } from "../../utils/price_formater";
-import { generateAllDates } from "../../utils/generate_all_dates";
+import { generateAllDates, isAvailable } from "../../utils/generate_all_dates";
 import { setDate } from "../../redux/features/pickupDate/pickupDateSlice";
 import CartPageItem from "../../components/CartPageItem/CartPageItem";
 import Nav from "../../components/Nav/Nav";
@@ -46,7 +46,7 @@ export default function CartPage() {
   const areAllItemsAvailable = () => {
     let availability = true;
     cart.map((item) => {
-      if (item.bookings.filter((book) => date.indexOf(book.date) >= 0).length > 0) {
+      if (!isAvailable(date, item)) {
         availability = false;
       }
     });

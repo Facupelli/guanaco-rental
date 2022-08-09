@@ -36,3 +36,14 @@ export const generateAllDates = (dateRange) => {
   getAllDates();
   return allDates;
 };
+
+export const isAvailable = (dates, item) => {
+  const datesfiltered = dates.map((date) =>
+    item.bookings.filter((book) => book.date === date)
+  );
+  return datesfiltered.filter(
+    (el) => el.length === item.stock || item.quantity + el.length > item.stock
+  ).length > 0
+    ? false
+    : true;
+};
