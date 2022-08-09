@@ -25,8 +25,8 @@ export default function CompleteProfileModal({ user, setShowCompleteProfile }) {
         <div className={s.labels_wrapper}>
           <p>Email:</p>
           <label>Número de celular:</label>
+          <label>Foto de tu DNI (anverso):</label>
           <label>Foto de tu DNI (dorso):</label>
-          <label>Foto de tu DNI (revés):</label>
         </div>
         <div className={s.inputs_wrapper}>
           <p>{user.email}</p>

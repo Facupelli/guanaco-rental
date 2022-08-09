@@ -14,18 +14,19 @@ model Order {
   id                      String       @default(cuid()) @id
   user                    User         @relation(fields: [userId], references: [id])
   userId                  String
+  equipments              Equipment[]
   items                   Json[]
   totalPrice              Int
 }
 
 model User {
-  id                      String       @default(cuid()) @id
+  id                      String        @default(cuid()) @id
   phone                   String?       @unique
-  email                   String      @unique
+  email                   String        @unique
   orders                  Order[]
   dni                     String[]
-  createdAt               DateTime     @default(now()) @map(name: "created_at")
-  updatedAt               DateTime     @updatedAt @map(name: "updated_at")
+  createdAt               DateTime      @default(now()) @map(name: "created_at")
+  updatedAt               DateTime      @updatedAt @map(name: "updated_at")
   @@map(name: "users")
 }
 
@@ -44,7 +45,15 @@ model Equipment {
   price                   Int
   category                Category    @relation(fields: [categoryId], references: [id])
   categoryId              String
+  orders                  Order[]
   owner                   String      @default("Giaccaglia")
   location                String      @default("San Juan")
-  bookings                String[]
+  bookings                Book[]
+}
+
+model Book {
+  id                      String      @default(cuid()) @id
+  date                    String
+  quantity                Int
+  equipment               Equipment[]
 }
