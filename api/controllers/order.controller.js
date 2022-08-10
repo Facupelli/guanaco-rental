@@ -4,69 +4,43 @@ const prisma = new PrismaClient();
 async function postOrder(req, res, next) {
   const data = req.body;
 
-  // data.bookings
-  // [{date, quantity, equipment}]
-
-  // {
-  //   date: "8/12/2022",
-  //   equipmentId: "asd"
-  // }
-
-  // {
-  //   date: "8/12/2022",
-  //   equipmentId: "asd"
-  // }
-  // {
-  //   date: "8/13/2022",
-  //   equipmentId: "asd"
-  // }
-  // {
-  //   date: "8/14/2022",
-  //   equipmentId: "asd"
-  // }
-
-  //date = [8/25/2022,8/26/2022,8/27/2022]
-  //cart= [{id,qty},{id,qty},{id.qty}]
-
-  const equipmentsIds = data.cart.map((item) => ({ id: item.id }));
-
-  // await prisma.$transaction(
-  //   data.cart.map((item) =>
-  //     prisma.book.create({
-  //       data: {
-  //         quantity: item.quantity,
-  //         equipment: { connect: { id: item.id } },
-  //         date: data.date,
-  //       },
-  //     })
-  //   )
-  // );
-
-  await prisma.$transaction(
-    data.cart.map((item) =>
-      prisma.equipment.update({
-        where: { id: item.id },
-        data: {
-          bookings: {
-            create: {
-              quantity: item.quantity,
-              date: data.date,
+  try {
+    await prisma.$transaction(
+      data.cart.map((item) =>
+        prisma.equipment.update({
+          where: { id: item.id },
+          data: {
+            bookings: {
+              create: {
+                quantity: item.quantity,
+                dates: data.date,
+              },
             },
           },
-        },
-      })
-    )
-  );
+        })
+      )
+    );
+  } catch (e) {
+    console.log("equipment book update error:", e);
+    return;
+  }
 
-  // const newOrder = await prisma.order.create({
-  //   data: {
-  //     userId: data.userId,
-  //     equipments: { connect: data.equipmentsIds },
-  //     totalPrice: data.totalPrice,
-  //   },
-  // });
+  try {
+    const equipmentsIds = data.cart.map((item) => ({ id: item.id }));
 
-  res.json("success");
+    const newOrder = await prisma.order.create({
+      data: {
+        userId: data.userId,
+        equipments: { connect: equipmentsIds },
+        totalPrice: data.totalPrice,
+      },
+    });
+
+    res.json({ message: "success", newOrder });
+  } catch (e) {
+    console.log("order create error:", e);
+    return;
+  }
 }
 
 module.exports = { postOrder };
