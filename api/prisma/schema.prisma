@@ -52,7 +52,19 @@ model Equipment {
 }
 
 model Book {
-  id                      String      @default(cuid()) @id
-  date                    String
-  equipment               Equipment[]
+  id                      String        @default(cuid()) @id
+  date                    String[]
+  quantity                Int           @default(1)
+  equipments              Equipment[]
 }
+
+// model BookOnEquipment {
+//   book                    Book        @relation(fields: [bookId], references: [id])
+//   bookId                  String
+//   equipment               Equipment   @relation(fields: [equipmentId], references: [id])
+//   equipmentId             String
+//   quantity                Int
+//   assignedAt              DateTime @default(now())
+
+//   @@id([bookId, equipmentId])
+// }
