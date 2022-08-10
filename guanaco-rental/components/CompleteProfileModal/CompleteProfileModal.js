@@ -10,12 +10,13 @@ export default function CompleteProfileModal({ user }) {
     formState: { errors },
   } = useForm();
 
+  const handleOnCLick = () => {};
+
   const onSubmit = (data) => console.log(data);
 
   return (
     <div className={s.container}>
       <h1>FORMULARIO ALTA DE CLIENTE </h1>
-      <h4>Fecha de alta: {new Date().toLocaleDateString()}</h4>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.labels_wrapper}>
           <p>Email:</p>

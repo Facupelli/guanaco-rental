@@ -8,12 +8,14 @@ import { setDate } from "../../redux/features/pickupDate/pickupDateSlice";
 import CartPageItem from "../../components/CartPageItem/CartPageItem";
 import Nav from "../../components/Nav/Nav";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
-import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
 
 import s from "../../styles/CartPage.module.scss";
+import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
+import { useRouter } from "next/router";
 
 export default function CartPage() {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [datePickup, setDatePickup] = useState(false);
   const [dateRange, setDateRange] = useState(null);
@@ -30,7 +32,6 @@ export default function CartPage() {
   useEffect(() => {
     if (dateRange) {
       const allDates = generateAllDates(dateRange);
-
       dispatch(setDate(allDates));
     }
   }, [dateRange]);
@@ -55,6 +56,7 @@ export default function CartPage() {
   const handleClickBookOrder = () => {
     if (!userData.phone && !userData.dni.length > 0) {
       console.log("completa tu perfil");
+      router.push("/newClient");
       return;
     }
     console.log("enviar pedido");
