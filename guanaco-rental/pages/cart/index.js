@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatPrice } from "../../utils/price_formater";
 import { generateAllDates, isAvailable } from "../../utils/dates_functions";
-import { setDate } from "../../redux/features/pickupDate/pickupDateSlice";
+import {
+  resetDate,
+  setDate,
+} from "../../redux/features/pickupDate/pickupDateSlice";
 import CartPageItem from "../../components/CartPageItem/CartPageItem";
 import Nav from "../../components/Nav/Nav";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
@@ -53,13 +56,39 @@ export default function CartPage() {
     return availability;
   };
 
-  const handleClickBookOrder = () => {
-    if (!userData.phone && !userData.dni.length > 0) {
-      console.log("completa tu perfil");
-      router.push("/newClient");
+  const handleClickBookOrder = async () => {
+    // if (!userData.phone && !userData.dni.length > 0) {
+    //   console.log("completa tu perfil");
+    //   router.push("/newClient");
+    //   return;
+    // }
+    console.log("enviar pedido");
+
+    const totalPrice = cart.reduce((curr, acc) => {
+      return curr + (acc.quantity ? acc.price * acc.quantity : acc.price);
+    }, 0);
+
+    const data = JSON.stringify({
+      cart,
+      date,
+      totalPrice,
+      userId: userData.id,
+    });
+
+    const newOrder = await fetch("http://localhost:3001/order", {
+      method: "POST",
+      body: data,
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((response) => response.json());
+
+    if (newOrder.message === "success") {
+      router.push("/");
+      dispatch(resetDate());
       return;
     }
-    console.log("enviar pedido");
   };
 
   return (

@@ -1,3 +1,5 @@
+import { calendar_dictionary } from "./calendar_dictionary";
+
 export const generateAllDates = (dateRange) => {
   const dates = dateRange.map((date) => date.toLocaleDateString("es-EN"));
   console.log(dates);
@@ -38,6 +40,7 @@ export const generateAllDates = (dateRange) => {
 };
 
 export const isAvailable = (dates, item) => {
+  console.log("ITEM",item)
   const filtered = item.bookings.filter(
     (book) => book.dates.filter((date) => dates.indexOf(date) >= 0).length > 0
   );

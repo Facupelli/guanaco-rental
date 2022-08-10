@@ -11,9 +11,12 @@ export const pickupDateSlice = createSlice({
     setDate: (state, action) => {
       state.date_range = action.payload;
     },
+    resetDate: (state, action) => {
+      state.date_range = [];
+    },
   },
 });
 
-export const { setDate } = pickupDateSlice.actions;
+export const { setDate, resetDate } = pickupDateSlice.actions;
 
 export default pickupDateSlice.reducer;
