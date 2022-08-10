@@ -22,6 +22,7 @@ export default function CartPage() {
 
   const userData = useSelector((state) => state.user.data);
   const cart = useSelector((state) => state.cart.items);
+
   const date = useSelector((state) => state.date.date_range);
 
   const handleSelectDateRange = () => {

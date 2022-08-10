@@ -41,8 +41,12 @@ export const isAvailable = (dates, item) => {
   const filtered = item.bookings.filter(
     (book) => book.dates.filter((date) => dates.indexOf(date) >= 0).length > 0
   );
+  console.log("filtered", filtered, item);
   if (filtered.length > 0) {
-    if (item.quantity + filtered[0].quantity > item.stock) {
+    if (
+      (item.quantity ? item.quantity : 1) + filtered[0].quantity >
+      item.stock
+    ) {
       return false;
     }
     return true;
