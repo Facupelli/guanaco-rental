@@ -38,12 +38,14 @@ export const generateAllDates = (dateRange) => {
 };
 
 export const isAvailable = (dates, item) => {
-  const datesfiltered = dates.map((date) =>
-    item.bookings.filter((book) => book.date === date)
+  const filtered = item.bookings.filter(
+    (book) => book.dates.filter((date) => dates.indexOf(date) >= 0).length > 0
   );
-  return datesfiltered.filter(
-    (el) => el.length === item.stock || item.quantity + el.length > item.stock
-  ).length > 0
-    ? false
-    : true;
+  if (filtered.length > 0) {
+    if (item.quantity + filtered[0].quantity > item.stock) {
+      return false;
+    }
+    return true;
+  }
+  return true;
 };
