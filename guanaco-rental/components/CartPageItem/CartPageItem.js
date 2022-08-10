@@ -2,7 +2,7 @@ import ItemCounter from "../CartModal/CartItem/ItemCounter/ItemCounter";
 import { formatPrice } from "../../utils/price_formater";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/features/cart/cartSlice";
-import { isAvailable } from "../../utils/generate_all_dates";
+import { isAvailable } from "../../utils/dates_functions";
 
 import s from "./CartPageItem.module.scss";
 

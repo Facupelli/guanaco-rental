@@ -46,7 +46,6 @@ export const isAvailable = (dates, item) => {
     const totalQuantity = filtered.reduce((val, acc) => {
       return val + acc.quantity;
     }, 0);
-    console.log(totalQuantity)
 
     if ((item.quantity ? item.quantity : 1) + totalQuantity > item.stock) {
       return false;

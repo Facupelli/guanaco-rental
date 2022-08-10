@@ -3,19 +3,17 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatPrice } from "../../utils/price_formater";
-import { generateAllDates, isAvailable } from "../../utils/generate_all_dates";
+import { generateAllDates, isAvailable } from "../../utils/dates_functions";
 import { setDate } from "../../redux/features/pickupDate/pickupDateSlice";
 import CartPageItem from "../../components/CartPageItem/CartPageItem";
 import Nav from "../../components/Nav/Nav";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
+import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
 
 import s from "../../styles/CartPage.module.scss";
-import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
 
 export default function CartPage() {
   const dispatch = useDispatch();
-
-  const [showCompleteProfile, setShowCompleteProfile] = useState(false);
 
   const [datePickup, setDatePickup] = useState(false);
   const [dateRange, setDateRange] = useState(null);
@@ -57,7 +55,6 @@ export default function CartPage() {
   const handleClickBookOrder = () => {
     if (!userData.phone && !userData.dni.length > 0) {
       console.log("completa tu perfil");
-      setShowCompleteProfile(true);
       return;
     }
     console.log("enviar pedido");
@@ -79,12 +76,6 @@ export default function CartPage() {
           dateRange={dateRange}
           setDateRange={setDateRange}
           setDatePickup={setDatePickup}
-        />
-      )}
-      {showCompleteProfile && (
-        <CompleteProfileModal
-          user={userData}
-          setShowCompleteProfile={setShowCompleteProfile}
         />
       )}
       <main className={s.main}>
@@ -120,7 +111,11 @@ export default function CartPage() {
           <div className={s.btns_wrapper}>
             <button
               type="button"
-              disabled={date.length > 0 && cart.length > 0 && areAllItemsAvailable() ? false : true}
+              disabled={
+                date.length > 0 && cart.length > 0 && areAllItemsAvailable()
+                  ? false
+                  : true
+              }
               onClick={handleClickBookOrder}
             >
               agendar pedido

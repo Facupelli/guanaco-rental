@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../../redux/features/cart/cartSlice";
 import CalendarComponent from "../../EquipmentFilters/Calendar/Calendar";
 import { formatPrice } from "../../../../utils/price_formater";
-import { isAvailable } from "../../../../utils/generate_all_dates";
+import { isAvailable } from "../../../../utils/dates_functions";
 
 import s from "./EquipmentCard.module.scss";
 
