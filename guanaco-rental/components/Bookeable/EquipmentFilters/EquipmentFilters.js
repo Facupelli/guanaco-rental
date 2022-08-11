@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchEquipment,
   filterByDateRange,
   setEquipment,
 } from "../../../redux/features/equipment/equipmentSlice";
@@ -29,19 +30,10 @@ export default function EquipmentFilters({
 
   const category = watch("category");
 
-  const getEquipment = async () => {
-    const equipment = await fetch(
-      `http://localhost:3001/equipment?category=${category}`
-    )
-      .then((response) => response.json())
-      .catch((e) => console.log("fecth error:", e));
-    dispatch(setEquipment(equipment));
-  };
-
   useEffect(() => {
     setFilters((prev) => ({ ...prev, category }));
     if (category) {
-      getEquipment();
+      dispatch(fetchEquipment(category));
     }
   }, [category]);
 
@@ -54,9 +46,15 @@ export default function EquipmentFilters({
             fecha
           </button>
           <p>Retiro: </p>
-          <p>{date && date.length > 0 && new Date(date[0]).toLocaleDateString()}</p>
+          <p>
+            {date && date.length > 0 && new Date(date[0]).toLocaleDateString()}
+          </p>
           <p>Devolución:</p>
-          <p>{date && date.length > 0 && new Date(date[date.length - 1]).toLocaleDateString()}</p>
+          <p>
+            {date &&
+              date.length > 0 &&
+              new Date(date[date.length - 1]).toLocaleDateString()}
+          </p>
         </div>
         <div>
           <label>Categoría:</label>

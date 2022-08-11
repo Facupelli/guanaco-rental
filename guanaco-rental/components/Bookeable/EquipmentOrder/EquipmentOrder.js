@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { setEquipment } from "../../../redux/features/equipment/equipmentSlice";
+import { fetchEquipment, setEquipment } from "../../../redux/features/equipment/equipmentSlice";
 
 import s from "./EquipmentOrder.module.scss";
 
@@ -19,18 +19,9 @@ export default function EquipmentOrder({ filters }) {
 
   // console.log("order", order);
 
-  const getEquipment = async () => {
-    const equipment = await fetch(
-      `http://localhost:3001/equipment?category=${filters.category}&order=${order}`
-    )
-      .then((response) => response.json())
-      .catch((e) => console.log("fecth error:", e));
-    dispatch(setEquipment(equipment));
-  };
-
   useEffect(() => {
     if (order) {
-      getEquipment();
+      dispatch(fetchEquipment(filters.category, order));
     }
   }, [order]);
 
