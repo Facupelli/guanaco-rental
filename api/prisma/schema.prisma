@@ -16,6 +16,18 @@ model User {
   email                   String        @unique
   orders                  Order[]
   dni                     String[]
+  birthDate               DateTime?
+  address                 String?
+  addressLocation         String?
+  addressProvince         String?
+  occupation              String?
+  student                 Boolean?
+  employee                Boolean?
+  company                 String?
+  cuit                    String?
+  bussinessName           String?
+  customerAproved         Boolean?
+  customerAprovedAt       DateTime?
   createdAt               DateTime      @default(now()) @map(name: "created_at")
   updatedAt               DateTime      @updatedAt @map(name: "updated_at")
   @@map(name: "users")

@@ -19,11 +19,19 @@ export default function OrderCard({ order, i }) {
       <div className={s.info_container}>
         <p>{i + 1}</p>
         <p>{new Date(order.createdAt).toLocaleDateString()}</p>
+        <div>
+          <p>retiro: {pickupDay}</p>
+          <p>devolución: {returnDay}</p>
+        </div>
         <p>
-          {pickupDay} {"->"} {returnDay}
+          {new Date().getTime() < new Date(order.booking.dates[0]).getTime()
+            ? "PENDIENTE"
+            : "ALQUILANDO"}
         </p>
         <p>{order.user.email}</p>
-        <button onClick={() => setShowEquipment(!showEquipment)}>Ver Equipos</button>
+        <button onClick={() => setShowEquipment(!showEquipment)}>
+          Ver Equipos
+        </button>
         <p>{formatPrice(order.totalPrice)}</p>
       </div>
       {showEquipment && (
