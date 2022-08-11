@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
 import OrderCard from "../../components/OrderCard/OrderCard";
 
-import s from "../../styles/AdminPage.module.scss";
+import s from "../../styles/AdminOrdersPage.module.scss";
 
 export default function AdminPage() {
   const [loading, setLoading] = useState(false);

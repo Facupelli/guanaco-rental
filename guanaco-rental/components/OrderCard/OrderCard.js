@@ -28,6 +28,7 @@ export default function OrderCard({ order, i }) {
       </div>
       {showEquipment && (
         <div className={s.equipments_container}>
+          <p>Equipos:</p>
           {order.equipments.length > 0 &&
             order.equipments.map((gear) => (
               <Gear gear={gear} order={order} key={gear.id} />

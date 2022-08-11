@@ -58,11 +58,11 @@ export default function CartPage() {
   };
 
   const handleClickBookOrder = async () => {
-    if (!userData.phone && !userData.dni.length > 0) {
-      console.log("completa tu perfil");
-      router.push("/newClient");
-      return;
-    }
+    // if (!userData.phone && !userData.dni.length > 0) {
+    //   console.log("completa tu perfil");
+    //   router.push("/newClient");
+    //   return;
+    // }
     console.log("enviar pedido");
 
     const totalPrice = cart.reduce((curr, acc) => {
