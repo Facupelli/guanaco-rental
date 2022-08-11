@@ -29,13 +29,23 @@ export default function AdminPage() {
       <Nav />
       <main className={s.main}>
         <h1>Pedidos</h1>
+        <div className={s.table_titles}>
+          <p>N°</p>
+          <p>FECHA</p>
+          <p>ALQUILER</p>
+          <p>EMAIL</p>
+          <p>EQUIPO</p>
+          <p>PRECIO TOTAL</p>
+        </div>
         <div>
           {loading ? (
             <p>Loading...</p>
           ) : (
             orders &&
             orders.length > 0 &&
-            orders.map((order, i) => <OrderCard order={order} i={i} />)
+            orders.map((order, i) => (
+              <OrderCard key={order.id} order={order} i={i} />
+            ))
           )}
         </div>
       </main>

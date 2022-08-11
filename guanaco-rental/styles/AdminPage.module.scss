@@ -1,6 +1,15 @@
 @import "../styles/app.scss";
 
-.main{
-    @include app_width;
+.main {
+  @include app_width;
+  margin-top: 2rem;
+
+  .table_titles {
     margin-top: 2rem;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 5% 15% 25% 25% 15% 15%;
+    justify-items: flex-start;
+    padding: 0rem 0.5rem;
+  }
 }

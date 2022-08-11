@@ -57,7 +57,11 @@ async function postOrder(req, res, next) {
 
 async function getOrders(req, res, next) {
   const orders = await prisma.order.findMany({
-    include: { user: true, equipments: { include: { bookings: true } } },
+    include: {
+      user: true,
+      equipments: { include: { bookings: true } },
+      booking: true,
+    },
   });
 
   res.json(orders);
