@@ -1,0 +1,6 @@
+@import "../styles/app.scss";
+
+.main{
+    @include app_width;
+    margin-top: 2rem;
+}

@@ -8,13 +8,14 @@ import {
   resetDate,
   setDate,
 } from "../../redux/features/pickupDate/pickupDateSlice";
+import { useRouter } from "next/router";
+
+//COMPONENTS
 import CartPageItem from "../../components/CartPageItem/CartPageItem";
 import Nav from "../../components/Nav/Nav";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 
 import s from "../../styles/CartPage.module.scss";
-import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
-import { useRouter } from "next/router";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ export default function CartPage() {
 
     const data = JSON.stringify({
       cart,
-      date,
+      dates: date,
       totalPrice,
       userId: userData.id,
     });

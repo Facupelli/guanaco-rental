@@ -1,5 +1,6 @@
 import { useUser } from "@auth0/nextjs-auth0";
 import Image from "next/image";
+import Link from "next/link";
 import s from "./Nav.module.scss";
 
 export default function Nav({ setShowCart, cartPage }) {
@@ -37,6 +38,11 @@ export default function Nav({ setShowCart, cartPage }) {
           </>
         )}
         <li onClick={cartPage ? null : handleShowCart}>CARRITO</li>
+        {user?.email === "facundopellicer4@gmail.com" && (
+          <li>
+            <Link href="/admin">ADMIN</Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

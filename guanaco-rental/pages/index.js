@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setDate } from "../redux/features/pickupDate/pickupDateSlice";
 import { generateAllDates } from "../utils/dates_functions";
+import { getOrCreateUser } from "../utils/fetch_users";
+import { setUserId } from "../redux/features/user/userSlice";
+
+//COMPONENTS
 import Bookeable from "../components/Bookeable/Bookeable";
 import Nav from "../components/Nav/Nav";
 import CartModal from "../components/CartModal/CartModal";
 import CalendarComponent from "../components/Bookeable/EquipmentFilters/Calendar/Calendar";
-import { getOrCreateUser } from "../utils/fetch_users";
-import { setUserId } from "../redux/features/user/userSlice";
 
 import styles from "../styles/Home.module.scss";
 
@@ -23,6 +25,8 @@ export default function Home({ equipment }) {
 
   const dispatch = useDispatch();
   const { user, error, isLoading } = useUser();
+
+  console.log("auth0 user", user)
 
   useEffect(() => {
     if (user) {
