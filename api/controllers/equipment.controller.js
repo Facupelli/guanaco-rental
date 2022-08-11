@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 async function getEquipment(req, res, next) {
   const { category, order } = req.query;
 
-  const pipeline = { include: { bookings: true } };
+  const pipeline = { include: { bookings: { include: { book: true } } } };
 
   if (category && category !== "undefined" && category !== "all") {
     pipeline.where = {

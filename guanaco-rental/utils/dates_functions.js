@@ -41,7 +41,8 @@ export const generateAllDates = (dateRange) => {
 
 export const isAvailable = (dates, item) => {
   const filtered = item.bookings.filter(
-    (book) => book.dates.filter((date) => dates.indexOf(date) >= 0).length > 0
+    (bookModel) =>
+      bookModel.book.dates.filter((date) => dates.indexOf(date) >= 0).length > 0
   );
 
   if (filtered.length > 0) {

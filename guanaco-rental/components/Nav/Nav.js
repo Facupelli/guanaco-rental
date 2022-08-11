@@ -14,12 +14,14 @@ export default function Nav({ setShowCart, cartPage }) {
     <nav className={s.nav_container}>
       <ul>
         <li className={s.logo_container}>
-          <Image
-            src="/guanaco-rental-logo.svg"
-            width="75"
-            height="75"
-            objectFit="contain"
-          />
+          <Link href="/">
+            <Image
+              src="/guanaco-rental-logo.svg"
+              width="75"
+              height="75"
+              objectFit="contain"
+            />
+          </Link>
         </li>
         <li>RESERVAS ONLINE</li>
         <li>FAQ</li>
