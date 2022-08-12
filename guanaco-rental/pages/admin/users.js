@@ -38,11 +38,21 @@ export default function AdminPage() {
         <h1>Usuarios</h1>
         <ul className={s.nav}>
           <li>
-            <p onClick={() => setNewClients(!newClients)}>
+            <p
+              onClick={() => {
+                setNewClients(!newClients);
+                setClients(!clients);
+              }}
+            >
               Peticiones Alta de Cliente
             </p>
           </li>
-          <li onClick={() => setClients(!clients)}>
+          <li
+            onClick={() => {
+              setClients(!clients);
+              setNewClients(!newClients);
+            }}
+          >
             <p>Lista de Clientes</p>
           </li>
         </ul>
@@ -56,9 +66,7 @@ export default function AdminPage() {
                 />
               ))}
             </div>
-            <div>
-              {newClientInfo && <ClientPetitionInfo user={newClientInfo} />}
-            </div>
+            {newClientInfo && <ClientPetitionInfo user={newClientInfo} />}
           </div>
         )}
       </main>
