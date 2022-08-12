@@ -15,7 +15,7 @@ model User {
   phone                   String?       @unique
   email                   String        @unique
   orders                  Order[]
-  dni                     String[]
+  dni                     Json?
   birthDate               DateTime?
   address                 String?
   addressLocation         String?
@@ -26,6 +26,9 @@ model User {
   company                 String?
   cuit                    String?
   bussinessName           String?
+  bank                    String?
+  alias                   String?
+  cbu                     String?
   customerAproved         Boolean?
   customerAprovedAt       DateTime?
   createdAt               DateTime      @default(now()) @map(name: "created_at")

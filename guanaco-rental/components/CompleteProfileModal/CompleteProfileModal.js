@@ -39,7 +39,25 @@ export default function CompleteProfileModal({ user }) {
 
   const handleOnCLick = () => {};
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    console.log(data);
+
+    const userData = JSON.stringify({
+      ...data,
+      email: user.email,
+      dniFront,
+      dniBack,
+    });
+
+    const newCustomerPetition = await fetch("http://localhost:3001/users", {
+      method: "POST",
+      body: userData,
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((response) => console.log(response.json()));
+  };
 
   return (
     <div className={s.container}>
@@ -64,11 +82,11 @@ export default function CompleteProfileModal({ user }) {
           </div>
           <div className={s.inputs_wrapper}>
             <p>{user.email}</p>
-            <input type="text" {...register("phoneNumber")} />
+            <input type="text" {...register("phone")} />
             <input type="date" {...register("birthDate")} />
-            <input type="text" {...register("addres")} />
-            <input type="text" {...register("addresLocation")} />
-            <input type="text" {...register("addresProvince")} />
+            <input type="text" {...register("address")} />
+            <input type="text" {...register("addressLocation")} />
+            <input type="text" {...register("addressProvince")} />
             <button type="button" onClick={() => openWidget(setDniFront)}>
               widget
             </button>
@@ -87,19 +105,19 @@ export default function CompleteProfileModal({ user }) {
         <div className={s.contacts_wrapper}>
           <p>CONTACTOS RELACIONADOS:</p>
           <div>
-            <label>Contacto 1</label>
+            <label>Contacto 1:</label>
             <input type="text" {...register("contact1")} />
             <label>Vínculo:</label>
             <input type="text" {...register("bond1")} />
           </div>
           <div>
-            <label>Contacto 2</label>
+            <label>Contacto 2:</label>
             <input type="text" {...register("contact2")} />
             <label>Vínculo:</label>
             <input type="text" {...register("bond2")} />
           </div>
           <div>
-            <label>Contacto 3</label>
+            <label>Contacto 3:</label>
             <input type="text" {...register("contact3")} />
             <label>Vínculo:</label>
             <input type="text" {...register("bond3")} />
@@ -109,17 +127,17 @@ export default function CompleteProfileModal({ user }) {
         <div className={s.bank_info_wrapper}>
           <p>DATOS DE CUENTA BANCARIA:</p>
           <div>
-            <label>Banco</label>
-            <input type="text" {...register("bankName")} />
-            <label>Alias</label>
-            <input type="text" {...register("bankAlias")} />
-            <label>CBU</label>
-            <input type="text" {...register("bankCBU")} />
+            <label>Banco:</label>
+            <input type="text" {...register("bank")} />
+            <label>Alias:</label>
+            <input type="text" {...register("alias")} />
+            <label>CBU:</label>
+            <input type="text" {...register("cbu")} />
           </div>
         </div>
 
         <div className={s.btn_wrapper}>
-          <button type="button" onClick={handleOnCLick}>
+          <button type="submit">
             siguiente
           </button>
         </div>
