@@ -26,6 +26,7 @@ async function postUser(req, res, next) {
         bank: data.bank,
         alias: data.alias,
         cbu: data.cbu,
+        petitionSent: data.petitionSent,
         customerAproved: data.customerAproved,
       },
       create: {
@@ -44,8 +45,6 @@ async function getUsers(req, res, next) {
   const { newClients, clients } = req.query;
 
   let users;
-
-  console.log(newClients)
 
   if (newClients) {
     users = await prisma.user.findMany({
