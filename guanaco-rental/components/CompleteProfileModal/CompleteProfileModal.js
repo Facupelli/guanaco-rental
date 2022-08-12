@@ -47,6 +47,8 @@ export default function CompleteProfileModal({ user }) {
       email: user.email,
       dniFront,
       dniBack,
+      customerAproved: false,
+      petitionSent: true,
     });
 
     const newCustomerPetition = await fetch("http://localhost:3001/users", {
@@ -66,6 +68,7 @@ export default function CompleteProfileModal({ user }) {
         <div className={s.personal_info_wrapper}>
           <div className={s.labels_wrapper}>
             <p>Email:</p>
+            <label>Nombre Completo:</label>
             <label>Número de celular:</label>
             <label>Fecha de nacimiento:</label>
             <label>Domicilio Real:</label>
@@ -82,6 +85,7 @@ export default function CompleteProfileModal({ user }) {
           </div>
           <div className={s.inputs_wrapper}>
             <p>{user.email}</p>
+            <input type="text" {...register("fullName")} />
             <input type="text" {...register("phone")} />
             <input type="date" {...register("birthDate")} />
             <input type="text" {...register("address")} />
@@ -137,9 +141,7 @@ export default function CompleteProfileModal({ user }) {
         </div>
 
         <div className={s.btn_wrapper}>
-          <button type="submit">
-            siguiente
-          </button>
+          <button type="submit">siguiente</button>
         </div>
       </form>
     </div>

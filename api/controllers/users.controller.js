@@ -11,6 +11,7 @@ async function postUser(req, res, next) {
       },
       update: {
         phone: data.phone,
+        fullName: data.fullName,
         dni: { dniFront: data.dniFront, dniBack: data.dniBack },
         birthDate: new Date(data.birthDate),
         address: data.address,
@@ -40,7 +41,23 @@ async function postUser(req, res, next) {
 }
 
 async function getUsers(req, res, next) {
-  const users = await prisma.user.findMany({});
+  const { newClients, clients } = req.query;
+
+  let users;
+
+  console.log(newClients)
+
+  if (newClients) {
+    users = await prisma.user.findMany({
+      where: { petitionSent: true },
+    });
+  }
+
+  if (clients) {
+    users = await prisma.user.findMany({
+      where: { customerAproved: true },
+    });
+  }
 
   res.json(users);
 }

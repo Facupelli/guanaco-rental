@@ -3,4 +3,18 @@
 .main{
     margin-top: 2rem;
     @include app_width;
+
+    .nav{
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        display: flex;
+        gap: 1rem;
+        cursor: pointer;
+    }
+
+    .data_wrapper{
+        padding: 1rem;
+        display: grid;
+        grid-template-columns: 20% 30%;
+    }
 }
