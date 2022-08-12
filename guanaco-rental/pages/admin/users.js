@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ClientCard from "../../components/ClientCard/ClientCard";
 import ClientPetitionCard from "../../components/clientPetitionCard/ClientPetitionCard";
 import ClientPetitionInfo from "../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
 import Nav from "../../components/Nav/Nav";
@@ -94,11 +95,7 @@ export default function AdminPage() {
         )}
         {clients &&
           clientUsers.length > 0 &&
-          clientUsers.map((user) => (
-            <div>
-              <p>{user.email}</p>
-            </div>
-          ))}
+          clientUsers.map((user) => <ClientCard user={user} />)}
       </main>
     </div>
   );
