@@ -1,6 +1,30 @@
 import s from "./ClientPetitionInfo.module.scss";
 
-export default function ClientPetitionInfo({ user }) {
+export default function ClientPetitionInfo({
+  user,
+  setNewClientInfo,
+  getNewClientUsers,
+}) {
+  const onClickApprove = async (approved) => {
+    const data = JSON.stringify({
+      userId: user.id,
+      customerAproved: approved,
+    });
+
+    const updatedUser = await fetch("http://localhost:3001/users", {
+      method: "PUT",
+      body: data,
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((response) => {
+      console.log("UpdatedUser", response.json());
+      setNewClientInfo({});
+      getNewClientUsers();
+    });
+  };
+
   return (
     <div className={s.data_wrapper}>
       <div>
@@ -40,8 +64,12 @@ export default function ClientPetitionInfo({ user }) {
         <p>{user.cbu}</p>
       </div>
       <div className={s.btns_wrapper}>
-        <button type="button">APROBAR</button>
-        <button type="button">NO APROBAR</button>
+        <button type="button" onClick={() => onClickApprove(true)}>
+          APROBAR
+        </button>
+        <button type="button" onClick={() => onClickApprove(false)}>
+          NO APROBAR
+        </button>
       </div>
     </div>
   );

@@ -41,6 +41,20 @@ async function postUser(req, res, next) {
   }
 }
 
+async function putUser(req, res, next) {
+  const data = req.body;
+
+  const updatedUser = await prisma.user.update({
+    where: { id: data.userId },
+    data: {
+      customerAproved: data.customerAproved,
+      customerAprovedAt: new Date(),
+    },
+  });
+
+  res.json({ message: "success", updatedUser });
+}
+
 async function getUsers(req, res, next) {
   const { newClients, clients } = req.query;
 
@@ -48,7 +62,7 @@ async function getUsers(req, res, next) {
 
   if (newClients) {
     users = await prisma.user.findMany({
-      where: { petitionSent: true },
+      where: { petitionSent: true, customerAproved: false },
     });
   }
 
@@ -61,4 +75,4 @@ async function getUsers(req, res, next) {
   res.json(users);
 }
 
-module.exports = { postUser, getUsers };
+module.exports = { postUser, getUsers, putUser };

@@ -13,22 +13,39 @@ export default function AdminPage() {
   const [newClientInfo, setNewClientInfo] = useState({});
 
   const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState([]);
 
-  const getAllusers = async () => {
+  const [newClientUsers, setNewClientUsers] = useState([]);
+  const [clientUsers, setClientUsers] = useState([]);
+
+  const getNewClientUsers = async () => {
     setLoading(true);
     const users = await fetch(`http://localhost:3001/users?newClients=${true}`)
       .then((response) => response.json())
+      .then((res) => {
+        setNewClientUsers(res);
+        setLoading(false);
+      })
+      .catch((e) => console.log("fecth error:", e));
+
+    return users;
+  };
+
+  const getClientUsers = async () => {
+    setLoading(true);
+    const users = await fetch(`http://localhost:3001/users?clients=${true}`)
+      .then((response) => response.json())
+      .then((res) => {
+        setClientUsers(res);
+        setLoading(false);
+      })
       .catch((e) => console.log("fecth error:", e));
 
     return users;
   };
 
   useEffect(() => {
-    getAllusers().then((res) => {
-      setUsers(res);
-      setLoading(false);
-    });
+    getNewClientUsers();
+    getClientUsers();
   }, []);
 
   return (
@@ -40,8 +57,8 @@ export default function AdminPage() {
           <li>
             <p
               onClick={() => {
-                setNewClients(!newClients);
-                setClients(!clients);
+                setNewClients(true);
+                setClients(false);
               }}
             >
               Peticiones Alta de Cliente
@@ -49,26 +66,39 @@ export default function AdminPage() {
           </li>
           <li
             onClick={() => {
-              setClients(!clients);
-              setNewClients(!newClients);
+              setClients(true);
+              setNewClients(false);
             }}
           >
             <p>Lista de Clientes</p>
           </li>
         </ul>
-        {newClients && users.length > 0 && (
+        {newClients && newClientUsers.length > 0 && (
           <div className={s.petitions_grid}>
             <div>
-              {users.map((user) => (
+              {newClientUsers.map((user) => (
                 <ClientPetitionCard
                   user={user}
                   setNewClientInfo={setNewClientInfo}
                 />
               ))}
             </div>
-            {newClientInfo && <ClientPetitionInfo user={newClientInfo} />}
+            {newClientInfo.fullName && (
+              <ClientPetitionInfo
+                user={newClientInfo}
+                getNewClientUsers={getNewClientUsers}
+                setNewClientInfo={setNewClientInfo}
+              />
+            )}
           </div>
         )}
+        {clients &&
+          clientUsers.length > 0 &&
+          clientUsers.map((user) => (
+            <div>
+              <p>{user.email}</p>
+            </div>
+          ))}
       </main>
     </div>
   );
