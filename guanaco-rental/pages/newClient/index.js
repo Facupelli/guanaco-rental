@@ -1,5 +1,7 @@
+import Head from "next/head";
+import { NextScript } from "next/document";
 import { useUser } from "@auth0/nextjs-auth0";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
 import Nav from "../../components/Nav/Nav";
@@ -24,6 +26,15 @@ export default function newClientPage() {
 
   return (
     <div>
+      <Head>
+        <title>Alta de Cliente</title>
+        <link rel="icon" href="/logo-favicon.ico" />
+        <NextScript />
+        <script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          type="text/javascript"
+        ></script>
+      </Head>
       <Nav />
       <CompleteProfileModal user={userData} />
     </div>

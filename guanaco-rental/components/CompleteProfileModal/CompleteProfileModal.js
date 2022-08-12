@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import s from "./CompleteProfileModal.module.scss";
@@ -9,6 +10,32 @@ export default function CompleteProfileModal({ user }) {
     watch,
     formState: { errors },
   } = useForm();
+
+  const [dniFront, setDniFront] = useState("");
+  const [dniBack, setDniBack] = useState("");
+
+  const openWidget = (setImagePublicId) => {
+    // create the widget
+    if (typeof window !== "undefined") {
+      const widget = window.cloudinary.createUploadWidget(
+        {
+          cloudName: "dzjz8pe0y",
+          uploadPreset: "zrp6p2qt",
+          sources: ["local", "url", "camera", "dropbox", "goole_drive"],
+        },
+        (error, result) => {
+          if (
+            result.event === "success" &&
+            result.info.resource_type === "image"
+          ) {
+            // console.log(result.info);
+            setImagePublicId(result.info.public_id);
+          }
+        }
+      );
+      widget.open(); // open up the widget after creation
+    }
+  };
 
   const handleOnCLick = () => {};
 
@@ -42,8 +69,12 @@ export default function CompleteProfileModal({ user }) {
             <input type="text" {...register("addres")} />
             <input type="text" {...register("addresLocation")} />
             <input type="text" {...register("addresProvince")} />
-            <input type="file" {...register("dniPhoto.front")} />
-            <input type="file" {...register("dniPhoto.back")} />
+            <button type="button" onClick={() => openWidget(setDniFront)}>
+              widget
+            </button>
+            <button type="button" onClick={() => openWidget(setDniBack)}>
+              widget
+            </button>
             <input type="text" {...register("occupation")} />
             <input type="checkbox" {...register("student")} />
             <input type="checkbox" {...register("employee")} />
