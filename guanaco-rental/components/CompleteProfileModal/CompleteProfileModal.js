@@ -65,80 +65,134 @@ export default function CompleteProfileModal({ user }) {
     <div className={s.container}>
       <h1>FORMULARIO ALTA DE CLIENTE </h1>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={s.personal_info_wrapper}>
+        <fieldset className={s.personal_info_wrapper}>
           <div className={s.labels_wrapper}>
+            <legend>INFO</legend>
             <p>Email:</p>
-            <label>Nombre Completo:</label>
-            <label>Número de celular:</label>
-            <label>Fecha de nacimiento:</label>
-            <label>Domicilio Real:</label>
-            <label>Localidad:</label>
-            <label>Provincia:</label>
-            <label>Foto de tu DNI (anverso):</label>
-            <label>Foto de tu DNI (dorso):</label>
-            <label>Ocupación:</label>
-            <label>Estudiante:</label>
-            <label>Empleado R.D:</label>
-            <label>Empresa:</label>
-            <label>CUIT:</label>
-            <label>Razón Social:</label>
+            <label htmlFor="fullName">Nombre Completo:</label>
+            <label htmlFor="phone">Número de celular:</label>
+            <label htmlFor="birthDate">Fecha de nacimiento:</label>
+            <label htmlFor="address">Domicilio Real:</label>
+            <label htmlFor="addressLocation">Localidad:</label>
+            <label htmlFor="addressProvince">Provincia:</label>
+            <label htmlFor="dni">DNI:</label>
+            <label htmlFor="dniFront">Foto de tu DNI (anverso):</label>
+            <label htmlFor="dniBack">Foto de tu DNI (dorso):</label>
+            <label htmlFor="occupation">Ocupación:</label>
+            <label htmlFor="student">Estudiante:</label>
+            <label htmlFor="employee">Empleado R.D:</label>
+            <label htmlFor="company">Empresa:</label>
+            <label htmlFor="cuit">CUIT:</label>
+            <label htmlFor="bussinessName">Razón Social:</label>
           </div>
+
           <div className={s.inputs_wrapper}>
+            <legend>-</legend>
             <p>{user.email}</p>
-            <input type="text" {...register("fullName")} />
-            <input type="text" {...register("phone")} />
-            <input type="date" {...register("birthDate")} />
-            <input type="text" {...register("address")} />
-            <input type="text" {...register("addressLocation")} />
-            <input type="text" {...register("addressProvince")} />
-            <button type="button" onClick={() => openWidget(setDniFront)}>
+            <input
+              required
+              type="text"
+              id="fullName"
+              autoFocus
+              {...register("fullName")}
+            />
+            <input required type="tel" id="phone" {...register("phone")} />
+            <input
+              required
+              type="date"
+              id="birthDate"
+              {...register("birthDate")}
+            />
+            <input required type="text" id="address" {...register("address")} />
+            <input
+              required
+              type="text"
+              id="addressLocation"
+              {...register("addressLocation")}
+            />
+            <input
+              required
+              type="text"
+              id="addressProvince"
+              {...register("addressProvince")}
+            />
+            <input required type="text" id="dni" {...register("dni")} />
+            <button
+              type="button"
+              id="dniFront"
+              onClick={() => openWidget(setDniFront)}
+            >
               widget
             </button>
-            <button type="button" onClick={() => openWidget(setDniBack)}>
+            <button
+              type="button"
+              id="dniBack"
+              onClick={() => openWidget(setDniBack)}
+            >
               widget
             </button>
-            <input type="text" {...register("occupation")} />
-            <input type="checkbox" {...register("student")} />
-            <input type="checkbox" {...register("employee")} />
-            <input type="text" {...register("company")} />
-            <input type="text" {...register("cuit")} />
-            <input type="text" {...register("businessName")} />
+            <input
+              required
+              type="text"
+              id="occupation"
+              {...register("occupation")}
+            />
+            <input
+              required
+              type="checkbox"
+              id="student"
+              {...register("student")}
+            />
+            <input
+              required
+              type="checkbox"
+              id="employee"
+              {...register("employee")}
+            />
+            <input required type="text" id="company" {...register("company")} />
+            <input required type="text" id="cuit" {...register("cuit")} />
+            <input
+              required
+              type="text"
+              id="bussinessName"
+              {...register("businessName")}
+            />
           </div>
-        </div>
+        </fieldset>
 
-        <div className={s.contacts_wrapper}>
-          <p>CONTACTOS RELACIONADOS:</p>
+        <fieldset className={s.contacts_wrapper}>
+          <legend>CONTACTOS RELACIONADOS</legend>
           <div>
-            <label>Contacto 1:</label>
-            <input type="text" {...register("contact1")} />
-            <label>Vínculo:</label>
-            <input type="text" {...register("bond1")} />
+            <label htmlFor="contact1">Contacto 1:</label>
+            <input type="text" id="contact1" {...register("contact1")} />
+            <label htmlFor="bond1">Vínculo:</label>
+            <input type="text" id="bond1" {...register("bond1")} />
           </div>
           <div>
-            <label>Contacto 2:</label>
-            <input type="text" {...register("contact2")} />
-            <label>Vínculo:</label>
-            <input type="text" {...register("bond2")} />
+            <label htmlFor="contact2">Contacto 2:</label>
+            <input type="text" id="contact2" {...register("contact2")} />
+            <label htmlFor="bond2">Vínculo:</label>
+            <input type="text" id="bond2" {...register("bond2")} />
           </div>
           <div>
-            <label>Contacto 3:</label>
-            <input type="text" {...register("contact3")} />
-            <label>Vínculo:</label>
-            <input type="text" {...register("bond3")} />
+            <label htmlFor="contact3">Contacto 3:</label>
+            <input type="text" id="contact3" {...register("contact3")} />
+            <label htmlFor="bond3">Vínculo:</label>
+            <input type="text" id="bond3" {...register("bond3")} />
           </div>
-        </div>
+        </fieldset>
 
-        <div className={s.bank_info_wrapper}>
-          <p>DATOS DE CUENTA BANCARIA:</p>
+        <fieldset className={s.bank_info_wrapper}>
+          <legend>DATOS DE CUENTA BANCARIA:</legend>
           <div>
-            <label>Banco:</label>
-            <input type="text" {...register("bank")} />
-            <label>Alias:</label>
-            <input type="text" {...register("alias")} />
-            <label>CBU:</label>
-            <input type="text" {...register("cbu")} />
+            <label htmlFor="bank">Banco:</label>
+            <input type="text" id="bank" {...register("bank")} />
+            <label htmlFor="alias">Alias:</label>
+            <input type="text" id="alias" {...register("alias")} />
+            <label htmlFor="cbu">CBU:</label>
+            <input type="text" id="cbu" {...register("cbu")} />
           </div>
-        </div>
+        </fieldset>
 
         <div className={s.btn_wrapper}>
           <button type="submit">siguiente</button>
