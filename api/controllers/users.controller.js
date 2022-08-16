@@ -69,6 +69,7 @@ async function getUsers(req, res, next) {
   if (clients) {
     users = await prisma.user.findMany({
       where: { customerAproved: true },
+      include: { orders: true },
     });
   }
 
