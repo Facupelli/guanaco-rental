@@ -29,42 +29,56 @@ export default function ClientPetitionInfo({
 
   return (
     <div className={s.data_wrapper}>
-      <div>
-        <p>Nombre Completo:</p>
-        <p>Celular:</p>
-        <p>Fecha Nacimiento:</p>
-        <p>Domicilio:</p>
-        <p>Localidad:</p>
-        <p>Provincia:</p>
-        <p>Ocupacion:</p>
-        <p>Estudiante:</p>
-        <p>Empleado:</p>
-        <p>Empresa:</p>
-        <p>CUIT:</p>
-        <p>Razon Social:</p>
-        <p>CUENTA BANCARIA</p>
-        <p>Banco:</p>
-        <p>Alias:</p>
-        <p>CBU:</p>
-      </div>
-      <div>
-        <p>{user.fullName}</p>
-        <p>{user.phone}</p>
-        <p>{new Date(user.birthDate).toLocaleDateString()}</p>
-        <p>{user.address}</p>
-        <p>{user.addressLocation}</p>
-        <p>{user.addressProvince}</p>
-        <p>{user.occupation}</p>
-        <p>{user.student ? "SI" : "NO"}</p>
-        <p>{user.employee ? "SI" : "NO"}</p>
-        <p>{user.company ? user.company : "-"}</p>
-        <p>{user.cuit}</p>
-        <p>{user.bussinessName ? user.bussinessName : "-"}</p>
-        <p>--------------</p>
-        <p>{user.bank}</p>
-        <p>{user.alias}</p>
-        <p>{user.cbu}</p>
-      </div>
+      <ul>
+        <li>Nombre Completo:</li>
+        <li>DNI:</li>
+        <li>DNI foto anverso:</li>
+        <li>DNI foto dorso:</li>
+        <li>Celular:</li>
+        <li>Fecha Nacimiento:</li>
+        <li>Domicilio:</li>
+        <li>Localidad:</li>
+        <li>Provincia:</li>
+        <li>Ocupacion:</li>
+        <li>Estudiante:</li>
+        <li>Empleado:</li>
+        <li>Empresa:</li>
+        <li>CUIT:</li>
+        <li>Razon Social:</li>
+        <li>CUENTA BANCARIA</li>
+        <li>Banco:</li>
+        <li>Alias:</li>
+        <li>CBU:</li>
+      </ul>
+      <ul>
+        <li>{user.fullName}</li>
+        <li>{user.dniNumber}</li>
+        <li>
+          <a href={`${user.dni.dniFront}`} target="_blank" rel="noopener noreferrer">
+            dni frente
+          </a>
+        </li>
+        <li>
+          <a href={`${user.dni.dniBack}`} target="_blank" rel="noopener noreferrer">
+            dni reverso
+          </a>
+        </li>
+        <li>{user.phone}</li>
+        <li>{new Date(user.birthDate).toLocaleDateString()}</li>
+        <li>{user.address}</li>
+        <li>{user.addressLocation}</li>
+        <li>{user.addressProvince}</li>
+        <li>{user.occupation}</li>
+        <li>{user.student ? "SI" : "NO"}</li>
+        <li>{user.employee ? "SI" : "NO"}</li>
+        <li>{user.company ? user.company : "-"}</li>
+        <li>{user.cuit}</li>
+        <li>{user.bussinessName ? user.bussinessName : "-"}</li>
+        <li>--------------</li>
+        <li>{user.bank}</li>
+        <li>{user.alias}</li>
+        <li>{user.cbu}</li>
+      </ul>
       <div className={s.btns_wrapper}>
         <button type="button" onClick={() => onClickApprove(true)}>
           APROBAR

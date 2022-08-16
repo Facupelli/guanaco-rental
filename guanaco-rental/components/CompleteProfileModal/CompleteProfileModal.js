@@ -14,6 +14,8 @@ export default function CompleteProfileModal({ user }) {
   const [dniFront, setDniFront] = useState("");
   const [dniBack, setDniBack] = useState("");
 
+  console.log(dniBack)
+
   const openWidget = (setImagePublicId) => {
     // create the widget
     if (typeof window !== "undefined") {
@@ -28,8 +30,8 @@ export default function CompleteProfileModal({ user }) {
             result.event === "success" &&
             result.info.resource_type === "image"
           ) {
-            // console.log(result.info);
-            setImagePublicId(result.info.public_id);
+            console.log("RESULT", result.info);
+            setImagePublicId(result.info.secure_url);
           }
         }
       );
@@ -68,7 +70,6 @@ export default function CompleteProfileModal({ user }) {
         <fieldset className={s.personal_info_wrapper}>
           <div className={s.labels_wrapper}>
             <legend>INFO</legend>
-            <p>Email:</p>
             <label htmlFor="fullName">Nombre Completo:</label>
             <label htmlFor="phone">Número de celular:</label>
             <label htmlFor="birthDate">Fecha de nacimiento:</label>
@@ -88,7 +89,6 @@ export default function CompleteProfileModal({ user }) {
 
           <div className={s.inputs_wrapper}>
             <legend>-</legend>
-            <p>{user.email}</p>
             <input
               required
               type="text"
