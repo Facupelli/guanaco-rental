@@ -54,12 +54,20 @@ export default function ClientPetitionInfo({
         <li>{user.fullName}</li>
         <li>{user.dniNumber}</li>
         <li>
-          <a href={`${user.dni.dniFront}`} target="_blank" rel="noopener noreferrer">
+          <a
+            href={`${user.dni.dniFront}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             dni frente
           </a>
         </li>
         <li>
-          <a href={`${user.dni.dniBack}`} target="_blank" rel="noopener noreferrer">
+          <a
+            href={`${user.dni.dniBack}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             dni reverso
           </a>
         </li>
@@ -84,7 +92,7 @@ export default function ClientPetitionInfo({
           APROBAR
         </button>
         <button type="button" onClick={() => onClickApprove(false)}>
-          NO APROBAR
+          DENEGAR
         </button>
       </div>
     </div>
