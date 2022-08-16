@@ -150,7 +150,7 @@ const RemitoPDF = ({ pickupDay, returnDay, order, index }) => (
           </Text>
           <View style={styles.flex}>
             <Text style={styles.paddingB}>RETIRA: {order.user.fullName}</Text>
-            <Text style={styles.paddingB}>DNI: {order.user.dni.front}</Text>
+            <Text style={styles.paddingB}>DNI: {order.user.dniNumber}</Text>
           </View>
           <Text style={styles.paddingB}>
             IMPORTANTE VER CONDICIONES ANEXO I

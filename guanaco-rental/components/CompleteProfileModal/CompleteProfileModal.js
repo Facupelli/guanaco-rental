@@ -75,7 +75,7 @@ export default function CompleteProfileModal({ user }) {
             <label htmlFor="address">Domicilio Real:</label>
             <label htmlFor="addressLocation">Localidad:</label>
             <label htmlFor="addressProvince">Provincia:</label>
-            <label htmlFor="dni">DNI:</label>
+            <label htmlFor="dniNumber">DNI:</label>
             <label htmlFor="dniFront">Foto de tu DNI (anverso):</label>
             <label htmlFor="dniBack">Foto de tu DNI (dorso):</label>
             <label htmlFor="occupation">Ocupación:</label>
@@ -116,7 +116,12 @@ export default function CompleteProfileModal({ user }) {
               id="addressProvince"
               {...register("addressProvince")}
             />
-            <input required type="text" id="dni" {...register("dni")} />
+            <input
+              required
+              type="text"
+              id="dniNumber"
+              {...register("dniNumber")}
+            />
             <button
               type="button"
               id="dniFront"
@@ -137,22 +142,11 @@ export default function CompleteProfileModal({ user }) {
               id="occupation"
               {...register("occupation")}
             />
-            <input
-              required
-              type="checkbox"
-              id="student"
-              {...register("student")}
-            />
-            <input
-              required
-              type="checkbox"
-              id="employee"
-              {...register("employee")}
-            />
-            <input required type="text" id="company" {...register("company")} />
+            <input type="checkbox" id="student" {...register("student")} />
+            <input type="checkbox" id="employee" {...register("employee")} />
+            <input type="text" id="company" {...register("company")} />
             <input required type="text" id="cuit" {...register("cuit")} />
             <input
-              required
               type="text"
               id="bussinessName"
               {...register("businessName")}
