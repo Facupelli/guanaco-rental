@@ -4,6 +4,7 @@ export default function ClientPetitionInfo({
   user,
   setNewClientInfo,
   getNewClientUsers,
+  getClientUsers,
 }) {
   const onClickApprove = async (approved) => {
     const data = JSON.stringify({
@@ -22,6 +23,7 @@ export default function ClientPetitionInfo({
       console.log("UpdatedUser", response.json());
       setNewClientInfo({});
       getNewClientUsers();
+      getClientUsers();
     });
   };
 

@@ -1,13 +1,15 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ClientCard from "../../components/ClientCard/ClientCard";
 import ClientPetitionCard from "../../components/clientPetitionCard/ClientPetitionCard";
 import ClientPetitionInfo from "../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
 import Nav from "../../components/Nav/Nav";
-import OrderCard from "../../components/OrderCard/OrderCard";
 
 import s from "../../styles/AdminUsersPage.module.scss";
 
 export default function AdminPage() {
+  const router = useRouter();
+
   const [newClients, setNewClients] = useState(false);
   const [clients, setClients] = useState(false);
 
@@ -53,7 +55,12 @@ export default function AdminPage() {
     <div>
       <Nav />
       <main className={s.main}>
-        <h1>Usuarios</h1>
+        <div className={s.title_wrapper}>
+          <button type="button" onClick={() => router.back()}>
+            {"<-"}
+          </button>
+          <h1>Usuarios</h1>
+        </div>
         <ul className={s.nav}>
           <li>
             <p
@@ -89,6 +96,7 @@ export default function AdminPage() {
                 user={newClientInfo}
                 getNewClientUsers={getNewClientUsers}
                 setNewClientInfo={setNewClientInfo}
+                getClientUsers={getClientUsers}
               />
             )}
           </div>

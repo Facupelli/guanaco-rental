@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
 import OrderCard from "../../components/OrderCard/OrderCard";
@@ -5,6 +6,8 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 import s from "../../styles/AdminOrdersPage.module.scss";
 
 export default function AdminPage() {
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
@@ -28,7 +31,12 @@ export default function AdminPage() {
     <div>
       <Nav />
       <main className={s.main}>
-        <h1>Pedidos</h1>
+        <div className={s.title_wrapper}>
+          <button type="button" onClick={() => router.back()}>
+            {"<-"}
+          </button>
+          <h1>Pedidos</h1>
+        </div>
         <div className={s.table_titles}>
           <p>N°</p>
           <p>FECHA</p>

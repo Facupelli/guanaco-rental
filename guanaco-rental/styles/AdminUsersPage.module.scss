@@ -4,6 +4,12 @@
   margin-top: 2rem;
   @include app_width;
 
+  .title_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .nav {
     margin-top: 2rem;
     margin-bottom: 1rem;
