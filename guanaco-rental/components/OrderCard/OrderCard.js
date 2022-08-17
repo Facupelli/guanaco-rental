@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { formatPrice } from "../../utils/price_formater";
 import Gear from "./Gear/Gear";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  Image,
+} from "@react-pdf/renderer";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import s from "./OrderCard.module.scss";
 
@@ -68,45 +75,66 @@ export default function OrderCard({ order, i }) {
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: "column",
     fontSize: 12,
   },
+  imageWrapper: {
+    width: 100,
+    height: 100,
+    position: "absolute",
+    zIndex: 5,
+    left: "50%",
+    top: -45,
+    transform: "translate(-50%, 0%)",
+    backgroundColor: "white",
+    padding: "0px 5px",
+  },
   pageMargin: {
+    position: "relative",
+    zIndex: 1,
     marginLeft: 25,
     marginRight: 25,
     border: "2px solid black",
     borderRadius: 10,
+  },
+  userSection: {
+    borderBottom: "2px solid black",
+    padding: 20,
+    marginTop: 25,
   },
   flex: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 5,
+    padding: "5px 0",
+    margin: "5px 0",
+  },
+  equipmentWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginTop: 10,
   },
   equipment: {
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 5,
     fontSize: 10,
-    paddingLeft: 5,
-  },
-  userSection: {
-    borderBottom: "2px solid black",
-    padding: 20,
+    flexBasis: "50%",
   },
   section: {
     padding: 20,
     height: "100%",
   },
-  paddingB: {
-    marginBottom: 10,
-  },
   bottomSigns: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     fontSize: 8,
-    padding: 15,
+    padding: "15px 0px",
+    marginLeft: 25,
+    marginRight: 25,
   },
   signs: {
     borderTop: "1px solid black",
@@ -119,7 +147,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginTop: 20,
+    marginTop: 40,
     marginRight: 25,
     fontSize: 10,
     paddingBottom: 10,
@@ -143,35 +171,48 @@ const RemitoPDF = ({ pickupDay, returnDay, order, index }) => (
         <Text>REMITO N° {index + 1}</Text>
       </View>
       <View style={styles.pageMargin}>
+        <View style={styles.imageWrapper}>
+          <Image src="/remito-logo.png" />
+        </View>
         <View style={styles.userSection}>
-          <Text style={styles.paddingB}>FECHA DE RETIRO: {pickupDay}</Text>
-          <Text style={styles.paddingB}>FECHA DE DEVOLUCIÓN: {returnDay}</Text>
-          <Text style={styles.paddingB}>CANTIDAD DE JORNADAS: ?</Text>
-          <Text style={styles.paddingB}>
-            PRECIO ACORDADO: {formatPrice(order.totalPrice)}
-          </Text>
           <View style={styles.flex}>
-            <Text style={styles.paddingB}>RETIRA: {order.user.fullName}</Text>
-            <Text style={styles.paddingB}>DNI: {order.user.dniNumber}</Text>
+            <Text>FECHA DE RETIRO: {pickupDay}</Text>
           </View>
-          <Text style={styles.paddingB}>
-            IMPORTANTE VER CONDICIONES ANEXO I
-          </Text>
+          <View style={styles.flex}>
+            <Text>FECHA DE DEVOLUCIÓN: {returnDay}</Text>
+          </View>
+          <View style={styles.flex}>
+            <Text>CANTIDAD DE JORNADAS: ?</Text>
+          </View>
+          <View style={styles.flex}>
+            <Text>PRECIO ACORDADO: {formatPrice(order.totalPrice)}</Text>
+          </View>
+          <View style={styles.flex}>
+            <Text>RETIRA: {order.user.fullName}</Text>
+            <Text>DNI: {order.user.dniNumber}</Text>
+          </View>
+          <View style={styles.flex}>
+            <Text>IMPORTANTE VER CONDICIONES ANEXO I</Text>
+          </View>
         </View>
         <View style={styles.section}>
           <Text style={{ marginBottom: 5 }}>LISTA DE EQUIPOS RETIRADOS</Text>
-          {order.equipments.length > 0 &&
-            order.equipments.map((gear) => (
-              <Text style={styles.equipment}>
-                x{" "}
-                {
-                  gear.bookings.filter(
-                    (book) => book.bookId === order.booking.id
-                  )[0].quantity
-                }{" "}
-                {gear.name} {gear.brand} {gear.model}
-              </Text>
-            ))}
+          <View style={styles.equipmentWrapper}>
+            {order.equipments.length > 0 &&
+              order.equipments.map((gear) => (
+                <View style={styles.equipment} key={gear.id}>
+                  <Text>
+                    x{" "}
+                    {
+                      gear.bookings.filter(
+                        (book) => book.bookId === order.booking.id
+                      )[0].quantity
+                    }{" "}
+                    {gear.name} {gear.brand} {gear.model}
+                  </Text>
+                </View>
+              ))}
+          </View>
         </View>
         <View style={styles.bottomSigns}>
           <Text style={styles.signs}>FIRMA DEL RESPONSABLE DE PRODUCCIÓN</Text>
