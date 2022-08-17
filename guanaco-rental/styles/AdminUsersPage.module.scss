@@ -17,11 +17,22 @@
     display: flex;
     gap: 1rem;
     cursor: pointer;
+
+    background-color: $m-orange;
+      padding: .5rem;
+      border-radius: .5rem;
+      color: $m-white;
+
+    .nav_li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
   }
 
   .petitions_grid {
     display: grid;
-    grid-template-columns: 50% 45%;
-    column-gap: 5%;
+    grid-template-columns: 42% 54%;
+    column-gap: 4%;
   }
 }

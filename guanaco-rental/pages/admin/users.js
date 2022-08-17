@@ -63,14 +63,17 @@ export default function AdminPage() {
         </div>
         <ul className={s.nav}>
           <li>
-            <p
-              onClick={() => {
-                setNewClients(true);
-                setClients(false);
-              }}
-            >
-              Peticiones Alta de Cliente
-            </p>
+            <div className={s.nav_li}>
+              <p
+                onClick={() => {
+                  setNewClients(true);
+                  setClients(false);
+                }}
+              >
+                Peticiones Alta de Cliente
+              </p>
+              <p>{newClientUsers.length}</p>
+            </div>
           </li>
           <li
             onClick={() => {
@@ -78,7 +81,9 @@ export default function AdminPage() {
               setNewClients(false);
             }}
           >
-            <p>Lista de Clientes</p>
+            <div className={s.nav_li}>
+              <p>Lista de Clientes</p>
+            </div>
           </li>
         </ul>
         {newClients && newClientUsers.length > 0 && (

@@ -9,14 +9,16 @@ export default function () {
       <Nav />
       <main className={s.main}>
         <h1>Panel de Administrador</h1>
-        <ul>
-          <li>
-            <Link href="/admin/orders">Pedidos</Link>
-          </li>
-          <li>
-            <Link href="/admin/users">Usuarios</Link>
-          </li>
-        </ul>
+        <nav>
+          <ul>
+            <li>
+              <Link href="/admin/orders">Pedidos</Link>
+            </li>
+            <li>
+              <Link href="/admin/users">Usuarios</Link>
+            </li>
+          </ul>
+        </nav>
       </main>
     </div>
   );
