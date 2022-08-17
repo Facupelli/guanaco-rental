@@ -40,6 +40,7 @@ export default function AdminPage() {
         <div className={s.table_titles}>
           <p>N°</p>
           <p>NOMBRE</p>
+          <p>CELULAR</p>
           <p>DNI</p>
           <p>FECHA</p>
           <p>ALQUILER</p>

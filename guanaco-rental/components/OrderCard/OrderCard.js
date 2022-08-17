@@ -21,6 +21,7 @@ export default function OrderCard({ order, i }) {
       <div className={s.info_container}>
         <p>{i + 1}</p>
         <p>{order.user.fullName}</p>
+        <p>{order.user.phone}</p>
         <p>{order.user.dniNumber}</p>
         <p>{new Date(order.createdAt).toLocaleDateString()}</p>
         <div>
