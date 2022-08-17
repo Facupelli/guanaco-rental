@@ -4,6 +4,35 @@
   margin-right: auto;
 }
 
+@mixin input {
+  padding: 0.3rem;
+  // border-radius: .2rem;
+  background-color: rgba(236, 236, 236, 0.562);
+  border: none;
+  border-bottom: 1px solid $m-black;
+
+  &:focus,
+  &:active {
+    border-bottom: 2px solid $m-orange;
+    outline: $m-orange;
+  }
+}
+
+@mixin m-button {
+  padding: 0.5rem 1rem;
+  background-color: $m-black;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.2rem;
+  color: $m-white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $m-orange;
+    color: white;
+  }
+}
+
 $m-black: #1d1d1b;
 $m-white: #ececec;
 $m-orange: #d06021;

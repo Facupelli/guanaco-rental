@@ -21,8 +21,6 @@ export default function OrderCard({ order, i }) {
     order.booking.dates[order.booking.dates.length - 1]
   ).toLocaleDateString();
 
-  console.log(order.booking.id);
-
   return (
     <div className={s.card_container}>
       <div className={s.info_container}>

@@ -127,14 +127,14 @@ export default function CompleteProfileModal({ user }) {
               id="dniFront"
               onClick={() => openWidget(setDniFront)}
             >
-              widget
+              subir archivo
             </button>
             <button
               type="button"
               id="dniBack"
               onClick={() => openWidget(setDniBack)}
             >
-              widget
+              subir archivo
             </button>
             <input
               required

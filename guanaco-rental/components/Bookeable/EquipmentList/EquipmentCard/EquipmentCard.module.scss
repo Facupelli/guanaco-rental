@@ -1,7 +1,13 @@
+@import "../../../../styles/app.scss";
+
 .container {
   padding: 1rem;
   border-radius: 0.2rem;
   box-shadow: 0px 0px 5px 1px rgba(49, 49, 49, 0.151);
+
+  .price_bold{
+    font-weight: bold;
+  }
 
   .green {
     color: green;
@@ -22,6 +28,12 @@
       cursor: pointer;
       color: gray;
       font-size: .8em;
+      text-decoration: underline;
     }
+  }
+
+  .add_to_cart_btn{
+    @include m-button;
+    margin-top: .5rem;
   }
 }

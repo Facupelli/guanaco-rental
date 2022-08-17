@@ -45,7 +45,7 @@ export default function EquipmentCard({ gear, setShowCart }) {
         <p>{gear.name}</p>
         <p>{gear.brand}</p>
         <p>{gear.model}</p>
-        <p>{formatPrice(gear.price)}</p>
+        <p className={s.price_bold}>{formatPrice(gear.price)}</p>
         <div className={s.see_more_flex}>
           <p className={availability ? `${s.green}` : `${s.red}`}>
             {availability ? "Disponible" : "Reservado"}
@@ -54,7 +54,7 @@ export default function EquipmentCard({ gear, setShowCart }) {
             ver más
           </button>
         </div>
-        <button type="button" onClick={addItemToCart} disabled={!availability}>
+        <button className={s.add_to_cart_btn} type="button" onClick={addItemToCart} disabled={!availability}>
           Agregar al carrito
         </button>
       </div>
