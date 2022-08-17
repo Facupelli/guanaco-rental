@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
     padding: "5px 0",
     margin: "5px 0",
   },
-  flexItem:{
-    flexBasis: "50%"
+  flexItem: {
+    flexBasis: "50%",
   },
   equipmentWrapper: {
     display: "flex",
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
   section: {
     padding: 20,
     height: "100%",
+    fontWeight: "bold",
   },
   bottomSigns: {
     display: "flex",
@@ -183,7 +184,9 @@ const RemitoPDF = ({ pickupDay, returnDay, order, index }) => (
           </View>
           <View style={styles.flex}>
             <Text style={styles.flexItem}>CANTIDAD DE JORNADAS: ?</Text>
-            <Text style={styles.flexItem}>PRECIO ACORDADO: {formatPrice(order.totalPrice)}</Text>
+            <Text style={styles.flexItem}>
+              PRECIO ACORDADO: {formatPrice(order.totalPrice)}
+            </Text>
           </View>
           <View style={styles.flex}>
             <Text style={styles.flexItem}>RETIRA: {order.user.fullName}</Text>

@@ -1,3 +1,5 @@
+@import "../../../styles/app.scss";
+
 .form_container {
   position: relative;
   .flex_column {
@@ -5,7 +7,20 @@
     flex-direction: column;
   }
 
-  select{
+  .select_wrapper{
+    margin-top: .5rem;
+
+    select {
+      // @include m-select;
+      width: 100%;
+      margin: 0.5rem 0rem;
+    }
+  }
+
+
+  button {
+    // @include m-button-orange;
+    margin: 0.5rem 0rem;
     width: 100%;
   }
 }

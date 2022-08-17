@@ -18,13 +18,13 @@ export default function EquipmentCard({ gear, setShowCart }) {
   const dates = useSelector((state) => state.date.date_range);
   const cart = useSelector((state) => state.cart.items);
 
-  const availability = isAvailable(dates, gear)
+  const availability = isAvailable(dates, gear);
 
   // console.log("PRUEBA", availableIs());
 
   const addItemToCart = () => {
-    if(cart.length === 0){
-      setShowCart(true)
+    if (cart.length === 0) {
+      setShowCart(true);
     }
     if (cart.filter((item) => item.id === gear.id).length > 0) {
       return;
@@ -37,13 +37,17 @@ export default function EquipmentCard({ gear, setShowCart }) {
       {showCalendar && (
         <CalendarComponent
           setDatePickup={setShowCalendar}
-          daysTaken={gear.bookings.map((bookModel) => bookModel.book.dates).flat()}
+          daysTaken={gear.bookings
+            .map((bookModel) => bookModel.book.dates)
+            .flat()}
           freeTileClass={true}
         />
       )}
       <div className={s.container}>
-        <p>{gear.name}</p>
-        <p>{gear.brand}</p>
+        <div className={s.name_wrapper_flex}>
+          <p>{gear.name}</p>
+          <p>{gear.brand}</p>
+        </div>
         <p>{gear.model}</p>
         <p className={s.price_bold}>{formatPrice(gear.price)}</p>
         <div className={s.see_more_flex}>
@@ -54,7 +58,12 @@ export default function EquipmentCard({ gear, setShowCart }) {
             ver más
           </button>
         </div>
-        <button className={s.add_to_cart_btn} type="button" onClick={addItemToCart} disabled={!availability}>
+        <button
+          className={s.add_to_cart_btn}
+          type="button"
+          onClick={addItemToCart}
+          disabled={!availability}
+        >
           Agregar al carrito
         </button>
       </div>

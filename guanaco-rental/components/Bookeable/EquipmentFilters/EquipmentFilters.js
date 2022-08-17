@@ -56,7 +56,7 @@ export default function EquipmentFilters({
               new Date(date[date.length - 1]).toLocaleDateString()}
           </p>
         </div>
-        <div>
+        <div className={s.select_wrapper}>
           <label>Categoría:</label>
           <select defaultValue="all" {...register("category")}>
             <option value="all">TODOS</option>
