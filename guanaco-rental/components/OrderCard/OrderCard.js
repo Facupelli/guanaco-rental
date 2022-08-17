@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 5,
     left: "50%",
-    top: -45,
+    top: -40,
     transform: "translate(-50%, 0%)",
     backgroundColor: "white",
     padding: "0px 5px",
@@ -105,9 +105,11 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     padding: "5px 0",
     margin: "5px 0",
+  },
+  flexItem:{
+    flexBasis: "50%"
   },
   equipmentWrapper: {
     display: "flex",
@@ -182,14 +184,12 @@ const RemitoPDF = ({ pickupDay, returnDay, order, index }) => (
             <Text>FECHA DE DEVOLUCIÓN: {returnDay}</Text>
           </View>
           <View style={styles.flex}>
-            <Text>CANTIDAD DE JORNADAS: ?</Text>
+            <Text style={styles.flexItem}>CANTIDAD DE JORNADAS: ?</Text>
+            <Text style={styles.flexItem}>PRECIO ACORDADO: {formatPrice(order.totalPrice)}</Text>
           </View>
           <View style={styles.flex}>
-            <Text>PRECIO ACORDADO: {formatPrice(order.totalPrice)}</Text>
-          </View>
-          <View style={styles.flex}>
-            <Text>RETIRA: {order.user.fullName}</Text>
-            <Text>DNI: {order.user.dniNumber}</Text>
+            <Text style={styles.flexItem}>RETIRA: {order.user.fullName}</Text>
+            <Text style={styles.flexItem}>DNI: {order.user.dniNumber}</Text>
           </View>
           <View style={styles.flex}>
             <Text>IMPORTANTE VER CONDICIONES ANEXO I</Text>
