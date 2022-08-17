@@ -20,6 +20,8 @@ export default function OrderCard({ order, i }) {
     <div className={s.card_container}>
       <div className={s.info_container}>
         <p>{i + 1}</p>
+        <p>{order.user.fullName}</p>
+        <p>{order.user.dniNumber}</p>
         <p>{new Date(order.createdAt).toLocaleDateString()}</p>
         <div>
           <p>retiro: {pickupDay}</p>
@@ -30,7 +32,6 @@ export default function OrderCard({ order, i }) {
             ? "PENDIENTE"
             : "ALQUILANDO"}
         </p>
-        <p>{order.user.email}</p>
         <button onClick={() => setShowEquipment(!showEquipment)}>
           Ver Equipos
         </button>

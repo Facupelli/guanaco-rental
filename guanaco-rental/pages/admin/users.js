@@ -7,49 +7,49 @@ import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminUsersPage.module.scss";
 
-export default function AdminPage() {
+export default function AdminPage({ clients, newCLients }) {
   const router = useRouter();
 
-  const [newClients, setNewClients] = useState(false);
-  const [clients, setClients] = useState(false);
+  const [showNewClients, setShowNewClients] = useState(false);
+  const [showClients, setShowClients] = useState(false);
 
   const [newClientInfo, setNewClientInfo] = useState({});
 
   const [loading, setLoading] = useState(false);
 
-  const [newClientUsers, setNewClientUsers] = useState([]);
-  const [clientUsers, setClientUsers] = useState([]);
+  const [newClientUsers, setNewClientUsers] = useState(newCLients);
+  const [clientUsers, setClientUsers] = useState(clients);
 
-  const getNewClientUsers = async () => {
-    setLoading(true);
-    const users = await fetch(`http://localhost:3001/users?newClients=${true}`)
-      .then((response) => response.json())
-      .then((res) => {
-        setNewClientUsers(res);
-        setLoading(false);
-      })
-      .catch((e) => console.log("fecth error:", e));
+  // const getNewClientUsers = async () => {
+  //   setLoading(true);
+  //   const users = await fetch(`http://localhost:3001/users?newClients=${true}`)
+  //     .then((response) => response.json())
+  //     .then((res) => {
+  //       setNewClientUsers(res);
+  //       setLoading(false);
+  //     })
+  //     .catch((e) => console.log("fecth error:", e));
 
-    return users;
-  };
+  //   return users;
+  // };
 
-  const getClientUsers = async () => {
-    setLoading(true);
-    const users = await fetch(`http://localhost:3001/users?clients=${true}`)
-      .then((response) => response.json())
-      .then((res) => {
-        setClientUsers(res);
-        setLoading(false);
-      })
-      .catch((e) => console.log("fecth error:", e));
+  // const getClientUsers = async () => {
+  //   setLoading(true);
+  //   const users = await fetch(`http://localhost:3001/users?clients=${true}`)
+  //     .then((response) => response.json())
+  //     .then((res) => {
+  //       setClientUsers(res);
+  //       setLoading(false);
+  //     })
+  //     .catch((e) => console.log("fecth error:", e));
 
-    return users;
-  };
+  //   return users;
+  // };
 
-  useEffect(() => {
-    getNewClientUsers();
-    getClientUsers();
-  }, []);
+  // useEffect(() => {
+  //   getNewClientUsers();
+  //   getClientUsers();
+  // }, []);
 
   return (
     <div>
@@ -66,8 +66,8 @@ export default function AdminPage() {
             <div className={s.nav_li}>
               <p
                 onClick={() => {
-                  setNewClients(true);
-                  setClients(false);
+                  setShowNewClients(true);
+                  setShowClients(false);
                 }}
               >
                 Peticiones Alta de Cliente
@@ -77,8 +77,8 @@ export default function AdminPage() {
           </li>
           <li
             onClick={() => {
-              setClients(true);
-              setNewClients(false);
+              setShowClients(true);
+              setShowNewClients(false);
             }}
           >
             <div className={s.nav_li}>
@@ -86,7 +86,7 @@ export default function AdminPage() {
             </div>
           </li>
         </ul>
-        {newClients && newClientUsers.length > 0 && (
+        {showNewClients && newClientUsers.length > 0 && (
           <div className={s.petitions_grid}>
             <div>
               {newClientUsers.map((user) => (
@@ -106,10 +106,29 @@ export default function AdminPage() {
             )}
           </div>
         )}
-        {clients &&
+        {showClients &&
           clientUsers.length > 0 &&
           clientUsers.map((user) => <ClientCard user={user} />)}
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const newCLients = await fetch(
+    `http://localhost:3001/users?newClients=${true}`
+  )
+    .then((response) => response.json())
+    .catch((e) => console.log("fecth error:", e));
+
+  const clients = await fetch(`http://localhost:3001/users?clients=${true}`)
+    .then((response) => response.json())
+    .catch((e) => console.log("fecth error:", e));
+
+  return {
+    props: {
+      newCLients,
+      clients,
+    },
+  };
 }
