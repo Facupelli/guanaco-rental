@@ -7,7 +7,7 @@ import { isAvailable } from "../../../../utils/dates_functions";
 
 import s from "./EquipmentCard.module.scss";
 
-export default function EquipmentCard({ gear }) {
+export default function EquipmentCard({ gear, setShowCart }) {
   const dispatch = useDispatch();
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -23,6 +23,9 @@ export default function EquipmentCard({ gear }) {
   // console.log("PRUEBA", availableIs());
 
   const addItemToCart = () => {
+    if(cart.length === 0){
+      setShowCart(true)
+    }
     if (cart.filter((item) => item.id === gear.id).length > 0) {
       return;
     }

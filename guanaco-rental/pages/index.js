@@ -26,7 +26,7 @@ export default function Home({ equipment }) {
   const dispatch = useDispatch();
   const { user, error, isLoading } = useUser();
 
-  console.log("auth0 user", user)
+  console.log("auth0 user", user);
 
   useEffect(() => {
     if (user) {
@@ -70,7 +70,11 @@ export default function Home({ equipment }) {
         />
       )}
       <Nav setShowCart={setShowCart} />
-      <Bookeable dateRange={dateRange} setDatePickup={setDatePickup} />
+      <Bookeable
+        dateRange={dateRange}
+        setDatePickup={setDatePickup}
+        setShowCart={setShowCart}
+      />
 
       <main className={styles.main}></main>
     </div>

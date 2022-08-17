@@ -118,10 +118,13 @@ export default function CartPage() {
             <p>Precio</p>
           </div>
           {cart &&
-            cart.length > 0 &&
-            cart.map((item) => (
-              <CartPageItem key={item.id} item={item} dates={date} />
-            ))}
+            cart.length > 0 ? (
+              cart.map((item) => (
+                <CartPageItem key={item.id} item={item} dates={date} />
+              ))
+            ) : (
+              <p>No tiene equipos agregados al carrito!</p>
+            )}
         </div>
         <div className={s.summary}>
           {date && date.length > 0 ? (

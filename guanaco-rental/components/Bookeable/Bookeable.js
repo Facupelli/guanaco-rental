@@ -5,7 +5,7 @@ import EquipmentOrder from "./EquipmentOrder/EquipmentOrder";
 import s from "./Bookeable.module.scss";
 import { useState } from "react";
 
-export default function Bookeable({ dateRange, setDatePickup }) {
+export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
   const [filters, setFilters] = useState({
     category: "all",
     order: "",
@@ -20,7 +20,7 @@ export default function Bookeable({ dateRange, setDatePickup }) {
           dateRange={dateRange}
           setDatePickup={setDatePickup}
         />
-        <EquipmentList />
+        <EquipmentList setShowCart={setShowCart} />
       </section>
     </article>
   );
