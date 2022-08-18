@@ -3,9 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import s from "./Nav.module.scss";
 
-export default function Nav({ setShowCart, cartPage }) {
+export default function Nav({ setShowCart, cartPage, home }) {
   const handleShowCart = () => {
-    setShowCart(true);
+    if (home) {
+      setShowCart(true);
+    }
   };
 
   const { user, error, isLoading } = useUser();

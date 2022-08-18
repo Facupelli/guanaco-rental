@@ -69,7 +69,7 @@ export default function Home({ equipment }) {
           dateRange={dateRange}
         />
       )}
-      <Nav setShowCart={setShowCart} />
+      <Nav setShowCart={setShowCart} home />
       <Bookeable
         dateRange={dateRange}
         setDatePickup={setDatePickup}
