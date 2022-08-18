@@ -3,6 +3,7 @@
 .container {
   @include app_width;
   margin-top: 3rem;
+  margin-bottom: 3rem;
 
   .equipment_grid {
     margin-top: 1rem;
