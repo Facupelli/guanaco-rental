@@ -5,7 +5,7 @@ import Nav from "../../components/Nav/Nav";
 import s from "../../styles/AdminEquipmentPage.module.scss";
 
 export default function AdminEquipment() {
-  const router = useRouter()
+  const router = useRouter();
 
   const equipment = useSelector((state) => state.equipment.products);
 
@@ -24,11 +24,20 @@ export default function AdminEquipment() {
             equipment.length > 0 &&
             equipment.map((gear) => (
               <div className={s.admin_gear_container}>
-                <p>{gear.name}</p>
-                <p>{gear.brand}</p>
+                <div className={s.image_wrapper}></div>
+                <div className={s.title_flex}>
+                  <p>{gear.name}</p>
+                  <p>{gear.brand}</p>
+                </div>
                 <p>{gear.model}</p>
-                <label>Available</label>
-                <input type="checkbox" />
+                <div>
+                  <label>Available</label>
+                  <input
+                    type="checkbox"
+                    deafultValue={gear.available}
+                    defaultChecked={gear.available}
+                  />
+                </div>
               </div>
             ))}
         </div>
