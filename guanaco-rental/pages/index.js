@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { setDate } from "../redux/features/pickupDate/pickupDateSlice";
 import { generateAllDates } from "../utils/dates_functions";
 import { getOrCreateUser } from "../utils/fetch_users";
@@ -14,12 +14,13 @@ import CartModal from "../components/CartModal/CartModal";
 import CalendarComponent from "../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 
 import styles from "../styles/Home.module.scss";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 export default function Home({ equipment }) {
   const userData = useSelector((state) => state.user.data);
 
   const [showCart, setShowCart] = useState(false);
-
+  
   const [datePickup, setDatePickup] = useState(false);
   const [dateRange, setDateRange] = useState(null);
 
@@ -62,14 +63,11 @@ export default function Home({ equipment }) {
           setDatePickup={setDatePickup}
         />
       )}
-      {/* {showCart && ( */}
-        <CartModal
-          setShowCart={setShowCart}
-          setDatePickup={setDatePickup}
-          dateRange={dateRange}
-          showCart={showCart}
-        />
-      {/* )} */}
+      <CartModal
+        setShowCart={setShowCart}
+        setDatePickup={setDatePickup}
+        showCart={showCart}
+      />
       <Nav setShowCart={setShowCart} home />
       <Bookeable
         dateRange={dateRange}
