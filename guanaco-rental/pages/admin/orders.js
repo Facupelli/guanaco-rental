@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
@@ -29,6 +30,10 @@ export default function AdminOrdersPage() {
 
   return (
     <div>
+      <Head>
+        <title>Admin Pedidos</title>
+        <link rel="icon" href="/logo-favicon.ico" />
+      </Head>
       <Nav />
       <main className={s.main}>
         <div className={s.title_wrapper}>

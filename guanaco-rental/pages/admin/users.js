@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ClientCard from "../../components/ClientCard/ClientCard";
@@ -53,6 +54,10 @@ export default function AdminUsersPage({ clients, newCLients }) {
 
   return (
     <div>
+      <Head>
+        <title>Admin Usuarios</title>
+        <link rel="icon" href="/logo-favicon.ico" />
+      </Head>
       <Nav />
       <main className={s.main}>
         <div className={s.title_wrapper}>

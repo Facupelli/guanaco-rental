@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import Nav from "../../components/Nav/Nav";
@@ -11,6 +12,10 @@ export default function AdminEquipment() {
 
   return (
     <div>
+      <Head>
+        <title>Admin Equipment</title>
+        <link rel="icon" href="/logo-favicon.ico" />
+      </Head>
       <Nav />
       <main className={s.main}>
         <div className={s.title_wrapper}>
