@@ -22,13 +22,7 @@
 
     button {
       margin-left: auto;
-      padding: 0 0.3rem;
-      background-color: transparent;
-      border: none;
-      color: $m-gray;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1.2em;
+      @include cross-button;
     }
   }
 

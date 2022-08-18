@@ -13,14 +13,16 @@ export default function CartPageItem({ item, dates }) {
     dispatch(removeFromCart(item.id));
   };
 
-  const availability = isAvailable(dates, item) 
+  const availability = isAvailable(dates, item);
 
   return (
     <div className={s.item_container}>
       <div>
         <div className={s.item_title}>
-          <p>{item.name}</p>
-          <p>{item.brand}</p>
+          <div className={s.name_flex}>
+            <p>{item.name}</p>
+            <p>{item.brand}</p>
+          </div>
           <p>{item.model}</p>
         </div>
         <div className={s.availability_wrapper}>

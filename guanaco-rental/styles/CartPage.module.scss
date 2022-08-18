@@ -28,15 +28,29 @@
     .btns_wrapper {
       margin-top: 1rem;
       display: flex;
+      row-gap: 0.5rem;
       flex-direction: column;
       width: 100%;
+
+      button {
+        @include m-button-orange;
+      }
     }
 
     .total_price_wrapper {
       margin-top: 1rem;
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
+
+      .p_bold {
+        font-size: 1.1em;
+        font-weight: 700;
+      }
     }
   }
+}
+
+.p_bold {
+  font-weight: 600;
 }

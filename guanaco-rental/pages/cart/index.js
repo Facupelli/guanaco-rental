@@ -130,9 +130,9 @@ export default function CartPage() {
           {date && date.length > 0 ? (
             <div className={s.date_range}>
               <p>Retiro:</p>
-              <p>{date && date.length > 0 && date[0]}</p>
+              <p className={s.p_bold}>{date && date.length > 0 && date[0]}</p>
               <p>Devolución:</p>
-              <p>{date && date.length > 0 && date[date.length - 1]}</p>
+              <p className={s.p_bold}>{date && date.length > 0 && date[date.length - 1]}</p>
             </div>
           ) : (
             <button
@@ -161,7 +161,7 @@ export default function CartPage() {
           </div>
           <div className={s.total_price_wrapper}>
             <p>Total:</p>
-            <p>{cart && cart.length > 0 && getTotalPrice()}</p>
+            <p className={s.p_bold}>{cart && cart.length > 0 && getTotalPrice()}</p>
           </div>
         </div>
       </main>

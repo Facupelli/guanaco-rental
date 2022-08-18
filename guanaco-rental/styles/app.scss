@@ -3,7 +3,7 @@ $m-gray: #696961;
 $s-gray: #d3d3ca;
 $m-white: #ececec;
 $m-orange: #d06021;
-$s-orange: #E8831A;
+$s-orange: #e8831a;
 
 @mixin app_width {
   max-width: 1100px;
@@ -35,7 +35,7 @@ $s-orange: #E8831A;
   cursor: pointer;
 
   &:hover {
-    background-color: #464F42;
+    background-color: #464f42;
     color: white;
   }
 }
@@ -61,6 +61,20 @@ $s-orange: #E8831A;
     background-color: $s-orange;
     // border: 1px solid $m-black;
     color: $m-white;
+  }
+}
+
+@mixin cross-button {
+  padding: 0 0.3rem;
+  background-color: transparent;
+  border: none;
+  color: $m-gray;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1em;
+
+  &:hover {
+    color: $s-gray;
   }
 }
 
