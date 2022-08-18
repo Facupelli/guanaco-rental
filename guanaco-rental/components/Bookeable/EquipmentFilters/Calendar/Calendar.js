@@ -1,7 +1,8 @@
 import Calendar from "react-calendar";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import s from "./Calendar.module.scss";
+import useOnClickOutside from "../../../../hooks/useOnClickOutside";
 
 export default function CalendarComponent({
   dateRange,
@@ -10,14 +11,19 @@ export default function CalendarComponent({
   daysTaken = [],
   freeTileClass,
 }) {
+  const calendarRef = useRef(null);
+
+  useOnClickOutside(
+    calendarRef,
+    useCallback(() => setDatePickup(false))
+  );
+
   const handleClickOk = () => {
     setDatePickup(false);
   };
 
-  // const days_taken = ["8/13/2022"];
-
   return (
-    <aside className={s.calendar_container}>
+    <aside className={s.calendar_container} ref={calendarRef}>
       <Calendar
         className={s.calendar}
         onChange={setDateRange}
