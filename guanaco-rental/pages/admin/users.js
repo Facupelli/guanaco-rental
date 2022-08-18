@@ -20,31 +20,31 @@ export default function AdminPage({ clients, newCLients }) {
   const [newClientUsers, setNewClientUsers] = useState(newCLients);
   const [clientUsers, setClientUsers] = useState(clients);
 
-  // const getNewClientUsers = async () => {
-  //   setLoading(true);
-  //   const users = await fetch(`http://localhost:3001/users?newClients=${true}`)
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       setNewClientUsers(res);
-  //       setLoading(false);
-  //     })
-  //     .catch((e) => console.log("fecth error:", e));
+  const getNewClientUsers = async () => {
+    setLoading(true);
+    const users = await fetch(`http://localhost:3001/users?newClients=${true}`)
+      .then((response) => response.json())
+      .then((res) => {
+        setNewClientUsers(res);
+        setLoading(false);
+      })
+      .catch((e) => console.log("fecth error:", e));
 
-  //   return users;
-  // };
+    return users;
+  };
 
-  // const getClientUsers = async () => {
-  //   setLoading(true);
-  //   const users = await fetch(`http://localhost:3001/users?clients=${true}`)
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       setClientUsers(res);
-  //       setLoading(false);
-  //     })
-  //     .catch((e) => console.log("fecth error:", e));
+  const getClientUsers = async () => {
+    setLoading(true);
+    const users = await fetch(`http://localhost:3001/users?clients=${true}`)
+      .then((response) => response.json())
+      .then((res) => {
+        setClientUsers(res);
+        setLoading(false);
+      })
+      .catch((e) => console.log("fecth error:", e));
 
-  //   return users;
-  // };
+    return users;
+  };
 
   // useEffect(() => {
   //   getNewClientUsers();
