@@ -1,9 +1,18 @@
-.counter_container{
-    display: flex;
-    align-items: center;
-    gap: .5rem;
+@import "../../../../styles/app.scss";
 
-    button{
-        padding: 0 .2rem;
-    }
+.counter_container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  button {
+    margin: .4rem 0rem;
+    padding: 0.2rem .4rem;
+    background-color: transparent;
+    border: none;
+    box-shadow: 0px 0px 1px 1px rgba(92, 92, 92, 0.267);
+    border-radius: 0.2rem;
+    cursor: pointer;
+    font-size: .7em;
+  }
 }

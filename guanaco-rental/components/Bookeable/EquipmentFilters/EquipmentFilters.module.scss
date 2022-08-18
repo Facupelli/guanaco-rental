@@ -5,22 +5,36 @@
   .flex_column {
     display: flex;
     flex-direction: column;
-  }
 
-  .select_wrapper{
-    margin-top: .5rem;
-
-    select {
-      // @include m-select;
-      width: 100%;
-      margin: 0.5rem 0rem;
+    .flex_wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
     }
   }
 
+  .select_wrapper {
+    margin-top: 1rem;
+
+    select {
+      width: 100%;
+      margin: 0.5rem 0rem;
+      background-color: $s-gray;
+      border: none;
+      border-radius: 0.2rem;
+      padding: 0.4rem;
+      cursor: pointer;
+    }
+  }
 
   button {
-    // @include m-button-orange;
-    margin: 0.5rem 0rem;
+    margin-bottom: 1rem;
     width: 100%;
+    background-color: $s-gray;
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.4rem;
+    cursor: pointer;
   }
 }

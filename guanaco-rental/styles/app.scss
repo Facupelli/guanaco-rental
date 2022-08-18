@@ -1,3 +1,10 @@
+
+$m-black: #1d1d1b;
+$m-gray: #696961;
+$s-gray: #d3d3ca;
+$m-white: #ececec;
+$m-orange: #d06021;
+
 @mixin app_width {
   max-width: 1100px;
   margin-left: auto;
@@ -35,24 +42,31 @@
 
 @mixin m-button-orange {
   padding: 0.5rem 1rem;
-  background-color: $m-orange;
+  background-color: white;
   font-weight: bold;
-  border: none;
+  border: 1px solid $m-orange;
   border-radius: 0.2rem;
-  color: white;
+  color: $m-orange;
   cursor: pointer;
 
   &:hover {
-    background-color: $m-black;
-    color: white;
+    background-color: $m-orange;
+    // border: 1px solid $m-black;
+    color: $m-white;
   }
 }
 
 @mixin m-select {
-  padding: .5rem;
-  border: 1px solid $m-orange;
+  padding: 0.5rem;
+  border: 1px solid $m-black;
   background-color: white;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid $m-orange;
+    color: $m-orange;
+  }
 
   &:focus,
   &:active {
@@ -60,6 +74,3 @@
   }
 }
 
-$m-black: #1d1d1b;
-$m-white: #ececec;
-$m-orange: #d06021;

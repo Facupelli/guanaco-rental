@@ -41,20 +41,26 @@ export default function EquipmentFilters({
     <section>
       <form onSubmit={handleSubmit(onSubmit)} className={s.form_container}>
         <div className={s.flex_column}>
-          <label>Filtrar por:</label>
+          {/* <label>Filtrar por:</label> */}
           <button type="button" onClick={() => setDatePickup(true)}>
-            fecha
+            SELECCIONAR FECHA
           </button>
-          <p>Retiro: </p>
-          <p>
-            {date && date.length > 0 && new Date(date[0]).toLocaleDateString()}
-          </p>
-          <p>Devolución:</p>
-          <p>
-            {date &&
-              date.length > 0 &&
-              new Date(date[date.length - 1]).toLocaleDateString()}
-          </p>
+          <div className={s.flex_wrapper}>
+            <p>Retiro: </p>
+            <p>
+              {date && date.length > 0
+                ? new Date(date[0]).toLocaleDateString()
+                : "---"}
+            </p>
+          </div>
+          <div className={s.flex_wrapper}>
+            <p>Devolución:</p>
+            <p>
+              {date && date.length > 0
+                ? new Date(date[date.length - 1]).toLocaleDateString()
+                : "---"}
+            </p>
+          </div>
         </div>
         <div className={s.select_wrapper}>
           <label>Categoría:</label>

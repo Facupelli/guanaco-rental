@@ -1,3 +1,5 @@
+@import "../../styles/app.scss";
+
 .cart_container {
   margin-top: 70px;
   position: fixed;
@@ -5,7 +7,7 @@
   right: 0;
   height: calc(100% - 70px);
   width: 25%;
-  padding: 1rem .8rem;
+  padding: 1rem 0.8rem;
   z-index: 10;
   box-shadow: 0px 0px 15px 2px rgba(56, 56, 56, 0.274);
 
@@ -20,13 +22,23 @@
 
     button {
       margin-left: auto;
+      padding: 0 0.3rem;
+      background-color: transparent;
+      border: none;
+      color: $m-gray;
       cursor: pointer;
-      padding: 0rem 0.2rem;
+      font-weight: bold;
+      font-size: 1.2em;
     }
   }
 
   .select_date_btn {
     width: 100%;
+    background-color: $s-gray;
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.4rem;
+    cursor: pointer;
     margin-bottom: 1.5rem;
   }
 
@@ -42,7 +54,7 @@
     height: calc(100% - 150px);
 
     &::-webkit-scrollbar {
-      width: .4em;
+      width: 0.4em;
     }
 
     &::-webkit-scrollbar-track {
@@ -65,10 +77,10 @@
     width: 90%;
     height: 50px;
     background-color: white;
-    margin: 1rem 0rem;
+    margin: 2rem 0rem;
 
-    // button{
-    //   width: 100%;
-    // }
+    button {
+      @include m-button;
+    }
   }
 }
