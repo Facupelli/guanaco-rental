@@ -1,5 +1,13 @@
-.container{
-    display: flex;
-    justify-content: flex-end;
-    gap: .5rem;
+@import "../../../styles/app.scss";
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+
+  select {
+    @include m-select;
+    padding: .2rem;
+  }
 }

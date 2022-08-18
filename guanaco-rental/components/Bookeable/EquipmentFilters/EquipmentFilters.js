@@ -47,18 +47,18 @@ export default function EquipmentFilters({
           </button>
           <div className={s.flex_wrapper}>
             <p>Retiro: </p>
-            <p>
+            <p className={date.length > 0 ? "" : s.mock}>
               {date && date.length > 0
                 ? new Date(date[0]).toLocaleDateString()
-                : "---"}
+                : "DD/MM/YYYY"}
             </p>
           </div>
           <div className={s.flex_wrapper}>
             <p>Devolución:</p>
-            <p>
+            <p className={date.length > 0 ? "" : s.mock}>
               {date && date.length > 0
                 ? new Date(date[date.length - 1]).toLocaleDateString()
-                : "---"}
+                : "DD/MM/YYYY"}
             </p>
           </div>
         </div>

@@ -78,6 +78,7 @@ $s-orange: #E8831A;
 
   &:focus,
   &:active {
-    border: 2px solid $m-orange;
+    border: 1px solid $m-orange;
+    color: $m-black;
   }
 }

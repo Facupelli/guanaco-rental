@@ -44,12 +44,12 @@ export default function EquipmentCard({ gear, setShowCart }) {
         />
       )}
       <div className={s.container}>
+        <div className={s.image_wrapper}></div>
         <div className={s.name_wrapper_flex}>
           <p>{gear.name}</p>
           <p>{gear.brand}</p>
         </div>
         <p>{gear.model}</p>
-        <p className={s.price_bold}>{formatPrice(gear.price)}</p>
         <div className={s.see_more_flex}>
           <p className={availability ? `${s.green}` : `${s.red}`}>
             {availability ? "Disponible" : "Reservado"}
@@ -58,14 +58,17 @@ export default function EquipmentCard({ gear, setShowCart }) {
             ver más
           </button>
         </div>
-        <button
-          className={s.add_to_cart_btn}
-          type="button"
-          onClick={addItemToCart}
-          disabled={!availability}
-        >
-          Agregar al carrito
-        </button>
+        <div className={s.add_to_cart_btn}>
+          <p className={s.price_bold}>{formatPrice(gear.price)}</p>
+
+          <button
+            type="button"
+            onClick={addItemToCart}
+            disabled={!availability}
+          >
+            Agregar al carrito
+          </button>
+        </div>
       </div>
     </>
   );
