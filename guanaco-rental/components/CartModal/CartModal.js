@@ -4,7 +4,7 @@ import CartItem from "./CartItem/CartItem";
 
 import s from "./CartModal.module.scss";
 
-export default function CartModal({ setShowCart, setDatePickup, dateRange }) {
+export default function CartModal({showCart, setShowCart, setDatePickup, dateRange }) {
   const cart = useSelector((state) => state.cart.items);
   const date = useSelector((state) => state.date.date_range);
 
@@ -16,8 +16,10 @@ export default function CartModal({ setShowCart, setDatePickup, dateRange }) {
     setDatePickup(true);
   };
 
+  console.log(showCart)
+
   return (
-    <aside className={s.cart_container}>
+    <aside className={`${s.cart_container} ${showCart ? s.show : s.hide}` }>
       <div className={s.cart_headline}>
         <h1>MI PEDIDO</h1>
         <button type="button" onClick={handleCloseCart}>

@@ -16,6 +16,12 @@
   .summary {
     .select_date_btn {
       width: 100%;
+      @include m-button;
+      box-shadow: 3px 3px 4px rgba(19, 19, 19, 0.322);
+
+      &:hover{
+        box-shadow: none;
+      }
     }
 
     .date_range {

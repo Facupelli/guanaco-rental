@@ -62,13 +62,14 @@ export default function Home({ equipment }) {
           setDatePickup={setDatePickup}
         />
       )}
-      {showCart && (
+      {/* {showCart && ( */}
         <CartModal
           setShowCart={setShowCart}
           setDatePickup={setDatePickup}
           dateRange={dateRange}
+          showCart={showCart}
         />
-      )}
+      {/* )} */}
       <Nav setShowCart={setShowCart} home />
       <Bookeable
         dateRange={dateRange}

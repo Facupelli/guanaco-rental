@@ -32,8 +32,8 @@
     select {
       width: 100%;
       margin: 0.5rem 0rem;
-      background-color: $s-gray;
-      border: none;
+      border: 1px solid $s-gray;
+      background-color: transparent;
       border-radius: 0.2rem;
       padding: 0.4rem;
       cursor: pointer;

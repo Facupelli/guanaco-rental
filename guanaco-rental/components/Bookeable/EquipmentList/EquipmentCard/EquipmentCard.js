@@ -66,7 +66,7 @@ export default function EquipmentCard({ gear, setShowCart }) {
             onClick={addItemToCart}
             disabled={!availability}
           >
-            Agregar al carrito
+            + carrito
           </button>
         </div>
       </div>

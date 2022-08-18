@@ -34,6 +34,8 @@ $s-orange: #e8831a;
   color: $m-white;
   cursor: pointer;
 
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
   &:hover {
     background-color: #464f42;
     color: white;
@@ -57,6 +59,8 @@ $s-orange: #e8831a;
   color: white;
   cursor: pointer;
 
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
   &:hover {
     background-color: $s-orange;
     // border: 1px solid $m-black;
@@ -73,6 +77,8 @@ $s-orange: #e8831a;
   font-weight: bold;
   font-size: 1em;
 
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
   &:hover {
     color: $s-gray;
   }
@@ -84,6 +90,8 @@ $s-orange: #e8831a;
   background-color: white;
   border-radius: 0.2rem;
   cursor: pointer;
+
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 
   &:hover {
     border: 1px solid $m-orange;
