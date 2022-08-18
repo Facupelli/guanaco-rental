@@ -7,6 +7,10 @@
   grid-template-columns: 69% 29%;
   column-gap: 2%;
 
+  >div{
+    margin-bottom: 2rem;
+  }
+
   .table_titles {
     display: grid;
     grid-template-columns: 70% 15% 15%;

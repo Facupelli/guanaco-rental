@@ -50,7 +50,8 @@
 
   .cart_list {
     overflow-y: auto;
-    height: calc(100% - 150px);
+    height: calc(100% - 170px);
+    padding-bottom: 1rem;
 
     &::-webkit-scrollbar {
       width: 0.4em;

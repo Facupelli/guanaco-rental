@@ -58,11 +58,17 @@ export default function CartPage() {
   };
 
   const handleClickBookOrder = async () => {
-    if (!userData.phone && !userData.dni.length > 0) {
+    if (!userData) {
+      console.log("registrate");
+      router.push("/api/signup");
+      return;
+    }
+    if (!userData.phone && !userData.dni?.length > 0) {
       console.log("completa tu perfil");
       router.push("/newClient");
       return;
     }
+    
     console.log("enviar pedido");
 
     const totalPrice = cart.reduce((curr, acc) => {
@@ -117,14 +123,13 @@ export default function CartPage() {
             <p>Cantidad</p>
             <p>Precio</p>
           </div>
-          {cart &&
-            cart.length > 0 ? (
-              cart.map((item) => (
-                <CartPageItem key={item.id} item={item} dates={date} />
-              ))
-            ) : (
-              <p>No tiene equipos agregados al carrito!</p>
-            )}
+          {cart && cart.length > 0 ? (
+            cart.map((item) => (
+              <CartPageItem key={item.id} item={item} dates={date} />
+            ))
+          ) : (
+            <p>No tiene equipos agregados al carrito!</p>
+          )}
         </div>
         <div className={s.summary}>
           {date && date.length > 0 ? (
@@ -132,7 +137,9 @@ export default function CartPage() {
               <p>Retiro:</p>
               <p className={s.p_bold}>{date && date.length > 0 && date[0]}</p>
               <p>Devolución:</p>
-              <p className={s.p_bold}>{date && date.length > 0 && date[date.length - 1]}</p>
+              <p className={s.p_bold}>
+                {date && date.length > 0 && date[date.length - 1]}
+              </p>
             </div>
           ) : (
             <button
@@ -161,7 +168,9 @@ export default function CartPage() {
           </div>
           <div className={s.total_price_wrapper}>
             <p>Total:</p>
-            <p className={s.p_bold}>{cart && cart.length > 0 && getTotalPrice()}</p>
+            <p className={s.p_bold}>
+              {cart && cart.length > 0 && getTotalPrice()}
+            </p>
           </div>
         </div>
       </main>
