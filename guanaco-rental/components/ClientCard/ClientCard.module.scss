@@ -1,9 +1,13 @@
 @import "../../styles/app.scss";
 
-.card_container{
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    border: 1px solid $m-black;
-    border-radius: .2rem;
+.card_container {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid $m-black;
+  border-radius: 0.2rem;
+
+  .alta {
+    margin-left: auto;
+  }
 }

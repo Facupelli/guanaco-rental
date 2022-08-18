@@ -46,18 +46,19 @@ model Category {
 }
 
 model Equipment {
-  id                      String      @default(cuid()) @id
+  id                      String              @default(cuid()) @id
   name                    String
   brand                   String
   model                   String
-  stock                   Int         @default(1)
+  stock                   Int                 @default(1)
   price                   Int
-  category                Category    @relation(fields: [categoryId], references: [id])
+  category                Category            @relation(fields: [categoryId], references: [id])
   categoryId              String
   orders                  Order[]
-  owner                   String      @default("Giaccaglia")
-  location                String      @default("San Juan")
+  owner                   String              @default("Giaccaglia")
+  location                String              @default("San Juan")
   bookings                BookOnEquipment[]
+  available               Boolean             @default(true)
 }
 
 model Order {

@@ -3,7 +3,7 @@ import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminPage.module.scss";
 
-export default function () {
+export default function AdminPage () {
   return (
     <div>
       <Nav />
@@ -16,6 +16,9 @@ export default function () {
             </li>
             <li>
               <Link href="/admin/users">Usuarios</Link>
+            </li>
+            <li>
+              <Link href="/admin/equipment">Equipos</Link>
             </li>
           </ul>
         </nav>

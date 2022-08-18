@@ -7,7 +7,7 @@ import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminUsersPage.module.scss";
 
-export default function AdminPage({ clients, newCLients }) {
+export default function AdminUsersPage({ clients, newCLients }) {
   const router = useRouter();
 
   const [showNewClients, setShowNewClients] = useState(false);
@@ -62,16 +62,16 @@ export default function AdminPage({ clients, newCLients }) {
           <h1>Usuarios</h1>
         </div>
         <ul className={s.nav}>
-          <li>
-            <div className={s.nav_li}>
-              <p
-                onClick={() => {
-                  setShowNewClients(true);
-                  setShowClients(false);
-                }}
-              >
-                Peticiones Alta de Cliente
-              </p>
+          <li
+            onClick={() => {
+              setShowNewClients(true);
+              setShowClients(false);
+            }}
+          >
+            <div
+              className={`${s.nav_li} ${showNewClients ? s.nav_li_active : ""}`}
+            >
+              <p>Peticiones Alta de Cliente</p>
               <p>{newClientUsers.length}</p>
             </div>
           </li>
@@ -81,7 +81,9 @@ export default function AdminPage({ clients, newCLients }) {
               setShowNewClients(false);
             }}
           >
-            <div className={s.nav_li}>
+            <div
+              className={`${s.nav_li} ${showClients ? s.nav_li_active : ""}`}
+            >
               <p>Lista de Clientes</p>
             </div>
           </li>

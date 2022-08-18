@@ -5,7 +5,7 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 
 import s from "../../styles/AdminOrdersPage.module.scss";
 
-export default function AdminPage() {
+export default function AdminOrdersPage() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);

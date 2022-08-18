@@ -3,4 +3,26 @@
 .main {
   margin-top: 2rem;
   @include app_width;
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  nav {
+    font-size: 1.2rem;
+
+    li {
+      margin: 0.5rem 0rem;
+      text-decoration: underline;
+      color: $m-black;
+
+      &:hover {
+        color: $m-orange;
+      }
+
+      &:visited, &:active, &:focus, &:link {
+        color: $m-black;
+      }
+    }
+  }
 }
