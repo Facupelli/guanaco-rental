@@ -20,13 +20,15 @@ export default function CartItem({ item }) {
         </button>
       </div>
       <p>{item.model}</p>
-      <ItemCounter
-        key={item.id}
-        itemId={item.id}
-        stock={item.stock}
-        quantity={item.quantity}
-      />
-      <p>{formatPrice(item.price)}</p>
+      <div className={s.flex_wrapper}>
+        <ItemCounter
+          key={item.id}
+          itemId={item.id}
+          stock={item.stock}
+          quantity={item.quantity}
+        />
+        <p>{formatPrice(item.price)}</p>
+      </div>
     </div>
   );
 }

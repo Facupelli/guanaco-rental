@@ -34,11 +34,7 @@
 
   .select_date_btn {
     width: 100%;
-    background-color: $s-gray;
-    border: none;
-    border-radius: 0.2rem;
-    padding: 0.4rem;
-    cursor: pointer;
+    @include m-button-gray;
     margin-bottom: 1.5rem;
   }
 
@@ -80,7 +76,7 @@
     margin: 2rem 0rem;
 
     button {
-      @include m-button;
+      @include m-button-orange;
     }
   }
 }

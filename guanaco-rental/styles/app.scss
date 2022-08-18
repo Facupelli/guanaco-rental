@@ -1,4 +1,3 @@
-
 $m-black: #1d1d1b;
 $m-gray: #696961;
 $s-gray: #d3d3ca;
@@ -40,13 +39,21 @@ $m-orange: #d06021;
   }
 }
 
+@mixin m-button-gray {
+  background-color: $s-gray;
+  border: none;
+  border-radius: 0.2rem;
+  padding: 0.4rem;
+  cursor: pointer;
+}
+
 @mixin m-button-orange {
   padding: 0.5rem 1rem;
-  background-color: white;
+  background-color: $m-orange;
   font-weight: bold;
-  border: 1px solid $m-orange;
+  border: none;
   border-radius: 0.2rem;
-  color: $m-orange;
+  color: white;
   cursor: pointer;
 
   &:hover {
@@ -73,4 +80,3 @@ $m-orange: #d06021;
     border: 2px solid $m-orange;
   }
 }
-

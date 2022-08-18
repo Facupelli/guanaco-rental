@@ -31,10 +31,6 @@
   button {
     margin-bottom: 1rem;
     width: 100%;
-    background-color: $s-gray;
-    border: none;
-    border-radius: 0.2rem;
-    padding: 0.4rem;
-    cursor: pointer;
+    @include m-button-gray;
   }
 }
