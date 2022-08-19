@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   bgImage: {
-    width: "80%",
+    width: "90%",
     marginLeft: "auto",
     marginRight: "auto",
   },
