@@ -1,3 +1,5 @@
+@import "../../styles/app.scss";
+
 .card_container {
   box-shadow: 0px 0px 5px 1px rgba(71, 71, 71, 0.192);
   border-radius: 0.2rem;
@@ -8,6 +10,11 @@
     display: grid;
     grid-template-columns: 5% 12.5% 12.5% 10% 10% 20% 10% 10% 10%;
     justify-items: flex-start;
+
+    button{
+      @include m-button-gray;
+      font-size: .7em;
+    }
   }
 
   .equipments_container {

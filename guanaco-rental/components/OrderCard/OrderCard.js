@@ -63,9 +63,14 @@ export default function OrderCard({ order, i }) {
         }
         fileName={`Remito ${order.user.fullName}`}
       >
-        {({ blob, url, loading, error }) =>
-          loading ? "Loading document..." : `Remito ${order.user.fullName}`
-        }
+        {({ blob, url, loading, error }) => {
+          if (error) {
+            console.log("PDFlink", error);
+          }
+          return loading
+            ? "Loading document..."
+            : `Remito ${order.user.fullName}`;
+        }}
       </PDFDownloadLink>
     </div>
   );
@@ -76,12 +81,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   imageWrapper: {
-    width: 100,
-    height: 100,
+    width: 125,
+    height: 125,
     position: "absolute",
     zIndex: 5,
     left: "50%",
-    top: -40,
+    top: -50,
     transform: "translate(-50%, 0%)",
     backgroundColor: "white",
     padding: "0px 5px",
@@ -127,6 +132,21 @@ const styles = StyleSheet.create({
     padding: 20,
     height: "100%",
     fontWeight: "bold",
+    position: "relative",
+  },
+  bgImageWrapper: {
+    width: "100%",
+    height: 450,
+    position: "absolute",
+    zIndex: 0,
+    top: 50,
+    left: 20,
+    opacity: 0.2,
+  },
+  bgImage: {
+    width: "80%",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   bottomSigns: {
     display: "flex",
@@ -173,7 +193,7 @@ const RemitoPDF = ({ pickupDay, returnDay, order, index }) => (
       </View>
       <View style={styles.pageMargin}>
         <View style={styles.imageWrapper}>
-          <Image src="/remito-logo.png" />
+          <Image src="/remito-logo-b.png" />
         </View>
         <View style={styles.userSection}>
           <View style={styles.flex}>
@@ -197,6 +217,9 @@ const RemitoPDF = ({ pickupDay, returnDay, order, index }) => (
           </View>
         </View>
         <View style={styles.section}>
+          <View style={styles.bgImageWrapper}>
+            <Image src="/guanaco-perfil.png" style={styles.bgImage} />
+          </View>
           <Text style={{ marginBottom: 5 }}>LISTA DE EQUIPOS RETIRADOS</Text>
           <View style={styles.equipmentWrapper}>
             {order.equipments.length > 0 &&
