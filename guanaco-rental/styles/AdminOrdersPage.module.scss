@@ -2,7 +2,7 @@
 
 .main {
   @include app_width;
-  margin-top: 2rem;
+  margin-top: 3rem;
 
   .title_wrapper {
     display: flex;
@@ -14,7 +14,7 @@
     margin-top: 2rem;
     margin-bottom: 1rem;
     display: grid;
-    grid-template-columns: 5% 12.5% 12.5% 10% 10% 20% 10% 10% 10%;
+    grid-template-columns: 3% 12.5% 12.5% 10% 10% 20% 13% 10% 10%;
     justify-items: flex-start;
     padding: 0rem 0.5rem;
   }

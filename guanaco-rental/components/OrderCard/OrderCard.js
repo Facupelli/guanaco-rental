@@ -16,6 +16,19 @@ export default function OrderCard({ order, i }) {
     order.booking.dates[order.booking.dates.length - 1]
   ).toLocaleDateString();
 
+  const getOrderStatus = () => {
+    if (new Date().getTime() < new Date(order.booking.dates[0]).getTime()) {
+      return "PENDIENTE";
+    }
+    if (
+      new Date().getTime() >
+      new Date(order.booking.dates[order.booking.dates.length - 1]).getTime()
+    ) {
+      return "ALQUILADO";
+    }
+    return "ALQUILANDO";
+  };
+
   return (
     <div className={s.card_container}>
       <div className={s.info_container}>
@@ -28,11 +41,7 @@ export default function OrderCard({ order, i }) {
           <p>retiro: {pickupDay}</p>
           <p>devolución: {returnDay}</p>
         </div>
-        <p>
-          {new Date().getTime() < new Date(order.booking.dates[0]).getTime()
-            ? "PENDIENTE"
-            : "ALQUILANDO"}
-        </p>
+        <p>{getOrderStatus()}</p>
         <button onClick={() => setShowEquipment(!showEquipment)}>
           Ver Equipos
         </button>
