@@ -16,16 +16,20 @@ export default function AdminOrdersPage() {
     setLoading(true);
     const orders = await fetch("http://localhost:3001/order")
       .then((response) => response.json())
-      .catch((e) => console.log("fecth error:", e));
+      .then((res) => {
+        setOrders(res);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log("getAllOrders error:", e);
+        setLoading(false);
+      });
 
     return orders;
   };
 
   useEffect(() => {
-    getAllOrders().then((res) => {
-      setOrders(res);
-      setLoading(false);
-    });
+    getAllOrders();
   }, []);
 
   return (

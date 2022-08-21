@@ -45,36 +45,45 @@ async function postUser(req, res, next) {
 async function putUser(req, res, next) {
   const data = req.body;
 
-  const updatedUser = await prisma.user.update({
-    where: { id: data.userId },
-    data: {
-      customerAproved: data.customerAproved,
-      customerAprovedAt: new Date(),
-    },
-  });
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: data.userId },
+      data: {
+        customerAproved: data.customerAproved,
+        customerAprovedAt: new Date(),
+      },
+    });
 
-  res.json({ message: "success", updatedUser });
+    res.json({ message: "success", updatedUser });
+  } catch (e) {
+    console.log("putUser error:", e);
+    return;
+  }
 }
 
 async function getUsers(req, res, next) {
   const { newClients, clients } = req.query;
 
-  let users;
+  try {
+    let users;
 
-  if (newClients) {
-    users = await prisma.user.findMany({
-      where: { petitionSent: true, customerAproved: false },
-    });
+    if (newClients) {
+      users = await prisma.user.findMany({
+        where: { petitionSent: true, customerAproved: false },
+      });
+    }
+
+    if (clients) {
+      users = await prisma.user.findMany({
+        where: { customerAproved: true },
+        include: { orders: true },
+      });
+    }
+
+    res.json(users);
+  } catch (e) {
+    console.log("getUsers error:", e);
   }
-
-  if (clients) {
-    users = await prisma.user.findMany({
-      where: { customerAproved: true },
-      include: { orders: true },
-    });
-  }
-
-  res.json(users);
 }
 
 module.exports = { postUser, getUsers, putUser };

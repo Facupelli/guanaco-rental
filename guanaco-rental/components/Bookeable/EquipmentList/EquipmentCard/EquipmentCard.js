@@ -20,8 +20,6 @@ export default function EquipmentCard({ gear, setShowCart }) {
 
   const availability = isAvailable(dates, gear);
 
-  // console.log("PRUEBA", availableIs());
-
   const addItemToCart = () => {
     if (cart.length === 0) {
       setShowCart(true);

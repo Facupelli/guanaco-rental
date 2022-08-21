@@ -16,11 +16,11 @@ import CalendarComponent from "../components/Bookeable/EquipmentFilters/Calendar
 import styles from "../styles/Home.module.scss";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 
-export default function Home({ equipment }) {
+export default function Home() {
   const userData = useSelector((state) => state.user.data);
 
   const [showCart, setShowCart] = useState(false);
-  
+
   const [datePickup, setDatePickup] = useState(false);
   const [dateRange, setDateRange] = useState(null);
 
@@ -51,7 +51,7 @@ export default function Home({ equipment }) {
         <title>Guanaco Rental</title>
         <meta
           name="description"
-          content="Guanaco rental website, book filming equipment online. San Juan, Argentina."
+          content="Guanaco rental web, alquiler de equipos para cine online. San Juan, Argentina."
         />
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
@@ -80,14 +80,14 @@ export default function Home({ equipment }) {
   );
 }
 
-export const getServerSideProps = async () => {
-  const equipment = await fetch("http://localhost:3001/equipment").then(
-    (response) => response.json()
-  );
+// export const getServerSideProps = async () => {
+//   const equipment = await fetch("http://localhost:3001/equipment").then(
+//     (response) => response.json()
+//   );
 
-  return {
-    props: {
-      equipment,
-    },
-  };
-};
+//   return {
+//     props: {
+//       equipment,
+//     },
+//   };
+// };
