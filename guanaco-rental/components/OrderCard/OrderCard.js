@@ -1,20 +1,15 @@
 import { useState } from "react";
 import { formatPrice } from "../../utils/price_formater";
 import Gear from "./Gear/Gear";
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  Image,
-} from "@react-pdf/renderer";
+import { usePDF } from "@react-pdf/renderer";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import s from "./OrderCard.module.scss";
+import { RemitoPDF } from "./RemitoPDF";
 
 export default function OrderCard({ order, i }) {
   const [showEquipment, setShowEquipment] = useState(false);
+  const [generatePDF, setGeneratePDF] = useState(false);
 
   const pickupDay = new Date(order.booking.dates[0]).toLocaleDateString();
   const returnDay = new Date(
@@ -52,202 +47,63 @@ export default function OrderCard({ order, i }) {
             ))}
         </div>
       )}
-      <PDFDownloadLink
-        document={
-          <RemitoPDF
-            pickupDay={pickupDay}
-            returnDay={returnDay}
-            order={order}
-            index={i}
-          />
-        }
-        fileName={`Remito ${order.user.fullName}`}
-      >
-        {({ blob, url, loading, error }) => {
-          if (error) {
-            console.log("PDFlink", error);
+      {!generatePDF && (
+        <button type="button" onClick={() => setGeneratePDF(true)}>
+          Generar Remito
+        </button>
+      )}
+      {generatePDF && (
+        <PDF
+          pickupDay={pickupDay}
+          returnDay={returnDay}
+          order={order}
+          index={i}
+        />
+      )}
+      {/* {
+        generatePDF &&
+        <PDFDownloadLink
+          document={
+            <RemitoPDF
+              pickupDay={pickupDay}
+              returnDay={returnDay}
+              order={order}
+              index={i}
+            />
           }
-          return loading
-            ? "Loading document..."
-            : `Remito ${order.user.fullName}`;
-        }}
-      </PDFDownloadLink>
+          fileName={`Remito ${order.user.fullName} - ${i}`}
+        >
+          {({ blob, url, loading, error }) => {
+            if (error) {
+              console.log("PDFlink", error);
+            }
+            return loading
+              ? "Loading document..."
+              : `Remito ${order.user.fullName} - ${i}`;
+          }}
+        </PDFDownloadLink>
+      } */}
     </div>
   );
 }
 
-const styles = StyleSheet.create({
-  page: {
-    fontSize: 12,
-  },
-  imageWrapper: {
-    width: 125,
-    height: 125,
-    position: "absolute",
-    zIndex: 5,
-    left: "50%",
-    top: -50,
-    transform: "translate(-50%, 0%)",
-    backgroundColor: "white",
-    padding: "0px 5px",
-  },
-  pageMargin: {
-    position: "relative",
-    zIndex: 1,
-    marginLeft: 25,
-    marginRight: 25,
-    border: "2px solid black",
-    borderRadius: 10,
-  },
-  userSection: {
-    borderBottom: "2px solid black",
-    padding: 20,
-    marginTop: 25,
-  },
-  flex: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    padding: "5px 0",
-    margin: "5px 0",
-  },
-  flexItem: {
-    flexBasis: "50%",
-  },
-  equipmentWrapper: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    marginTop: 10,
-  },
-  equipment: {
-    marginTop: 5,
-    marginBottom: 5,
-    fontSize: 10,
-    flexBasis: "50%",
-  },
-  section: {
-    padding: 20,
-    height: "100%",
-    fontWeight: "bold",
-    position: "relative",
-  },
-  bgImageWrapper: {
-    width: "100%",
-    height: 450,
-    position: "absolute",
-    zIndex: 0,
-    top: 50,
-    left: 20,
-    opacity: 0.2,
-  },
-  bgImage: {
-    width: "90%",
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  bottomSigns: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    fontSize: 8,
-    padding: "15px 0px",
-    marginLeft: 25,
-    marginRight: 25,
-  },
-  signs: {
-    borderTop: "1px solid black",
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingTop: 10,
-    paddingBottom: 20,
-  },
-  number: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginTop: 40,
-    marginRight: 25,
-    fontSize: 10,
-    paddingBottom: 10,
-  },
-  bottomPage: {
-    fontSize: 6,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom: 20,
-    marginLeft: 25,
-    marginRight: 25,
-    paddingTop: 6,
-  },
-});
+const PDF = ({ pickupDay, returnDay, order, i }) => {
+  const [instance, updateInstance] = usePDF({
+    document: (
+      <RemitoPDF
+        pickupDay={pickupDay}
+        returnDay={returnDay}
+        order={order}
+        index={i}
+      />
+    ),
+  });
 
-const RemitoPDF = ({ pickupDay, returnDay, order, index }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.number}>
-        <Text>REMITO N° {index + 1}</Text>
-      </View>
-      <View style={styles.pageMargin}>
-        <View style={styles.imageWrapper}>
-          <Image src="/remito-logo-b.png" />
-        </View>
-        <View style={styles.userSection}>
-          <View style={styles.flex}>
-            <Text>FECHA DE RETIRO: {pickupDay}</Text>
-          </View>
-          <View style={styles.flex}>
-            <Text>FECHA DE DEVOLUCIÓN: {returnDay}</Text>
-          </View>
-          <View style={styles.flex}>
-            <Text style={styles.flexItem}>CANTIDAD DE JORNADAS: ?</Text>
-            <Text style={styles.flexItem}>
-              PRECIO ACORDADO: {formatPrice(order.totalPrice)}
-            </Text>
-          </View>
-          <View style={styles.flex}>
-            <Text style={styles.flexItem}>RETIRA: {order.user.fullName}</Text>
-            <Text style={styles.flexItem}>DNI: {order.user.dniNumber}</Text>
-          </View>
-          <View style={styles.flex}>
-            <Text>IMPORTANTE VER CONDICIONES ANEXO I</Text>
-          </View>
-        </View>
-        <View style={styles.section}>
-          <View style={styles.bgImageWrapper}>
-            <Image src="/guanaco-perfil.png" style={styles.bgImage} />
-          </View>
-          <Text style={{ marginBottom: 5 }}>LISTA DE EQUIPOS RETIRADOS</Text>
-          <View style={styles.equipmentWrapper}>
-            {order.equipments.length > 0 &&
-              order.equipments.map((gear) => (
-                <View style={styles.equipment} key={gear.id}>
-                  <Text>
-                    x{" "}
-                    {
-                      gear.bookings.filter(
-                        (book) => book.bookId === order.booking.id
-                      )[0].quantity
-                    }{" "}
-                    {gear.name} {gear.brand} {gear.model}
-                  </Text>
-                </View>
-              ))}
-          </View>
-        </View>
-        <View style={styles.bottomSigns}>
-          <Text style={styles.signs}>FIRMA DEL RESPONSABLE DE PRODUCCIÓN</Text>
-          <Text style={styles.signs}>FIRMA DEL RESPONSABLE DEl RENTAL</Text>
-        </View>
-      </View>
-      <View style={styles.bottomPage}>
-        <Text>2022. GUANACO RENTAL. SAN JUAN, ARGENTINA.</Text>
-        <Text>Telefonos de contacto: 2644162059 - 2644627267</Text>
-        <Text>www.guanacorental.com hola@guanacorental.com</Text>
-      </View>
-    </Page>
-  </Document>
-);
+  return instance.loading ? (
+    <p>Cargando...</p>
+  ) : (
+    <a href={instance.url} download={`Remito ${order.user.fullName} - ${i}`}>
+      Descargar remito
+    </a>
+  );
+};
