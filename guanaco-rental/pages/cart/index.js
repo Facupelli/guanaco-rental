@@ -92,7 +92,8 @@ export default function CartPage() {
     }).then((response) => response.json());
 
     if (newOrder.message === "success") {
-      router.push("/");
+      console.log(newOrder)
+      router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
       dispatch(resetDate());
       return;
     }
