@@ -14,7 +14,7 @@ export default function CompleteProfileModal({ user }) {
   const [dniFront, setDniFront] = useState("");
   const [dniBack, setDniBack] = useState("");
 
-  console.log(dniBack)
+  console.log(dniBack);
 
   const openWidget = (setImagePublicId) => {
     // create the widget
@@ -68,27 +68,10 @@ export default function CompleteProfileModal({ user }) {
       <h1>FORMULARIO ALTA DE CLIENTE </h1>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <fieldset className={s.personal_info_wrapper}>
-          <div className={s.labels_wrapper}>
-            <legend>INFO</legend>
-            <label htmlFor="fullName">Nombre Completo:</label>
-            <label htmlFor="phone">Número de celular:</label>
-            <label htmlFor="birthDate">Fecha de nacimiento:</label>
-            <label htmlFor="address">Domicilio Real:</label>
-            <label htmlFor="addressLocation">Localidad:</label>
-            <label htmlFor="addressProvince">Provincia:</label>
-            <label htmlFor="dniNumber">DNI:</label>
-            <label htmlFor="dniFront">Foto de tu DNI (anverso):</label>
-            <label htmlFor="dniBack">Foto de tu DNI (dorso):</label>
-            <label htmlFor="occupation">Ocupación:</label>
-            <label htmlFor="student">Estudiante:</label>
-            <label htmlFor="employee">Empleado R.D:</label>
-            <label htmlFor="company">Empresa:</label>
-            <label htmlFor="cuit">CUIT:</label>
-            <label htmlFor="bussinessName">Razón Social:</label>
-          </div>
+          <legend>INFORMACION CLIENTE</legend>
 
-          <div className={s.inputs_wrapper}>
-            <legend>-</legend>
+          <div className={s.inputs}>
+            <label htmlFor="fullName">Nombre Completo:</label>
             <input
               required
               type="text"
@@ -96,56 +79,114 @@ export default function CompleteProfileModal({ user }) {
               autoFocus
               {...register("fullName")}
             />
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="phone">Número de celular:</label>
             <input required type="tel" id="phone" {...register("phone")} />
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="birthDate">Fecha de nacimiento:</label>
             <input
               required
               type="date"
               id="birthDate"
               {...register("birthDate")}
             />
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="address">Domicilio Real:</label>
             <input required type="text" id="address" {...register("address")} />
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="addressLocation">Localidad:</label>
             <input
               required
               type="text"
               id="addressLocation"
               {...register("addressLocation")}
             />
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="addressProvince">Provincia:</label>
             <input
               required
               type="text"
               id="addressProvince"
               {...register("addressProvince")}
             />
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="dniNumber">DNI:</label>
             <input
               required
               type="text"
               id="dniNumber"
               {...register("dniNumber")}
             />
-            <button
-              type="button"
-              id="dniFront"
-              onClick={() => openWidget(setDniFront)}
-            >
-              subir archivo
-            </button>
-            <button
-              type="button"
-              id="dniBack"
-              onClick={() => openWidget(setDniBack)}
-            >
-              subir archivo
-            </button>
+          </div>
+
+          <div className={s.dni_files_wrapper}>
+            <div>
+              <label htmlFor="dniFront">Foto de tu DNI (anverso):</label>
+              <button
+                type="button"
+                id="dniFront"
+                onClick={() => openWidget(setDniFront)}
+              >
+                subir archivo
+              </button>
+            </div>
+
+            <div>
+              <label htmlFor="dniBack">Foto de tu DNI (dorso):</label>
+              <button
+                type="button"
+                id="dniBack"
+                onClick={() => openWidget(setDniBack)}
+              >
+                subir archivo
+              </button>
+            </div>
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="occupation">Ocupación:</label>
             <input
               required
               type="text"
               id="occupation"
               {...register("occupation")}
             />
+          </div>
+
+          <div className={s.flex}>
+            <label htmlFor="student">Estudiante:</label>
             <input type="checkbox" id="student" {...register("student")} />
+          </div>
+
+          <div className={s.flex}>
+            <label htmlFor="employee">Empleado R.D:</label>
             <input type="checkbox" id="employee" {...register("employee")} />
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="company">Empresa:</label>
             <input type="text" id="company" {...register("company")} />
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="cuit">CUIT:</label>
             <input required type="text" id="cuit" {...register("cuit")} />
+          </div>
+
+          <div className={s.inputs}>
+            <label htmlFor="bussinessName">Razón Social:</label>
             <input
               type="text"
               id="bussinessName"

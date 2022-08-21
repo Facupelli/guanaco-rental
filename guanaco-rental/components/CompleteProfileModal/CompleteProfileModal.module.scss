@@ -34,21 +34,44 @@
     }
 
     .personal_info_wrapper {
-      display: grid;
-      grid-template-columns: 20% 80%;
-      column-gap: 5%;
+      display: flex;
+      flex-direction: column;
+      row-gap: 1.5rem;
+      width: 50%;
 
-      .labels_wrapper,
-      .inputs_wrapper {
+      .inputs {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-around;
-        row-gap: 0.5rem;
+        row-gap: .5rem;
       }
 
-      input[type="text"] {
+      // input[type="text"] {
+      //   width: 50%;
+      // }
+
+      .dni_files_wrapper {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        // width: 50%;
+
+        > div {
+          display: flex;
+          flex-direction: column;
+          row-gap: 0.5rem;
+          // flex-basis: 50%;
+        }
+      }
+
+      .flex {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
         width: 50%;
+
+        > label {
+          flex-basis: 50%;
+        }
       }
     }
 
