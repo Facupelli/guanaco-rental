@@ -1,27 +1,30 @@
 @import "../styles/app.scss";
 
 .main {
-  margin-top: 2rem;
+  margin-top: 3rem;
   @include app_width;
 
   h1 {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   nav {
     font-size: 1.2rem;
 
-    li {
-      margin: 0.5rem 0rem;
-      text-decoration: underline;
-      color: $m-black;
+    ul {
+      li {
+        margin-bottom: 0.5rem;
+        list-style: circle;
 
-      &:hover {
-        color: $m-orange;
-      }
+        .link {
+          margin: 0.5rem 0rem;
+          text-decoration: underline;
+          color: $m-black;
 
-      &:visited, &:active, &:focus, &:link {
-        color: $m-black;
+          &:hover {
+            color: $m-orange;
+          }
+        }
       }
     }
   }

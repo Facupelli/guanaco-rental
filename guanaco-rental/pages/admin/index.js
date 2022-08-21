@@ -17,13 +17,19 @@ export default function AdminPage() {
         <nav>
           <ul>
             <li>
-              <Link href="/admin/orders">Pedidos</Link>
+              <Link href="/admin/orders">
+                <a className={s.link}>Pedidos</a>
+              </Link>
             </li>
             <li>
-              <Link href="/admin/users">Usuarios</Link>
+              <Link href="/admin/users">
+                <a className={s.link}>Usuarios</a>
+              </Link>
             </li>
             <li>
-              <Link href="/admin/equipment">Equipos</Link>
+              <Link href="/admin/equipment">
+                <a className={s.link}>Equipos</a>
+              </Link>
             </li>
           </ul>
         </nav>
