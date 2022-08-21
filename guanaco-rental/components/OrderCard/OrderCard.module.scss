@@ -23,13 +23,13 @@
     display: flex;
     justify-content: flex-start;
     font-size: 0.9em;
+    margin-left: 3%;
     
     > button {
       @include m-button-gray;
       width: 10%;
       font-size: 0.8em;
       padding: .2rem .4rem;
-      margin-left: 3%;
     }
   }
 

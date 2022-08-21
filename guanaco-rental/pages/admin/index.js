@@ -1,10 +1,21 @@
+import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminPage.module.scss";
 
-export default function AdminPage() {
+export default function AdminPage({ access }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!access) {
+      router.push("/");
+    }
+  }, []);
+
   return (
     <div>
       <Head>
@@ -37,3 +48,22 @@ export default function AdminPage() {
     </div>
   );
 }
+
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps(context) {
+    // Getting user data from Auth0
+    const user = getSession(context.req).user;
+
+    let access;
+
+    if (user.email === "facundopellicer4@gmail.com") {
+      access = true;
+    } else {
+      access = false;
+    }
+
+    return {
+      props: { access },
+    };
+  },
+});
