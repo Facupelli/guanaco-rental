@@ -50,7 +50,7 @@ export default function AdminOrdersPage() {
           <p>FECHA</p>
           <p>ALQUILER</p>
           <p>ESTADO</p>
-          <p>EQUIPO</p>
+          <p>EQUIPOS</p>
           <p>PRECIO TOTAL</p>
         </div>
         <div>

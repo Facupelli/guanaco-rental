@@ -12,17 +12,37 @@
     justify-items: flex-start;
     align-items: flex-start;
 
-    button{
+    button {
+      @include m-button-orange;
+      padding: .4rem;
+      font-size: 0.7em;
+    }
+  }
+
+  .remito_wrapper {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 0.9em;
+    
+    > button {
       @include m-button-gray;
-      font-size: .7em;
+      width: 10%;
+      font-size: 0.8em;
+      padding: .2rem .4rem;
+      margin-left: 3%;
     }
   }
 
   .equipments_container {
-    padding: 1rem;
+    margin-left: 3%;
+    padding: 1rem 0rem 1.5rem 0rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     width: 60%;
+
+    >p{
+      font-weight: 600;
+    }
   }
 }

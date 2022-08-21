@@ -56,19 +56,21 @@ export default function OrderCard({ order, i }) {
             ))}
         </div>
       )}
-      {!generatePDF && (
-        <button type="button" onClick={() => setGeneratePDF(true)}>
-          Generar Remito
-        </button>
-      )}
-      {generatePDF && (
-        <PDF
-          pickupDay={pickupDay}
-          returnDay={returnDay}
-          order={order}
-          index={i}
-        />
-      )}
+      <div className={s.remito_wrapper}>
+        {!generatePDF && (
+          <button type="button" onClick={() => setGeneratePDF(true)}>
+            Generar Remito
+          </button>
+        )}
+        {generatePDF && (
+          <PDF
+            pickupDay={pickupDay}
+            returnDay={returnDay}
+            order={order}
+            index={i}
+          />
+        )}
+      </div>
       {/* {
         generatePDF &&
         <PDFDownloadLink
