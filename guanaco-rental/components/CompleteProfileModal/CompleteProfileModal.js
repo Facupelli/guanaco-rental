@@ -61,6 +61,10 @@ export default function CompleteProfileModal({ user }) {
         Accept: "application/json",
       },
     }).then((response) => console.log(response.json()));
+
+    if (newCustomerPetition.message === "success") {
+      console.log("success");
+    }
   };
 
   return (

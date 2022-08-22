@@ -35,7 +35,7 @@ async function postUser(req, res, next) {
       },
     });
 
-    res.json(upsertUser);
+    res.json({ message: "success", user: upsertUser });
   } catch (e) {
     console.log("postUser error:", e);
     return;

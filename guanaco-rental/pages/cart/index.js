@@ -63,7 +63,7 @@ export default function CartPage() {
       router.push("/api/signup");
       return;
     }
-    if (!userData.phone && !userData.dni?.length > 0) {
+    if (!userData.phone && !userData.dniNumber) {
       console.log("completa tu perfil");
       router.push("/newClient");
       return;
