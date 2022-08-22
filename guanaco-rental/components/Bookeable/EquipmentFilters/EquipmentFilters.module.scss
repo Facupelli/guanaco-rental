@@ -5,8 +5,7 @@
   height: 80vh;
   padding: 1rem;
   box-shadow: 0px 0px 2px 1px rgba(70, 70, 70, 0.116);
-  border-radius: .2rem;
-
+  border-radius: 0.2rem;
 
   .flex_column {
     display: flex;
@@ -17,11 +16,11 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem;
-      margin-bottom: .2rem;
+      margin-bottom: 0.2rem;
 
-      .mock{
+      .mock {
         color: $m-gray;
-        font-size: .7em;
+        font-size: 0.7em;
       }
     }
   }
@@ -32,17 +31,27 @@
     select {
       width: 100%;
       margin: 0.5rem 0rem;
-      border: 1px solid $s-gray;
+      border: 1px solid $m-gray;
       background-color: transparent;
       border-radius: 0.2rem;
       padding: 0.4rem;
       cursor: pointer;
+
+      &:hover {
+        border: 1px solid $m-black;
+      }
+
+      &:active,
+      &:focus {
+        outline: 1px solid $m-black;
+        border: 1px solid $m-black;
+      }
     }
   }
 
   button {
     margin-bottom: 1rem;
     width: 100%;
-    @include m-button-orange;
+    @include m-button-gray;
   }
 }
