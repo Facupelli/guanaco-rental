@@ -1,23 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchEquipment,
-  filterByDateRange,
-  setEquipment,
-} from "../../../redux/features/equipment/equipmentSlice";
-import { setDate } from "../../../redux/features/pickupDate/pickupDateSlice";
-import { calendar_dictionary } from "../../../utils/calendar_dictionary";
-import CalendarComponent from "./Calendar/Calendar";
+import { fetchEquipment } from "../../../redux/features/equipment/equipmentSlice";
 
 import s from "./EquipmentFilters.module.scss";
 
-export default function EquipmentFilters({
-  setFilters,
-  dateRange,
-  setDatePickup,
-  datePickup,
-}) {
+export default function EquipmentFilters({ setFilters, setDatePickup }) {
   const dispatch = useDispatch();
   const date = useSelector((state) => state.date.date_range);
   const {

@@ -1,0 +1,41 @@
+@import "../../styles/app.scss";
+
+.admin_gear_container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0rem;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  box-shadow: 0px 0px 1px 1px rgba(29, 29, 29, 0.274);
+  width: 70%;
+
+  .image_wrapper {
+    background-color: $s-gray;
+    height: 50px;
+    width: 50px;
+  }
+
+  .bold {
+    font-weight: 600;
+  }
+
+  .flex_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .flex_basis{
+    flex-basis: 25%
+  }
+
+  .flex_basis_40{
+    flex-basis: 50%
+  }
+
+  select{
+    @include m-select;
+    padding: .2rem .4rem;
+  }
+}

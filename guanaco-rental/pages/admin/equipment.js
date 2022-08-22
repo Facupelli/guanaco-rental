@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
 import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminEquipmentPage.module.scss";
@@ -28,22 +29,7 @@ export default function AdminEquipment() {
           {equipment &&
             equipment.length > 0 &&
             equipment.map((gear) => (
-              <div className={s.admin_gear_container}>
-                <div className={s.image_wrapper}></div>
-                <div className={s.title_flex}>
-                  <p>{gear.name}</p>
-                  <p>{gear.brand}</p>
-                </div>
-                <p>{gear.model}</p>
-                <div>
-                  <label>Available</label>
-                  <input
-                    type="checkbox"
-                    deafultValue={gear.available}
-                    defaultChecked={gear.available}
-                  />
-                </div>
-              </div>
+              <GearAdminCard key={gear.id} gear={gear} />
             ))}
         </div>
       </main>
