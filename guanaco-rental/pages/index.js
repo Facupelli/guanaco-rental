@@ -56,26 +56,26 @@ export default function Home() {
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
 
-      {datePickup && (
-        <CalendarComponent
-          dateRange={dateRange}
-          setDateRange={setDateRange}
+      <main className={styles.main}>
+        {datePickup && (
+          <CalendarComponent
+            dateRange={dateRange}
+            setDateRange={setDateRange}
+            setDatePickup={setDatePickup}
+          />
+        )}
+        <CartModal
+          setShowCart={setShowCart}
           setDatePickup={setDatePickup}
+          showCart={showCart}
         />
-      )}
-      <CartModal
-        setShowCart={setShowCart}
-        setDatePickup={setDatePickup}
-        showCart={showCart}
-      />
-      <Nav setShowCart={setShowCart} home />
-      <Bookeable
-        dateRange={dateRange}
-        setDatePickup={setDatePickup}
-        setShowCart={setShowCart}
-      />
-
-      <main className={styles.main}></main>
+        <Nav setShowCart={setShowCart} home />
+        <Bookeable
+          dateRange={dateRange}
+          setDatePickup={setDatePickup}
+          setShowCart={setShowCart}
+        />
+      </main>
     </div>
   );
 }

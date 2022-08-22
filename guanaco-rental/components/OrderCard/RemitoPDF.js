@@ -5,12 +5,27 @@ import {
   Document,
   StyleSheet,
   Image,
+  Font,
 } from "@react-pdf/renderer";
 import { formatPrice } from "../../utils/price_formater";
+
+Font.register({
+  family: "Open Sans",
+  fonts: [
+    {
+      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf",
+    },
+    {
+      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf",
+      fontWeight: 600,
+    },
+  ],
+});
 
 const styles = StyleSheet.create({
   page: {
     fontSize: 12,
+    fontFamily: "Open Sans",
   },
   imageWrapper: {
     width: 125,
@@ -40,8 +55,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    padding: "5px 0",
-    margin: "5px 0",
+    padding: "3px 0",
+    margin: "3px 0",
   },
   flexItem: {
     flexBasis: "50%",
@@ -50,7 +65,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "flex-start",
     marginTop: 10,
   },
@@ -58,12 +73,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     fontSize: 10,
-    flexBasis: "50%",
+    flexBasis: "49%",
+    marginRight: "1%",
   },
   section: {
     padding: 20,
     height: "100%",
-    fontWeight: "bold",
     position: "relative",
   },
   bgImageWrapper: {
@@ -88,6 +103,7 @@ const styles = StyleSheet.create({
     padding: "15px 0px",
     marginLeft: 25,
     marginRight: 25,
+    marginBottom: 10,
   },
   signs: {
     borderTop: "1px solid black",
@@ -100,7 +116,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginTop: 40,
+    marginTop: 50,
     marginRight: 25,
     fontSize: 10,
     paddingBottom: 10,
@@ -145,14 +161,16 @@ export const RemitoPDF = ({ pickupDay, returnDay, order, index }) => (
             <Text style={styles.flexItem}>DNI: {order.user.dniNumber}</Text>
           </View>
           <View style={styles.flex}>
-            <Text>IMPORTANTE VER CONDICIONES ANEXO I</Text>
+            <Text>IMPORTANTE: VER CONDICIONES ANEXO I</Text>
           </View>
         </View>
         <View style={styles.section}>
           <View style={styles.bgImageWrapper}>
             <Image src="/guanaco-perfil.png" style={styles.bgImage} />
           </View>
-          <Text style={{ marginBottom: 5 }}>LISTA DE EQUIPOS RETIRADOS</Text>
+          <Text style={{ marginBottom: 3, fontWeight: 600 }}>
+            LISTA DE EQUIPOS RETIRADOS
+          </Text>
           <View style={styles.equipmentWrapper}>
             {order.equipments.length > 0 &&
               order.equipments.map((gear) => (

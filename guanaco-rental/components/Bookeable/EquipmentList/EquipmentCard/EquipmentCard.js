@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../../redux/features/cart/cartSlice";
@@ -10,6 +11,8 @@ import s from "./EquipmentCard.module.scss";
 export default function EquipmentCard({ gear, setShowCart }) {
   const dispatch = useDispatch();
   const [showCalendar, setShowCalendar] = useState(false);
+
+  console.log("IAMGE", gear.image, typeof gear.image)
 
   const handleSeeMore = () => {
     setShowCalendar(true);
@@ -42,7 +45,14 @@ export default function EquipmentCard({ gear, setShowCart }) {
         />
       )}
       <div className={s.container}>
-        <div className={s.image_wrapper}></div>
+        <div className={s.image_wrapper}>
+          <Image
+            src={`/equipmentPics/${gear.image}`}
+            height={200}
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
         <div className={s.name_wrapper_flex}>
           <p>{gear.name}</p>
           <p>{gear.brand}</p>

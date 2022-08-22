@@ -6,6 +6,8 @@ import store from "../redux/store";
 import '../styles/reactcalendar.css';
 //gloabl app
 import "../styles/globals.css";
+//fonts
+import "../styles/fonts.css"
 
 function MyApp({ Component, pageProps }) {
   return (

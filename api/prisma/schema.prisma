@@ -50,6 +50,7 @@ model Equipment {
   name                    String
   brand                   String
   model                   String
+  image                   String              @default("lalala")
   stock                   Int                 @default(1)
   price                   Int
   category                Category            @relation(fields: [categoryId], references: [id])

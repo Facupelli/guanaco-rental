@@ -116,7 +116,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
         )}
         {showClients &&
           clientUsers.length > 0 &&
-          clientUsers.map((user) => <ClientCard user={user} />)}
+          clientUsers.map((user) => <ClientCard user={user} key={user.id} />)}
       </main>
     </div>
   );

@@ -14,7 +14,9 @@
   }
 
   .image_wrapper {
+    position: relative;
     height: 200px;
+    width: auto;
     background-color: $s-gray;
     margin-bottom: 0.5rem;
     border-radius: 0.2rem;

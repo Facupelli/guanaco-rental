@@ -24,9 +24,9 @@ export default function OrderCard({ order, i }) {
       new Date().getTime() >
       new Date(order.booking.dates[order.booking.dates.length - 1]).getTime()
     ) {
-      return "ALQUILADO";
+      return "FINALIZADO";
     }
-    return "ALQUILANDO";
+    return "EN PROCESO";
   };
 
   return (
@@ -67,7 +67,7 @@ export default function OrderCard({ order, i }) {
             pickupDay={pickupDay}
             returnDay={returnDay}
             order={order}
-            index={i}
+            i={i}
           />
         )}
       </div>
@@ -113,7 +113,7 @@ const PDF = ({ pickupDay, returnDay, order, i }) => {
   return instance.loading ? (
     <p>Cargando...</p>
   ) : (
-    <a href={instance.url} download={`Remito ${order.user.fullName} - ${i}`}>
+    <a href={instance.url} download={`Remito ${order.user.fullName} - ${i + 1}`}>
       Descargar remito
     </a>
   );

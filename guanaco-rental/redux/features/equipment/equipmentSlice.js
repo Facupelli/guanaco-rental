@@ -34,7 +34,7 @@ export function fetchEquipment(category, order) {
       const data = await response.json();
 
       dispatch(setEquipment(data));
-    } catch (error) {
+    } catch (e) {
       console.log("fetch equipment error:", e);
     }
   };

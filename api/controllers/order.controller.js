@@ -59,7 +59,7 @@ async function getOrders(req, res, next) {
   try {
     const id = req.query;
 
-    if (id) {
+    if (id.id) {
       const order = await prisma.order.findUnique({
         where: id,
         include: {
@@ -77,6 +77,9 @@ async function getOrders(req, res, next) {
         user: true,
         equipments: { include: { bookings: true } },
         booking: true,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 
