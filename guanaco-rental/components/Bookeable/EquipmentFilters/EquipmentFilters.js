@@ -57,7 +57,7 @@ export default function EquipmentFilters({ setFilters, setDatePickup }) {
             <option value="camaras">CAMARAS</option>
             <option value="lentes">LENTES</option>
             <option value="monitores">MONITORES</option>
-            <option value="estabilizadores">ESTABILIZADORES/TRIPODES</option>
+            <option value="estabilizadores/tripodes">ESTABILIZADORES/TRIPODES</option>
             <option value="iluminacion">ILUMINACION</option>
             <option value="sonido">SONIDO</option>
             <option value="grip">GRIP</option>

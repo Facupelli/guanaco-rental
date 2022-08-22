@@ -12,8 +12,6 @@ export default function EquipmentCard({ gear, setShowCart }) {
   const dispatch = useDispatch();
   const [showCalendar, setShowCalendar] = useState(false);
 
-  console.log("IAMGE", gear.image, typeof gear.image)
-
   const handleSeeMore = () => {
     setShowCalendar(true);
   };
@@ -48,7 +46,6 @@ export default function EquipmentCard({ gear, setShowCart }) {
         <div className={s.image_wrapper}>
           <Image
             src={`/equipmentPics/${gear.image}`}
-            height={200}
             layout="fill"
             objectFit="contain"
           />

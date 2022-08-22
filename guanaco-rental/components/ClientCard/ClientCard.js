@@ -4,9 +4,9 @@ export default function ClientCard({ user }) {
   return (
     <div className={s.card_container}>
       <p>{user.fullName}</p>
-      <p>{user.phone}</p>
-      <p>{user.dniNumber}</p>
-      <p>{user.bank}</p>
+      <p>tel: {user.phone}</p>
+      <p>dni: {user.dniNumber}</p>
+      <p>{user.addressProvince}</p>
       <p>Pedidos: {user.orders.length}</p>
       <p className={s.alta}>ALTA: {new Date(user.customerAprovedAt).toLocaleDateString()}</p>
     </div>
