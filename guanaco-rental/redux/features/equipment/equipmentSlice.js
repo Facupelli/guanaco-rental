@@ -23,13 +23,13 @@ export const { getEquipmet, setEquipment } = equipmentSlice.actions;
 
 export default equipmentSlice.reducer;
 
-export function fetchEquipment(category, order) {
+export function fetchEquipment(category, order, search) {
   return async (dispatch) => {
     dispatch(getEquipmet());
 
     try {
       const response = await fetch(
-        `http://localhost:3001/equipment?category=${category}&order=${order}`
+        `http://localhost:3001/equipment?category=${category}&order=${order}&search=${search}`
       );
       const data = await response.json();
 

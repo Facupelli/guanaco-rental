@@ -1,0 +1,13 @@
+@import "../../../styles/app.scss";
+
+.form {
+  flex-grow: 2;
+
+
+  input {
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    border: 1px solid $m-gray;
+    width: 100%;
+  }
+}

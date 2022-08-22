@@ -3,7 +3,7 @@
 .nav_container {
   background-color: $m-black;
   color: $m-white;
-  box-shadow: 0px 0px 5px 5px rgba(17, 17, 17, 0.356);
+  box-shadow: 0px 0px 10px 5px rgba(17, 17, 17, 0.356);
   font-family: "Panton";
 
   ul {
@@ -20,7 +20,7 @@
       position: absolute;
       top: 25%;
       left: 0;
-      filter: drop-shadow(5px 5px 5px rgba(17, 17, 17, 0.356));
+      filter: drop-shadow(5px 5px 10px rgba(17, 17, 17, 0.356));
     }
 
     li {
