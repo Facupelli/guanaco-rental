@@ -56,15 +56,34 @@ async function postOrder(req, res, next) {
 }
 
 async function getOrders(req, res, next) {
-  const orders = await prisma.order.findMany({
-    include: {
-      user: true,
-      equipments: { include: { bookings: true } },
-      booking: true,
-    },
-  });
+  try {
+    const id = req.query;
 
-  res.json(orders);
+    if (id) {
+      const order = await prisma.order.findUnique({
+        where: id,
+        include: {
+          booking: true,
+          equipments: { include: { bookings: true } },
+          user: true,
+        },
+      });
+      res.json(order);
+      return;
+    }
+
+    const orders = await prisma.order.findMany({
+      include: {
+        user: true,
+        equipments: { include: { bookings: true } },
+        booking: true,
+      },
+    });
+
+    res.json(orders);
+  } catch (e) {
+    console.log("getOrders error:", e);
+  }
 }
 
 module.exports = { postOrder, getOrders };
