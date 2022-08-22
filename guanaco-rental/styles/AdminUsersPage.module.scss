@@ -12,15 +12,15 @@
   }
 
   .nav {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
     display: flex;
     gap: 1rem;
-    cursor: pointer;
 
     background-color: $m-orange;
     border-radius: 0.5rem;
     color: $m-white;
+    box-shadow: 4px 4px 5px rgba(19, 19, 19, 0.329);
 
     .nav_li {
       display: flex;
@@ -28,6 +28,7 @@
       gap: 0.5rem;
       padding: 0.7rem;
       border-radius: 0.5rem;
+      cursor: pointer;
     }
 
     .nav_li_active {

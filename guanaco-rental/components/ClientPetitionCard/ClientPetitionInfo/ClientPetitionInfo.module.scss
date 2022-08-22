@@ -1,8 +1,10 @@
+@import "../../../styles/app.scss";
+
 .data_wrapper {
   display: grid;
   grid-template-columns: 50% 50%;
   margin-bottom: 2rem;
-  box-shadow: 0px 0px 1px 2px rgba(51, 51, 51, 0.281);
+  border: 1px solid $s-gray;
   border-radius: 0.2rem;
   padding: 1rem;
   margin: .5rem 0rem;
@@ -19,5 +21,9 @@
     display: flex;
     justify-content: flex-start;
     gap: 1rem;
+
+    button{
+      @include m-button;
+    }
   }
 }

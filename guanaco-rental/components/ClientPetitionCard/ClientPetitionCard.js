@@ -2,16 +2,24 @@ import { useState } from "react";
 
 import s from "./ClientPetitionCard.module.scss";
 
-export default function ClientPetitionCard({ user, setNewClientInfo }) {
+export default function ClientPetitionCard({
+  user,
+  setNewClientInfo,
+  newClientInfo,
+}) {
   const handleClick = () => {
     setNewClientInfo(user);
   };
 
   return (
-    <div className={s.card_container}>
+    <div
+      className={`${s.card_container} ${
+        newClientInfo.email === user.email ? s.none_shadow : ""
+      }`}
+    >
       <div className={s.name_wrapper}>
         <p>{user.fullName}</p>
-        <p>{user.email}</p>
+        <p>{new Date(user.updatedAt).toLocaleDateString()}</p>
         <p>{user.customerAproved ? "APROBADA" : "PENDIENTE"}</p>
         <button type="button" onClick={handleClick}>
           {"->"}

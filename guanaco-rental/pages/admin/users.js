@@ -76,7 +76,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
             <div
               className={`${s.nav_li} ${showNewClients ? s.nav_li_active : ""}`}
             >
-              <p>Peticiones Alta de Cliente</p>
+              <p>Peticiones Alta de Cliente:</p>
               <p>{newClientUsers.length}</p>
             </div>
           </li>
@@ -100,6 +100,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
                 <ClientPetitionCard
                   user={user}
                   setNewClientInfo={setNewClientInfo}
+                  newClientInfo={newClientInfo}
                 />
               ))}
             </div>
