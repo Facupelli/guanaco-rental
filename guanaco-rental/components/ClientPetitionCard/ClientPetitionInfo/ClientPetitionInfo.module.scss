@@ -4,10 +4,12 @@
   display: grid;
   grid-template-columns: 50% 50%;
   margin-bottom: 2rem;
-  border: 1px solid $m-gray;
+  border: 1px solid $s-gray;
   border-radius: 0.2rem;
   padding: 1rem;
   margin: .5rem 0rem;
+  background-color: white;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 
   ul {
     li {

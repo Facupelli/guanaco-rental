@@ -33,7 +33,7 @@ export default function AdminOrdersPage() {
   }, []);
 
   return (
-    <div>
+    <div className={s.grey_bg}>
       <Head>
         <title>Admin Pedidos</title>
         <link rel="icon" href="/logo-favicon.ico" />

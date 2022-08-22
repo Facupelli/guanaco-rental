@@ -12,7 +12,7 @@ export default function AdminEquipment() {
   const equipment = useSelector((state) => state.equipment.products);
 
   return (
-    <div>
+    <div className={s.grey_bg}>
       <Head>
         <title>Admin Equipment</title>
         <link rel="icon" href="/logo-favicon.ico" />

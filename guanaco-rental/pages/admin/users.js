@@ -53,7 +53,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
   // }, []);
 
   return (
-    <div>
+    <div className={s.bg_grey}>
       <Head>
         <title>Admin Usuarios</title>
         <link rel="icon" href="/logo-favicon.ico" />

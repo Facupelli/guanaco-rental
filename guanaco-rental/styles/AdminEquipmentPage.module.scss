@@ -1,8 +1,13 @@
 @import "../styles/app.scss";
 
+.grey_bg {
+  background-color: $bg-grey;
+}
+
 .main {
   @include app_width;
   margin-top: 3rem;
+  min-height: 100vh;
 
   .title_wrapper {
     display: flex;

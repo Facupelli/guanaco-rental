@@ -1,5 +1,10 @@
 @import "../styles/app.scss";
 
+.bg_grey{
+  background-color: $bg-grey;
+  min-height: 100vh;
+}
+
 .main {
   margin-top: 3rem;
   margin-bottom: 2rem;
