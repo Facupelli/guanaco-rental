@@ -3,21 +3,22 @@
 .container {
   padding: 1rem;
   border-radius: 0.2rem;
-  // box-shadow: 0px 0px 5px 1px rgba(49, 49, 49, 0.151);
   box-shadow: -2px -2px 5px rgba(248, 248, 248, 0.849),
-    1px 1px 5px rgba(70, 70, 70, 0.12);
-  border: 1px solid white;
+    1px 1px 5px rgba(29, 29, 29, 0.12);
+  background-color: white;
   height: fit-content;
+  transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 
   &:hover {
-    border: 1px solid rgba(49, 49, 49, 0.151);
+    box-shadow: -2px -2px 5px rgba(248, 248, 248, 0.664),
+    1px 1px 5px rgba(29, 29, 29, 0.39);
   }
 
   .image_wrapper {
     position: relative;
     height: 200px;
     width: auto;
-    background-color: $s-gray;
+    // background-color: $s-gray;
     margin-bottom: 0.5rem;
     border-radius: 0.2rem;
   }
