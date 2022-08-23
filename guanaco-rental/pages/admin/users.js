@@ -11,6 +11,8 @@ import s from "../../styles/AdminUsersPage.module.scss";
 export default function AdminUsersPage({ clients, newCLients }) {
   const router = useRouter();
 
+  const [search, setSearch] = useState("");
+
   const [showNewClients, setShowNewClients] = useState(false);
   const [showClients, setShowClients] = useState(false);
 
@@ -36,7 +38,9 @@ export default function AdminUsersPage({ clients, newCLients }) {
 
   const getClientUsers = async () => {
     setLoading(true);
-    const users = await fetch(`http://localhost:3001/users?clients=${true}`)
+    const users = await fetch(
+      `http://localhost:3001/users?clients=${true}&search=${search}`
+    )
       .then((response) => response.json())
       .then((res) => {
         setClientUsers(res);
@@ -46,6 +50,10 @@ export default function AdminUsersPage({ clients, newCLients }) {
 
     return users;
   };
+
+  useEffect(() => {
+    getClientUsers();
+  }, [search]);
 
   // useEffect(() => {
   //   getNewClientUsers();
@@ -114,9 +122,20 @@ export default function AdminUsersPage({ clients, newCLients }) {
             )}
           </div>
         )}
-        {showClients &&
-          clientUsers.length > 0 &&
-          clientUsers.map((user) => <ClientCard user={user} key={user.id} />)}
+        {showClients && (
+          <div className={s.client_list_wrapper}>
+            <input
+              type="search"
+              placeholder="Buscar por nombre"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
+            {clientUsers.length > 0 &&
+              clientUsers.map((user) => (
+                <ClientCard user={user} key={user.id} />
+              ))}
+          </div>
+        )}
       </main>
     </div>
   );

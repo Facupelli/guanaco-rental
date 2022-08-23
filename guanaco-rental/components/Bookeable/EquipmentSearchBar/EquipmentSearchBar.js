@@ -8,7 +8,7 @@ export default function EquipmentSearchBar({ setFilters, filters }) {
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <input
-        type="text"
+        type="search"
         placeholder="Buscar equipos"
         onChange={(e) =>
           setFilters((prev) => ({ ...prev, search: e.target.value }))

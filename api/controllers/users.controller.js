@@ -62,7 +62,7 @@ async function putUser(req, res, next) {
 }
 
 async function getUsers(req, res, next) {
-  const { newClients, clients } = req.query;
+  const { newClients, clients, search } = req.query;
 
   try {
     let users;
@@ -74,10 +74,26 @@ async function getUsers(req, res, next) {
     }
 
     if (clients) {
-      users = await prisma.user.findMany({
-        where: { customerAproved: true },
-        include: { orders: true },
-      });
+      if (search && search !== "undefined") {
+        users = await prisma.user.findMany({
+          where: {
+            AND: [
+              {
+                fullName: {
+                  search: search,
+                },
+              },
+              { customerAproved: true },
+            ],
+          },
+          include: { orders: true },
+        });
+      } else {
+        users = await prisma.user.findMany({
+          where: { customerAproved: true },
+          include: { orders: true },
+        });
+      }
     }
 
     res.json(users);

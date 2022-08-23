@@ -1,6 +1,6 @@
 @import "../styles/app.scss";
 
-.bg_grey{
+.bg_grey {
   background-color: $bg-grey;
   min-height: 100vh;
 }
@@ -45,5 +45,19 @@
     display: grid;
     grid-template-columns: 42% 54%;
     column-gap: 4%;
+  }
+
+  .client_list_wrapper {
+    input {
+      width: 50%;
+      padding: 0.4rem;
+      border: 1px solid $m-gray;
+      color: $m-black;
+      border-radius: .2rem;
+
+      &:focus {
+        outline: 1px solid $m-black;
+      }
+    }
   }
 }
