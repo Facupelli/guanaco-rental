@@ -29,6 +29,7 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
       <section className={s.equipment_grid}>
         <EquipmentFilters
           setFilters={setFilters}
+          filters={filters}
           dateRange={dateRange}
           setDatePickup={setDatePickup}
         />
