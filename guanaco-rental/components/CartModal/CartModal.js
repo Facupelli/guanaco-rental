@@ -48,9 +48,11 @@ export default function CartModal({ showCart, setShowCart, setDatePickup }) {
         </button>
       )}
       <div className={s.cart_list}>
-        {cart &&
-          cart.length > 0 &&
-          cart.map((item) => <CartItem key={item.id} item={item} />)}
+        {cart && cart.length > 0 ? (
+          cart.map((item) => <CartItem key={item.id} item={item} />)
+        ) : (
+          <p>Tu carrito esta vacio.</p>
+        )}
       </div>
       {/* <button type="button" onClick={handleCloseCart}>
         seguir alquilando

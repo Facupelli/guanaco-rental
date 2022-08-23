@@ -42,7 +42,7 @@ export default function EquipmentFilters({
           </div>
         </div>
         <div className={s.select_category_wrapper}>
-          <label>Categoría:</label>
+          <label className={s.bold}>Categoría:</label>
           <button
             type="button"
             onClick={(e) => onSelectCategory(e)}

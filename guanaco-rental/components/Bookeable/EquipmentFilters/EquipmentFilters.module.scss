@@ -16,7 +16,7 @@
     > button {
       margin-bottom: 1rem;
       width: 100%;
-      @include m-button-gray;
+      @include m-button;
     }
 
     .flex_wrapper {
@@ -38,6 +38,10 @@
     display: flex;
     flex-direction: column;
     row-gap: 0.5rem;
+
+    .bold {
+      font-weight: 600;
+    }
 
     button {
       background-color: transparent;
