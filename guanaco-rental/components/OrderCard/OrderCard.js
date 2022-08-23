@@ -111,7 +111,7 @@ const PDF = ({ pickupDay, returnDay, order }) => {
   return instance.loading ? (
     <p>Cargando...</p>
   ) : (
-    <a href={instance.url} download={`Remito ${order.user.fullName} - ${order.number}`}>
+    <a href={instance.url} download={`Remito ${order.user.fullName} - ${number}`}>
       Descargar remito
     </a>
   );

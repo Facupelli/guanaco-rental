@@ -37,7 +37,9 @@ export default function CalendarComponent({
           ) {
             return s.booked_tile;
           } else {
-            return freeTileClass ? s.free_tile : null;
+            if (freeTileClass && new Date().getTime() <= date.getTime()) {
+              return s.free_tile;
+            }
           }
         }}
         tileDisabled={({ date }) => {
