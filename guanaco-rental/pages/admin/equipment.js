@@ -6,10 +6,8 @@ import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminEquipmentPage.module.scss";
 
-export default function AdminEquipment() {
+export default function AdminEquipment({ equipment }) {
   const router = useRouter();
-
-  const equipment = useSelector((state) => state.equipment.products);
 
   return (
     <div className={s.grey_bg}>
@@ -23,7 +21,10 @@ export default function AdminEquipment() {
           <button type="button" onClick={() => router.back()}>
             {"<-"}
           </button>
-          <h1>Equipos</h1>
+          <div className={s.flex}>
+            <h1>Equipos</h1>
+            <p>total: {equipment.length}</p>
+          </div>
         </div>
         <div>
           {equipment &&
@@ -35,4 +36,16 @@ export default function AdminEquipment() {
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const equipment = await fetch(`http://localhost:3001/equipment`)
+    .then((response) => response.json())
+    .catch((e) => console.log("fecth error:", e));
+
+  return {
+    props: {
+      equipment,
+    },
+  };
 }

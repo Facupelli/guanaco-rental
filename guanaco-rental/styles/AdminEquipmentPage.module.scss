@@ -15,5 +15,11 @@
     align-items: center;
     gap: 1rem;
     margin-bottom: 2rem;
+
+    .flex{
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
   }
 }
