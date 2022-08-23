@@ -7,7 +7,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import s from "./OrderCard.module.scss";
 import { RemitoPDF } from "./RemitoPDF";
 
-export default function OrderCard({ order, i }) {
+export default function OrderCard({ order }) {
   const [showEquipment, setShowEquipment] = useState(false);
   const [generatePDF, setGeneratePDF] = useState(false);
 
@@ -32,7 +32,7 @@ export default function OrderCard({ order, i }) {
   return (
     <div className={s.card_container}>
       <div className={s.info_container}>
-        <p>{i + 1}</p>
+        <p>{order.number}</p>
         <p>{order.user.fullName}</p>
         <p>{order.user.phone}</p>
         <p>{order.user.dniNumber}</p>
@@ -67,7 +67,6 @@ export default function OrderCard({ order, i }) {
             pickupDay={pickupDay}
             returnDay={returnDay}
             order={order}
-            i={i}
           />
         )}
       </div>
@@ -98,14 +97,13 @@ export default function OrderCard({ order, i }) {
   );
 }
 
-const PDF = ({ pickupDay, returnDay, order, i }) => {
+const PDF = ({ pickupDay, returnDay, order }) => {
   const [instance, updateInstance] = usePDF({
     document: (
       <RemitoPDF
         pickupDay={pickupDay}
         returnDay={returnDay}
         order={order}
-        index={i}
       />
     ),
   });
@@ -113,7 +111,7 @@ const PDF = ({ pickupDay, returnDay, order, i }) => {
   return instance.loading ? (
     <p>Cargando...</p>
   ) : (
-    <a href={instance.url} download={`Remito ${order.user.fullName} - ${i + 1}`}>
+    <a href={instance.url} download={`Remito ${order.user.fullName} - ${order.number}`}>
       Descargar remito
     </a>
   );

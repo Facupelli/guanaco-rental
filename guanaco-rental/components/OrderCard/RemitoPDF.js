@@ -133,11 +133,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RemitoPDF = ({ pickupDay, returnDay, order, index }) => (
+export const RemitoPDF = ({ pickupDay, returnDay, order }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.number}>
-        <Text>REMITO N° SJ-{index + 1}</Text>
+        <Text>REMITO N° SJ-{order.number}</Text>
       </View>
       <View style={styles.pageMargin}>
         <View style={styles.imageWrapper}>

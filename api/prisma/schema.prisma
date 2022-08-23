@@ -64,15 +64,16 @@ model Equipment {
 }
 
 model Order {
-  id                      String       @default(cuid()) @id
-  user                    User         @relation(fields: [userId], references: [id])
+  id                      String              @default(cuid()) @id
+  number                  Int                 @default(autoincrement())
+  user                    User                @relation(fields: [userId], references: [id])
   userId                  String
   equipments              Equipment[]
   totalPrice              Int
   dates                   String[]
-  booking                 Book          @relation(fields: [bookingId], references: [id])
-  bookingId               String        @unique
-  createdAt               DateTime      @default(now())
+  booking                 Book                @relation(fields: [bookingId], references: [id])
+  bookingId               String              @unique
+  createdAt               DateTime            @default(now())
 }
 
 model Book {
