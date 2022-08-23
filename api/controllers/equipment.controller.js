@@ -4,8 +4,6 @@ const prisma = new PrismaClient();
 async function getEquipment(req, res, next) {
   const { category, order, search } = req.query;
 
-  console.log("api",category, order, search)
-
   try {
     if (search && search !== "undefined") {
       const equipmentBySearch = await prisma.equipment.findMany({

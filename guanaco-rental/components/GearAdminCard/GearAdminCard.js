@@ -20,6 +20,10 @@ export default function GearAdminCard({ gear }) {
         />
       </div>
       <div className={`${s.flex_wrapper} ${s.flex_basis}`}>
+        <label>Stock:</label>
+        <input defaultValue={gear.stock} className={s.stock_input}/>
+      </div>
+      <div className={`${s.flex_wrapper} ${s.flex_basis}`}>
         <label>Sucursal:</label>
         <select defaultValue={gear.location}>
           <option value="San Juan">San Juan</option>

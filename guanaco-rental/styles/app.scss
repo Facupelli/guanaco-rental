@@ -58,6 +58,24 @@ $bg-grey: #ebebeb;
   }
 }
 
+@mixin m-button-danger {
+  padding: 0.5rem 1rem;
+  background-color: #dd0000;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.2rem;
+  color: $m-white;
+  cursor: pointer;
+  @include btn-disabled;
+
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  &:hover {
+    background-color: #f72929;
+    color: white;
+  }
+}
+
 @mixin m-button-gray {
   background-color: $s-gray;
   border: none;

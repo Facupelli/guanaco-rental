@@ -7,9 +7,9 @@
   border: 1px solid $s-gray;
   border-radius: 0.2rem;
   padding: 1rem;
-  margin: .5rem 0rem;
+  margin: 0.5rem 0rem;
   background-color: white;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 
   ul {
     li {
@@ -24,7 +24,11 @@
     justify-content: flex-start;
     gap: 1rem;
 
-    button{
+    .m_button_danger {
+      @include m-button-danger;
+    }
+
+    .m_button {
       @include m-button;
     }
   }

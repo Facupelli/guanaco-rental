@@ -8,7 +8,7 @@
   padding: 0.5rem;
   border-radius: 0.2rem;
   box-shadow: 0px 0px 4px 1px rgba(29, 29, 29, 0.274);
-  width: 70%;
+  width: 80%;
   background-color: white;
 
   .image_wrapper {
@@ -28,11 +28,19 @@
   }
 
   .flex_basis{
-    flex-basis: 25%
+    flex-basis: 13.3%
   }
 
   .flex_basis_40{
-    flex-basis: 50%
+    flex-basis: 40%
+  }
+
+  .stock_input{
+    width: 30px;
+    padding: .2rem;
+    border-radius: .2rem;
+    border: 1px solid $m-gray;
+    text-align: center;
   }
 
   select{

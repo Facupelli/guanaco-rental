@@ -88,10 +88,10 @@ export default function ClientPetitionInfo({
         <li>{user.cbu}</li>
       </ul>
       <div className={s.btns_wrapper}>
-        <button type="button" onClick={() => onClickApprove(true)}>
+        <button type="button" onClick={() => onClickApprove(true)} className={s.m_button}>
           APROBAR
         </button>
-        <button type="button" onClick={() => onClickApprove(false)}>
+        <button type="button" onClick={() => onClickApprove(false)} className={s.m_button_danger}>
           DENEGAR
         </button>
       </div>
