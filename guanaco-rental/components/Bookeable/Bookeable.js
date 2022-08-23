@@ -1,17 +1,28 @@
 import EquipmentFilters from "./EquipmentFilters/EquipmentFilters";
 import EquipmentList from "./EquipmentList/EquipmentList";
 import EquipmentOrder from "./EquipmentOrder/EquipmentOrder";
+import { useEffect, useState } from "react";
+import EquipmentSearchBar from "./EquipmentSearchBar/EquipmentSearchBar";
+import { useDispatch } from "react-redux";
+import { fetchEquipment } from "../../redux/features/equipment/equipmentSlice";
 
 import s from "./Bookeable.module.scss";
-import { useState } from "react";
-import EquipmentSearchBar from "./EquipmentSearchBar/EquipmentSearchBar";
 
 export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
+  const dispatch = useDispatch();
+
   const [filters, setFilters] = useState({
     category: "all",
-    order: "",
+    order: "none",
     search: "",
   });
+
+  console.log("filters:", filters);
+
+  useEffect(() => {
+    console.log("entre")
+    dispatch(fetchEquipment(filters.category, filters.order, filters.search));
+  }, [filters]);
 
   return (
     <article className={s.container}>
@@ -23,8 +34,8 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
         />
         <div>
           <div className={s.top_filters_wrapper}>
-            <EquipmentSearchBar filters={filters} />
-            <EquipmentOrder filters={filters} />
+            <EquipmentSearchBar setFilters={setFilters} filters={filters} />
+            <EquipmentOrder setFilters={setFilters} filters={filters} />
           </div>
           <EquipmentList setShowCart={setShowCart} />
         </div>

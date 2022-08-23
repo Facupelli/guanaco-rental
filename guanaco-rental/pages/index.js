@@ -27,7 +27,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const { user, error, isLoading } = useUser();
 
-  console.log("auth0 user", user);
+  // console.log("auth0 user", user);
 
   useEffect(() => {
     if (user) {

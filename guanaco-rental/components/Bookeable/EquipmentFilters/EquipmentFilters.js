@@ -1,29 +1,15 @@
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchEquipment } from "../../../redux/features/equipment/equipmentSlice";
+import { useSelector } from "react-redux";
 
 import s from "./EquipmentFilters.module.scss";
 
 export default function EquipmentFilters({ setFilters, setDatePickup }) {
-  const dispatch = useDispatch();
   const date = useSelector((state) => state.date.date_range);
   const {
-    register,
     handleSubmit,
-    watch,
-    formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
 
-  const category = watch("category");
-
-  useEffect(() => {
-    setFilters((prev) => ({ ...prev, category }));
-    if (category) {
-      dispatch(fetchEquipment(category));
-    }
-  }, [category]);
 
   return (
     <section>
@@ -52,12 +38,19 @@ export default function EquipmentFilters({ setFilters, setDatePickup }) {
         </div>
         <div className={s.select_wrapper}>
           <label>Categoría:</label>
-          <select defaultValue="all" {...register("category")}>
+          <select
+            defaultValue="all"
+            onChange={(e) =>
+              setFilters((prev) => ({ ...prev, category: e.target.value }))
+            }
+          >
             <option value="all">TODOS</option>
             <option value="camaras">CAMARAS</option>
             <option value="lentes">LENTES</option>
             <option value="monitores">MONITORES</option>
-            <option value="estabilizadores/tripodes">ESTABILIZADORES/TRIPODES</option>
+            <option value="estabilizadores/tripodes">
+              ESTABILIZADORES/TRIPODES
+            </option>
             <option value="iluminacion">ILUMINACION</option>
             <option value="sonido">SONIDO</option>
             <option value="grip">GRIP</option>
