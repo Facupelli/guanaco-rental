@@ -9,7 +9,6 @@
 }
 
 .cart_container {
-  margin-top: 70px;
   position: fixed;
   background-color: white;
   height: calc(100% - 70px);
@@ -83,4 +82,18 @@
       @include m-button;
     }
   }
+}
+
+
+@media (max-width: 920px) {
+  .cart_container{
+    width: 100%;
+    height: calc(100% - 70px);
+    margin: 0px;
+  }
+
+  .hide{
+    right: -100%;
+  }
+
 }

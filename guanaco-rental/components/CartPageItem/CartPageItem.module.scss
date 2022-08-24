@@ -2,7 +2,7 @@
 
 .item_container {
   display: grid;
-  grid-template-columns: 70% 15% 10% 5%;
+  grid-template-columns: 70% 30%;
   justify-items: flex-start;
   align-items: baseline;
   padding: 0.5rem 0rem;
@@ -13,10 +13,10 @@
     align-items: center;
     gap: 1rem;
 
-    .name_flex{
+    .name_flex {
       display: flex;
       align-items: center;
-      gap: .5rem;
+      gap: 0.5rem;
       font-weight: 600;
     }
   }
@@ -33,13 +33,35 @@
     }
   }
 
-  .btn_wrapper {
-    display: flex;
+  .wrapper {
+    display: grid;
+    grid-template-columns: 50% 33.33% 16.66%;
     align-items: baseline;
+    width: 100%;
 
-    button {
-      @include cross-button;
-      font-size: .9em;
+    .btn_wrapper {
+      display: flex;
+      align-items: baseline;
+
+      button {
+        @include cross-button;
+        font-size: 0.9em;
+      }
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  .item_container {
+    grid-template-columns: 100%;
+    margin-bottom: 1rem;
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 0.2rem;
     }
   }
 }

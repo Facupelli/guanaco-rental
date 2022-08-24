@@ -9,7 +9,8 @@
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
   background-color: white;
 
-  .click, .filters_icon_wrapper {
+  .click,
+  .filters_icon_wrapper {
     display: none;
   }
 
@@ -94,37 +95,44 @@
       align-items: center;
       justify-content: flex-end;
       gap: 0.5rem;
-      
+
       .filter_icon {
         color: $m-black;
       }
     }
 
-    .click:checked ~ .mobile_filters{
+    .click:checked ~ .mobile_filters {
       left: -1rem;
     }
 
+    .click:checked ~ .filters_icon_wrapper {
+      .filter_icon {
+        color: $m-orange;
+      }
+    }
+
     .mobile_filters {
-      position: absolute;
-      top: -4rem;
+      position: fixed;
+      top: 70px;
       left: calc(-100% - (-1rem));
       z-index: 5;
       height: calc(100vh - 70px);
+      width: auto;
       background-color: $m-black;
       color: white;
       padding: 2rem;
       padding-top: 4rem;
       transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 
-      .flex_column{
-        button{
+      .flex_column {
+        button {
           @include m-button-orange;
         }
       }
 
-      .select_category_wrapper{
+      .select_category_wrapper {
         margin-top: 2rem;
-        button{
+        button {
           color: $m-white;
         }
       }

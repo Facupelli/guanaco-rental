@@ -31,21 +31,23 @@ export default function CartPageItem({ item, dates }) {
           </p>
         </div>
       </div>
-      <ItemCounter
-        key={item.id}
-        itemId={item.id}
-        stock={item.stock}
-        quantity={item.quantity}
-      />
-      <p>
-        {item.quantity
-          ? formatPrice(item.quantity * item.price)
-          : formatPrice(item.price)}
-      </p>
-      <div className={s.btn_wrapper}>
-        <button type="button" onClick={handleRemoveFromCart}>
-          X
-        </button>
+      <div className={s.wrapper}>
+        <ItemCounter
+          key={item.id}
+          itemId={item.id}
+          stock={item.stock}
+          quantity={item.quantity}
+        />
+        <p>
+          {item.quantity
+            ? formatPrice(item.quantity * item.price)
+            : formatPrice(item.price)}
+        </p>
+        <div className={s.btn_wrapper}>
+          <button type="button" onClick={handleRemoveFromCart}>
+            X
+          </button>
+        </div>
       </div>
     </div>
   );

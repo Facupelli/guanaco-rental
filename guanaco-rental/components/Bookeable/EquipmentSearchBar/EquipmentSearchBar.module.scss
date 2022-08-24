@@ -45,6 +45,13 @@
 @media (max-width: 920px) {
   .form {
     width: 100%;
+    
+    .search_input{
+      padding: .8rem;
+    }
 
+    .search_icon{
+      height: 43px;
+    }
   }
 }
