@@ -1,3 +1,4 @@
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
@@ -7,7 +8,6 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 import s from "../../styles/AdminOrdersPage.module.scss";
 
 export default function AdminOrdersPage() {
-
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
@@ -60,12 +60,31 @@ export default function AdminOrdersPage() {
           ) : (
             orders &&
             orders.length > 0 &&
-            orders.map((order) => (
-              <OrderCard key={order.id} order={order} />
-            ))
+            orders.map((order) => <OrderCard key={order.id} order={order} />)
           )}
         </div>
       </main>
     </div>
   );
 }
+
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps(context) {
+    // Getting user data from Auth0
+    const user = getSession(context.req).user;
+
+    if (user.email !== "facundopellicer4@gmail.com") {
+      return {
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    return {
+      props: {
+        access: true,
+      },
+    };
+  },
+});

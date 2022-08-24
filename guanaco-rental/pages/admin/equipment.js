@@ -1,3 +1,4 @@
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
@@ -36,14 +37,28 @@ export default function AdminEquipment({ equipment }) {
   );
 }
 
-export async function getServerSideProps() {
-  const equipment = await fetch(`http://localhost:3001/equipment`)
-    .then((response) => response.json())
-    .catch((e) => console.log("fecth error:", e));
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps(context) {
+    // Getting user data from Auth0
+    const user = getSession(context.req).user;
 
-  return {
-    props: {
-      equipment,
-    },
-  };
-}
+    if (user.email !== "facundopellicer4@gmail.com") {
+      return {
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
+
+    const equipment = await fetch(`http://localhost:3001/equipment`)
+      .then((response) => response.json())
+      .catch((e) => console.log("fecth error:", e));
+
+    return {
+      props: {
+        equipment,
+      },
+    };
+  },
+});
+

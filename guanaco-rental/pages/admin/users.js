@@ -1,3 +1,4 @@
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -105,6 +106,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
             <div>
               {newClientUsers.map((user) => (
                 <ClientPetitionCard
+                  key={user.id}
                   user={user}
                   setNewClientInfo={setNewClientInfo}
                   newClientInfo={newClientInfo}
@@ -140,21 +142,34 @@ export default function AdminUsersPage({ clients, newCLients }) {
   );
 }
 
-export async function getServerSideProps() {
-  const newCLients = await fetch(
-    `http://localhost:3001/users?newClients=${true}`
-  )
-    .then((response) => response.json())
-    .catch((e) => console.log("fecth error:", e));
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps(context) {
+    // Getting user data from Auth0
+    const user = getSession(context.req).user;
 
-  const clients = await fetch(`http://localhost:3001/users?clients=${true}`)
-    .then((response) => response.json())
-    .catch((e) => console.log("fecth error:", e));
+    if (user.email !== "facundopellicer4@gmail.com") {
+      return {
+        redirect: {
+          destination: "/",
+        },
+      };
+    }
 
-  return {
-    props: {
-      newCLients,
-      clients,
-    },
-  };
-}
+    const newCLients = await fetch(
+      `http://localhost:3001/users?newClients=${true}`
+    )
+      .then((response) => response.json())
+      .catch((e) => console.log("fecth error:", e));
+
+    const clients = await fetch(`http://localhost:3001/users?clients=${true}`)
+      .then((response) => response.json())
+      .catch((e) => console.log("fecth error:", e));
+
+    return {
+      props: {
+        newCLients,
+        clients,
+      },
+    };
+  },
+});

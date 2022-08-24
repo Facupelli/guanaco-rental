@@ -60,6 +60,11 @@ export const getServerSideProps = withPageAuthRequired({
       access = true;
     } else {
       access = false;
+      return {
+        redirect: {
+          destination: "/",
+        },
+      };
     }
 
     return {
