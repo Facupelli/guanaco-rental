@@ -8,8 +8,8 @@
   article {
     display: flex;
     margin-top: 2rem;
-    border: 1px solid black;
-    border-radius: .2rem;
+    border: 1px solid $m-black;
+    border-radius: 0.2rem;
     background-color: $s-gray;
 
     .flex_60 {
@@ -19,17 +19,36 @@
 
     .flex_20 {
       flex-basis: 25%;
-      border-right: 1px solid black;
+      border-right: 1px solid $m-black;
       padding: 0.5rem;
     }
 
-    .bold{
+    .bold {
       font-weight: 600;
     }
-
   }
-  button{
+  button {
     margin-top: 2rem;
     @include m-button-orange;
+  }
+}
+
+@media (max-width: 920px) {
+  .main {
+    margin-top: 3rem;
+
+    article {
+      flex-direction: column;
+
+      .flex_20,
+      .flex_60 {
+        flex-basis: 100%;
+      }
+
+      .flex_20 {
+        border: none;
+        border-bottom: 1px solid $m-black;
+      }
+    }
   }
 }

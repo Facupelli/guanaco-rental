@@ -47,11 +47,11 @@
     width: 100%;
     
     .search_input{
-      padding: .8rem;
+      height: 45px;
     }
-
+    
     .search_icon{
-      height: 43px;
+      height: calc(45px - 1rem);
     }
   }
 }
