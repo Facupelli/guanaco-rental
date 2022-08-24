@@ -26,3 +26,23 @@
     }
   }
 }
+
+@media (max-width: 920px) {
+  .container {
+    .equipment_grid {
+      section {
+        grid-column: 1/-1;
+      }
+
+      .top_filters_wrapper {
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+
+        box-shadow: none;
+        background-color: transparent;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}

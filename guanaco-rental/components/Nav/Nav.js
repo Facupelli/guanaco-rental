@@ -1,4 +1,6 @@
 import { useUser } from "@auth0/nextjs-auth0";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import s from "./Nav.module.scss";
@@ -14,34 +16,48 @@ export default function Nav({ setShowCart, cartPage, home }) {
 
   return (
     <nav className={s.nav_container}>
+      <div className={s.logo_container}>
+        <Link href="/">
+          <div>
+            <Image
+              src="/guanaco-rental-logo.svg"
+              alt="guanaco-logo"
+              width={75}
+              height={75}
+              layout="intrinsic"
+              objectFit="contain"
+            />
+          </div>
+        </Link>
+      </div>
+      <input type="checkbox" name="click" className={s.click} id="click" />
+      <label htmlFor="click" className={s.icon_container}>
+        <FontAwesomeIcon
+          icon={faBars}
+          width="25px"
+          className={s.bars_icon}
+        />
+      </label>
       <ul>
-        <li className={s.logo_container}>
-          <Link href="/">
-            <div>
-              <Image
-                src="/guanaco-rental-logo.svg"
-                alt="guanaco-logo"
-                width={75}
-                height={75}
-                layout="intrinsic"
-                objectFit="contain"
-              />
-            </div>
-          </Link>
-        </li>
         <li>RESERVAS ONLINE</li>
         <li>FAQ</li>
         {user ? (
           <li>
-            <a href="/api/auth/logout">CERRAR SESION</a>
+            <Link href="/api/auth/logout">
+              <a>CERRAR SESION</a>
+            </Link>
           </li>
         ) : (
           <>
             <li>
-              <a href="/api/auth/login">INICIAR SESION</a>
+              <Link href="/api/auth/login">
+                <a>INICIAR SESION</a>
+              </Link>
             </li>
             <li>
-              <a href="/api/signup">REGISTRARSE</a>
+              <Link href="/api/signup">
+                <a>REGISTRARSE</a>
+              </Link>
             </li>
           </>
         )}

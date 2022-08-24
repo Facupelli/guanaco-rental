@@ -8,13 +8,22 @@
     justify-content: space-between;
   }
 
-  .btn_wrapper{
+  .btn_wrapper {
     margin-top: 2rem;
     display: flex;
     justify-content: center;
 
-    button{
-        @include m-button;
+    button {
+      @include m-button;
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  .container {
+    .cards_wrapper {
+      grid-template-columns: 100%;
+      justify-items: center;
     }
   }
 }

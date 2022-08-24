@@ -7,6 +7,12 @@
 
   select {
     @include m-select;
-    padding: .2rem;
+    padding: 0.2rem;
+  }
+}
+
+@media (max-width: 920px) {
+  .container {
+    margin-left: auto;
   }
 }
