@@ -70,7 +70,6 @@ model Order {
   userId                  String
   equipments              Equipment[]
   totalPrice              Int
-  dates                   String[]
   booking                 Book                @relation(fields: [bookingId], references: [id])
   bookingId               String              @unique
   createdAt               DateTime            @default(now())

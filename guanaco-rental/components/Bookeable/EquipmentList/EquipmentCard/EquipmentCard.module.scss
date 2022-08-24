@@ -73,6 +73,9 @@
     button {
       @include m-button-orange;
       padding: .5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

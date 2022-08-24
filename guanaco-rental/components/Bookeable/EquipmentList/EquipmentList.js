@@ -36,7 +36,7 @@ export default function EquipmentList({
               onClick={() => setQtyToShow((prev) => prev + 10)}
               disabled={isBtnDisabled()}
             >
-              mostrar mas
+              mostrar más
             </button>
           </div>
         </>
