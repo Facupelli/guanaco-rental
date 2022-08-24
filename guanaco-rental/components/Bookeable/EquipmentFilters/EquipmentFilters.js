@@ -9,6 +9,7 @@ export default function EquipmentFilters({
   filters,
   setFilters,
   setDatePickup,
+  setQtyToShow,
 }) {
   const date = useSelector((state) => state.date.date_range);
   const { handleSubmit } = useForm();
@@ -16,6 +17,7 @@ export default function EquipmentFilters({
 
   const onSelectCategory = (e) => {
     setFilters((prev) => ({ ...prev, category: e.target.value }));
+    setQtyToShow(30);
   };
 
   return (

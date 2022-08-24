@@ -11,6 +11,8 @@ import s from "./Bookeable.module.scss";
 export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
   const dispatch = useDispatch();
 
+  const [qtyToShow, setQtyToShow] = useState(30);
+
   const [filters, setFilters] = useState({
     category: "all",
     order: "none",
@@ -19,7 +21,7 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
 
   useEffect(() => {
     dispatch(fetchEquipment(filters.category, filters.order, filters.search));
-  }, [filters]);
+  }, [filters.category, filters.order, filters.search]);
 
   return (
     <article className={s.container}>
@@ -29,13 +31,18 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
           filters={filters}
           dateRange={dateRange}
           setDatePickup={setDatePickup}
+          setQtyToShow={setQtyToShow}
         />
         <div>
           <div className={s.top_filters_wrapper}>
             <EquipmentSearchBar setFilters={setFilters} filters={filters} />
             <EquipmentOrder setFilters={setFilters} filters={filters} />
           </div>
-          <EquipmentList setShowCart={setShowCart} />
+          <EquipmentList
+            setShowCart={setShowCart}
+            qtyToShow={qtyToShow}
+            setQtyToShow={setQtyToShow}
+          />
         </div>
       </section>
     </article>
