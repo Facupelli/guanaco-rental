@@ -1,9 +1,12 @@
+import Image from "next/image";
 import s from "./GearAdminCard.module.scss";
 
 export default function GearAdminCard({ gear }) {
   return (
     <div className={s.admin_gear_container}>
-      <div className={s.image_wrapper}></div>
+      <div className={s.image_wrapper}>
+        <Image src={`/equipmentPics/${gear.image}`} alt={gear.name} layout="fill" />
+      </div>
       <div className={s.flex_basis_40}>
         <div className={`${s.flex_wrapper} ${s.bold}`}>
           <p>{gear.name}</p>
@@ -21,7 +24,7 @@ export default function GearAdminCard({ gear }) {
       </div>
       <div className={`${s.flex_wrapper} ${s.flex_basis}`}>
         <label>Stock:</label>
-        <input defaultValue={gear.stock} className={s.stock_input}/>
+        <input defaultValue={gear.stock} className={s.stock_input} />
       </div>
       <div className={`${s.flex_wrapper} ${s.flex_basis}`}>
         <label>Sucursal:</label>

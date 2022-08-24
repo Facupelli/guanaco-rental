@@ -1,13 +1,12 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
 import Nav from "../../components/Nav/Nav";
 import OrderCard from "../../components/OrderCard/OrderCard";
 
 import s from "../../styles/AdminOrdersPage.module.scss";
 
 export default function AdminOrdersPage() {
-  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
@@ -41,9 +40,7 @@ export default function AdminOrdersPage() {
       <Nav />
       <main className={s.main}>
         <div className={s.title_wrapper}>
-          <button type="button" onClick={() => router.back()}>
-            {"<-"}
-          </button>
+          <ArrowBackBtn />
           <h1>Pedidos</h1>
         </div>
         <div className={s.table_titles}>

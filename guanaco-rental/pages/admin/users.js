@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
 import ClientCard from "../../components/ClientCard/ClientCard";
 import ClientPetitionCard from "../../components/clientPetitionCard/ClientPetitionCard";
 import ClientPetitionInfo from "../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
@@ -69,9 +70,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
       <Nav />
       <main className={s.main}>
         <div className={s.title_wrapper}>
-          <button type="button" onClick={() => router.back()}>
-            {"<-"}
-          </button>
+          <ArrowBackBtn />
           <h1>Usuarios</h1>
         </div>
         <ul className={s.nav}>

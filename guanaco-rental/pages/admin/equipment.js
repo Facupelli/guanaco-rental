@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
 import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
 import Nav from "../../components/Nav/Nav";
 
@@ -17,9 +18,7 @@ export default function AdminEquipment({ equipment }) {
       <Nav />
       <main className={s.main}>
         <div className={s.title_wrapper}>
-          <button type="button" onClick={() => router.back()}>
-            {"<-"}
-          </button>
+          <ArrowBackBtn />
           <div className={s.flex}>
             <h1>Equipos</h1>
             <p>total: {equipment.length}</p>

@@ -1,0 +1,18 @@
+@import "../../styles/app.scss";
+
+.btn {
+  @include m-button;
+  padding: 0.2rem;
+  background-color: transparent;
+  color: $m-black;
+
+  &:hover {
+    background-color: transparent;
+    color: $m-gray;
+  }
+
+  .arrow_icon {
+    height: 25px;
+    width: 25px;
+  }
+}
