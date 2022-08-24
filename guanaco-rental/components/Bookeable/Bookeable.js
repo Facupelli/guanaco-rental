@@ -24,8 +24,8 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
   }, [filters.category, filters.order, filters.search]);
 
   return (
-    <article className={s.container}>
-      <section className={s.equipment_grid}>
+    <section className={s.container}>
+      <div className={s.equipment_grid}>
         <EquipmentFilters
           setFilters={setFilters}
           filters={filters}
@@ -33,7 +33,7 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
           setDatePickup={setDatePickup}
           setQtyToShow={setQtyToShow}
         />
-        <div>
+        <section>
           <div className={s.top_filters_wrapper}>
             <EquipmentSearchBar setFilters={setFilters} filters={filters} />
             <EquipmentOrder setFilters={setFilters} filters={filters} />
@@ -43,8 +43,8 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
             qtyToShow={qtyToShow}
             setQtyToShow={setQtyToShow}
           />
-        </div>
-      </section>
-    </article>
+        </section>
+      </div>
+    </section>
   );
 }

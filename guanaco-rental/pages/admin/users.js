@@ -15,7 +15,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
 
   const [search, setSearch] = useState("");
 
-  const [showNewClients, setShowNewClients] = useState(false);
+  const [showNewClients, setShowNewClients] = useState(true);
   const [showClients, setShowClients] = useState(false);
 
   const [newClientInfo, setNewClientInfo] = useState({});
@@ -74,35 +74,40 @@ export default function AdminUsersPage({ clients, newCLients }) {
           <ArrowBackBtn />
           <h1>Usuarios</h1>
         </div>
-        <ul className={s.nav}>
-          <li
-            onClick={() => {
-              setShowNewClients(true);
-              setShowClients(false);
-            }}
-          >
-            <div
-              className={`${s.nav_li} ${showNewClients ? s.nav_li_active : ""}`}
+        <nav>
+          <ul className={s.nav}>
+            <li
+              onClick={() => {
+                setShowNewClients(true);
+                setShowClients(false);
+              }}
             >
-              <p>Peticiones Alta de Cliente:</p>
-              <p>{newClientUsers.length}</p>
-            </div>
-          </li>
-          <li
-            onClick={() => {
-              setShowClients(true);
-              setShowNewClients(false);
-            }}
-          >
-            <div
-              className={`${s.nav_li} ${showClients ? s.nav_li_active : ""}`}
+              <div
+                className={`${s.nav_li} ${
+                  showNewClients ? s.nav_li_active : ""
+                }`}
+              >
+                <p>Peticiones Alta de Cliente:</p>
+                <p>{newClientUsers.length}</p>
+              </div>
+            </li>
+            <li
+              onClick={() => {
+                setShowClients(true);
+                setShowNewClients(false);
+              }}
             >
-              <p>Lista de Clientes</p>
-            </div>
-          </li>
-        </ul>
+              <div
+                className={`${s.nav_li} ${showClients ? s.nav_li_active : ""}`}
+              >
+                <p>Lista de Clientes</p>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
         {showNewClients && newClientUsers.length > 0 && (
-          <div className={s.petitions_grid}>
+          <section className={s.petitions_grid}>
             <div>
               {newClientUsers.map((user) => (
                 <ClientPetitionCard
@@ -121,10 +126,10 @@ export default function AdminUsersPage({ clients, newCLients }) {
                 getClientUsers={getClientUsers}
               />
             )}
-          </div>
+          </section>
         )}
         {showClients && (
-          <div className={s.client_list_wrapper}>
+          <section className={s.client_list_wrapper}>
             <input
               type="search"
               placeholder="Buscar por nombre"
@@ -135,7 +140,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
               clientUsers.map((user) => (
                 <ClientCard user={user} key={user.id} />
               ))}
-          </div>
+          </section>
         )}
       </main>
     </div>

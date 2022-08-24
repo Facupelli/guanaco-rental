@@ -44,7 +44,7 @@ export default function EquipmentCard({ gear, setShowCart }) {
           freeTileClass={true}
         />
       )}
-      <div className={s.container}>
+      <article className={s.container}>
         <div className={s.image_wrapper}>
           <Image
             src={`/equipmentPics/${gear.image}`}
@@ -79,7 +79,7 @@ export default function EquipmentCard({ gear, setShowCart }) {
             <FontAwesomeIcon icon={faCartPlus} height="20" />
           </button>
         </div>
-      </div>
+      </article>
     </>
   );
 }

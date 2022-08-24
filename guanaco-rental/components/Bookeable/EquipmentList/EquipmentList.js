@@ -16,7 +16,7 @@ export default function EquipmentList({
   };
 
   return (
-    <section className={s.container}>
+    <div className={s.container}>
       {isLoading ? (
         <p>Cargando...</p>
       ) : equipment.length > 0 ? (
@@ -43,6 +43,6 @@ export default function EquipmentList({
       ) : (
         <p>No se encontraron equipos.</p>
       )}
-    </section>
+    </div>
   );
 }

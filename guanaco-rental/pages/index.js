@@ -56,6 +56,8 @@ export default function Home() {
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
 
+      <Nav setShowCart={setShowCart} home />
+
       <main className={styles.main}>
         {datePickup && (
           <CalendarComponent
@@ -69,7 +71,6 @@ export default function Home() {
           setDatePickup={setDatePickup}
           showCart={showCart}
         />
-        <Nav setShowCart={setShowCart} home />
         <Bookeable
           dateRange={dateRange}
           setDatePickup={setDatePickup}
