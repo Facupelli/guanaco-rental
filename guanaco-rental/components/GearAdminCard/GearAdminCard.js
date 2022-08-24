@@ -7,14 +7,14 @@ export default function GearAdminCard({ gear }) {
       <div className={s.image_wrapper}>
         <Image src={`/equipmentPics/${gear.image}`} alt={gear.name} layout="fill" />
       </div>
-      <div className={s.flex_basis_40}>
+      <div className={s.flex_grow_2}>
         <div className={`${s.flex_wrapper} ${s.bold}`}>
           <p>{gear.name}</p>
           <p>{gear.brand}</p>
         </div>
         <p>{gear.model}</p>
       </div>
-      <div className={`${s.flex_wrapper} ${s.flex_basis}`}>
+      <div className={`${s.flex_wrapper} `}>
         <label>Disponible:</label>
         <input
           type="checkbox"
@@ -22,11 +22,15 @@ export default function GearAdminCard({ gear }) {
           defaultChecked={gear.available}
         />
       </div>
-      <div className={`${s.flex_wrapper} ${s.flex_basis}`}>
+      <div className={`${s.flex_wrapper} `}>
         <label>Stock:</label>
         <input defaultValue={gear.stock} className={s.stock_input} />
       </div>
-      <div className={`${s.flex_wrapper} ${s.flex_basis}`}>
+      <div className={`${s.flex_wrapper} `}>
+        <label>Precio:</label>
+        <input defaultValue={gear.price} className={s.price_input} />
+      </div>
+      <div className={`${s.flex_wrapper} `}>
         <label>Sucursal:</label>
         <select defaultValue={gear.location}>
           <option value="San Juan">San Juan</option>

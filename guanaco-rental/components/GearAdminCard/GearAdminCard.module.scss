@@ -22,22 +22,26 @@
     font-weight: 600;
   }
 
+  .flex_grow_2{
+    flex-grow: 2;
+  }
+
   .flex_wrapper {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .flex_basis{
-    flex-basis: 13.3%
-  }
-
-  .flex_basis_40{
-    flex-basis: 40%
-  }
-
   .stock_input{
     width: 30px;
+    padding: .2rem;
+    border-radius: .2rem;
+    border: 1px solid $m-gray;
+    text-align: center;
+  }
+
+  .price_input{
+    width: 70px;
     padding: .2rem;
     border-radius: .2rem;
     border: 1px solid $m-gray;
