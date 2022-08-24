@@ -16,10 +16,14 @@ import Nav from "../../components/Nav/Nav";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 
 import s from "../../styles/CartPage.module.scss";
+import MessageModal from "../../components/MessageModal/MessageModal";
 
 export default function CartPage() {
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const [datePickup, setDatePickup] = useState(false);
   const [dateRange, setDateRange] = useState(null);
@@ -44,7 +48,7 @@ export default function CartPage() {
     const totalPrice = cart.reduce((curr, acc) => {
       return curr + (acc.quantity ? acc.price * acc.quantity : acc.price);
     }, 0);
-    return formatPrice(totalPrice);
+    return totalPrice;
   };
 
   const areAllItemsAvailable = () => {
@@ -68,12 +72,11 @@ export default function CartPage() {
       router.push("/newClient");
       return;
     }
-    
-    console.log("enviar pedido");
 
-    const totalPrice = cart.reduce((curr, acc) => {
-      return curr + (acc.quantity ? acc.price * acc.quantity : acc.price);
-    }, 0);
+    console.log("enviar pedido");
+    setLoading(true);
+
+    const totalPrice = getTotalPrice();
 
     const data = JSON.stringify({
       cart,
@@ -89,10 +92,13 @@ export default function CartPage() {
         "Content-type": "application/json",
         Accept: "application/json",
       },
-    }).then((response) => response.json());
+    })
+      .then((response) => response.json())
+      .catch(() => setError("error, vuelve a intentarlo"))
+      .finally(() => setLoading(false));
 
-    if (newOrder.message === "success") {
-      console.log(newOrder)
+    if (newOrder && newOrder.message === "success") {
+      console.log(newOrder);
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
       dispatch(resetDate());
       return;
@@ -116,6 +122,16 @@ export default function CartPage() {
           setDateRange={setDateRange}
           setDatePickup={setDatePickup}
         />
+      )}
+      {loading && (
+        <MessageModal>
+          <p>Procesando...</p>
+        </MessageModal>
+      )}
+      {error && (
+        <MessageModal>
+          <p>{error}</p>
+        </MessageModal>
       )}
       <main className={s.main}>
         <div>
@@ -155,7 +171,10 @@ export default function CartPage() {
             <button
               type="button"
               disabled={
-                date.length > 0 && cart.length > 0 && areAllItemsAvailable()
+                date.length > 0 &&
+                cart.length > 0 &&
+                getTotalPrice() > 0 &&
+                areAllItemsAvailable()
                   ? false
                   : true
               }
@@ -170,7 +189,7 @@ export default function CartPage() {
           <div className={s.total_price_wrapper}>
             <p>Total:</p>
             <p className={s.p_bold}>
-              {cart && cart.length > 0 && getTotalPrice()}
+              {cart && cart.length > 0 && formatPrice(getTotalPrice())}
             </p>
           </div>
         </div>

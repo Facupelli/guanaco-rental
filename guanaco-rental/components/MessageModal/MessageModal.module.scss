@@ -1,0 +1,15 @@
+.modal_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 100vmax rgba(46, 46, 46, 0.288);
+  border-radius: 0.2rem;
+  padding: 2rem;
+  min-width: 400px;
+}
+@media (max-width: 500px) {
+  .modal_container {
+    min-width: 200px;
+  }
+}

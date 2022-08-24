@@ -13,7 +13,7 @@
 
   .search_icon {
     padding: 0.5rem;
-    height: 34px;
+    height: calc(36px - 1rem);
     border-bottom-left-radius: 0.2rem;
     border-top-left-radius: 0.2rem;
     background-color: $m-orange;
@@ -21,6 +21,7 @@
   }
 
   .search_input {
+    height: 36px;
     padding: 0.5rem 1rem;
     border-bottom-right-radius: 0.2rem;
     border-top-right-radius: 0.2rem;

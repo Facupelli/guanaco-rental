@@ -23,8 +23,8 @@ export default function NewOrderSuccess({ order }) {
             <div className={s.flex_20}>
               <p className={s.bold}>Fecha de alquiler:</p>
               <p>
-                {order.booking.dates[0]} {"->"}{" "}
-                {order.booking.dates[order.booking.dates.length - 1]}
+                {new Date(order.booking.dates[0]).toLocaleDateString()} {"->"}{" "}
+                {new Date(order.booking.dates[order.booking.dates.length - 1]).toLocaleDateString()}
               </p>
             </div>
             <div className={s.flex_60}>

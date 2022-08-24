@@ -17,8 +17,8 @@ export default function Nav({ setShowCart, cartPage, home }) {
   return (
     <nav className={s.nav_container}>
       <div className={s.logo_container}>
-        <Link href="/">
-          <div>
+        <div>
+          <Link href="/">
             <Image
               src="/guanaco-rental-logo.svg"
               alt="guanaco-logo"
@@ -27,16 +27,12 @@ export default function Nav({ setShowCart, cartPage, home }) {
               layout="intrinsic"
               objectFit="contain"
             />
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
       <input type="checkbox" name="click" className={s.click} id="click" />
       <label htmlFor="click" className={s.icon_container}>
-        <FontAwesomeIcon
-          icon={faBars}
-          width="25px"
-          className={s.bars_icon}
-        />
+        <FontAwesomeIcon icon={faBars} width="25px" className={s.bars_icon} />
       </label>
       <ul>
         <li>RESERVAS ONLINE</li>
