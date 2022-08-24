@@ -52,6 +52,7 @@ export default function EquipmentCard({ gear, setShowCart }) {
             layout="fill"
             quality={70}
             objectFit="contain"
+            priority={gear.image === "rokinon12.jpg"}
           />
         </div>
         <div className={s.name_wrapper_flex}>
@@ -74,6 +75,7 @@ export default function EquipmentCard({ gear, setShowCart }) {
             type="button"
             onClick={addItemToCart}
             disabled={!availability}
+            aria-label="add-to-cart"
           >
             {/* + carrito */}
             <FontAwesomeIcon icon={faCartPlus} height="20" />

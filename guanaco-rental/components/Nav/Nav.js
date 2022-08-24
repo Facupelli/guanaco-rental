@@ -20,8 +20,10 @@ export default function Nav({ setShowCart, cartPage, home }) {
             <div>
               <Image
                 src="/guanaco-rental-logo.svg"
-                width="75"
-                height="75"
+                alt="guanaco-logo"
+                width={75}
+                height={75}
+                layout="intrinsic"
                 objectFit="contain"
               />
             </div>
