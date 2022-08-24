@@ -17,10 +17,7 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
     search: "",
   });
 
-  console.log("filters:", filters);
-
   useEffect(() => {
-    console.log("entre")
     dispatch(fetchEquipment(filters.category, filters.order, filters.search));
   }, [filters]);
 

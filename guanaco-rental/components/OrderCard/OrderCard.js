@@ -2,7 +2,6 @@ import { useState } from "react";
 import { formatPrice } from "../../utils/price_formater";
 import Gear from "./Gear/Gear";
 import { usePDF } from "@react-pdf/renderer";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import s from "./OrderCard.module.scss";
 import { RemitoPDF } from "./RemitoPDF";
@@ -70,29 +69,6 @@ export default function OrderCard({ order }) {
           />
         )}
       </div>
-      {/* {
-        generatePDF &&
-        <PDFDownloadLink
-          document={
-            <RemitoPDF
-              pickupDay={pickupDay}
-              returnDay={returnDay}
-              order={order}
-              index={i}
-            />
-          }
-          fileName={`Remito ${order.user.fullName} - ${i}`}
-        >
-          {({ blob, url, loading, error }) => {
-            if (error) {
-              console.log("PDFlink", error);
-            }
-            return loading
-              ? "Loading document..."
-              : `Remito ${order.user.fullName} - ${i}`;
-          }}
-        </PDFDownloadLink>
-      } */}
     </div>
   );
 }

@@ -46,7 +46,9 @@ export default function EquipmentCard({ gear, setShowCart }) {
         <div className={s.image_wrapper}>
           <Image
             src={`/equipmentPics/${gear.image}`}
+            alt={gear.image.slice(".jpg")[0]}
             layout="fill"
+            quality={70}
             objectFit="contain"
           />
         </div>

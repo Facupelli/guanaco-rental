@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
 import Nav from "../../components/Nav/Nav";
 
