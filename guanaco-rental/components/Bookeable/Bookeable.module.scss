@@ -29,6 +29,8 @@
 
 @media (max-width: 920px) {
   .container {
+    padding-top: 1rem;
+
     .equipment_grid {
       section {
         grid-column: 1/-1;
@@ -42,6 +44,7 @@
         box-shadow: none;
         background-color: transparent;
         margin-bottom: 2rem;
+        padding: 0rem 1rem 1rem 1rem;
       }
     }
   }

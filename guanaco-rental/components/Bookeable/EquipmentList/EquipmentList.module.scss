@@ -22,6 +22,15 @@
 @media (max-width: 920px) {
   .container {
     .cards_wrapper {
+      grid-template-columns: 50% 50%;
+      justify-items: center;
+    }
+  }
+}
+
+@media (max-width: 690px) {
+  .container {
+    .cards_wrapper {
       grid-template-columns: 100%;
       justify-items: center;
     }

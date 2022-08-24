@@ -23,20 +23,20 @@ export default function EquipmentFilters({
   return (
     <section>
       <form onSubmit={handleSubmit(onSubmit)} className={s.form_container}>
-          <input
-            type="checkbox"
-            id="filters"
-            name="filters"
-            className={s.click}
+        <input
+          type="checkbox"
+          id="filters"
+          name="filters"
+          className={s.click}
+        />
+        <label htmlFor="filters" className={s.filters_icon_wrapper}>
+          Filtros
+          <FontAwesomeIcon
+            icon={faFilter}
+            width="25px"
+            className={s.filter_icon}
           />
-          <label htmlFor="filters" className={s.filters_icon_wrapper}>
-            Filtros
-            <FontAwesomeIcon
-              icon={faFilter}
-              width="25px"
-              className={s.filter_icon}
-            />
-          </label>
+        </label>
         <div className={s.mobile_filters}>
           <div className={s.flex_column}>
             {/* <label>Filtrar por:</label> */}
