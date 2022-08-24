@@ -2,9 +2,11 @@ import Image from "next/image";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../../redux/features/cart/cartSlice";
-import CalendarComponent from "../../EquipmentFilters/Calendar/Calendar";
 import { formatPrice } from "../../../../utils/price_formater";
 import { isAvailable } from "../../../../utils/dates_functions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import CalendarComponent from "../../EquipmentFilters/Calendar/Calendar";
 
 import s from "./EquipmentCard.module.scss";
 
@@ -46,7 +48,7 @@ export default function EquipmentCard({ gear, setShowCart }) {
         <div className={s.image_wrapper}>
           <Image
             src={`/equipmentPics/${gear.image}`}
-            alt={gear.image.slice(".jpg")[0]}
+            alt={`${gear.name}/${gear.model}`}
             layout="fill"
             quality={70}
             objectFit="contain"
@@ -73,7 +75,8 @@ export default function EquipmentCard({ gear, setShowCart }) {
             onClick={addItemToCart}
             disabled={!availability}
           >
-            + carrito
+            {/* + carrito */}
+            <FontAwesomeIcon icon={faCartPlus} height="20" />
           </button>
         </div>
       </div>

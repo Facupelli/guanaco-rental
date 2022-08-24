@@ -16,6 +16,10 @@
     > button {
       margin-bottom: 1rem;
       width: 100%;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      justify-content: center;
       @include m-button;
     }
 

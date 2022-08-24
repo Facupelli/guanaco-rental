@@ -59,7 +59,7 @@ export default function AdminOrdersPage() {
         </div>
         <div>
           {loading ? (
-            <p>Loading...</p>
+            <p>Cargando...</p>
           ) : (
             orders &&
             orders.length > 0 &&

@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
@@ -23,6 +25,7 @@ export default function EquipmentFilters({
           {/* <label>Filtrar por:</label> */}
           <button type="button" onClick={() => setDatePickup(true)}>
             SELECCIONAR FECHA
+            <FontAwesomeIcon icon={faCalendarDays} height="15" />
           </button>
           <div className={s.flex_wrapper}>
             <p>Retiro: </p>

@@ -62,17 +62,17 @@
     margin-top: 0.4rem;
     display: flex;
     gap: 0.5rem;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
 
     .price_bold {
       font-weight: 600;
-      margin-top: 0.5rem;
       font-size: 1em;
     }
 
     button {
       @include m-button-orange;
+      padding: .5rem;
     }
   }
 }
