@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import { useCallback, useRef } from "react";
 
 import s from "./EquipmentFilters.module.scss";
 
@@ -20,6 +22,15 @@ export default function EquipmentFilters({
     setQtyToShow(30);
   };
 
+  const filtersRef = useRef(null);
+
+  useOnClickOutside(
+    filtersRef,
+    useCallback(() => {
+      document.getElementById("filters").checked = false;
+    })
+  );
+
   return (
     <section>
       <form onSubmit={handleSubmit(onSubmit)} className={s.form_container}>
@@ -37,7 +48,7 @@ export default function EquipmentFilters({
             className={s.filter_icon}
           />
         </label>
-        <div className={s.mobile_filters}>
+        <div className={s.mobile_filters} ref={filtersRef}>
           <div className={s.flex_column}>
             {/* <label>Filtrar por:</label> */}
             <button type="button" onClick={() => setDatePickup(true)}>
