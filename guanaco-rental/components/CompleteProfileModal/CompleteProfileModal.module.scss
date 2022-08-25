@@ -1,5 +1,19 @@
 @import "../../styles/app.scss";
 
+.modal_btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+
+  button {
+    @include m-button;
+
+    a:visited{
+      color: white;
+    }
+  }
+}
+
 .container {
   @include app_width;
   padding: 3rem 0rem;
@@ -34,7 +48,7 @@
       .inputs {
         display: flex;
         flex-direction: column;
-        row-gap: .5rem;
+        row-gap: 0.5rem;
       }
 
       // input[type="text"] {

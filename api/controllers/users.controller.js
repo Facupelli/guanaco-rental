@@ -24,6 +24,7 @@ async function postUser(req, res, next) {
         company: data.company,
         cuit: data.cuit,
         bussinessName: data.bussinessName,
+        contacts: data.contacts,
         bank: data.bank,
         alias: data.alias,
         cbu: data.cbu,
@@ -35,7 +36,12 @@ async function postUser(req, res, next) {
       },
     });
 
-    res.json({ message: "success", user: upsertUser });
+    const response = {
+      message: "success",
+      user: upsertUser
+    }
+
+    res.json(response);
   } catch (e) {
     console.log("postUser error:", e);
     return;

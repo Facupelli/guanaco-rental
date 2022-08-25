@@ -36,7 +36,9 @@ export default function newClientPage() {
         ></script>
       </Head>
       <Nav />
-      <CompleteProfileModal user={userData} />
+      <main className={s.main}>
+        <CompleteProfileModal user={userData} />
+      </main>
     </div>
   );
 }

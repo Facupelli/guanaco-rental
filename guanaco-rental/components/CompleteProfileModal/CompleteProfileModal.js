@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import MessageModal from "../MessageModal/MessageModal";
 
 import s from "./CompleteProfileModal.module.scss";
 
@@ -10,6 +12,9 @@ export default function CompleteProfileModal({ user }) {
     watch,
     formState: { errors },
   } = useForm();
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const [dniFront, setDniFront] = useState("");
   const [dniBack, setDniBack] = useState("");
@@ -42,7 +47,7 @@ export default function CompleteProfileModal({ user }) {
   const handleOnCLick = () => {};
 
   const onSubmit = async (data) => {
-    console.log(data);
+    setLoading(true);
 
     const userData = JSON.stringify({
       ...data,
@@ -60,183 +65,213 @@ export default function CompleteProfileModal({ user }) {
         "Content-type": "application/json",
         Accept: "application/json",
       },
-    }).then((response) => console.log(response.json()));
+    })
+      .then((response) => response.json())
+      .catch(() => console.log("error"))
+      .finally(() => setLoading(false));
 
-    if (newCustomerPetition.message === "success") {
+    if (newCustomerPetition && newCustomerPetition.message === "success") {
       console.log("success");
+      setMessage(
+        "Alta enviada correctamente. Hasta 48hs para aprobarla/denegarla."
+      );
     }
   };
 
   return (
-    <div className={s.container}>
-      <h1>FORMULARIO ALTA DE CLIENTE </h1>
-      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <fieldset className={s.personal_info_wrapper}>
-          <legend>INFORMACION CLIENTE</legend>
-
-          <div className={s.inputs}>
-            <label htmlFor="fullName">Nombre Completo:</label>
-            <input
-              required
-              type="text"
-              id="fullName"
-              autoFocus
-              {...register("fullName")}
-            />
+    <>
+      {loading && (
+        <MessageModal>
+          <p>Procesando...</p>
+        </MessageModal>
+      )}
+      {message && (
+        <MessageModal>
+          <p>{message}</p>
+          <div className={s.modal_btn}>
+            <button type="button" onClick={() => setMessage("")}>
+              <Link href="/">
+                <a>OK</a>
+              </Link>
+            </button>
           </div>
+        </MessageModal>
+      )}
+      <div className={s.container}>
+        <h1>FORMULARIO ALTA DE CLIENTE </h1>
+        <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+          <fieldset className={s.personal_info_wrapper}>
+            <legend>INFORMACION CLIENTE</legend>
 
-          <div className={s.inputs}>
-            <label htmlFor="phone">Número de celular:</label>
-            <input required type="tel" id="phone" {...register("phone")} />
-          </div>
-
-          <div className={s.inputs}>
-            <label htmlFor="birthDate">Fecha de nacimiento:</label>
-            <input
-              required
-              type="date"
-              id="birthDate"
-              {...register("birthDate")}
-            />
-          </div>
-
-          <div className={s.inputs}>
-            <label htmlFor="address">Domicilio Real:</label>
-            <input required type="text" id="address" {...register("address")} />
-          </div>
-
-          <div className={s.inputs}>
-            <label htmlFor="addressLocation">Localidad:</label>
-            <input
-              required
-              type="text"
-              id="addressLocation"
-              {...register("addressLocation")}
-            />
-          </div>
-
-          <div className={s.inputs}>
-            <label htmlFor="addressProvince">Provincia:</label>
-            <input
-              required
-              type="text"
-              id="addressProvince"
-              {...register("addressProvince")}
-            />
-          </div>
-
-          <div className={s.inputs}>
-            <label htmlFor="dniNumber">DNI:</label>
-            <input
-              required
-              type="text"
-              id="dniNumber"
-              {...register("dniNumber")}
-            />
-          </div>
-
-          <div className={s.dni_files_wrapper}>
-            <div>
-              <label htmlFor="dniFront">Foto de tu DNI (anverso):</label>
-              <button
-                type="button"
-                id="dniFront"
-                onClick={() => openWidget(setDniFront)}
-              >
-                subir archivo
-              </button>
+            <div className={s.inputs}>
+              <label htmlFor="fullName">Nombre Completo:</label>
+              <input
+                required
+                type="text"
+                id="fullName"
+                autoFocus
+                {...register("fullName")}
+              />
             </div>
 
-            <div>
-              <label htmlFor="dniBack">Foto de tu DNI (dorso):</label>
-              <button
-                type="button"
-                id="dniBack"
-                onClick={() => openWidget(setDniBack)}
-              >
-                subir archivo
-              </button>
+            <div className={s.inputs}>
+              <label htmlFor="phone">Número de celular:</label>
+              <input required type="tel" id="phone" {...register("phone")} />
             </div>
-          </div>
 
-          <div className={s.inputs}>
-            <label htmlFor="occupation">Ocupación:</label>
-            <input
-              required
-              type="text"
-              id="occupation"
-              {...register("occupation")}
-            />
-          </div>
+            <div className={s.inputs}>
+              <label htmlFor="birthDate">Fecha de nacimiento:</label>
+              <input
+                required
+                type="date"
+                id="birthDate"
+                {...register("birthDate")}
+              />
+            </div>
 
-          <div className={s.flex}>
-            <label htmlFor="student">Estudiante:</label>
-            <input type="checkbox" id="student" {...register("student")} />
-          </div>
+            <div className={s.inputs}>
+              <label htmlFor="address">Domicilio Real:</label>
+              <input
+                required
+                type="text"
+                id="address"
+                {...register("address")}
+              />
+            </div>
 
-          <div className={s.flex}>
-            <label htmlFor="employee">Empleado R.D:</label>
-            <input type="checkbox" id="employee" {...register("employee")} />
-          </div>
+            <div className={s.inputs}>
+              <label htmlFor="addressLocation">Localidad:</label>
+              <input
+                required
+                type="text"
+                id="addressLocation"
+                {...register("addressLocation")}
+              />
+            </div>
 
-          <div className={s.inputs}>
-            <label htmlFor="company">Empresa:</label>
-            <input type="text" id="company" {...register("company")} />
-          </div>
+            <div className={s.inputs}>
+              <label htmlFor="addressProvince">Provincia:</label>
+              <input
+                required
+                type="text"
+                id="addressProvince"
+                {...register("addressProvince")}
+              />
+            </div>
 
-          <div className={s.inputs}>
-            <label htmlFor="cuit">CUIT:</label>
-            <input required type="text" id="cuit" {...register("cuit")} />
-          </div>
+            <div className={s.inputs}>
+              <label htmlFor="dniNumber">DNI:</label>
+              <input
+                required
+                type="text"
+                id="dniNumber"
+                {...register("dniNumber")}
+              />
+            </div>
 
-          <div className={s.inputs}>
-            <label htmlFor="bussinessName">Razón Social:</label>
-            <input
-              type="text"
-              id="bussinessName"
-              {...register("businessName")}
-            />
-          </div>
-        </fieldset>
+            <div className={s.dni_files_wrapper}>
+              <div>
+                <label htmlFor="dniFront">Foto de tu DNI (anverso):</label>
+                <button
+                  type="button"
+                  id="dniFront"
+                  onClick={() => openWidget(setDniFront)}
+                >
+                  subir archivo
+                </button>
+              </div>
 
-        <fieldset className={s.contacts_wrapper}>
-          <legend>CONTACTOS RELACIONADOS</legend>
-          <div>
-            <label htmlFor="contact1">Contacto 1:</label>
-            <input type="text" id="contact1" {...register("contact1")} />
-            <label htmlFor="bond1">Vínculo:</label>
-            <input type="text" id="bond1" {...register("bond1")} />
-          </div>
-          <div>
-            <label htmlFor="contact2">Contacto 2:</label>
-            <input type="text" id="contact2" {...register("contact2")} />
-            <label htmlFor="bond2">Vínculo:</label>
-            <input type="text" id="bond2" {...register("bond2")} />
-          </div>
-          <div>
-            <label htmlFor="contact3">Contacto 3:</label>
-            <input type="text" id="contact3" {...register("contact3")} />
-            <label htmlFor="bond3">Vínculo:</label>
-            <input type="text" id="bond3" {...register("bond3")} />
-          </div>
-        </fieldset>
+              <div>
+                <label htmlFor="dniBack">Foto de tu DNI (dorso):</label>
+                <button
+                  type="button"
+                  id="dniBack"
+                  onClick={() => openWidget(setDniBack)}
+                >
+                  subir archivo
+                </button>
+              </div>
+            </div>
 
-        <fieldset className={s.bank_info_wrapper}>
-          <legend>DATOS DE CUENTA BANCARIA:</legend>
-          <div>
-            <label htmlFor="bank">Banco:</label>
-            <input type="text" id="bank" {...register("bank")} />
-            <label htmlFor="alias">Alias:</label>
-            <input type="text" id="alias" {...register("alias")} />
-            <label htmlFor="cbu">CBU:</label>
-            <input type="text" id="cbu" {...register("cbu")} />
-          </div>
-        </fieldset>
+            <div className={s.inputs}>
+              <label htmlFor="occupation">Ocupación:</label>
+              <input
+                required
+                type="text"
+                id="occupation"
+                {...register("occupation")}
+              />
+            </div>
 
-        <div className={s.btn_wrapper}>
-          <button type="submit">siguiente</button>
-        </div>
-      </form>
-    </div>
+            <div className={s.flex}>
+              <label htmlFor="student">Estudiante:</label>
+              <input type="checkbox" id="student" {...register("student")} />
+            </div>
+
+            <div className={s.flex}>
+              <label htmlFor="employee">Empleado R.D:</label>
+              <input type="checkbox" id="employee" {...register("employee")} />
+            </div>
+
+            <div className={s.inputs}>
+              <label htmlFor="company">Empresa:</label>
+              <input type="text" id="company" {...register("company")} />
+            </div>
+
+            <div className={s.inputs}>
+              <label htmlFor="cuit">CUIT:</label>
+              <input required type="text" id="cuit" {...register("cuit")} />
+            </div>
+
+            <div className={s.inputs}>
+              <label htmlFor="bussinessName">Razón Social:</label>
+              <input
+                type="text"
+                id="bussinessName"
+                {...register("businessName")}
+              />
+            </div>
+          </fieldset>
+
+          <fieldset className={s.contacts_wrapper}>
+            <legend>CONTACTOS RELACIONADOS</legend>
+            <div>
+              <label htmlFor="contact1">Contacto 1:</label>
+              <input type="text" id="contact1" {...register("contacts.contact1")} />
+              <label htmlFor="bond1">Vínculo:</label>
+              <input type="text" id="bond1" {...register("contacts.bond1")} />
+            </div>
+            <div>
+              <label htmlFor="contact2">Contacto 2:</label>
+              <input type="text" id="contact2" {...register("contacts.contact2")} />
+              <label htmlFor="bond2">Vínculo:</label>
+              <input type="text" id="bond2" {...register("contacts.bond2")} />
+            </div>
+            <div>
+              <label htmlFor="contact3">Contacto 3:</label>
+              <input type="text" id="contact3" {...register("contacts.contact3")} />
+              <label htmlFor="bond3">Vínculo:</label>
+              <input type="text" id="bond3" {...register("contacts.bond3")} />
+            </div>
+          </fieldset>
+
+          <fieldset className={s.bank_info_wrapper}>
+            <legend>DATOS DE CUENTA BANCARIA:</legend>
+            <div>
+              <label htmlFor="bank">Banco:</label>
+              <input type="text" id="bank" {...register("bank")} />
+              <label htmlFor="alias">Alias:</label>
+              <input type="text" id="alias" {...register("alias")} />
+              <label htmlFor="cbu">CBU:</label>
+              <input type="text" id="cbu" {...register("cbu")} />
+            </div>
+          </fieldset>
+
+          <div className={s.btn_wrapper}>
+            <button type="submit">siguiente</button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

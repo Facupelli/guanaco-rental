@@ -3,10 +3,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 15;
   box-shadow: 0 0 0 100vmax rgba(46, 46, 46, 0.288);
   border-radius: 0.2rem;
   padding: 2rem;
   min-width: 400px;
+  background-color: white;
 }
 @media (max-width: 500px) {
   .modal_container {

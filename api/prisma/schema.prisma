@@ -29,6 +29,7 @@ model User {
   company                 String?
   cuit                    String?
   bussinessName           String?
+  contacts                Json?
   bank                    String?
   alias                   String?
   cbu                     String?

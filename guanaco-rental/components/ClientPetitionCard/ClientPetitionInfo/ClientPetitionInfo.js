@@ -45,6 +45,10 @@ export default function ClientPetitionInfo({
         <li>Empresa:</li>
         <li>CUIT:</li>
         <li>Razon Social:</li>
+        <li>CONTACTOS</li>
+        <li>contacto 1:</li>
+        <li>contacto 2:</li>
+        <li>contacto 3:</li>
         <li>CUENTA BANCARIA</li>
         <li>Banco:</li>
         <li>Alias:</li>
@@ -83,15 +87,39 @@ export default function ClientPetitionInfo({
         <li>{user.cuit}</li>
         <li>{user.bussinessName ? user.bussinessName : "-"}</li>
         <li>--------------</li>
+        <li>
+          {user.contacts.contact1} {"("}
+          {user.contacts.bond1}
+          {")"}
+        </li>
+        <li>
+          {user.contacts.contact2} {"("}
+          {user.contacts.bond2}
+          {")"}
+        </li>
+        <li>
+          {user.contacts.contact3} {"("}
+          {user.contacts.bond3}
+          {")"}
+        </li>
+        <li>--------------</li>
         <li>{user.bank}</li>
         <li>{user.alias}</li>
         <li>{user.cbu}</li>
       </ul>
       <div className={s.btns_wrapper}>
-        <button type="button" onClick={() => onClickApprove(true)} className={s.m_button}>
+        <button
+          type="button"
+          onClick={() => onClickApprove(true)}
+          className={s.m_button}
+        >
           APROBAR
         </button>
-        <button type="button" onClick={() => onClickApprove(false)} className={s.m_button_danger}>
+        <button
+          type="button"
+          onClick={() => onClickApprove(false)}
+          className={s.m_button_danger}
+        >
           DENEGAR
         </button>
       </div>

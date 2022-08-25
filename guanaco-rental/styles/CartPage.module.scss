@@ -1,5 +1,14 @@
 @import "./app.scss";
 
+.modal_btn{
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  button{
+    @include m-button;
+  }
+}
+
 .main {
   @include app_width;
   margin-top: 3rem;

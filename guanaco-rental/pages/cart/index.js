@@ -30,7 +30,6 @@ export default function CartPage() {
 
   const userData = useSelector((state) => state.user.data);
   const cart = useSelector((state) => state.cart.items);
-
   const date = useSelector((state) => state.date.date_range);
 
   const handleSelectDateRange = () => {
@@ -72,6 +71,10 @@ export default function CartPage() {
       router.push("/newClient");
       return;
     }
+    if (!userData.customerAproved) {
+      setError("Tu alta de cliente todavía no fue aprobada.");
+      return;
+    }
 
     console.log("enviar pedido");
     setLoading(true);
@@ -98,7 +101,6 @@ export default function CartPage() {
       .finally(() => setLoading(false));
 
     if (newOrder && newOrder.message === "success") {
-      console.log(newOrder);
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
       dispatch(resetDate());
       return;
@@ -131,6 +133,11 @@ export default function CartPage() {
       {error && (
         <MessageModal>
           <p>{error}</p>
+          <div className={s.modal_btn}>
+            <button type="button" onClick={() => setError("")}>
+              OK
+            </button>
+          </div>
         </MessageModal>
       )}
       <main className={s.main}>
