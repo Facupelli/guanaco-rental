@@ -57,11 +57,6 @@ export default function AdminUsersPage({ clients, newCLients }) {
     getClientUsers();
   }, [search]);
 
-  // useEffect(() => {
-  //   getNewClientUsers();
-  //   getClientUsers();
-  // }, []);
-
   return (
     <div className={s.bg_grey}>
       <Head>

@@ -46,7 +46,7 @@ export default function AdminEquipment({ equipment }) {
             <p>total: {equipment.length}</p>
           </div>
           <div>
-            <select onChange={(e) => setCategory(e.target.value)}>
+            <select defaultValue="all" onChange={(e) => setCategory(e.target.value)}>
               <option value="all">TODOS</option>
               <option value="camaras">CAMARAS</option>
               <option value="lentes">LENTES</option>

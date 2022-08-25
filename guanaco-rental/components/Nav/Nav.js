@@ -27,9 +27,9 @@ export default function Nav({ setShowCart, cartPage, home }) {
 
   return (
     <nav className={s.nav_container}>
-      <div className={s.logo_container}>
-        <div>
-          <Link href="/">
+      <Link href="/">
+        <div className={s.logo_container}>
+          <div>
             <Image
               src="/guanaco-rental-logo.svg"
               alt="guanaco-logo"
@@ -38,9 +38,9 @@ export default function Nav({ setShowCart, cartPage, home }) {
               layout="intrinsic"
               objectFit="contain"
             />
-          </Link>
+          </div>
         </div>
-      </div>
+      </Link>
       <button
         type="button"
         onClick={cartPage ? null : handleShowCart}

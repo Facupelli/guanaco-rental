@@ -5,8 +5,6 @@ import s from "./ClientCard.module.scss";
 export default function ClientCard({ user }) {
   const [expand, setExpand] = useState();
 
-  console.log(user)
-
   return (
     <div className={`${s.card_container} ${expand ? s.box_active : s.box}`}>
       {!expand && (

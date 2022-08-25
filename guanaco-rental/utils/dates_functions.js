@@ -2,7 +2,6 @@ import { calendar_dictionary } from "./calendar_dictionary";
 
 export const generateAllDates = (dateRange) => {
   const dates = dateRange.map((date) => date.toLocaleDateString("es-EN"));
-  console.log(dates);
   const allDates = [];
 
   const pickup_month = Number(dates[0].split("/")[1]);
@@ -16,7 +15,6 @@ export const generateAllDates = (dateRange) => {
       for (let i = pickup_day; i <= return_day; i++) {
         days += 1;
         allDates.push(`${pickup_month}/${i}/${dates[0].split("/")[2]}`);
-        console.log(allDates);
       }
     }
     if (pickup_month < return_month) {

@@ -151,7 +151,7 @@ export const RemitoPDF = ({ pickupDay, returnDay, order }) => (
             <Text>FECHA DE DEVOLUCIÓN: {returnDay}</Text>
           </View>
           <View style={styles.flex}>
-            <Text style={styles.flexItem}>CANTIDAD DE JORNADAS: ?</Text>
+            <Text style={styles.flexItem}>CANTIDAD DE JORNADAS: {order.booking.dates.length}</Text>
             <Text style={styles.flexItem}>
               PRECIO ACORDADO: {formatPrice(order.totalPrice)}
             </Text>

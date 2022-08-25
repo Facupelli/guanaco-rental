@@ -12,6 +12,7 @@
     position: absolute;
     top: 25%;
     left: calc((100% - 1100px) / 2);
+    z-index: 5;
     filter: drop-shadow(5px 5px 10px rgba(17, 17, 17, 0.356));
     cursor: pointer;
   }
