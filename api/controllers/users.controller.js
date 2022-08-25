@@ -99,6 +99,7 @@ async function getUsers(req, res, next) {
         users = await prisma.user.findMany({
           where: { customerAproved: true },
           include: { orders: true },
+          orderBy: { customerAprovedAt: "desc" },
         });
       }
     }

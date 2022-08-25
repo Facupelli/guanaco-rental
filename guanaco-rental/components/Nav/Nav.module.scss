@@ -26,6 +26,12 @@
     gap: 2rem;
     position: relative;
 
+    .link_icon {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
     li {
       cursor: pointer;
       font-weight: 600;
@@ -34,12 +40,21 @@
         &:visited {
           color: $m-white;
         }
+        &:hover {
+          color: $m-orange;
+        }
+      }
+
+      &:hover {
+        color: $m-orange;
       }
     }
   }
 }
 
-.click, .icon_container, .cart_btn {
+.click,
+.icon_container,
+.cart_btn {
   display: none;
 }
 
@@ -60,20 +75,21 @@
       height: 60px;
     }
 
-    .icon_container, .cart_btn {
+    .icon_container,
+    .cart_btn {
       display: block;
     }
 
-    .cart_btn{
+    .cart_btn {
       background-color: transparent;
       border: none;
     }
 
-    .cart_icon{
+    .cart_icon {
       color: $m-white;
     }
 
-    .click:checked ~ ul{
+    .click:checked ~ ul {
       left: 0%;
     }
 

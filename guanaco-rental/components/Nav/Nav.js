@@ -1,5 +1,9 @@
 import { useUser } from "@auth0/nextjs-auth0";
-import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRightFromBracket,
+  faBars,
+  faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
@@ -57,13 +61,17 @@ export default function Nav({ setShowCart, cartPage, home }) {
         <FontAwesomeIcon icon={faBars} width="25px" className={s.bars_icon} />
       </label>
       <ul ref={menuRef}>
-        <li>RESERVAS ONLINE</li>
+        {/* <li>RESERVAS ONLINE</li> */}
         <li>FAQ</li>
         {user ? (
-          <li>
+          <li className={s.link_icon}>
             <Link href="/api/auth/logout">
               <a>CERRAR SESION</a>
             </Link>
+            <FontAwesomeIcon
+              icon={faArrowRightFromBracket}
+              width="20px"
+            />
           </li>
         ) : (
           <>
@@ -79,7 +87,13 @@ export default function Nav({ setShowCart, cartPage, home }) {
             </li>
           </>
         )}
-        <li onClick={cartPage ? null : handleShowCart}>CARRITO</li>
+        <li onClick={cartPage ? null : handleShowCart} className={s.link_icon}>
+          CARRITO
+          <FontAwesomeIcon
+            icon={faCartShopping}
+            width="20px"
+          />
+        </li>
         {user?.email === "facundopellicer4@gmail.com" && (
           <li>
             <Link href="/admin">ADMIN</Link>
