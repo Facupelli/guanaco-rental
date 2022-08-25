@@ -5,6 +5,8 @@ import s from "./ClientCard.module.scss";
 export default function ClientCard({ user }) {
   const [expand, setExpand] = useState();
 
+  console.log(user)
+
   return (
     <div className={`${s.card_container} ${expand ? s.box_active : s.box}`}>
       {!expand && (
@@ -117,6 +119,10 @@ export default function ClientCard({ user }) {
           <div>
             <li>CBU:</li>
             <li>{user.cbu}</li>
+          </div>
+          <div>
+            <li>Pedidos (n°):</li>
+            <li>{user.orders.map(order => order.number).join(", ")}</li>
           </div>
         </ul>
       )}

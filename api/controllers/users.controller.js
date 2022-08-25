@@ -38,8 +38,8 @@ async function postUser(req, res, next) {
 
     const response = {
       message: "success",
-      user: upsertUser
-    }
+      user: upsertUser,
+    };
 
     res.json(response);
   } catch (e) {
@@ -76,6 +76,7 @@ async function getUsers(req, res, next) {
     if (newClients) {
       users = await prisma.user.findMany({
         where: { petitionSent: true, customerAproved: false },
+        orderBy: { updatedAt: "desc" },
       });
     }
 
