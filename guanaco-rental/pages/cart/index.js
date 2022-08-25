@@ -131,13 +131,8 @@ export default function CartPage() {
         </MessageModal>
       )}
       {error && (
-        <MessageModal>
+        <MessageModal showButton btnFunc={() => setError("")}>
           <p>{error}</p>
-          <div className={s.modal_btn}>
-            <button type="button" onClick={() => setError("")}>
-              OK
-            </button>
-          </div>
         </MessageModal>
       )}
       <main className={s.main}>

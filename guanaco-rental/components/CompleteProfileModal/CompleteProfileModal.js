@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import MessageModal from "../MessageModal/MessageModal";
@@ -12,14 +11,13 @@ export default function CompleteProfileModal({ user }) {
     watch,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const [dniFront, setDniFront] = useState("");
   const [dniBack, setDniBack] = useState("");
-
-  console.log(dniBack);
 
   const openWidget = (setImagePublicId) => {
     // create the widget
@@ -86,15 +84,14 @@ export default function CompleteProfileModal({ user }) {
         </MessageModal>
       )}
       {message && (
-        <MessageModal>
+        <MessageModal
+          showButton
+          btnFunc={() => {
+            setMessage("");
+            router.push("/");
+          }}
+        >
           <p>{message}</p>
-          <div className={s.modal_btn}>
-            <button type="button" onClick={() => setMessage("")}>
-              <Link href="/">
-                <a>OK</a>
-              </Link>
-            </button>
-          </div>
         </MessageModal>
       )}
       <div className={s.container}>
@@ -237,19 +234,31 @@ export default function CompleteProfileModal({ user }) {
             <legend>CONTACTOS RELACIONADOS</legend>
             <div>
               <label htmlFor="contact1">Contacto 1:</label>
-              <input type="text" id="contact1" {...register("contacts.contact1")} />
+              <input
+                type="text"
+                id="contact1"
+                {...register("contacts.contact1")}
+              />
               <label htmlFor="bond1">Vínculo:</label>
               <input type="text" id="bond1" {...register("contacts.bond1")} />
             </div>
             <div>
               <label htmlFor="contact2">Contacto 2:</label>
-              <input type="text" id="contact2" {...register("contacts.contact2")} />
+              <input
+                type="text"
+                id="contact2"
+                {...register("contacts.contact2")}
+              />
               <label htmlFor="bond2">Vínculo:</label>
               <input type="text" id="bond2" {...register("contacts.bond2")} />
             </div>
             <div>
               <label htmlFor="contact3">Contacto 3:</label>
-              <input type="text" id="contact3" {...register("contacts.contact3")} />
+              <input
+                type="text"
+                id="contact3"
+                {...register("contacts.contact3")}
+              />
               <label htmlFor="bond3">Vínculo:</label>
               <input type="text" id="bond3" {...register("contacts.bond3")} />
             </div>
