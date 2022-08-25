@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { supabase } from "../../lib/supabase";
 import MessageModal from "../MessageModal/MessageModal";
 
 import s from "./CompleteProfileModal.module.scss";
@@ -16,8 +18,8 @@ export default function CompleteProfileModal({ user }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const [dniFront, setDniFront] = useState("");
-  const [dniBack, setDniBack] = useState("");
+  // const [dniFront, setDniFront] = useState();
+  // const [dniBack, setDniBack] = useState("");
 
   const openWidget = (setImagePublicId) => {
     // create the widget
@@ -42,19 +44,32 @@ export default function CompleteProfileModal({ user }) {
     }
   };
 
-  const handleOnCLick = () => {};
-
   const onSubmit = async (data) => {
     setLoading(true);
+
+    const dniFront = data.dniFront[0];
+    const dniBack = data.dniBack[0];
 
     const userData = JSON.stringify({
       ...data,
       email: user.email,
-      dniFront,
-      dniBack,
       customerAproved: false,
       petitionSent: true,
+      dniFront: dniFront.name, 
+      dniBack: dniBack.name,
     });
+
+    try {
+      await supabase.storage
+        .from("users-dni")
+        .upload(`${dniFront.name}`, dniFront);
+
+      await supabase.storage
+        .from("users-dni")
+        .upload(`${dniBack.name}`, dniBack);
+    } catch (e) {
+      console.log(e);
+    }
 
     const newCustomerPetition = await fetch("http://localhost:3001/users", {
       method: "POST",
@@ -169,24 +184,26 @@ export default function CompleteProfileModal({ user }) {
             <div className={s.dni_files_wrapper}>
               <div>
                 <label htmlFor="dniFront">Foto de tu DNI (anverso):</label>
-                <button
+                {/* <button
                   type="button"
                   id="dniFront"
                   onClick={() => openWidget(setDniFront)}
                 >
                   subir archivo
-                </button>
+                </button> */}
+                <input type="file" {...register("dniFront")} />
               </div>
 
               <div>
                 <label htmlFor="dniBack">Foto de tu DNI (dorso):</label>
-                <button
+                {/* <button
                   type="button"
                   id="dniBack"
                   onClick={() => openWidget(setDniBack)}
                 >
                   subir archivo
-                </button>
+                </button> */}
+                <input type="file" {...register("dniBack")} />
               </div>
             </div>
 

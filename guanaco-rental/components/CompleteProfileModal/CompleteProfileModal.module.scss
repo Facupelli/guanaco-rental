@@ -47,6 +47,10 @@
         gap: 2rem;
         // width: 50%;
 
+        input{
+          @include m-button;
+        }
+
         > div {
           display: flex;
           flex-direction: column;
