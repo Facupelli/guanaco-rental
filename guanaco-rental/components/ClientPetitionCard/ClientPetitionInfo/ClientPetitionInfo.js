@@ -1,8 +1,9 @@
 import { supabase } from "../../../lib/supabase";
 import Image from "next/image";
-import s from "./ClientPetitionInfo.module.scss";
 import { useState } from "react";
 import MessageModal from "../../MessageModal/MessageModal";
+import { useDownloadBlob } from "../../../hooks/useDownloadBlob";
+import s from "./ClientPetitionInfo.module.scss";
 
 export default function ClientPetitionInfo({
   user,
@@ -10,19 +11,8 @@ export default function ClientPetitionInfo({
   getNewClientUsers,
   getClientUsers,
 }) {
-  const [blob, setBlob] = useState();
-
-  const downloadDni = async (name) => {
-    try {
-      const { data, error } = await supabase.storage
-        .from("users-dni")
-        .download(`${name}`);
-      const blobUrl = URL.createObjectURL(data);
-      setBlob(blobUrl);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  
+  const {blob, setBlob, downloadDni} = useDownloadBlob()
 
   const onClickApprove = async (approved) => {
     const data = JSON.stringify({
@@ -93,7 +83,7 @@ export default function ClientPetitionInfo({
               type="button"
               onClick={() => downloadDni(user.dni.dniFront)}
             >
-              ver
+              ver foto
             </button>
           </li>
           <li>
@@ -105,7 +95,7 @@ export default function ClientPetitionInfo({
             dni reverso
           </a> */}
             <button type="button" onClick={() => downloadDni(user.dni.dniBack)}>
-              ver
+              ver foto
             </button>
           </li>
           <li>{user.phone}</li>
