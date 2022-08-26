@@ -29,11 +29,11 @@ export default function newClientPage() {
       <Head>
         <title>Alta de Cliente</title>
         <link rel="icon" href="/logo-favicon.ico" />
-        <NextScript />
+        {/* <NextScript />
         <script
           src="https://upload-widget.cloudinary.com/global/all.js"
           type="text/javascript"
-        ></script>
+        ></script> */}
       </Head>
       <Nav />
       <main className={s.main}>

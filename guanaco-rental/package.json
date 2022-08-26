@@ -13,6 +13,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@hookform/resolvers": "^2.9.7",
     "@react-pdf/renderer": "^2.3.0",
     "@reduxjs/toolkit": "^1.8.3",
     "@supabase/supabase-js": "^1.35.6",
@@ -23,7 +24,8 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.34.0",
     "react-redux": "^8.0.2",
-    "sass": "^1.54.0"
+    "sass": "^1.54.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "eslint": "8.20.0",

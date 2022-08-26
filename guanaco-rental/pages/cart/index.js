@@ -126,7 +126,7 @@ export default function CartPage() {
         />
       )}
       {loading && (
-        <MessageModal>
+        <MessageModal loadModal>
           <p>Procesando...</p>
         </MessageModal>
       )}

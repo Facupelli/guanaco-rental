@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabase";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import MessageModal from "../MessageModal/MessageModal";
+import { schema } from "./validationSchema";
 
 import s from "./CompleteProfileModal.module.scss";
 
@@ -12,7 +14,10 @@ export default function CompleteProfileModal({ user }) {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -21,31 +26,32 @@ export default function CompleteProfileModal({ user }) {
   // const [dniFront, setDniFront] = useState();
   // const [dniBack, setDniBack] = useState("");
 
-  const openWidget = (setImagePublicId) => {
-    // create the widget
-    if (typeof window !== "undefined") {
-      const widget = window.cloudinary.createUploadWidget(
-        {
-          cloudName: "dzjz8pe0y",
-          uploadPreset: "zrp6p2qt",
-          sources: ["local", "url", "camera", "dropbox", "goole_drive"],
-        },
-        (error, result) => {
-          if (
-            result.event === "success" &&
-            result.info.resource_type === "image"
-          ) {
-            console.log("RESULT", result.info);
-            setImagePublicId(result.info.secure_url);
-          }
-        }
-      );
-      widget.open(); // open up the widget after creation
-    }
-  };
+  // const openWidget = (setImagePublicId) => {
+  //   // create the widget
+  //   if (typeof window !== "undefined") {
+  //     const widget = window.cloudinary.createUploadWidget(
+  //       {
+  //         cloudName: "dzjz8pe0y",
+  //         uploadPreset: "zrp6p2qt",
+  //         sources: ["local", "url", "camera", "dropbox", "goole_drive"],
+  //       },
+  //       (error, result) => {
+  //         if (
+  //           result.event === "success" &&
+  //           result.info.resource_type === "image"
+  //         ) {
+  //           console.log("RESULT", result.info);
+  //           setImagePublicId(result.info.secure_url);
+  //         }
+  //       }
+  //     );
+  //     widget.open(); // open up the widget after creation
+  //   }
+  // };
 
   const onSubmit = async (data) => {
     setLoading(true);
+    console.log("Assd");
 
     const dniFront = data.dniFront[0];
     const dniBack = data.dniBack[0];
@@ -55,7 +61,7 @@ export default function CompleteProfileModal({ user }) {
       email: user.email,
       customerAproved: false,
       petitionSent: true,
-      dniFront: dniFront.name, 
+      dniFront: dniFront.name,
       dniBack: dniBack.name,
     });
 
@@ -94,7 +100,7 @@ export default function CompleteProfileModal({ user }) {
   return (
     <>
       {loading && (
-        <MessageModal>
+        <MessageModal loadModal>
           <p>Procesando...</p>
         </MessageModal>
       )}
@@ -124,11 +130,13 @@ export default function CompleteProfileModal({ user }) {
                 autoFocus
                 {...register("fullName")}
               />
+              {errors.fullName?.message}
             </div>
 
             <div className={s.inputs}>
               <label htmlFor="phone">Número de celular:</label>
               <input required type="tel" id="phone" {...register("phone")} />
+              {errors.phone?.message}
             </div>
 
             <div className={s.inputs}>
@@ -139,6 +147,7 @@ export default function CompleteProfileModal({ user }) {
                 id="birthDate"
                 {...register("birthDate")}
               />
+              {errors.birthDate?.message}
             </div>
 
             <div className={s.inputs}>
@@ -149,6 +158,7 @@ export default function CompleteProfileModal({ user }) {
                 id="address"
                 {...register("address")}
               />
+              {errors.address?.message}
             </div>
 
             <div className={s.inputs}>
@@ -159,6 +169,7 @@ export default function CompleteProfileModal({ user }) {
                 id="addressLocation"
                 {...register("addressLocation")}
               />
+              {errors.addressLocation?.message}
             </div>
 
             <div className={s.inputs}>
@@ -169,6 +180,7 @@ export default function CompleteProfileModal({ user }) {
                 id="addressProvince"
                 {...register("addressProvince")}
               />
+              {errors.addressProvince?.message}
             </div>
 
             <div className={s.inputs}>
@@ -179,6 +191,7 @@ export default function CompleteProfileModal({ user }) {
                 id="dniNumber"
                 {...register("dniNumber")}
               />
+              {errors.dniNumber?.message}
             </div>
 
             <div className={s.dni_files_wrapper}>
@@ -215,26 +228,31 @@ export default function CompleteProfileModal({ user }) {
                 id="occupation"
                 {...register("occupation")}
               />
+              {errors.occupation?.message}
             </div>
 
             <div className={s.flex}>
               <label htmlFor="student">Estudiante:</label>
               <input type="checkbox" id="student" {...register("student")} />
+              {errors.student?.message}
             </div>
 
             <div className={s.flex}>
               <label htmlFor="employee">Empleado R.D:</label>
               <input type="checkbox" id="employee" {...register("employee")} />
+              {errors.employee?.message}
             </div>
 
             <div className={s.inputs}>
               <label htmlFor="company">Empresa:</label>
               <input type="text" id="company" {...register("company")} />
+              {errors.company?.message}
             </div>
 
             <div className={s.inputs}>
               <label htmlFor="cuit">CUIT:</label>
               <input required type="text" id="cuit" {...register("cuit")} />
+              {errors.cuit?.message}
             </div>
 
             <div className={s.inputs}>
@@ -244,6 +262,7 @@ export default function CompleteProfileModal({ user }) {
                 id="bussinessName"
                 {...register("businessName")}
               />
+              {errors.bussinessName?.message}
             </div>
           </fieldset>
 
@@ -256,8 +275,10 @@ export default function CompleteProfileModal({ user }) {
                 id="contact1"
                 {...register("contacts.contact1")}
               />
+              {errors.contact1?.message}
               <label htmlFor="bond1">Vínculo:</label>
               <input type="text" id="bond1" {...register("contacts.bond1")} />
+              {errors.bond1?.message}
             </div>
             <div>
               <label htmlFor="contact2">Contacto 2:</label>
@@ -266,8 +287,10 @@ export default function CompleteProfileModal({ user }) {
                 id="contact2"
                 {...register("contacts.contact2")}
               />
+              {errors.contact2?.message}
               <label htmlFor="bond2">Vínculo:</label>
               <input type="text" id="bond2" {...register("contacts.bond2")} />
+              {errors.bond2?.message}
             </div>
             <div>
               <label htmlFor="contact3">Contacto 3:</label>
@@ -276,8 +299,10 @@ export default function CompleteProfileModal({ user }) {
                 id="contact3"
                 {...register("contacts.contact3")}
               />
+              {errors.contact3?.message}
               <label htmlFor="bond3">Vínculo:</label>
               <input type="text" id="bond3" {...register("contacts.bond3")} />
+              {errors.bond3?.message}
             </div>
           </fieldset>
 
@@ -286,10 +311,13 @@ export default function CompleteProfileModal({ user }) {
             <div>
               <label htmlFor="bank">Banco:</label>
               <input type="text" id="bank" {...register("bank")} />
+              {errors.bank?.message}
               <label htmlFor="alias">Alias:</label>
               <input type="text" id="alias" {...register("alias")} />
+              {errors.alias?.message}
               <label htmlFor="cbu">CBU:</label>
               <input type="text" id="cbu" {...register("cbu")} />
+              {errors.cbu?.message}
             </div>
           </fieldset>
 
