@@ -67,7 +67,7 @@ export default function EquipmentFilters({
               <p>Devolución:</p>
               <p className={date.length > 0 ? "" : s.mock}>
                 {date && date.length > 0
-                  ? new Date(date[date.length - 1]).toLocaleDateString()
+                  ? new Date(date.at(-1)).toLocaleDateString()
                   : "DD/MM/YYYY"}
               </p>
             </div>

@@ -12,7 +12,7 @@ export default function OrderCard({ order }) {
 
   const pickupDay = new Date(order.booking.dates[0]).toLocaleDateString();
   const returnDay = new Date(
-    order.booking.dates[order.booking.dates.length - 1]
+    order.booking.dates.at(-1)
   ).toLocaleDateString();
 
   const getOrderStatus = () => {
@@ -21,7 +21,7 @@ export default function OrderCard({ order }) {
     }
     if (
       new Date().getTime() >
-      new Date(order.booking.dates[order.booking.dates.length - 1]).getTime()
+      new Date(order.booking.dates.at(-1)).getTime()
     ) {
       return "FINALIZADO";
     }

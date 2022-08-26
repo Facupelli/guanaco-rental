@@ -40,7 +40,7 @@ export default function CartModal({ showCart, setShowCart, setDatePickup }) {
         <div className={s.date_range}>
           <p>{new Date(date[0]).toLocaleDateString()}</p>
           <p>{"->"}</p>
-          <p>{new Date(date[date.length - 1]).toLocaleDateString()}</p>
+          <p>{new Date(date.at(-1)).toLocaleDateString()}</p>
         </div>
       ) : (
         <button className={s.select_date_btn} onClick={handleSelectDateRange}>
