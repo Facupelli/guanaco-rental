@@ -27,21 +27,21 @@ export default function AdminPage({ access }) {
         <h1>Panel de Administrador</h1>
         <nav>
           <ul>
-            <li>
-              <Link href="/admin/orders">
+            <Link href="/admin/orders">
+              <li>
                 <a className={s.link}>Pedidos</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/users">
+              </li>
+            </Link>
+            <Link href="/admin/users">
+              <li>
                 <a className={s.link}>Usuarios</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/equipment">
+              </li>
+            </Link>
+            <Link href="/admin/equipment">
+              <li>
                 <a className={s.link}>Equipos</a>
-              </Link>
-            </li>
+              </li>
+            </Link>
           </ul>
         </nav>
       </main>

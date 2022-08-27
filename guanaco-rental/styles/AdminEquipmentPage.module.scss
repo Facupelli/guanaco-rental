@@ -2,24 +2,22 @@
 
 .grey_bg {
   background-color: $bg-grey;
-}
 
-.main {
-  @include app_width;
-  margin-top: 3rem;
-  padding-bottom: 3rem;
-  min-height: 100vh;
-
-  .title_wrapper {
+  .flex {
+    width: 80%;
+    margin: 1rem 0rem;
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    justify-content: flex-end;
     gap: 1rem;
-    margin-bottom: 2rem;
+    
+    .bold{
+      font-weight: 600
+    }
 
-    .flex{
-      display: flex;
-      align-items: baseline;
-      gap: 1rem;
+    select {
+      @include m-select;
+      padding: .2rem;
     }
   }
 }

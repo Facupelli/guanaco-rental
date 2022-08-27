@@ -5,24 +5,41 @@
   @include app_width;
 
   h1 {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 
   nav {
     font-size: 1.2rem;
 
     ul {
+      display: flex;
+      gap: 1rem;
+
       li {
-        margin-bottom: 0.5rem;
-        list-style: circle;
+        padding: 1rem;
+        box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.212);
+        width: 120px;
+        border-radius: 0.2rem;
+        text-align: center;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+        &:hover {
+          background-color: $m-orange;
+          color: white;
+          box-shadow: none;
+        }
+
+        &:hover + .link {
+          color: white;
+        }
 
         .link {
           margin: 0.5rem 0rem;
-          text-decoration: underline;
-          color: $m-black;
 
-          &:hover {
-            color: $m-orange;
+          &:visited {
+            color: $m-black;
           }
         }
       }

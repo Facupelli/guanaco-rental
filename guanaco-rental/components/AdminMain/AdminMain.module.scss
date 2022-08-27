@@ -1,0 +1,12 @@
+@import "../../styles/app.scss";
+
+.main {
+  @include app_width;
+  margin-top: 3rem;
+
+  .title_wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+}

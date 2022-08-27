@@ -5,59 +5,47 @@
   min-height: 100vh;
 }
 
-.main {
-  margin-top: 3rem;
-  padding-bottom: 2rem;
-  @include app_width;
+.nav {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
 
-  .title_wrapper {
+  background-color: $m-orange;
+  border-radius: 0.5rem;
+  color: $m-white;
+  box-shadow: 4px 4px 5px rgba(19, 19, 19, 0.329);
+
+  .nav_li {
     display: flex;
     align-items: center;
-    gap: 1rem;
-  }
-
-  .nav {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    display: flex;
-    gap: 1rem;
-
-    background-color: $m-orange;
+    gap: 0.5rem;
+    padding: 0.7rem;
     border-radius: 0.5rem;
-    color: $m-white;
-    box-shadow: 4px 4px 5px rgba(19, 19, 19, 0.329);
-
-    .nav_li {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.7rem;
-      border-radius: 0.5rem;
-      cursor: pointer;
-    }
-
-    .nav_li_active {
-      background-color: $s-orange;
-    }
+    cursor: pointer;
   }
 
-  .petitions_grid {
-    display: grid;
-    grid-template-columns: 42% 54%;
-    column-gap: 4%;
+  .nav_li_active {
+    background-color: $s-orange;
   }
+}
 
-  .client_list_wrapper {
-    input {
-      width: 50%;
-      padding: 0.4rem;
-      border: 1px solid $m-gray;
-      color: $m-black;
-      border-radius: .2rem;
+.petitions_grid {
+  display: grid;
+  grid-template-columns: 42% 54%;
+  column-gap: 4%;
+}
 
-      &:focus {
-        outline: 1px solid $m-black;
-      }
+.client_list_wrapper {
+  input {
+    width: 50%;
+    padding: 0.4rem;
+    border: 1px solid $m-gray;
+    color: $m-black;
+    border-radius: 0.2rem;
+
+    &:focus {
+      outline: 1px solid $m-black;
     }
   }
 }

@@ -2,6 +2,7 @@ import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import AdminMain from "../../components/AdminMain/AdminMain";
 import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
 import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
 import Nav from "../../components/Nav/Nav";
@@ -31,6 +32,11 @@ export default function AdminEquipment({ equipment }) {
     }
   }, [category]);
 
+  //   <div className={s.flex}>
+  //   <h1>Equipos</h1>
+  //   <p>total: {equipment.length}</p>
+  // </div>
+
   return (
     <div className={s.grey_bg}>
       <Head>
@@ -38,15 +44,14 @@ export default function AdminEquipment({ equipment }) {
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
       <Nav />
-      <main className={s.main}>
-        <div className={s.title_wrapper}>
-          <ArrowBackBtn />
-          <div className={s.flex}>
-            <h1>Equipos</h1>
-            <p>total: {equipment.length}</p>
-          </div>
+      <AdminMain title="Equipos">
+        <div className={s.flex}>
+          <p>Total: <span className={s.bold}>{equipment.length}</span></p>
           <div>
-            <select defaultValue="all" onChange={(e) => setCategory(e.target.value)}>
+            <select
+              defaultValue="all"
+              onChange={(e) => setCategory(e.target.value)}
+            >
               <option value="all">TODOS</option>
               <option value="camaras">CAMARAS</option>
               <option value="lentes">LENTES</option>
@@ -69,7 +74,7 @@ export default function AdminEquipment({ equipment }) {
               <GearAdminCard key={gear.id} gear={gear} />
             ))}
         </div>
-      </main>
+      </AdminMain>
     </div>
   );
 }

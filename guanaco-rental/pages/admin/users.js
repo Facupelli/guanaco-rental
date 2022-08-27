@@ -2,6 +2,7 @@ import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import AdminMain from "../../components/AdminMain/AdminMain";
 import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
 import ClientCard from "../../components/ClientCard/ClientCard";
 import ClientPetitionCard from "../../components/clientPetitionCard/ClientPetitionCard";
@@ -64,11 +65,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
       <Nav />
-      <main className={s.main}>
-        <div className={s.title_wrapper}>
-          <ArrowBackBtn />
-          <h1>Usuarios</h1>
-        </div>
+      <AdminMain title="Usuarios">
         <nav>
           <ul className={s.nav}>
             <li
@@ -137,7 +134,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
               ))}
           </section>
         )}
-      </main>
+      </AdminMain>
     </div>
   );
 }

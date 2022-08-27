@@ -1,6 +1,7 @@
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import AdminMain from "../../components/AdminMain/AdminMain";
 import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
 import Nav from "../../components/Nav/Nav";
 import OrderCard from "../../components/OrderCard/OrderCard";
@@ -38,11 +39,7 @@ export default function AdminOrdersPage() {
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
       <Nav />
-      <main className={s.main}>
-        <div className={s.title_wrapper}>
-          <ArrowBackBtn />
-          <h1>Pedidos</h1>
-        </div>
+      <AdminMain title="Pedidos">
         <div className={s.table_titles}>
           <p>N°</p>
           <p>NOMBRE</p>
@@ -63,7 +60,7 @@ export default function AdminOrdersPage() {
             orders.map((order) => <OrderCard key={order.id} order={order} />)
           )}
         </div>
-      </main>
+      </AdminMain>
     </div>
   );
 }
