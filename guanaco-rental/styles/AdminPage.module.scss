@@ -23,7 +23,7 @@
         text-align: center;
         font-weight: 600;
         cursor: pointer;
-        transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 
         &:hover {
           background-color: $m-orange;
@@ -42,6 +42,17 @@
             color: $m-black;
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  .main {
+    nav {
+      ul {
+        flex-direction: column;
+        gap: 2rem;
       }
     }
   }
