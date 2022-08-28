@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { setDate } from "../redux/features/pickupDate/pickupDateSlice";
 import { generateAllDates } from "../utils/dates_functions";
 import { getOrCreateUser } from "../utils/fetch_users";
@@ -14,7 +14,8 @@ import CartModal from "../components/CartModal/CartModal";
 import CalendarComponent from "../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 
 import styles from "../styles/Home.module.scss";
-import useOnClickOutside from "../hooks/useOnClickOutside";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 export default function Home() {
   const userData = useSelector((state) => state.user.data);
@@ -82,14 +83,28 @@ export default function Home() {
   );
 }
 
-// export const getServerSideProps = async () => {
-//   const equipment = await fetch("http://localhost:3001/equipment").then(
-//     (response) => response.json()
-//   );
+export const getServerSideProps = async (ctx) => {
+  const session = await unstable_getServerSession(
+    ctx.req,
+    ctx.res,
+    authOptions
+  );
 
-//   return {
-//     props: {
-//       equipment,
-//     },
-//   };
-// };
+  const user = await fetch(`http://localhost:3001/users/${session?.user.email}`)
+    .then((response) => response.json())
+    .catch((e) => console.log("fecth error:", e));
+
+  if (user && !user.petitionSent) {
+    return {
+      redirect: {
+        destination: "/newClient",
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+};

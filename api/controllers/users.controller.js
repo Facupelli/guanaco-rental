@@ -110,4 +110,19 @@ async function getUsers(req, res, next) {
   }
 }
 
-module.exports = { postUser, getUsers, putUser };
+async function getUniqueUser(req, res, next) {
+  const { email } = req.params;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    res.json(user);
+  } catch (e) {
+    console.log("getUniqueUser error:", e);
+    return;
+  }
+}
+
+module.exports = { postUser, getUsers, getUniqueUser, putUser };

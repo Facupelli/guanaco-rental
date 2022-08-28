@@ -9,7 +9,7 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
-    //   callbacks:{
+  //   callbacks:{
   //     async signIn({user}){
   //         return '/newClient'
   //     },

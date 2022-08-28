@@ -73,7 +73,7 @@ export default function Nav({ setShowCart, cartPage, home }) {
         ) : (
           <>
             <li>
-              <button onClick={() => signIn()}>INICIAR SESION</button>
+              <button onClick={() => signIn("google")}>INICIAR SESION</button>
             </li>
             {/* <li>
               <Link href="/api/signup">
