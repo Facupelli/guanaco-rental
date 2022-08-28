@@ -1,4 +1,4 @@
-import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -49,26 +49,19 @@ export default function AdminPage({ access }) {
   );
 }
 
-export const getServerSideProps = withPageAuthRequired({
-  async getServerSideProps(context) {
-    // Getting user data from Auth0
-    const user = getSession(context.req).user;
+export async function getServerSideProps(context) {
+  // Getting user data from Auth0
+  const session = await getSession(context);
 
-    let access;
-
-    if (user.email === "facundopellicer4@gmail.com") {
-      access = true;
-    } else {
-      access = false;
-      return {
-        redirect: {
-          destination: "/",
-        },
-      };
-    }
-
+  if (!session || session?.user.email !== "facundopellicer4@gmail.com") {
     return {
-      props: { access },
+      redirect: {
+        destination: "/",
+      },
     };
-  },
-});
+  }
+
+  return {
+    props: { access: true },
+  };
+}

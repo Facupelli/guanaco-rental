@@ -36,6 +36,20 @@
       cursor: pointer;
       font-weight: 600;
 
+      button {
+        background-color: transparent;
+        border: none;
+        color: $m-white;
+        font-family: "Panton";
+        font-weight: 600;
+        font-size: 1em;
+        cursor: pointer;
+
+        &:hover {
+          color: $m-orange;
+        }
+      }
+
       a {
         &:visited {
           color: $m-white;

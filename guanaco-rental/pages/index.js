@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useUser } from "@auth0/nextjs-auth0";
+import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { setDate } from "../redux/features/pickupDate/pickupDateSlice";
@@ -25,17 +25,18 @@ export default function Home() {
   const [dateRange, setDateRange] = useState(null);
 
   const dispatch = useDispatch();
-  const { user, error, isLoading } = useUser();
 
-  // console.log("auth0 user", user);
+  const { data: session } = useSession();
+
+  console.log("NEXT AUTH", session);
 
   useEffect(() => {
-    if (user) {
+    if (session?.user) {
       if (!userData) {
-        getOrCreateUser(user).then((res) => dispatch(setUserId(res)));
+        getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
       }
     }
-  }, [user]);
+  }, [session]);
 
   useEffect(() => {
     if (dateRange) {

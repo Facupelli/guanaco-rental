@@ -1,4 +1,4 @@
-import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -46,7 +46,9 @@ export default function AdminEquipment({ equipment }) {
       <Nav />
       <AdminMain title="Equipos">
         <div className={s.flex}>
-          <p>Total: <span className={s.bold}>{equipment.length}</span></p>
+          <p>
+            Total: <span className={s.bold}>{equipment.length}</span>
+          </p>
           <div>
             <select
               defaultValue="all"
@@ -79,27 +81,24 @@ export default function AdminEquipment({ equipment }) {
   );
 }
 
-export const getServerSideProps = withPageAuthRequired({
-  async getServerSideProps(context) {
-    // Getting user data from Auth0
-    const user = getSession(context.req).user;
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
 
-    if (user.email !== "facundopellicer4@gmail.com") {
-      return {
-        redirect: {
-          destination: "/",
-        },
-      };
-    }
-
-    const equipment = await fetch(`http://localhost:3001/equipment`)
-      .then((response) => response.json())
-      .catch((e) => console.log("fecth error:", e));
-
+  if (!session || session?.user.email !== "facundopellicer4@gmail.com") {
     return {
-      props: {
-        equipment,
+      redirect: {
+        destination: "/",
       },
     };
-  },
-});
+  }
+
+  const equipment = await fetch(`http://localhost:3001/equipment`)
+    .then((response) => response.json())
+    .catch((e) => console.log("fecth error:", e));
+
+  return {
+    props: {
+      equipment,
+    },
+  };
+}

@@ -1,8 +1,7 @@
-import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Head from "next/head";
+import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import AdminMain from "../../components/AdminMain/AdminMain";
-import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
 import Nav from "../../components/Nav/Nav";
 import OrderCard from "../../components/OrderCard/OrderCard";
 
@@ -65,23 +64,20 @@ export default function AdminOrdersPage() {
   );
 }
 
-export const getServerSideProps = withPageAuthRequired({
-  async getServerSideProps(context) {
-    // Getting user data from Auth0
-    const user = getSession(context.req).user;
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
 
-    if (user.email !== "facundopellicer4@gmail.com") {
-      return {
-        redirect: {
-          destination: "/",
-        },
-      };
-    }
-
+  if (!session || session?.user.email !== "facundopellicer4@gmail.com") {
     return {
-      props: {
-        access: true,
+      redirect: {
+        destination: "/",
       },
     };
-  },
-});
+  }
+
+  return {
+    props: {
+      access: true,
+    },
+  };
+}

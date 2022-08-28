@@ -1,10 +1,10 @@
-import { useUser } from "@auth0/nextjs-auth0";
 import {
   faArrowRightFromBracket,
   faBars,
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useRef } from "react";
@@ -27,7 +27,7 @@ export default function Nav({ setShowCart, cartPage, home }) {
     })
   );
 
-  const { user, error, isLoading } = useUser();
+  const { data: session } = useSession();
 
   return (
     <nav className={s.nav_container}>
@@ -63,38 +63,30 @@ export default function Nav({ setShowCart, cartPage, home }) {
       <ul ref={menuRef}>
         {/* <li>RESERVAS ONLINE</li> */}
         <li>FAQ</li>
-        {user ? (
-          <li className={s.link_icon}>
-            <Link href="/api/auth/logout">
-              <a>CERRAR SESION</a>
-            </Link>
-            <FontAwesomeIcon
-              icon={faArrowRightFromBracket}
-              width="20px"
-            />
+        {session ? (
+          <li >
+            <button onClick={() => signOut()} className={s.link_icon}>
+              CERRAR SESION
+              <FontAwesomeIcon icon={faArrowRightFromBracket} width="20px" />
+            </button>
           </li>
         ) : (
           <>
             <li>
-              <Link href="/api/auth/login">
-                <a>INICIAR SESION</a>
-              </Link>
+              <button onClick={() => signIn()}>INICIAR SESION</button>
             </li>
-            <li>
+            {/* <li>
               <Link href="/api/signup">
                 <a>REGISTRARSE</a>
               </Link>
-            </li>
+            </li> */}
           </>
         )}
         <li onClick={cartPage ? null : handleShowCart} className={s.link_icon}>
           CARRITO
-          <FontAwesomeIcon
-            icon={faCartShopping}
-            width="20px"
-          />
+          <FontAwesomeIcon icon={faCartShopping} width="20px" />
         </li>
-        {user?.email === "facundopellicer4@gmail.com" && (
+        {session?.user.email === "facundopellicer4@gmail.com" && (
           <li>
             <Link href="/admin">ADMIN</Link>
           </li>
