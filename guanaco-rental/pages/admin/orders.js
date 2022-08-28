@@ -1,13 +1,14 @@
 import Head from "next/head";
-import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import Nav from "../../components/Nav/Nav";
 import OrderCard from "../../components/OrderCard/OrderCard";
 
 import s from "../../styles/AdminOrdersPage.module.scss";
 
-export default function AdminOrdersPage() {
+export default function AdminOrdersPage({ session }) {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
@@ -64,8 +65,12 @@ export default function AdminOrdersPage() {
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
+export async function getServerSideProps(ctx) {
+  const session = await unstable_getServerSession(
+    ctx.req,
+    ctx.res,
+    authOptions
+  );
 
   if (!session || session?.user.email !== "facundopellicer4@gmail.com") {
     return {
@@ -77,7 +82,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      access: true,
+      session,
     },
   };
 }

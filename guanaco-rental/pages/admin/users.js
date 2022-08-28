@@ -1,9 +1,9 @@
-import { getSession } from "next-auth/react";
 import Head from "next/head";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AdminMain from "../../components/AdminMain/AdminMain";
-import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
 import ClientCard from "../../components/ClientCard/ClientCard";
 import ClientPetitionCard from "../../components/clientPetitionCard/ClientPetitionCard";
 import ClientPetitionInfo from "../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
@@ -139,8 +139,12 @@ export default function AdminUsersPage({ clients, newCLients }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
+export async function getServerSideProps(ctx) {
+  const session = await unstable_getServerSession(
+    ctx.req,
+    ctx.res,
+    authOptions
+  );
 
   if (!session || session?.user.email !== "facundopellicer4@gmail.com") {
     return {
@@ -164,6 +168,7 @@ export async function getServerSideProps(context) {
     props: {
       newCLients,
       clients,
+      session,
     },
   };
 }

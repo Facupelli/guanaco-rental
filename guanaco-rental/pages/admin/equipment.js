@@ -1,9 +1,9 @@
-import { getSession } from "next-auth/react";
 import Head from "next/head";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AdminMain from "../../components/AdminMain/AdminMain";
-import ArrowBackBtn from "../../components/ArrowBackBtn/ArrowBackBtn";
 import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
 import Nav from "../../components/Nav/Nav";
 
@@ -81,8 +81,12 @@ export default function AdminEquipment({ equipment }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
+export async function getServerSideProps(ctx) {
+  const session = await unstable_getServerSession(
+    ctx.req,
+    ctx.res,
+    authOptions
+  );
 
   if (!session || session?.user.email !== "facundopellicer4@gmail.com") {
     return {
@@ -99,6 +103,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       equipment,
+      session,
     },
   };
 }

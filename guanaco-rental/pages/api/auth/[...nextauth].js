@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-export default NextAuth({
-  // Configure one or more authentication providers
+export const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -10,9 +9,11 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
-//   callbacks:{
-//     async signIn({user}){
-//         return '/newClient'
-//     },
-//   }
-});
+    //   callbacks:{
+  //     async signIn({user}){
+  //         return '/newClient'
+  //     },
+  //   }
+};
+
+export default NextAuth(authOptions);
