@@ -37,25 +37,21 @@
         row-gap: 0.5rem;
       }
 
-      // input[type="text"] {
-      //   width: 50%;
-      // }
-
       .dni_files_wrapper {
         display: flex;
         align-items: center;
         gap: 2rem;
-        // width: 50%;
-
-        input{
-          @include m-button;
-        }
 
         > div {
           display: flex;
           flex-direction: column;
           row-gap: 0.5rem;
           // flex-basis: 50%;
+          input {
+            &::file-selector-button {
+              @include m-button;
+            }
+          }
         }
       }
 
@@ -113,7 +109,7 @@
       display: flex;
       justify-content: center;
 
-      input{
+      input {
         @include m-button;
       }
     }
@@ -142,8 +138,8 @@
         }
       }
 
-      .bank_info_wrapper{
-        >div{
+      .bank_info_wrapper {
+        > div {
           grid-template-columns: 15% 80%;
           column-gap: 5%;
 

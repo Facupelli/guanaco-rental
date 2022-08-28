@@ -127,7 +127,7 @@ export default function CompleteProfileModal({ user }) {
                 required
                 type="text"
                 id="fullName"
-                autoFocus
+                defaultValue={user.fullName}
                 {...register("fullName")}
               />
               {errors.fullName?.message}
@@ -204,7 +204,7 @@ export default function CompleteProfileModal({ user }) {
                 >
                   subir archivo
                 </button> */}
-                <input type="file" {...register("dniFront")} />
+                <input type="file" {...register("dniFront")} id="dniFront"/>
               </div>
 
               <div>
@@ -216,7 +216,7 @@ export default function CompleteProfileModal({ user }) {
                 >
                   subir archivo
                 </button> */}
-                <input type="file" {...register("dniBack")} />
+                <input type="file" {...register("dniBack")} id="dniBack"/>
               </div>
             </div>
 
