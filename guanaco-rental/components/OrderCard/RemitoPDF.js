@@ -19,6 +19,10 @@ Font.register({
       src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf",
       fontWeight: 600,
     },
+    {
+      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-700.ttf",
+      fontWeight: 700,
+    },
   ],
 });
 
@@ -73,8 +77,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     fontSize: 10,
-    flexBasis: "49%",
-    marginRight: "1%",
+    flexBasis: "48%",
+    marginRight: "2%",
+  },
+  bold: {
+    fontWeight: 600,
+  },
+  accessories: {
+    fontSize: 8,
+    paddingLeft: 2,
   },
   section: {
     padding: 20,
@@ -145,37 +156,52 @@ export const RemitoPDF = ({ pickupDay, returnDay, order }) => (
         </View>
         <View style={styles.userSection}>
           <View style={styles.flex}>
-            <Text>FECHA DE RETIRO: {pickupDay}</Text>
-          </View>
-          <View style={styles.flex}>
-            <Text>FECHA DE DEVOLUCIÓN: {returnDay}</Text>
-          </View>
-          <View style={styles.flex}>
-            <Text style={styles.flexItem}>CANTIDAD DE JORNADAS: {order.booking.dates.length}</Text>
-            <Text style={styles.flexItem}>
-              PRECIO ACORDADO: {formatPrice(order.totalPrice)}
+            <Text>
+              FECHA DE RETIRO: <Text style={styles.bold}>{pickupDay}</Text>
             </Text>
           </View>
           <View style={styles.flex}>
-            <Text style={styles.flexItem}>RETIRA: {order.user.fullName}</Text>
-            <Text style={styles.flexItem}>DNI: {order.user.dniNumber}</Text>
+            <Text>
+              FECHA DE DEVOLUCIÓN: <Text style={styles.bold}>{returnDay}</Text>
+            </Text>
           </View>
           <View style={styles.flex}>
-            <Text>IMPORTANTE: VER CONDICIONES ANEXO I</Text>
+            <Text style={styles.flexItem}>
+              CANTIDAD DE JORNADAS:{" "}
+              <Text style={styles.bold}>{order.booking.dates.length}</Text>
+            </Text>
+            <Text style={styles.flexItem}>
+              PRECIO ACORDADO:{" "}
+              <Text style={styles.bold}>{formatPrice(order.totalPrice)}</Text>
+            </Text>
+          </View>
+          <View style={styles.flex}>
+            <Text style={styles.flexItem}>
+              RETIRA: <Text style={styles.bold}>{order.user.fullName}</Text>
+            </Text>
+            <Text style={styles.flexItem}>
+              DNI: <Text style={styles.bold}>{order.user.dniNumber}</Text>
+            </Text>
+          </View>
+          <View style={styles.flex}>
+            <Text>
+              IMPORTANTE:{" "}
+              <Text style={styles.bold}>VER CONDICIONES ANEXO I</Text>
+            </Text>
           </View>
         </View>
         <View style={styles.section}>
           <View style={styles.bgImageWrapper}>
             <Image src="/guanaco-perfil.png" style={styles.bgImage} />
           </View>
-          <Text style={{ marginBottom: 3, fontWeight: 600 }}>
+          <Text style={{ marginBottom: 3, fontWeight: 700 }}>
             LISTA DE EQUIPOS RETIRADOS
           </Text>
           <View style={styles.equipmentWrapper}>
             {order.equipments.length > 0 &&
               order.equipments.map((gear) => (
                 <View style={styles.equipment} key={gear.id}>
-                  <Text>
+                  <Text style={styles.bold}>
                     x{" "}
                     {
                       gear.bookings.filter(
@@ -183,6 +209,10 @@ export const RemitoPDF = ({ pickupDay, returnDay, order }) => (
                       )[0].quantity
                     }{" "}
                     {gear.name} {gear.brand} {gear.model}
+                  </Text>
+                  <Text style={styles.accessories}>
+                    {gear.accessories.length > 0 ? "Con" : null}{" "}
+                    {gear.accessories}.
                   </Text>
                 </View>
               ))}

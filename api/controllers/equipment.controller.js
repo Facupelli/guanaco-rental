@@ -8,6 +8,7 @@ async function getEquipment(req, res, next) {
     if (search && search !== "undefined") {
       const equipmentBySearch = await prisma.equipment.findMany({
         where: {
+          available: true,
           OR: [
             {
               name: {
@@ -33,21 +34,26 @@ async function getEquipment(req, res, next) {
     }
   } catch (e) {
     console.log("search equipment error:", e);
+    res.json({ errorMessage: "error searching, please refresh" });
     return;
   }
 
   try {
-    const pipeline = { include: { bookings: { include: { book: true } } } };
+    const pipeline = {
+      where: { available: true },
+      include: { bookings: { include: { book: true } } },
+    };
 
     if (category && category !== "undefined" && category !== "all") {
       pipeline.where = {
+        ...pipeline.where,
         category: {
           name: category,
         },
       };
     }
 
-    if (order && order !== "undefined" && order !== "null" && order !== "none") {
+    if (order && order !== "undefined" && order !== "none") {
       pipeline.orderBy = { price: order };
     }
 
@@ -56,6 +62,7 @@ async function getEquipment(req, res, next) {
     res.json(equipment);
   } catch (e) {
     console.log("find equipment error:", e);
+    res.json({ errorMessage: "error getting equipment, please refresh" });
     return;
   }
 }
