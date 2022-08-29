@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getUniqueUser } from "../../utils/fetch_users";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import ClientCard from "../../components/ClientCard/ClientCard";
-import ClientPetitionCard from "../../components/clientPetitionCard/ClientPetitionCard";
+import ClientPetitionCard from "../../components/ClientPetitionCard/ClientPetitionCard";
 import ClientPetitionInfo from "../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
 import Nav from "../../components/Nav/Nav";
 
