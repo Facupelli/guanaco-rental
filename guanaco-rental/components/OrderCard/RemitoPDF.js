@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 5,
     left: "50%",
-    top: -50,
+    top: -60,
     transform: "translate(-50%, 0%)",
     backgroundColor: "white",
     padding: "0px 5px",
@@ -152,7 +152,7 @@ export const RemitoPDF = ({ pickupDay, returnDay, order }) => (
       </View>
       <View style={styles.pageMargin}>
         <View style={styles.imageWrapper}>
-          <Image src="/remito-logo-b.png" />
+          <Image src="/remito/logo-remito-low.png" />
         </View>
         <View style={styles.userSection}>
           <View style={styles.flex}>
@@ -192,7 +192,7 @@ export const RemitoPDF = ({ pickupDay, returnDay, order }) => (
         </View>
         <View style={styles.section}>
           <View style={styles.bgImageWrapper}>
-            <Image src="/guanaco-perfil.png" style={styles.bgImage} />
+            <Image src="/remito/guanaco-perfil-low.png" style={styles.bgImage} />
           </View>
           <Text style={{ marginBottom: 3, fontWeight: 700 }}>
             LISTA DE EQUIPOS RETIRADOS
