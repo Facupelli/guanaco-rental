@@ -8,7 +8,7 @@ import { schema } from "./validationSchema";
 
 import s from "./CompleteProfileModal.module.scss";
 
-export default function CompleteProfileModal({ user }) {
+export default function CompleteProfileModal() {
   const {
     register,
     handleSubmit,
@@ -127,7 +127,6 @@ export default function CompleteProfileModal({ user }) {
                 required
                 type="text"
                 id="fullName"
-                defaultValue={user.fullName}
                 {...register("fullName")}
               />
               {errors.fullName?.message}

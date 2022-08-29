@@ -5,7 +5,6 @@ import Nav from "../../components/Nav/Nav";
 import s from "../../styles/NewClientPage.module.scss";
 
 export default function NewClientPage() {
-
   // useEffect(() => {
   //   if (user) {
   //     if (!userData) {
@@ -27,7 +26,9 @@ export default function NewClientPage() {
       </Head>
       <Nav />
       <main className={s.main}>
-        <CompleteProfileModal user={userData} />
+        {/* <CompleteProfileModal user={userData} />
+         */}
+        <CompleteProfileModal />
       </main>
     </div>
   );

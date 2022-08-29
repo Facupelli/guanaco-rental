@@ -55,11 +55,11 @@ export default function AdminUsersPage({ clients, newCLients }) {
     return users;
   };
 
-  const getClientUsersCallack = useCallback(getClientUsers, []);
+  const getClientUsersCallack = useCallback(getClientUsers, [search]);
 
   useEffect(() => {
     getClientUsersCallack();
-  }, [search]);
+  }, [search, getClientUsersCallack]);
 
   return (
     <div className={s.bg_grey}>
