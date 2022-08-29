@@ -1,15 +1,12 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Nav from "../../components/Nav/Nav";
 import Gear from "../../components/OrderCard/Gear/Gear";
 
 import s from "../../styles/NewOrderSuccess.module.scss";
 
 export default function NewOrderSuccess({ order }) {
-  const router = useRouter();
-
   return (
-    <div>
+    <div className={s.bg_grey}>
       <Nav />
       <main className={s.main}>
         <h1>PEDIDO ORDENADO CON EXITO</h1>
@@ -38,7 +35,9 @@ export default function NewOrderSuccess({ order }) {
           </article>
         )}
         <button type="button">
-          <Link href="/">TERMINADO</Link>
+          <Link href="/">
+            <a>TERMINADO</a>
+          </Link>
         </button>
       </main>
     </div>
