@@ -74,7 +74,7 @@ export default function Nav({ setShowCart, cartPage, home }) {
         ) : (
           <>
             <li>
-              <button onClick={() => signIn("google")} className={s.link_icon}>
+              <button onClick={() => signIn()} className={s.link_icon}>
                 INICIAR SESION
                 <FontAwesomeIcon icon={faArrowRightToBracket} width="20px" />
               </button>
