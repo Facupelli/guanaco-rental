@@ -12,3 +12,11 @@ export const getOrCreateUser = async (user) => {
 
   return upsertUser;
 };
+
+export const getUniqueUser = async (email) => {
+  const user = await fetch(`http://localhost:3001/users/${email}`)
+    .then((response) => response.json())
+    .catch((e) => console.log("fecth error:", e));
+
+  return user;
+};

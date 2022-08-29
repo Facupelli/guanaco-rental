@@ -29,7 +29,7 @@ async function postUser(req, res, next) {
         alias: data.alias,
         cbu: data.cbu,
         petitionSent: data.petitionSent,
-        customerAproved: data.customerAproved,
+        customerApproved: data.customerApproved,
       },
       create: {
         email: data.email,
@@ -55,8 +55,8 @@ async function putUser(req, res, next) {
     const updatedUser = await prisma.user.update({
       where: { id: data.userId },
       data: {
-        customerAproved: data.customerAproved,
-        customerAprovedAt: new Date(),
+        customerApproved: data.customerApproved,
+        customerApprovedAt: new Date(),
       },
     });
 
@@ -75,7 +75,7 @@ async function getUsers(req, res, next) {
 
     if (newClients) {
       users = await prisma.user.findMany({
-        where: { petitionSent: true, customerAproved: false },
+        where: { petitionSent: "PENDING", customerApproved: false },
         orderBy: { updatedAt: "desc" },
       });
     }
@@ -90,16 +90,16 @@ async function getUsers(req, res, next) {
                   search: search,
                 },
               },
-              { customerAproved: true },
+              { customerApproved: true },
             ],
           },
           include: { orders: true },
         });
       } else {
         users = await prisma.user.findMany({
-          where: { customerAproved: true },
+          where: { customerApproved: true },
           include: { orders: true },
-          orderBy: { customerAprovedAt: "desc" },
+          orderBy: { customerApprovedAt: "desc" },
         });
       }
     }

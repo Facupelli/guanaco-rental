@@ -20,7 +20,7 @@ export default function ClientCard({ user }) {
             <p>{user.addressProvince}</p>
             <p>Pedidos: {user.orders.length}</p>
             <p className={s.alta}>
-              ALTA: {new Date(user.customerAprovedAt).toLocaleDateString()}
+              ALTA: {new Date(user.customerApprovedAt).toLocaleDateString()}
             </p>
           </div>
         )}
@@ -40,7 +40,7 @@ export default function ClientCard({ user }) {
             </div>
             <div>
               <li>Alta:</li>
-              <li>{new Date(user.customerAprovedAt).toLocaleDateString()}</li>
+              <li>{new Date(user.customerApprovedAt).toLocaleDateString()}</li>
             </div>
             <div>
               <li>DNI:</li>

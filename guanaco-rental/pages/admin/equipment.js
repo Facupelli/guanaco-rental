@@ -3,6 +3,7 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { getUniqueUser } from "../../utils/fetch_users";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
 import Nav from "../../components/Nav/Nav";
@@ -88,7 +89,9 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  if (!session || session?.user.email !== "facundopellicer4@gmail.com") {
+  const user = await getUniqueUser(session?.user.email)
+
+  if (!session || user.role !== "ADMIN") {
     return {
       redirect: {
         destination: "/",

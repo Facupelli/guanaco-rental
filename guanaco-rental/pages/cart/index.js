@@ -71,7 +71,7 @@ export default function CartPage() {
       router.push("/newClient");
       return;
     }
-    if (!userData.customerAproved) {
+    if (!userData.customerApproved) {
       setError("Tu alta de cliente todavía no fue aprobada.");
       return;
     }

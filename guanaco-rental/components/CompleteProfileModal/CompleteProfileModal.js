@@ -59,8 +59,8 @@ export default function CompleteProfileModal({ user }) {
     const userData = JSON.stringify({
       ...data,
       email: user.email,
-      customerAproved: false,
-      petitionSent: true,
+      customerApproved: false,
+      petitionSent: "PENDING",
       dniFront: dniFront.name,
       dniBack: dniBack.name,
     });

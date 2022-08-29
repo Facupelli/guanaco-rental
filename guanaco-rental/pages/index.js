@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setDate } from "../redux/features/pickupDate/pickupDateSlice";
 import { generateAllDates } from "../utils/dates_functions";
-import { getOrCreateUser } from "../utils/fetch_users";
+import { getOrCreateUser, getUniqueUser } from "../utils/fetch_users";
 import { setUserId } from "../redux/features/user/userSlice";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 //COMPONENTS
 import Bookeable from "../components/Bookeable/Bookeable";
@@ -14,8 +16,6 @@ import CartModal from "../components/CartModal/CartModal";
 import CalendarComponent from "../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 
 import styles from "../styles/Home.module.scss";
-import { unstable_getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]";
 
 export default function Home() {
   const userData = useSelector((state) => state.user.data);
@@ -90,9 +90,14 @@ export const getServerSideProps = async (ctx) => {
     authOptions
   );
 
-  const user = await fetch(`http://localhost:3001/users/${session?.user.email}`)
-    .then((response) => response.json())
-    .catch((e) => console.log("fecth error:", e));
+  let user;
+  if (session) {
+    user = await getUniqueUser(session?.user.email);
+  }
+
+  // const user = await fetch(`http://localhost:3001/users/${session?.user.email}`)
+  //   .then((response) => response.json())
+  //   .catch((e) => console.log("fecth error:", e));
 
   if (user && !user.petitionSent) {
     return {

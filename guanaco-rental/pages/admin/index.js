@@ -1,10 +1,11 @@
-import { unstable_getServerSession } from "next-auth";
 import Head from "next/head";
 import Link from "next/link";
+import { unstable_getServerSession } from "next-auth";
+import { getUniqueUser } from "../../utils/fetch_users";
+import { authOptions } from "../api/auth/[...nextauth]";
 import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminPage.module.scss";
-import { authOptions } from "../api/auth/[...nextauth]";
 
 export default function AdminPage({ session }) {
   return (
@@ -47,7 +48,9 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  if (!session || session?.user.email !== "facundopellicer4@gmail.com") {
+  const user = await getUniqueUser(session?.user.email)
+
+  if (!session || user.role !== "ADMIN") {
     return {
       redirect: {
         destination: "/",

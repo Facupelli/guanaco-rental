@@ -2,6 +2,7 @@ import {
   faArrowRightFromBracket,
   faBars,
   faCartShopping,
+  faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -64,7 +65,7 @@ export default function Nav({ setShowCart, cartPage, home }) {
         {/* <li>RESERVAS ONLINE</li> */}
         <li>FAQ</li>
         {session ? (
-          <li >
+          <li>
             <button onClick={() => signOut()} className={s.link_icon}>
               CERRAR SESION
               <FontAwesomeIcon icon={faArrowRightFromBracket} width="20px" />
@@ -73,7 +74,10 @@ export default function Nav({ setShowCart, cartPage, home }) {
         ) : (
           <>
             <li>
-              <button onClick={() => signIn("google")}>INICIAR SESION</button>
+              <button onClick={() => signIn("google")} className={s.link_icon}>
+                INICIAR SESION
+                <FontAwesomeIcon icon={faArrowRightToBracket} width="20px" />
+              </button>
             </li>
             {/* <li>
               <Link href="/api/signup">
