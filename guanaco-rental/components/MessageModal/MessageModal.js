@@ -10,9 +10,7 @@ export default function MessageModal({
 }) {
   const modalRef = useRef();
 
-  if (!loadModal) {
-    useOnClickOutside(modalRef, useCallback(btnFunc));
-  }
+  useOnClickOutside(modalRef, useCallback(btnFunc,[btnFunc]));
 
   return (
     <aside className={s.modal_container} ref={modalRef}>

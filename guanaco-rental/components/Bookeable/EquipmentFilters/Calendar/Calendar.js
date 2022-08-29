@@ -15,7 +15,7 @@ export default function CalendarComponent({
 
   useOnClickOutside(
     calendarRef,
-    useCallback(() => setDatePickup(false))
+    useCallback(() => setDatePickup(false),[setDatePickup])
   );
 
   const handleClickOk = () => {

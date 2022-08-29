@@ -31,7 +31,7 @@ export default function AdminEquipment({ equipment }) {
     } else {
       getEquipment();
     }
-  }, [category]);
+  }, [category, equipment, getEquipment]);
 
   //   <div className={s.flex}>
   //   <h1>Equipos</h1>

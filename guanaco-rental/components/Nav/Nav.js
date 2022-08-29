@@ -17,7 +17,7 @@ export default function Nav({ setShowCart, cartPage, home }) {
     if (home) {
       setShowCart(true);
     }
-  };
+};
 
   const menuRef = useRef(null);
 
@@ -25,7 +25,7 @@ export default function Nav({ setShowCart, cartPage, home }) {
     menuRef,
     useCallback(() => {
       document.getElementById("click").checked = false;
-    })
+    },[])
   );
 
   const { data: session } = useSession();

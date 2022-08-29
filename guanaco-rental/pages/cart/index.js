@@ -41,7 +41,7 @@ export default function CartPage() {
       const allDates = generateAllDates(dateRange);
       dispatch(setDate(allDates));
     }
-  }, [dateRange]);
+  }, [dateRange, dispatch]);
 
   const getTotalPrice = () => {
     const totalPrice = cart.reduce((curr, acc) => {

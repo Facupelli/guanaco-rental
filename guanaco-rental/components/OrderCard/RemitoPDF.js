@@ -152,7 +152,7 @@ export const RemitoPDF = ({ pickupDay, returnDay, order }) => (
       </View>
       <View style={styles.pageMargin}>
         <View style={styles.imageWrapper}>
-          <Image src="/remito/logo-remito-low.png" />
+          <Image src="/remito/logo-remito-low.png" alt="logo"/>
         </View>
         <View style={styles.userSection}>
           <View style={styles.flex}>
@@ -192,7 +192,7 @@ export const RemitoPDF = ({ pickupDay, returnDay, order }) => (
         </View>
         <View style={styles.section}>
           <View style={styles.bgImageWrapper}>
-            <Image src="/remito/guanaco-perfil-low.png" style={styles.bgImage} />
+            <Image src="/remito/guanaco-perfil-low.png" alt="guanaco-fondo" style={styles.bgImage} />
           </View>
           <Text style={{ marginBottom: 3, fontWeight: 700 }}>
             LISTA DE EQUIPOS RETIRADOS

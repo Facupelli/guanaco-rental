@@ -21,7 +21,7 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
 
   useEffect(() => {
     dispatch(fetchEquipment(filters.category, filters.order, filters.search));
-  }, [filters.category, filters.order, filters.search]);
+  }, [filters.category, filters.order, filters.search, dispatch]);
 
   return (
     <section className={s.container}>

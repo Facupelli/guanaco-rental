@@ -1,17 +1,10 @@
 import Head from "next/head";
-import { NextScript } from "next/document";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
 import Nav from "../../components/Nav/Nav";
-import { getOrCreateUser } from "../../utils/fetch_users";
-import { setUserId } from "../../redux/features/user/userSlice";
 
 import s from "../../styles/NewClientPage.module.scss";
 
-export default function newClientPage() {
-  const dispatch = useDispatch();
-  const userData = useSelector((state) => state.user.data);
+export default function NewClientPage() {
 
   // useEffect(() => {
   //   if (user) {

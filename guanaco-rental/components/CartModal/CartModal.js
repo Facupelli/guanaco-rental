@@ -14,7 +14,7 @@ export default function CartModal({ showCart, setShowCart, setDatePickup }) {
 
   useOnClickOutside(
     cartModalRef,
-    useCallback(() => setShowCart(false))
+    useCallback(() => setShowCart(false),[setShowCart])
   );
 
   const handleCloseCart = () => {
