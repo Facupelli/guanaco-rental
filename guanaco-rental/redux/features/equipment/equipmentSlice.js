@@ -29,7 +29,9 @@ export function fetchEquipment(category, order, search) {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/equipment?category=${category}&order=${order}&search=${search}`
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/equipment?category=${category}&order=${order}&search=${search}`
+          : `http://localhost:3001/equipment?category=${category}&order=${order}&search=${search}`
       );
       const data = await response.json();
 
