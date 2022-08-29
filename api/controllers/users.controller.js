@@ -57,6 +57,7 @@ async function putUser(req, res, next) {
       data: {
         customerApproved: data.customerApproved,
         customerApprovedAt: new Date(),
+        petitionSent: data.petitionSent,
       },
     });
 

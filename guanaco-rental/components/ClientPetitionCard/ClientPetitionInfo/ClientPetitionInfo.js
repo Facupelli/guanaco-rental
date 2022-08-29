@@ -18,6 +18,7 @@ export default function ClientPetitionInfo({
     const data = JSON.stringify({
       userId: user.id,
       customerApproved: approved,
+      petitionSent: approved ? "APPROVED" : "DENIED",
     });
 
     const updatedUser = await fetch("http://localhost:3001/users", {
@@ -133,14 +134,14 @@ export default function ClientPetitionInfo({
         <div className={s.btns_wrapper}>
           <button
             type="button"
-            onClick={() => onClickApprove("APPROVED")}
+            onClick={() => onClickApprove(true)}
             className={s.m_button}
           >
             APROBAR
           </button>
           <button
             type="button"
-            onClick={() => onClickApprove("DENIED")}
+            onClick={() => onClickApprove(false)}
             className={s.m_button_danger}
           >
             DENEGAR
