@@ -15,23 +15,24 @@ export default function AdminEquipment({ equipment }) {
   const [equipmentList, setEquipmentList] = useState([]);
   const [category, setCategory] = useState("all");
 
-  const getEquipment = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/equipment?category=${category}`
-      );
-      const data = await response.json();
-      setEquipmentList(data);
-    } catch (e) {}
-  };
-
+  
   useEffect(() => {
+    const getEquipment = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/equipment?category=${category}`
+        );
+        const data = await response.json();
+        setEquipmentList(data);
+      } catch (e) {}
+    };
+
     if (category === "all") {
       setEquipmentList(equipment);
     } else {
       getEquipment();
     }
-  }, [category, equipment, getEquipment]);
+  }, [category, equipment]);
 
   //   <div className={s.flex}>
   //   <h1>Equipos</h1>

@@ -28,7 +28,7 @@ export default function EquipmentFilters({
     filtersRef,
     useCallback(() => {
       document.getElementById("filters").checked = false;
-    })
+    },[])
   );
 
   return (

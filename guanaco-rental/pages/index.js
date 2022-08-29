@@ -37,7 +37,7 @@ export default function Home() {
         getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
       }
     }
-  }, [session]);
+  }, [session, userData, dispatch]);
 
   useEffect(() => {
     if (dateRange) {
@@ -45,7 +45,7 @@ export default function Home() {
 
       dispatch(setDate(allDates));
     }
-  }, [dateRange]);
+  }, [dateRange, dispatch]);
 
   return (
     <div className={styles.container}>

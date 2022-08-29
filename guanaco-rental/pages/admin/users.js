@@ -2,7 +2,7 @@ import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getUniqueUser } from "../../utils/fetch_users";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import ClientCard from "../../components/ClientCard/ClientCard";
@@ -55,9 +55,11 @@ export default function AdminUsersPage({ clients, newCLients }) {
     return users;
   };
 
+  const getClientUsersCallack = useCallback(getClientUsers, []);
+
   useEffect(() => {
-    getClientUsers();
-  }, [search, getClientUsers]);
+    getClientUsersCallack();
+  }, [search]);
 
   return (
     <div className={s.bg_grey}>
