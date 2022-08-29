@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import s from "./ClientPetitionCard.module.scss";
 
 export default function ClientPetitionCard({

@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { getUniqueUser } from "../../utils/fetch_users";
 import AdminMain from "../../components/AdminMain/AdminMain";
@@ -13,8 +12,6 @@ import Nav from "../../components/Nav/Nav";
 import s from "../../styles/AdminUsersPage.module.scss";
 
 export default function AdminUsersPage({ clients, newCLients }) {
-  const router = useRouter();
-
   const [search, setSearch] = useState("");
 
   const [showNewClients, setShowNewClients] = useState(true);
