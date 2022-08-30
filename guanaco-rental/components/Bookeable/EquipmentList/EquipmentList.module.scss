@@ -28,11 +28,12 @@
   }
 }
 
-@media (max-width: 690px) {
+@media (max-width: 750px) {
   .container {
     .cards_wrapper {
       grid-template-columns: 100%;
       justify-items: center;
+      row-gap: 1rem;
     }
   }
 }

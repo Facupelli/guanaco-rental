@@ -55,31 +55,33 @@ export default function EquipmentCard({ gear, setShowCart }) {
             priority={gear.image === "rokinon12.jpg"}
           />
         </div>
-        <div className={s.name_wrapper_flex}>
-          <p>{gear.name}</p>
-          <p>{gear.brand}</p>
-        </div>
-        <p>{gear.model}</p>
-        <div className={s.see_more_flex}>
-          <p className={availability ? `${s.green}` : `${s.red}`}>
-            {availability ? "Disponible" : "Reservado"}
-          </p>
-          <button type="button" onClick={handleSeeMore}>
-            ver más
-          </button>
-        </div>
-        <div className={s.add_to_cart_btn}>
-          <p className={s.price_bold}>{formatPrice(gear.price)}</p>
+        <div className={s.flex_mobile}>
+          <div className={s.name_wrapper_flex}>
+            <p>{gear.name}</p>
+            <p>{gear.brand}</p>
+          </div>
+          <p>{gear.model}</p>
+          <div className={s.see_more_flex}>
+            <p className={availability ? `${s.green}` : `${s.red}`}>
+              {availability ? "Disponible" : "Reservado"}
+            </p>
+            <button type="button" onClick={handleSeeMore}>
+              ver más
+            </button>
+          </div>
+          <div className={s.add_to_cart_btn}>
+            <p className={s.price_bold}>{formatPrice(gear.price)}</p>
 
-          <button
-            type="button"
-            onClick={addItemToCart}
-            disabled={!availability}
-            aria-label="add-to-cart"
-          >
-            {/* + carrito */}
-            <FontAwesomeIcon icon={faCartPlus} height="20" />
-          </button>
+            <button
+              type="button"
+              onClick={addItemToCart}
+              disabled={!availability}
+              aria-label="add-to-cart"
+            >
+              {/* + carrito */}
+              <FontAwesomeIcon icon={faCartPlus} height="20" />
+            </button>
+          </div>
         </div>
       </article>
     </>
