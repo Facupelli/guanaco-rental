@@ -163,7 +163,7 @@ export async function getServerSideProps(ctx) {
   }
 
   const newCLients = await fetch(
-    rocess.env.NODE_ENV === "production"
+    process.env.NODE_ENV === "production"
       ? `https://guanaco-rental-production.up.railway.app/users?newClients${true}`
       : `http://localhost:3001/users?newClients=${true}`
   )
