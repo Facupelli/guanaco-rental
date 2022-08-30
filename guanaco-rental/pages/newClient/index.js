@@ -1,19 +1,15 @@
 import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 import Head from "next/head";
+import { useState } from "react";
 import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
+import MessageModal from "../../components/MessageModal/MessageModal";
 import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/NewClientPage.module.scss";
-import { authOptions } from "../api/auth/[...nextauth]";
 
 export default function NewClientPage({ user }) {
-  // useEffect(() => {
-  //   if (user) {
-  //     if (!userData) {
-  //       getOrCreateUser(user).then((res) => dispatch(setUserId(res)));
-  //     }
-  //   }
-  // }, [user]);
+  const [showModal, setShowModal] = useState(true);
 
   return (
     <div>
@@ -26,6 +22,16 @@ export default function NewClientPage({ user }) {
           type="text/javascript"
         ></script> */}
       </Head>
+      {showModal && (
+        <MessageModal showButton btnFunc={() => setShowModal(false)}>
+          <p className={s.bold}>IMPORTANTE</p>
+          <p>
+            Para poder alquilar equipos es necesario llenar este formulario de
+            alta de cliente. Una vez aprobado (puede demorar hasta 48hs)
+            podras realizar tus reservas a través de la web.
+          </p>
+        </MessageModal>
+      )}
       <Nav />
       <main className={s.main}>
         <CompleteProfileModal user={user} />

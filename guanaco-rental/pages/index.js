@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setDate } from "../redux/features/pickupDate/pickupDateSlice";
 import { generateAllDates } from "../utils/dates_functions";
-import { getOrCreateUser, getUniqueUser } from "../utils/fetch_users";
+import { getOrCreateUser } from "../utils/fetch_users";
 import { setUserId } from "../redux/features/user/userSlice";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
