@@ -22,6 +22,7 @@ $bg-grey: #ebebeb;
   background-color: rgba(236, 236, 236, 0.562);
   border: none;
   border-bottom: 1px solid $m-black;
+  font-family: "Panton";
 
   &:focus,
   &:active {
@@ -53,6 +54,7 @@ $bg-grey: #ebebeb;
   color: $m-white;
   cursor: pointer;
   @include btn-disabled;
+  font-family: "Panton";
 
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 
@@ -71,6 +73,7 @@ $bg-grey: #ebebeb;
   color: $m-white;
   cursor: pointer;
   @include btn-disabled;
+  font-family: "Panton";
 
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 
@@ -87,6 +90,7 @@ $bg-grey: #ebebeb;
   padding: 0.4rem;
   cursor: pointer;
   @include btn-disabled;
+  font-family: "Panton";
 }
 
 @mixin m-button-orange {
@@ -98,6 +102,7 @@ $bg-grey: #ebebeb;
   color: white;
   cursor: pointer;
   @include btn-disabled;
+  font-family: "Panton";
 
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 
@@ -130,6 +135,7 @@ $bg-grey: #ebebeb;
   background-color: white;
   border-radius: 0.2rem;
   cursor: pointer;
+  font-family: "Panton";
 
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 

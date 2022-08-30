@@ -59,7 +59,8 @@
       cursor: pointer;
       padding: 0.2rem;
       border-radius: 0.2rem;
-      font-weight: 300;
+      font-family: "Panton";
+      font-weight: 400;
 
       &:hover {
         color: $m-orange;
@@ -70,7 +71,7 @@
     .category_active {
       background-color: $s-orange;
       color: white;
-      font-weight: 800;
+      font-weight: 700;
       padding: 0.4rem;
 
       &:hover {
