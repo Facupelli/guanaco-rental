@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
 import s from "./ClientPetitionCard.module.scss";
 
 export default function ClientPetitionCard({
@@ -20,7 +23,7 @@ export default function ClientPetitionCard({
         <p>{new Date(user.updatedAt).toLocaleDateString()}</p>
         <p>{user.customerApproved ? "APROBADA" : "PENDIENTE"}</p>
         <button type="button" onClick={handleClick}>
-          {"->"}
+          <FontAwesomeIcon icon={faArrowRight} height={15} />
         </button>
       </div>
     </div>

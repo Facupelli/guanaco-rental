@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useState } from "react";
 import { useDownloadBlob } from "../../hooks/useDownloadBlob";
@@ -31,7 +33,7 @@ export default function ClientCard({ user }) {
                 setExpand(false)
                 setBlob("")
                 }}>
-                X
+                <FontAwesomeIcon icon={faXmark} height={20} />
               </button>
             </div>
             <div>

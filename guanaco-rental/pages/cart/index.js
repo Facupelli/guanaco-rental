@@ -102,7 +102,7 @@ export default function CartPage() {
       }
     )
       .then((response) => response.json())
-      .catch(() => setError("error, vuelve a intentarlo"))
+      .catch((e) => setError("error, vuelve a intentarlo", e))
       .finally(() => setLoading(false));
 
     if (newOrder && newOrder.message === "success") {

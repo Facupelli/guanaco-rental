@@ -1,6 +1,6 @@
 @import "../../styles/app.scss";
 
-.grid{
+.grid {
   display: grid;
   grid-template-columns: 45% 50%;
   column-gap: 5%;
@@ -41,6 +41,9 @@
       justify-content: flex-end;
       button {
         @include cross-button;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
 
@@ -64,7 +67,7 @@
   }
 }
 
-.image_wrapper{
+.image_wrapper {
   margin: 1rem 0rem;
   border-radius: 0.2rem;
 }

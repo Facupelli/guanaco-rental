@@ -80,11 +80,11 @@ model Equipment {
 model Order {
   id                      String              @default(cuid()) @id
   number                  Int                 @default(autoincrement())
-  user                    User                @relation(fields: [userId], references: [id])
+  user                    User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                  String
   equipments              Equipment[]
   totalPrice              Int
-  booking                 Book                @relation(fields: [bookingId], references: [id])
+  booking                 Book                @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   bookingId               String              @unique
   createdAt               DateTime            @default(now())
 }
@@ -97,9 +97,9 @@ model Book {
 }
 
 model BookOnEquipment {
-  equipment               Equipment          @relation(fields: [equipmentId], references: [id])
+  equipment               Equipment          @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
   equipmentId             String 
-  book                    Book               @relation(fields: [bookId], references: [id])
+  book                    Book               @relation(fields: [bookId], references: [id], onDelete: Cascade)
   bookId                  String 
   quantity                Int
   assignedAt              DateTime            @default(now())

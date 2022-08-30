@@ -89,4 +89,21 @@ async function getOrders(req, res, next) {
   }
 }
 
-module.exports = { postOrder, getOrders };
+async function deleteOrderById(req, res, next) {
+  const id = req.params;
+
+  try {
+    if (id) {
+      const deletedOrder = await prisma.book.delete({
+        where: id,
+      });
+
+      res.json({ message: "success", deletedOrder });
+    }
+  } catch (e) {
+    console.log(e);
+    return;
+  }
+}
+
+module.exports = { postOrder, getOrders, deleteOrderById };

@@ -30,12 +30,14 @@
     font-size: 0.9em;
     margin-left: 3%;
     
-    > button {
+    > button:first-child {
       @include m-button-gray;
       width: 10%;
       font-size: 0.8em;
       padding: .2rem .4rem;
     }
+
+    
   }
 
   .equipments_container {
@@ -48,6 +50,14 @@
 
     >p{
       font-weight: 600;
+    }
+
+    .cancel_order{
+      @include m-button-danger;
+      margin: 1rem 0rem 1rem auto;
+      width: fit-content;
+      font-size: 0.7em;
+      padding: .2rem .4rem;
     }
   }
 }

@@ -18,13 +18,13 @@ export default function GearAdminCard({ gear }) {
         <label>Disponible:</label>
         <input
           type="checkbox"
-          deafultValue={gear.available}
+          defaultValue={gear.available}
           defaultChecked={gear.available}
         />
       </div>
       <div className={`${s.flex_wrapper} `}>
         <label>Stock:</label>
-        <input defaultValue={gear.stock} className={s.stock_input} />
+        <input defaultValue={gear.stock} className={s.stock_input}  />
       </div>
       <div className={`${s.flex_wrapper} `}>
         <label>Precio:</label>

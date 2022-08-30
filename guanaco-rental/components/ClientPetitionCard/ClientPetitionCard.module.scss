@@ -21,6 +21,9 @@
       flex-basis: 10%;
       @include m-button;
       padding: .2rem .4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

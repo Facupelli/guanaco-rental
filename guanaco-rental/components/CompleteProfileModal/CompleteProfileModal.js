@@ -91,7 +91,7 @@ export default function CompleteProfileModal() {
       }
     )
       .then((response) => response.json())
-      .catch(() => console.log("error"))
+      .catch((e) => console.log("error", e))
       .finally(() => setLoading(false));
 
     if (newCustomerPetition && newCustomerPetition.message === "success") {

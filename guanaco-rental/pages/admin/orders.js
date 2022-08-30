@@ -62,7 +62,7 @@ export default function AdminOrdersPage({ session }) {
           ) : (
             orders &&
             orders.length > 0 &&
-            orders.map((order) => <OrderCard key={order.id} order={order} />)
+            orders.map((order) => <OrderCard key={order.id} order={order} getAllOrders={getAllOrders} />)
           )}
         </div>
       </AdminMain>
