@@ -61,8 +61,8 @@ export default function CompleteProfileModal({user}) {
       email: user.email,
       customerApproved: false,
       petitionSent: "PENDING",
-      dniFront: dniFront.name,
-      dniBack: dniBack.name,
+      dniFront: dniFront?.name,
+      dniBack: dniBack?.name,
     });
 
     try {
@@ -105,7 +105,7 @@ export default function CompleteProfileModal({user}) {
   return (
     <>
       {loading && (
-        <MessageModal loadModal>
+        <MessageModal loadModal btnFunc={() => setLoading(false)}>
           <p>Procesando...</p>
         </MessageModal>
       )}
