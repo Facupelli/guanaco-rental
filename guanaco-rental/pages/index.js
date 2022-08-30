@@ -34,6 +34,7 @@ export default function Home() {
   useEffect(() => {
     if (session?.user) {
       if (!userData) {
+        console.log("ENTRE");
         getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
       }
     }

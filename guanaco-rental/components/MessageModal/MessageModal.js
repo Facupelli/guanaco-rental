@@ -6,7 +6,6 @@ export default function MessageModal({
   children,
   showButton,
   btnFunc,
-  loadModal,
 }) {
   const modalRef = useRef();
 

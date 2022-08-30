@@ -125,6 +125,11 @@
         .flex {
           width: 100%;
         }
+
+        .dni_files_wrapper{
+          flex-direction: column;
+          align-items: flex-start;
+        }
       }
 
       .contacts_wrapper {

@@ -3,8 +3,9 @@ import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabase";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import MessageModal from "../MessageModal/MessageModal";
 import { schema } from "./validationSchema";
+import MessageModal from "../MessageModal/MessageModal";
+import LoadingModal from "../LoadingModal/LoadingModal";
 
 import s from "./CompleteProfileModal.module.scss";
 
@@ -105,9 +106,9 @@ export default function CompleteProfileModal({user}) {
   return (
     <>
       {loading && (
-        <MessageModal loadModal btnFunc={() => setLoading(false)}>
+        <LoadingModal>
           <p>Procesando...</p>
-        </MessageModal>
+        </LoadingModal>
       )}
       {message && (
         <MessageModal

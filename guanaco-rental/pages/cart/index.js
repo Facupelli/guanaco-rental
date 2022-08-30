@@ -14,9 +14,11 @@ import { useRouter } from "next/router";
 import CartPageItem from "../../components/CartPageItem/CartPageItem";
 import Nav from "../../components/Nav/Nav";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
+import MessageModal from "../../components/MessageModal/MessageModal";
+import LoadingModal from "../../components/LoadingModal/LoadingModal";
+
 
 import s from "../../styles/CartPage.module.scss";
-import MessageModal from "../../components/MessageModal/MessageModal";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -76,7 +78,7 @@ export default function CartPage() {
       return;
     }
 
-    console.log("enviar pedido");
+    // console.log("enviar pedido");
     setLoading(true);
 
     const totalPrice = getTotalPrice();
@@ -131,9 +133,9 @@ export default function CartPage() {
         />
       )}
       {loading && (
-        <MessageModal loadModal>
+        <LoadingModal>
           <p>Procesando...</p>
-        </MessageModal>
+        </LoadingModal>
       )}
       {error && (
         <MessageModal showButton btnFunc={() => setError("")}>
