@@ -78,7 +78,7 @@ export default function EquipmentCard({ gear, setShowCart }) {
               disabled={!availability}
               aria-label="add-to-cart"
             >
-              <FontAwesomeIcon icon={faCartPlus} height={20} width={20} />
+              <FontAwesomeIcon icon={faCartPlus} className={s.cart_icon} />
             </button>
           </div>
         </div>

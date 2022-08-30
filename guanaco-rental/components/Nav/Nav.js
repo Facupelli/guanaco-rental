@@ -69,7 +69,7 @@ export default function Nav({ setShowCart, cartPage, home }) {
           <li>
             <button onClick={() => signOut()} className={s.link_icon}>
               CERRAR SESION
-              <FontAwesomeIcon icon={faArrowRightFromBracket} width="20px" />
+              <FontAwesomeIcon icon={faArrowRightFromBracket} className={s.icon} />
             </button>
           </li>
         ) : (
@@ -77,7 +77,7 @@ export default function Nav({ setShowCart, cartPage, home }) {
             <li>
               <button onClick={() => signIn()} className={s.link_icon}>
                 INICIAR SESION
-                <FontAwesomeIcon icon={faArrowRightToBracket} width="20px" />
+                <FontAwesomeIcon icon={faArrowRightToBracket}  className={s.icon}/>
               </button>
             </li>
             {/* <li>

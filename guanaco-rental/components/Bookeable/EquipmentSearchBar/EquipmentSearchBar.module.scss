@@ -13,7 +13,7 @@
 
   .search_icon {
     padding: 0.5rem;
-    height: 36px;
+    height: calc(36px - 1rem);
     border-bottom-left-radius: 0.2rem;
     border-top-left-radius: 0.2rem;
     background-color: $m-orange;
