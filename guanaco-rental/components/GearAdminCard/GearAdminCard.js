@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import s from "./GearAdminCard.module.scss";
 
-export default function GearAdminCard({ gear }) {
+export default function GearAdminCard({ gear, getEquipment }) {
   const {
     register,
     handleSubmit,
@@ -10,7 +10,30 @@ export default function GearAdminCard({ gear }) {
     formState: { errors },
   } = useForm();
 
-  const available = watch("available");
+  const onSubmit = async (data) => {
+    console.log(data, gear.id);
+    const gearData = JSON.stringify({
+      ...data,
+      id: gear.id,
+    });
+
+    const updatedGear = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/equipment`
+        : "http://localhost:3001/equipment",
+      {
+        method: "PUT",
+        body: gearData,
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    ).then((response) => {
+      console.log("UpdatedGear", response.json());
+      getEquipment();
+    });
+  };
 
   return (
     <div className={s.admin_gear_container}>
@@ -28,38 +51,41 @@ export default function GearAdminCard({ gear }) {
         </div>
         <p>{gear.model}</p>
       </div>
-      <div className={`${s.flex_wrapper} `}>
-        <label>Disponible:</label>
-        <input
-          type="checkbox"
-          defaultValue={gear.available}
-          defaultChecked={gear.available}
-          {...register("available")}
-        />
-      </div>
-      <div className={`${s.flex_wrapper} `}>
-        <label>Stock:</label>
-        <input
-          defaultValue={gear.stock}
-          className={s.stock_input}
-          {...register("stock")}
-        />
-      </div>
-      <div className={`${s.flex_wrapper} `}>
-        <label>Precio:</label>
-        <input
-          defaultValue={gear.price}
-          className={s.price_input}
-          {...register("price")}
-        />
-      </div>
-      <div className={`${s.flex_wrapper} `}>
-        <label>Sucursal:</label>
-        <select defaultValue={gear.location} {...register("location")}>
-          <option value="San Juan">San Juan</option>
-          <option value="Mendoza">Mendoza</option>
-        </select>
-      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={`${s.flex_wrapper} `}>
+          <label>Disponible:</label>
+          <input
+            type="checkbox"
+            defaultValue={gear.available}
+            defaultChecked={gear.available}
+            {...register("available")}
+          />
+        </div>
+        <div className={`${s.flex_wrapper} `}>
+          <label>Stock:</label>
+          <input
+            defaultValue={gear.stock}
+            className={s.stock_input}
+            {...register("stock")}
+          />
+        </div>
+        <div className={`${s.flex_wrapper} `}>
+          <label>Precio:</label>
+          <input
+            defaultValue={gear.price}
+            className={s.price_input}
+            {...register("price")}
+          />
+        </div>
+        <div className={`${s.flex_wrapper} `}>
+          <label>Sucursal:</label>
+          <select defaultValue={gear.location} {...register("location")}>
+            <option value="San Juan">San Juan</option>
+            <option value="Mendoza">Mendoza</option>
+          </select>
+        </div>
+        <button>ACTUALIZAR</button>
+      </form>
     </div>
   );
 }

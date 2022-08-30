@@ -21,7 +21,7 @@
     font-weight: 600;
   }
 
-  .flex_grow_2{
+  .flex_grow_2 {
     flex-grow: 2;
   }
 
@@ -31,24 +31,36 @@
     gap: 0.5rem;
   }
 
-  .stock_input{
-    width: 30px;
-    padding: .2rem;
-    border-radius: .2rem;
-    border: 1px solid $m-gray;
-    text-align: center;
-  }
+  form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
-  .price_input{
-    width: 70px;
-    padding: .2rem;
-    border-radius: .2rem;
-    border: 1px solid $m-gray;
-    text-align: center;
-  }
+    .stock_input {
+      width: 30px;
+      padding: 0.2rem;
+      border-radius: 0.2rem;
+      border: 1px solid $m-gray;
+      text-align: center;
+    }
 
-  select{
-    @include m-select;
-    padding: .2rem .4rem;
+    .price_input {
+      width: 70px;
+      padding: 0.2rem;
+      border-radius: 0.2rem;
+      border: 1px solid $m-gray;
+      text-align: center;
+    }
+
+    select {
+      @include m-select;
+      padding: 0.2rem 0.4rem;
+    }
+
+    button {
+      @include m-button-orange;
+      padding: 0.2rem;
+      font-size: 0.7em;
+    }
   }
 }

@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function getEquipment(req, res, next) {
-  const { category, order, search } = req.query;
+  const { category, order, search, available } = req.query;
 
   try {
     if (search && search !== "undefined") {
@@ -75,9 +75,9 @@ async function putEquipment(req, res, next) {
       const updatedGear = await prisma.equipment.update({
         where: { id: data.id },
         data: {
-          available: data.available,
-          stock: data.stock,
-          price: data.price,
+          available: Boolean(data.available),
+          stock: Number(data.stock),
+          price: Number(data.price),
           location: data.location,
         },
       });
@@ -92,4 +92,4 @@ async function putEquipment(req, res, next) {
   }
 }
 
-module.exports = { getEquipment };
+module.exports = { getEquipment, putEquipment };

@@ -2,7 +2,7 @@ import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getUniqueUser } from "../../utils/fetch_users";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
@@ -15,25 +15,25 @@ export default function AdminEquipment({ equipment }) {
   const [equipmentList, setEquipmentList] = useState([]);
   const [category, setCategory] = useState("all");
 
-  useEffect(() => {
-    const getEquipment = async () => {
-      try {
-        const response = await fetch(
-          process.env.NODE_ENV === "production"
-            ? `https://guanaco-rental-production.up.railway.app/equipment?category=${category}`
-            : `http://localhost:3001/equipment?category=${category}`
-        );
-        const data = await response.json();
-        setEquipmentList(data);
-      } catch (e) {}
-    };
+  const getEquipment = useCallback(async () => {
+    try {
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/equipment?category=${category}`
+          : `http://localhost:3001/equipment?category=${category}`
+      );
+      const data = await response.json();
+      setEquipmentList(data);
+    } catch (e) {}
+  }, [category]);
 
+  useEffect(() => {
     if (category === "all") {
       setEquipmentList(equipment);
     } else {
       getEquipment();
     }
-  }, [category, equipment]);
+  }, [category, equipment, getEquipment]);
 
   //   <div className={s.flex}>
   //   <h1>Equipos</h1>
@@ -76,7 +76,11 @@ export default function AdminEquipment({ equipment }) {
           {equipmentList &&
             equipmentList.length > 0 &&
             equipmentList.map((gear) => (
-              <GearAdminCard key={gear.id} gear={gear} />
+              <GearAdminCard
+                key={gear.id}
+                gear={gear}
+                getEquipment={getEquipment}
+              />
             ))}
         </div>
       </AdminMain>
