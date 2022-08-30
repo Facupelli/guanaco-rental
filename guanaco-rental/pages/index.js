@@ -96,7 +96,7 @@ export const getServerSideProps = async (ctx) => {
     user = await getOrCreateUser(session.user);
   }
 
-  if (user && !user.petitionSent) {
+  if (user && (user.petitionSent === "DENIED" || !user.petition)) {
     return {
       redirect: {
         destination: "/newClient",
