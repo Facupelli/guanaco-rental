@@ -9,8 +9,8 @@
     margin: 0.4rem 0rem;
     padding: 0.2rem 0.4rem;
     background-color: transparent;
-    border: none;
-    box-shadow: 1px 1px 1px 1px rgba(92, 92, 92, 0.267);
+    border: 1px solid $s-gray;
+    // box-shadow: 1px 1px 1px 1px rgba(92, 92, 92, 0.267);
     border-radius: 0.2rem;
     font-size: 0.7em;
     cursor: pointer;

@@ -5,6 +5,7 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 import CartItem from "./CartItem/CartItem";
 
 import s from "./CartModal.module.scss";
+import XmarkButton from "../XmarkButton/XmarkButton";
 
 export default function CartModal({ showCart, setShowCart, setDatePickup }) {
   const cart = useSelector((state) => state.cart.items);
@@ -14,7 +15,7 @@ export default function CartModal({ showCart, setShowCart, setDatePickup }) {
 
   useOnClickOutside(
     cartModalRef,
-    useCallback(() => setShowCart(false),[setShowCart])
+    useCallback(() => setShowCart(false), [setShowCart])
   );
 
   const handleCloseCart = () => {
@@ -32,9 +33,7 @@ export default function CartModal({ showCart, setShowCart, setDatePickup }) {
     >
       <div className={s.cart_headline}>
         <h1>MI PEDIDO</h1>
-        <button type="button" onClick={handleCloseCart}>
-          X
-        </button>
+        <XmarkButton handleClose={handleCloseCart} height={20} />
       </div>
       {date.length > 0 ? (
         <div className={s.date_range}>

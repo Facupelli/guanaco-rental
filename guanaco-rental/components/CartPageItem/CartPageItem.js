@@ -5,6 +5,7 @@ import { removeFromCart } from "../../redux/features/cart/cartSlice";
 import { isAvailable } from "../../utils/dates_functions";
 
 import s from "./CartPageItem.module.scss";
+import XmarkButton from "../XmarkButton/XmarkButton";
 
 export default function CartPageItem({ item, dates }) {
   const dispatch = useDispatch();
@@ -44,9 +45,7 @@ export default function CartPageItem({ item, dates }) {
             : formatPrice(item.price)}
         </p>
         <div className={s.btn_wrapper}>
-          <button type="button" onClick={handleRemoveFromCart}>
-            X
-          </button>
+          <XmarkButton handleClose={handleRemoveFromCart} height={15} />
         </div>
       </div>
     </div>
