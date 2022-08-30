@@ -88,14 +88,19 @@ export default function CartPage() {
       userId: userData.id,
     });
 
-    const newOrder = await fetch("http://localhost:3001/order", {
-      method: "POST",
-      body: data,
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    const newOrder = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/order`
+        : "http://localhost:3001/order",
+      {
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .catch(() => setError("error, vuelve a intentarlo"))
       .finally(() => setLoading(false));

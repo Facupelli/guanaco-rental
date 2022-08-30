@@ -26,7 +26,11 @@ export default function AdminUsersPage({ clients, newCLients }) {
 
   const getNewClientUsers = async () => {
     setLoading(true);
-    const users = await fetch(`http://localhost:3001/users?newClients=${true}`)
+    const users = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/users?newCLients=${true}`
+        : `http://localhost:3001/users?newClients=${true}`
+    )
       .then((response) => response.json())
       .then((res) => {
         setNewClientUsers(res);
@@ -40,7 +44,9 @@ export default function AdminUsersPage({ clients, newCLients }) {
   const getClientUsers = async () => {
     setLoading(true);
     const users = await fetch(
-      `http://localhost:3001/users?clients=${true}&search=${search}`
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/users?clients=${true}&search=${search}`
+        : `http://localhost:3001/users?clients=${true}&search=${search}`
     )
       .then((response) => response.json())
       .then((res) => {
@@ -162,7 +168,11 @@ export async function getServerSideProps(ctx) {
     .then((response) => response.json())
     .catch((e) => console.log("fecth error:", e));
 
-  const clients = await fetch(`http://localhost:3001/users?clients=${true}`)
+  const clients = await fetch(
+    process.env.NODE_ENV === "production"
+      ? `https://guanaco-rental-production.up.railway.app/users?clients${true}`
+      : `http://localhost:3001/users?clients=${true}`
+  )
     .then((response) => response.json())
     .catch((e) => console.log("fecth error:", e));
 

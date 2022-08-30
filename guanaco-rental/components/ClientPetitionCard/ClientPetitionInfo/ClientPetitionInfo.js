@@ -11,8 +11,7 @@ export default function ClientPetitionInfo({
   getNewClientUsers,
   getClientUsers,
 }) {
-  
-  const {blob, setBlob, downloadDni} = useDownloadBlob()
+  const { blob, setBlob, downloadDni } = useDownloadBlob();
 
   const onClickApprove = async (approved) => {
     const data = JSON.stringify({
@@ -21,14 +20,19 @@ export default function ClientPetitionInfo({
       petitionSent: approved ? "APPROVED" : "DENIED",
     });
 
-    const updatedUser = await fetch("http://localhost:3001/users", {
-      method: "PUT",
-      body: data,
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-    }).then((response) => {
+    const updatedUser = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/users`
+        : "http://localhost:3001/users",
+      {
+        method: "PUT",
+        body: data,
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    ).then((response) => {
       console.log("UpdatedUser", response.json());
       setNewClientInfo({});
       getNewClientUsers();
@@ -40,7 +44,14 @@ export default function ClientPetitionInfo({
     <>
       {blob && (
         <MessageModal showButton btnFunc={() => setBlob("")}>
-          <Image src={blob} alt={blob} width={400} height={200} objectFit="contain" layout="responsive" />
+          <Image
+            src={blob}
+            alt={blob}
+            width={400}
+            height={200}
+            objectFit="contain"
+            layout="responsive"
+          />
         </MessageModal>
       )}
       <div className={s.data_wrapper}>

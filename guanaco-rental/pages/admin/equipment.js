@@ -15,12 +15,13 @@ export default function AdminEquipment({ equipment }) {
   const [equipmentList, setEquipmentList] = useState([]);
   const [category, setCategory] = useState("all");
 
-  
   useEffect(() => {
     const getEquipment = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/equipment?category=${category}`
+          process.env.NODE_ENV === "production"
+            ? `https://guanaco-rental-production.up.railway.app/equipment?category=${category}`
+            : `http://localhost:3001/equipment?category=${category}`
         );
         const data = await response.json();
         setEquipmentList(data);
@@ -90,7 +91,7 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  const user = await getUniqueUser(session?.user.email)
+  const user = await getUniqueUser(session?.user.email);
 
   if (!session || user.role !== "ADMIN") {
     return {
@@ -100,7 +101,11 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const equipment = await fetch(`http://localhost:3001/equipment`)
+  const equipment = await fetch(
+    process.env.NODE_ENV === "production"
+      ? `https://guanaco-rental-production.up.railway.app/equipment`
+      : `http://localhost:3001/equipment`
+  )
     .then((response) => response.json())
     .catch((e) => console.log("fecth error:", e));
 

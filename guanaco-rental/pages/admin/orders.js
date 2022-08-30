@@ -15,7 +15,11 @@ export default function AdminOrdersPage({ session }) {
 
   const getAllOrders = async () => {
     setLoading(true);
-    const orders = await fetch("http://localhost:3001/order")
+    const orders = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/order`
+        : "http://localhost:3001/order"
+    )
       .then((response) => response.json())
       .then((res) => {
         setOrders(res);

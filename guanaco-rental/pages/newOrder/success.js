@@ -47,7 +47,11 @@ export default function NewOrderSuccess({ order }) {
 export async function getServerSideProps(context) {
   const id = context.query.id;
 
-  const order = await fetch(`http://localhost:3001/order?id=${id}`)
+  const order = await fetch(
+    process.env.NODE_ENV === "production"
+      ? `https://guanaco-rental-production.up.railway.app/order?id=${id}`
+      : `http://localhost:3001/order?id=${id}`
+  )
     .then((response) => response.json())
     .catch((e) => console.log("fecth error:", e));
 

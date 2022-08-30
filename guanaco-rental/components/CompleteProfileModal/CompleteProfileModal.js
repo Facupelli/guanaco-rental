@@ -77,14 +77,19 @@ export default function CompleteProfileModal() {
       console.log(e);
     }
 
-    const newCustomerPetition = await fetch("http://localhost:3001/users", {
-      method: "POST",
-      body: userData,
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-    })
+    const newCustomerPetition = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/users`
+        : "http://localhost:3001/users",
+      {
+        method: "POST",
+        body: userData,
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .catch(() => console.log("error"))
       .finally(() => setLoading(false));
@@ -203,7 +208,7 @@ export default function CompleteProfileModal() {
                 >
                   subir archivo
                 </button> */}
-                <input type="file" {...register("dniFront")} id="dniFront"/>
+                <input type="file" {...register("dniFront")} id="dniFront" />
               </div>
 
               <div>
@@ -215,7 +220,7 @@ export default function CompleteProfileModal() {
                 >
                   subir archivo
                 </button> */}
-                <input type="file" {...register("dniBack")} id="dniBack"/>
+                <input type="file" {...register("dniBack")} id="dniBack" />
               </div>
             </div>
 
