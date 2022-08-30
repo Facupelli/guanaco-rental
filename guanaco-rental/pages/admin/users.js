@@ -164,7 +164,7 @@ export async function getServerSideProps(ctx) {
 
   const newCLients = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/users?newClients${true}`
+      ? `https://guanaco-rental-production.up.railway.app/users?newClients=${true}`
       : `http://localhost:3001/users?newClients=${true}`
   )
     .then((response) => response.json())
@@ -172,7 +172,7 @@ export async function getServerSideProps(ctx) {
 
   const clients = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/users?clients${true}`
+      ? `https://guanaco-rental-production.up.railway.app/users?clients=${true}`
       : `http://localhost:3001/users?clients=${true}`
   )
     .then((response) => response.json())
