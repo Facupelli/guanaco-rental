@@ -59,7 +59,7 @@ export default function Home() {
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
 
-      <Nav setShowCart={setShowCart} home />
+      <Nav setShowCart={setShowCart} home/>
 
       <main className={styles.main}>
         {datePickup && (

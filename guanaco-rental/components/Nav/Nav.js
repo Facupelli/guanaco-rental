@@ -9,16 +9,20 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useRef } from "react";
+import { useSelector } from "react-redux";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 import s from "./Nav.module.scss";
 
-export default function Nav({ setShowCart, cartPage, home }) {
+export default function Nav({ setShowCart, cartPage, home, role }) {
+  const { data: session } = useSession();
+  const userRole = useSelector((state) => state.user.data.role);
+  
   const handleShowCart = () => {
     if (home) {
       setShowCart(true);
     }
-};
+  };
 
   const menuRef = useRef(null);
 
@@ -26,10 +30,8 @@ export default function Nav({ setShowCart, cartPage, home }) {
     menuRef,
     useCallback(() => {
       document.getElementById("click").checked = false;
-    },[])
+    }, [])
   );
-
-  const { data: session } = useSession();
 
   return (
     <nav className={s.nav_container}>
@@ -69,7 +71,10 @@ export default function Nav({ setShowCart, cartPage, home }) {
           <li>
             <button onClick={() => signOut()} className={s.link_icon}>
               CERRAR SESION
-              <FontAwesomeIcon icon={faArrowRightFromBracket} className={s.icon} />
+              <FontAwesomeIcon
+                icon={faArrowRightFromBracket}
+                className={s.icon}
+              />
             </button>
           </li>
         ) : (
@@ -77,7 +82,10 @@ export default function Nav({ setShowCart, cartPage, home }) {
             <li>
               <button onClick={() => signIn()} className={s.link_icon}>
                 INICIAR SESION
-                <FontAwesomeIcon icon={faArrowRightToBracket}  className={s.icon}/>
+                <FontAwesomeIcon
+                  icon={faArrowRightToBracket}
+                  className={s.icon}
+                />
               </button>
             </li>
             {/* <li>
@@ -91,7 +99,7 @@ export default function Nav({ setShowCart, cartPage, home }) {
           CARRITO
           <FontAwesomeIcon icon={faCartShopping} width="20px" />
         </li>
-        {session?.user.email === "facundopellicer4@gmail.com" && (
+        {userRole === "ADMIN" && (
           <li>
             <Link href="/admin">ADMIN</Link>
           </li>
