@@ -97,7 +97,9 @@ export const getServerSideProps = async (ctx) => {
     user = response.user
   }
 
-  if (user.user && (user.petitionSent === "DENIED" || !user.petition)) {
+  console.log(user)
+
+  if (user && (user.petitionSent === "DENIED" || !user.petitionSent)) {
     return {
       redirect: {
         destination: "/newClient",

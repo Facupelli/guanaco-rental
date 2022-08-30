@@ -1,7 +1,17 @@
 import Image from "next/image";
+import { useForm } from "react-hook-form";
 import s from "./GearAdminCard.module.scss";
 
 export default function GearAdminCard({ gear }) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const available = watch("available")
+
   return (
     <div className={s.admin_gear_container}>
       <div className={s.image_wrapper}>
@@ -20,6 +30,7 @@ export default function GearAdminCard({ gear }) {
           type="checkbox"
           defaultValue={gear.available}
           defaultChecked={gear.available}
+          {...register("available")}
         />
       </div>
       <div className={`${s.flex_wrapper} `}>

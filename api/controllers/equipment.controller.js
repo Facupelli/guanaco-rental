@@ -67,4 +67,29 @@ async function getEquipment(req, res, next) {
   }
 }
 
+async function putEquipment(req, res, next) {
+  const data = req.body;
+
+  try {
+    if (data.id) {
+      const updatedGear = await prisma.equipment.update({
+        where: { id: data.id },
+        data: {
+          available: data.available,
+          stock: data.stock,
+          price: data.price,
+          location: data.location,
+        },
+      });
+
+      res.json({ message: "success", updatedGear });
+    } else {
+      console.log("missing gear id");
+    }
+  } catch (e) {
+    console.log(e);
+    return;
+  }
+}
+
 module.exports = { getEquipment };
