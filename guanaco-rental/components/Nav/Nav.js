@@ -17,7 +17,7 @@ import s from "./Nav.module.scss";
 export default function Nav({ setShowCart, cartPage, home, role }) {
   const { data: session } = useSession();
   const userRole = useSelector((state) => state.user.data.role);
-  
+
   const handleShowCart = () => {
     if (home) {
       setShowCart(true);
@@ -37,22 +37,21 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
     <nav className={s.nav_container}>
       <Link href="/">
         <div className={s.logo_container}>
-          <div>
-            <Image
-              src="/guanaco-rental-logo.svg"
-              alt="guanaco-logo"
-              width={75}
-              height={75}
-              layout="intrinsic"
-              objectFit="contain"
-            />
-          </div>
+          <Image
+            src="/guanaco-rental-logo.svg"
+            alt="guanaco-logo"
+            width={75}
+            height={75}
+            layout="intrinsic"
+            objectFit="contain"
+          />
         </div>
       </Link>
       <button
         type="button"
         onClick={cartPage ? null : handleShowCart}
         className={s.cart_btn}
+        aria-label="cart_button"
       >
         <FontAwesomeIcon
           icon={faCartShopping}

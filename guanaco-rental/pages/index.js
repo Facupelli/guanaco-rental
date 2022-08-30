@@ -57,6 +57,7 @@ export default function Home() {
           content="Guanaco rental web, alquiler de equipos para cine online. San Juan, Argentina."
         />
         <link rel="icon" href="/logo-favicon.ico" />
+        <link rel="preconnect" href="https://guanaco-rental-production.up.railway.app" />
       </Head>
 
       <Nav setShowCart={setShowCart} home/>
@@ -96,8 +97,6 @@ export const getServerSideProps = async (ctx) => {
     const response = await getOrCreateUser(session.user);
     user = response.user
   }
-
-  console.log(user)
 
   if (user && (user.petitionSent === "DENIED" || !user.petitionSent)) {
     return {
