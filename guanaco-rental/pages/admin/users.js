@@ -163,7 +163,9 @@ export async function getServerSideProps(ctx) {
   }
 
   const newCLients = await fetch(
-    `http://localhost:3001/users?newClients=${true}`
+    rocess.env.NODE_ENV === "production"
+      ? `https://guanaco-rental-production.up.railway.app/users?newClients${true}`
+      : `http://localhost:3001/users?newClients=${true}`
   )
     .then((response) => response.json())
     .catch((e) => console.log("fecth error:", e));
