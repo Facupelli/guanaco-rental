@@ -93,7 +93,7 @@ export const getServerSideProps = async (ctx) => {
 
   let user;
   if (session) {
-    user = await getUniqueUser(session?.user.email);
+    user = await getOrCreateUser(session.user);
   }
 
   if (user && !user.petitionSent) {
