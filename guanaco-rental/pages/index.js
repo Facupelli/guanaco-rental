@@ -96,10 +96,6 @@ export const getServerSideProps = async (ctx) => {
     user = await getUniqueUser(session?.user.email);
   }
 
-  // const user = await fetch(`http://localhost:3001/users/${session?.user.email}`)
-  //   .then((response) => response.json())
-  //   .catch((e) => console.log("fecth error:", e));
-
   if (user && !user.petitionSent) {
     return {
       redirect: {
