@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useRef } from "react";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+
 import s from "./Nav.module.scss";
 
 export default function Nav({ setShowCart, cartPage, home }) {

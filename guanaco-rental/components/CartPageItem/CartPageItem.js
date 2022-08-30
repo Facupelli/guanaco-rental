@@ -1,11 +1,11 @@
-import ItemCounter from "../CartModal/CartItem/ItemCounter/ItemCounter";
 import { formatPrice } from "../../utils/price_formater";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/features/cart/cartSlice";
 import { isAvailable } from "../../utils/dates_functions";
+import ItemCounter from "../CartModal/CartItem/ItemCounter/ItemCounter";
+import XmarkButton from "../XmarkButton/XmarkButton";
 
 import s from "./CartPageItem.module.scss";
-import XmarkButton from "../XmarkButton/XmarkButton";
 
 export default function CartPageItem({ item, dates }) {
   const dispatch = useDispatch();

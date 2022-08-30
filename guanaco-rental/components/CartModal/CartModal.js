@@ -3,9 +3,9 @@ import { useCallback, useRef } from "react";
 import { useSelector } from "react-redux";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import CartItem from "./CartItem/CartItem";
+import XmarkButton from "../XmarkButton/XmarkButton";
 
 import s from "./CartModal.module.scss";
-import XmarkButton from "../XmarkButton/XmarkButton";
 
 export default function CartModal({ showCart, setShowCart, setDatePickup }) {
   const cart = useSelector((state) => state.cart.items);
