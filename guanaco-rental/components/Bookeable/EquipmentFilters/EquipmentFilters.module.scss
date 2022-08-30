@@ -114,15 +114,15 @@
 
     .mobile_filters {
       position: fixed;
-      top: 70px;
+      top: 0px;
       left: calc(-100% - (-1rem));
       z-index: 5;
-      height: calc(100vh - 70px);
+      height: 100vh;
       width: auto;
       background-color: $m-black;
       color: white;
       padding: 2rem;
-      padding-top: 4rem;
+      padding-top: 6rem;
       transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 
       .flex_column {
