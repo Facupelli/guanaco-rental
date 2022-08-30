@@ -4,7 +4,7 @@ export default function Gear({ gear, order }) {
   return (
     <div className={s.gear_container}>
       <p>
-        {gear.name} {gear.model}
+        {gear.name} {gear.brand} {gear.model}
       </p>
       <p>
         x

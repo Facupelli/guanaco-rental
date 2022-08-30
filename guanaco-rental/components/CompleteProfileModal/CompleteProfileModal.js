@@ -8,7 +8,7 @@ import { schema } from "./validationSchema";
 
 import s from "./CompleteProfileModal.module.scss";
 
-export default function CompleteProfileModal() {
+export default function CompleteProfileModal({user}) {
   const {
     register,
     handleSubmit,

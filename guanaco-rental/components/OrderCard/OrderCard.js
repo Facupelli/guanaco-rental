@@ -15,13 +15,15 @@ export default function OrderCard({ order, getAllOrders }) {
 
   const getOrderStatus = () => {
     if (new Date().getTime() < new Date(order.booking.dates[0]).getTime()) {
-      return "PENDIENTE";
+      return {status:"PENDIENTE", class: s.yellow };
     }
     if (new Date().getTime() > new Date(order.booking.dates.at(-1)).getTime()) {
-      return "FINALIZADO";
+      return {status:"FINALIZADO", class: s.green};
     }
-    return "EN PROCESO";
+    return {status:"EN PROCESO", class: s.orange};
   };
+
+  console.log(`s.${getOrderStatus().class}`)
 
   const handleDeleteOrder = async (id) => {
     const order = await fetch(
@@ -52,7 +54,7 @@ export default function OrderCard({ order, getAllOrders }) {
           <p>retiro: {pickupDay}</p>
           <p>devolución: {returnDay}</p>
         </div>
-        <p>{getOrderStatus()}</p>
+        <p className={`${getOrderStatus().class}`}>{getOrderStatus().status}</p>
         <button onClick={() => setShowEquipment(!showEquipment)}>
           Ver Equipos
         </button>
