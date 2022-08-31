@@ -29,7 +29,7 @@ export default function Home() {
 
   const { data: session } = useSession();
 
-  console.log("NEXT AUTH", session);
+  // console.log("NEXT AUTH", session);
 
   useEffect(() => {
     if (session?.user) {

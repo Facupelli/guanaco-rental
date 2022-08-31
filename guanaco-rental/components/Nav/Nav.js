@@ -53,17 +53,18 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
         className={s.cart_btn}
         aria-label="cart_button"
       >
-        <FontAwesomeIcon
-          icon={faCartShopping}
-          className={s.cart_icon}
-        />
+        <FontAwesomeIcon icon={faCartShopping} className={s.cart_icon} />
       </button>
       <input type="checkbox" name="click" className={s.click} id="click" />
       <label htmlFor="click" className={s.icon_container}>
         <FontAwesomeIcon icon={faBars} className={s.bars_icon} />
       </label>
       <ul ref={menuRef}>
-        {/* <li>RESERVAS ONLINE</li> */}
+        <li>
+          <Link href="/">
+            <a>INICIO</a>
+          </Link>
+        </li>
         <li>FAQ</li>
         {session ? (
           <li>
@@ -99,7 +100,9 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
         </li>
         {userRole === "ADMIN" && (
           <li>
-            <Link href="/admin">ADMIN</Link>
+            <Link href="/admin">
+              <a>ADMIN</a>
+            </Link>
           </li>
         )}
       </ul>
