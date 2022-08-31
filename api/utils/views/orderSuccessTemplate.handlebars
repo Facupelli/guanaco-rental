@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Nuevo Pedido</title>
+    <style>
+      .flex{ display: flex; }
+      .mr-4{margin-right: 4px;}
+    </style>
+  </head>
+  <body>
+    <h3>Nuevo Pedido:</h3>
+    <div class="flex">
+      <p class="mr-4">Cliente:</p>
+      <div class="userinfo">
+        <p><b>{{name}}</b> </p>
+        <p><b>{{phone}}</b> </p>
+        <p><b>{{email}}</b> </p>
+      </div>
+    </div>
+    <p><b>Fechas:</b> {{dates}}. </p>
+    <div class="flex">
+      <p class="mr-4"><b>Equipos:</b> </p>
+      <ul class="equipment-list">
+        {{#each equipment}}
+          <li>{{./this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </body>
+</html>

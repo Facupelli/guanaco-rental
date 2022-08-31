@@ -17,8 +17,8 @@ import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calen
 import MessageModal from "../../components/MessageModal/MessageModal";
 import LoadingModal from "../../components/LoadingModal/LoadingModal";
 
-
 import s from "../../styles/CartPage.module.scss";
+import { cleanCart } from "../../redux/features/cart/cartSlice";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -105,11 +105,12 @@ export default function CartPage() {
     )
       .then((response) => response.json())
       .catch((e) => setError("error, vuelve a intentarlo", e))
-      .finally(() => setLoading(false));
 
     if (newOrder && newOrder.message === "success") {
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
+      setLoading(false)
       dispatch(resetDate());
+      dispatch(cleanCart());
       return;
     }
   };
@@ -161,10 +162,16 @@ export default function CartPage() {
           {date && date.length > 0 ? (
             <div className={s.date_range}>
               <p>Retiro:</p>
-              <p className={s.p_bold}>{date && date.length > 0 && date[0]}</p>
+              <p className={s.p_bold}>
+                {date &&
+                  date.length > 0 &&
+                  new Date(date[0]).toLocaleDateString()}
+              </p>
               <p>Devolución:</p>
               <p className={s.p_bold}>
-                {date && date.length > 0 && date[date.length - 1]}
+                {date &&
+                  date.length > 0 &&
+                  new Date(date.at(-1)).toLocaleDateString()}
               </p>
             </div>
           ) : (

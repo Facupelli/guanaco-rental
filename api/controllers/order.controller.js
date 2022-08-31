@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { sendOrderSuccessEmail } = require("../utils/mailer");
 const prisma = new PrismaClient();
 
 async function postOrder(req, res, next) {
@@ -36,10 +37,12 @@ async function postOrder(req, res, next) {
     return;
   }
 
+  let newOrder;
+
   try {
     const equipmentsIds = data.cart.map((item) => ({ id: item.id }));
 
-    const newOrder = await prisma.order.create({
+    newOrder = await prisma.order.create({
       data: {
         user: { connect: { id: data.userId } },
         equipments: { connect: equipmentsIds },
@@ -51,7 +54,43 @@ async function postOrder(req, res, next) {
     res.json({ message: "success", newOrder });
   } catch (e) {
     console.log("order create error:", e);
+    const bookDeleted = await prisma.book.delete({ where: { id: book.id } });
+    console.log(bookDeleted);
     return;
+  }
+
+  try {
+    const orderData = await prisma.order.findUnique({
+      where: { id: newOrder.id },
+      include: {
+        user: { select: { fullName: true, phone: true, email: true } },
+        booking: true,
+        equipments: {
+          select: { name: true, brand: true, model: true, bookings: true },
+        },
+      },
+    });
+
+    const mailData = {
+      user: orderData.user.fullName,
+      phone: orderData.user.phone,
+      email: orderData.user.email,
+      dates: orderData.booking.dates.join(", "),
+      equipment: orderData.equipments.map(
+        (gear) =>
+          `${gear.name} ${gear.brand} ${gear.model} x${
+            gear.bookings.filter(
+              (book) => book.bookId === orderData.booking.id
+            )[0].quantity
+          }`
+      ),
+      totalPrice: orderData.totalPrice,
+    };
+
+
+    sendOrderSuccessEmail(mailData);
+  } catch (e) {
+    console.log(e);
   }
 }
 
