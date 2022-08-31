@@ -52,7 +52,7 @@
     }
     
     .search_icon{
-      height: 45px;
+      height: calc(45px - 1rem);
     }
   }
 }

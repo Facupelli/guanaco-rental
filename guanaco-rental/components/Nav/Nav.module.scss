@@ -105,8 +105,10 @@
       border: none;
     }
 
-    .cart_icon {
+    .cart_icon, .bars_icon {
       color: $m-white;
+      width: 25px;
+      height: 25px;
     }
 
     .click:checked ~ ul {
@@ -122,9 +124,11 @@
       height: 100vh;
       flex-direction: column;
       align-items: flex-start;
+      justify-content: flex-start;
       padding-left: 2rem;
       padding-bottom: 2rem;
       background-color: $m-black;
+      padding-top: calc(3rem + 70px);
       margin: 0;
 
       transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);

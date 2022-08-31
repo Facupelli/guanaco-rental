@@ -55,13 +55,12 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
       >
         <FontAwesomeIcon
           icon={faCartShopping}
-          width="25px"
           className={s.cart_icon}
         />
       </button>
       <input type="checkbox" name="click" className={s.click} id="click" />
       <label htmlFor="click" className={s.icon_container}>
-        <FontAwesomeIcon icon={faBars} width="25px" className={s.bars_icon} />
+        <FontAwesomeIcon icon={faBars} className={s.bars_icon} />
       </label>
       <ul ref={menuRef}>
         {/* <li>RESERVAS ONLINE</li> */}
