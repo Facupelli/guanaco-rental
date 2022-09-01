@@ -56,3 +56,13 @@ export const isAvailable = (dates, item) => {
 
   return true;
 };
+
+export const areAllItemsAvailable = (cart, date) => {
+  let availability = true;
+  cart.map((item) => {
+    if (!isAvailable(date, item)) {
+      availability = false;
+    }
+  });
+  return availability;
+};

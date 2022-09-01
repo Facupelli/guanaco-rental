@@ -32,11 +32,8 @@ export default function Home() {
   // console.log("NEXT AUTH", session);
 
   useEffect(() => {
-    if (session?.user) {
-      if (!userData) {
-        console.log("ENTRE");
-        getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
-      }
+    if (session?.user && !userData) {
+      getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
     }
   }, [session, userData, dispatch]);
 
@@ -57,10 +54,13 @@ export default function Home() {
           content="Guanaco rental web, alquiler de equipos para cine online. San Juan, Argentina."
         />
         <link rel="icon" href="/logo-favicon.ico" />
-        <link rel="preconnect" href="https://guanaco-rental-production.up.railway.app" />
+        <link
+          rel="preconnect"
+          href="https://guanaco-rental-production.up.railway.app"
+        />
       </Head>
 
-      <Nav setShowCart={setShowCart} home/>
+      <Nav setShowCart={setShowCart} home />
 
       <main className={styles.main}>
         {datePickup && (
@@ -95,7 +95,7 @@ export const getServerSideProps = async (ctx) => {
   let user;
   if (session) {
     const response = await getOrCreateUser(session.user);
-    user = response.user
+    user = response.user;
   }
 
   if (user && (user.petitionSent === "DENIED" || !user.petitionSent)) {

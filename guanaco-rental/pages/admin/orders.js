@@ -54,7 +54,7 @@ export default function AdminOrdersPage({ session }) {
           <p>ALQUILER</p>
           <p>ESTADO</p>
           <p>EQUIPOS</p>
-          <p>PRECIO TOTAL</p>
+          <p>TOTAL</p>
         </div>
         <div>
           {loading ? (

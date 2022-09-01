@@ -3,7 +3,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatPrice } from "../../utils/price_formater";
-import { generateAllDates, isAvailable } from "../../utils/dates_functions";
+import {
+  areAllItemsAvailable,
+  generateAllDates,
+  isAvailable,
+} from "../../utils/dates_functions";
 import {
   resetDate,
   setDate,
@@ -33,6 +37,7 @@ export default function CartPage() {
   const userData = useSelector((state) => state.user.data);
   const cart = useSelector((state) => state.cart.items);
   const date = useSelector((state) => state.date.date_range);
+  const pickupHour = useSelector((state) => state.date.pickup_hour);
 
   const handleSelectDateRange = () => {
     setDatePickup(true);
@@ -45,21 +50,34 @@ export default function CartPage() {
     }
   }, [dateRange, dispatch]);
 
-  const getTotalPrice = () => {
+  const getCartTotalPrice = () => {
+    const getWorkingTotalDays = () => {
+      let weekDay = 0;
+      let weekendDay = 0;
+      for (let day of date) {
+        const newDay = new Date(day).getDay();
+        if (newDay === 6 || newDay === 0) {
+          weekendDay += 1;
+        } else {
+          if (new Date(day).getTime() === new Date(date[0]).getTime()) {
+            newDay === 5 && pickupHour === "09:00" ? (weekDay += 0.5) : null;
+            newDay === 5 && pickupHour === "20:00" ? (weekDay += 0) : null;
+          } else {
+            weekDay += 1;
+          }
+        }
+      }
+      //resto el dia que se devuelve (no se cobra)
+      return weekDay + weekendDay / 2 - 1;
+    };
+
+    const workingDays = getWorkingTotalDays();
+
     const totalPrice = cart.reduce((curr, acc) => {
       return curr + (acc.quantity ? acc.price * acc.quantity : acc.price);
     }, 0);
-    return totalPrice;
-  };
 
-  const areAllItemsAvailable = () => {
-    let availability = true;
-    cart.map((item) => {
-      if (!isAvailable(date, item)) {
-        availability = false;
-      }
-    });
-    return availability;
+    return totalPrice * workingDays;
   };
 
   const handleClickBookOrder = async () => {
@@ -81,7 +99,7 @@ export default function CartPage() {
     // console.log("enviar pedido");
     setLoading(true);
 
-    const totalPrice = getTotalPrice();
+    const totalPrice = getCartTotalPrice();
 
     const data = JSON.stringify({
       cart,
@@ -104,11 +122,11 @@ export default function CartPage() {
       }
     )
       .then((response) => response.json())
-      .catch((e) => setError("error, vuelve a intentarlo", e))
+      .catch((e) => setError("error, vuelve a intentarlo", e));
 
     if (newOrder && newOrder.message === "success") {
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
-      setLoading(false)
+      setLoading(false);
       dispatch(resetDate());
       dispatch(cleanCart());
       return;
@@ -161,12 +179,20 @@ export default function CartPage() {
         <div className={s.summary}>
           {date && date.length > 0 ? (
             <div className={s.date_range}>
-              <p>Retiro:</p>
-              <p className={s.p_bold}>
-                {date &&
-                  date.length > 0 &&
-                  new Date(date[0]).toLocaleDateString()}
-              </p>
+              <div>
+                <div>
+                  <p>Retiro:</p>
+                  <p className={s.p_bold}>
+                    {date &&
+                      date.length > 0 &&
+                      new Date(date[0]).toLocaleDateString()}
+                  </p>
+                </div>
+                <p className={s.p_bold}>
+                  {new Date(date[0]).getDay() === 5 && pickupHour} hs
+                </p>
+              </div>
+
               <p>Devolución:</p>
               <p className={s.p_bold}>
                 {date &&
@@ -189,8 +215,8 @@ export default function CartPage() {
               disabled={
                 date.length > 0 &&
                 cart.length > 0 &&
-                getTotalPrice() > 0 &&
-                areAllItemsAvailable()
+                getCartTotalPrice() > 0 &&
+                areAllItemsAvailable(cart, date)
                   ? false
                   : true
               }
@@ -205,7 +231,7 @@ export default function CartPage() {
           <div className={s.total_price_wrapper}>
             <p>Total:</p>
             <p className={s.p_bold}>
-              {cart && cart.length > 0 && formatPrice(getTotalPrice())}
+              {cart && cart.length > 0 && formatPrice(getCartTotalPrice())}
             </p>
           </div>
         </div>

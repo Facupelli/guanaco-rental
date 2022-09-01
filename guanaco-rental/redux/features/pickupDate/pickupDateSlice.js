@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   date_range: [],
+  pickup_hour: "09:00",
 };
 
 export const pickupDateSlice = createSlice({
@@ -14,9 +15,16 @@ export const pickupDateSlice = createSlice({
     resetDate: (state, action) => {
       state.date_range = [];
     },
+    setPickupHour: (state, action) => {
+      state.pickup_hour = action.payload;
+    },
+    resetPickupHour: (state, action) => {
+      state.pickup_hour = null;
+    },
   },
 });
 
-export const { setDate, resetDate } = pickupDateSlice.actions;
+export const { setDate, resetDate, setPickupHour, resetPickupHour } =
+  pickupDateSlice.actions;
 
 export default pickupDateSlice.reducer;

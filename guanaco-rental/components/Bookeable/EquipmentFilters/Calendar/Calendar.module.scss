@@ -1,20 +1,20 @@
 @import "../../../../styles/app.scss";
 
 .calendar_container {
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   background-color: white;
   position: fixed;
   transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
   z-index: 12;
-  // box-shadow: 0px 0px 20px 10px rgba(26, 26, 26, 0.363);
   box-shadow: 0 0 0 100vmax rgba(46, 46, 46, 0.288);
+  padding: 1rem;
 
   .calendar {
     border: none;
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
 
     .react-calendar__month-view__days__day--weekend {
       color: #dfdfdf;
@@ -30,19 +30,35 @@
     // line-height: 16px;
   }
 
-  .free_tile{
+  .free_tile {
     border-bottom: 3px solid green;
   }
 
-  .btn_container {
+  .flex_column {
     display: flex;
-    justify-content: flex-end;
-    margin-right: 1rem;
-    padding: 0.5rem 0rem;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 1rem;
 
-    button {
-      @include m-button;
-      padding: 0.2rem 1rem;
+    .pickup_select_wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      
+      select{
+        @include m-select;
+        padding: .2rem;
+      }
+    }
+
+    .btn_container {
+      display: flex;
+      margin-left: auto;
+      
+      button {
+        @include m-button;
+        padding: 0.2rem 1rem;
+      }
     }
   }
 }

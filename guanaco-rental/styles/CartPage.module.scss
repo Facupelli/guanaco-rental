@@ -34,6 +34,18 @@
       gap: 0.5rem;
       justify-content: center;
       align-items: baseline;
+
+      > div {
+        > div {
+          display: flex;
+          gap: 0.5rem;
+          justify-content: center;
+          align-items: baseline;
+        }
+        >p{
+          text-align: end;
+        }
+      }
     }
 
     .btns_wrapper {
@@ -70,7 +82,7 @@
   .main {
     grid-template-columns: 100%;
 
-    >div:first-child{
+    > div:first-child {
       margin-top: 2rem;
     }
 
