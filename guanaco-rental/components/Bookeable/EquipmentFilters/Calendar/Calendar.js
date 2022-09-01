@@ -69,16 +69,20 @@ export default function CalendarComponent({
         }
       />
       <div className={s.flex_column}>
-        {dateRange && dateRange[0].getDay() === 5 && (
-          <div className={s.pickup_select_wrapper}>
-            <label>Retiro a las</label>
-            <select defaultValue="09:00" onChange={(e) => handleChangeHour(e)}>
-              <option value="09:00">09:00</option>
-              <option value="20:00">20:00</option>
-            </select>
-            <span>hs</span>
-          </div>
-        )}
+        <div className={s.pickup_select_wrapper}>
+          <label>Retiro a las</label>
+          <select
+            defaultValue="09:00"
+            onChange={(e) => handleChangeHour(e)}
+            disabled={
+              !dateRange || (dateRange && new Date(dateRange[0]).getDay() !== 5)
+            }
+          >
+            <option value="09:00">09:00</option>
+            <option value="20:00">20:00</option>
+          </select>
+          <span>hs</span>
+        </div>
         <div className={s.btn_container}>
           <button type="button" onClick={handleClickOk}>
             OK

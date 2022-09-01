@@ -188,17 +188,20 @@ export default function CartPage() {
                       new Date(date[0]).toLocaleDateString()}
                   </p>
                 </div>
-                <p className={s.p_bold}>
-                  {new Date(date[0]).getDay() === 5 && pickupHour} hs
-                </p>
+                <p className={s.p_bold}>{pickupHour} hs</p>
               </div>
 
-              <p>Devolución:</p>
-              <p className={s.p_bold}>
-                {date &&
-                  date.length > 0 &&
-                  new Date(date.at(-1)).toLocaleDateString()}
-              </p>
+              <div>
+                <div>
+                  <p>Devolución:</p>
+                  <p className={s.p_bold}>
+                    {date &&
+                      date.length > 0 &&
+                      new Date(date.at(-1)).toLocaleDateString()}
+                  </p>
+                </div>
+                <p className={s.p_bold}>09:00 hs</p>
+              </div>
             </div>
           ) : (
             <button
