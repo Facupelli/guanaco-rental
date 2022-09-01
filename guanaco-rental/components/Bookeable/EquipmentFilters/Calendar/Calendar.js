@@ -29,6 +29,21 @@ export default function CalendarComponent({
     dispatch(setPickupHour(e.target.value));
   };
 
+  const gearBookingDisabled = ({ date }) => {
+    if (daysTaken.find((day) => new Date(day).getTime() === date.getTime())) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const weekendDisabled = ({ date }) => {
+    if (date.getDay() === 6 || date.getDay() === 0) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <aside className={s.calendar_container} ref={calendarRef}>
       <Calendar
@@ -49,15 +64,9 @@ export default function CalendarComponent({
             }
           }
         }}
-        tileDisabled={({ date }) => {
-          if (
-            daysTaken.find((day) => new Date(day).getTime() === date.getTime())
-          ) {
-            return true;
-          } else {
-            return false;
-          }
-        }}
+        tileDisabled={
+          daysTaken.length > 0 ? gearBookingDisabled : weekendDisabled
+        }
       />
       <div className={s.flex_column}>
         {dateRange && dateRange[0].getDay() === 5 && (

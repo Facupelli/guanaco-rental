@@ -6,13 +6,13 @@ import { formatPrice } from "../../utils/price_formater";
 import {
   areAllItemsAvailable,
   generateAllDates,
-  isAvailable,
 } from "../../utils/dates_functions";
 import {
   resetDate,
   setDate,
 } from "../../redux/features/pickupDate/pickupDateSlice";
 import { useRouter } from "next/router";
+import { cleanCart } from "../../redux/features/cart/cartSlice";
 
 //COMPONENTS
 import CartPageItem from "../../components/CartPageItem/CartPageItem";
@@ -22,7 +22,6 @@ import MessageModal from "../../components/MessageModal/MessageModal";
 import LoadingModal from "../../components/LoadingModal/LoadingModal";
 
 import s from "../../styles/CartPage.module.scss";
-import { cleanCart } from "../../redux/features/cart/cartSlice";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -54,6 +53,7 @@ export default function CartPage() {
     const getWorkingTotalDays = () => {
       let weekDay = 0;
       let weekendDay = 0;
+
       for (let day of date) {
         const newDay = new Date(day).getDay();
         if (newDay === 6 || newDay === 0) {
