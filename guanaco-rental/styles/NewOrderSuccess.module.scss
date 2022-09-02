@@ -32,17 +32,13 @@
       font-weight: 600;
     }
   }
-  button {
+  a {
     margin-top: 2rem;
     @include m-button-orange;
     color: $m-black;
 
-    a {
+    &:visited {
       color: $m-black;
-
-      &:visited {
-        color: $m-black;
-      }
     }
   }
 }

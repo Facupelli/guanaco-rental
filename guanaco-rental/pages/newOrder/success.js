@@ -34,11 +34,9 @@ export default function NewOrderSuccess({ order }) {
             </div>
           </article>
         )}
-        <button type="button">
-          <Link href="/">
-            <a>TERMINADO</a>
-          </Link>
-        </button>
+        <Link href="/">
+          <a>TERMINADO</a>
+        </Link>
       </main>
     </div>
   );

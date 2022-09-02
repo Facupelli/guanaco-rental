@@ -28,7 +28,6 @@ export default function CartPage() {
   const router = useRouter();
 
   const [freeOrder, setFreeOrder] = useState(false);
-  console.log("freeorder", freeOrder);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
