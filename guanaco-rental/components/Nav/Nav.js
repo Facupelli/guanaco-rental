@@ -65,7 +65,11 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
             <a>INICIO</a>
           </Link>
         </li>
-        <li>FAQ</li>
+        <li>
+          <Link href="/faq">
+            <a>FAQ</a>
+          </Link>
+        </li>
         {session ? (
           <li>
             <button onClick={() => signOut()} className={s.link_icon}>
