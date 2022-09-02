@@ -27,6 +27,9 @@ export default function CartPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const [freeOrder, setFreeOrder] = useState(false);
+  console.log("freeorder", freeOrder);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -67,7 +70,6 @@ export default function CartPage() {
           }
         }
       }
-      console.log(weekDay, weekendDay);
       return weekDay + weekendDay / 2;
     };
 
@@ -104,7 +106,7 @@ export default function CartPage() {
     const data = JSON.stringify({
       cart,
       dates: date,
-      totalPrice,
+      totalPrice: freeOrder ? 0 : totalPrice,
       userId: userData.id,
     });
 
@@ -231,10 +233,23 @@ export default function CartPage() {
               <button type="button">continuar alquilando</button>
             </Link>
           </div>
+          {userData && userData.role === "ADMIN" && (
+            <div className={s.free_order_wrapper}>
+              <label>Alquilar gratis porque soy el dueño del rental:</label>
+              <input
+                type="checkbox"
+                onClick={(e) => {
+                  console.log(e.target.checked)
+                  setFreeOrder(e.target.checked)}}
+              />
+            </div>
+          )}
           <div className={s.total_price_wrapper}>
             <p>Total:</p>
             <p className={s.p_bold}>
-              {cart && cart.length > 0 && formatPrice(getCartTotalPrice())}
+              {freeOrder
+                ? formatPrice(0)
+                : cart && cart.length > 0 && formatPrice(getCartTotalPrice())}
             </p>
           </div>
         </div>

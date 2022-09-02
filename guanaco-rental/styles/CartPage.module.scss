@@ -60,6 +60,17 @@
       }
     }
 
+    .free_order_wrapper{
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      label{
+        font-size: .8em;
+      }
+    }
+
     .total_price_wrapper {
       margin-top: 1rem;
       display: flex;
