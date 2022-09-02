@@ -67,8 +67,8 @@ export default function CartPage() {
           }
         }
       }
-      //resto el dia que se devuelve (no se cobra)
-      return weekDay + weekendDay / 2 - 1;
+      console.log(weekDay, weekendDay);
+      return weekDay + weekendDay / 2;
     };
 
     const workingDays = getWorkingTotalDays();
@@ -124,13 +124,13 @@ export default function CartPage() {
       .then((response) => response.json())
       .catch((e) => setError("error, vuelve a intentarlo", e));
 
-    if (newOrder && newOrder.message === "success") {
-      router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
-      setLoading(false);
-      dispatch(resetDate());
-      dispatch(cleanCart());
-      return;
-    }
+    // if (newOrder && newOrder.message === "success") {
+    //   router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
+    //   setLoading(false);
+    //   dispatch(resetDate());
+    //   dispatch(cleanCart());
+    //   return;
+    // }
   };
 
   return (

@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const { sendOrderSuccessEmail } = require("../utils/mailer");
+const { sendWsMessage } = require("../utils/whatsapp");
 const prisma = new PrismaClient();
 
 async function postOrder(req, res, next) {
@@ -87,8 +88,24 @@ async function postOrder(req, res, next) {
       totalPrice: orderData.totalPrice,
     };
 
-
     sendOrderSuccessEmail(mailData);
+
+    const msgData = {
+      fullName: orderData.user.fullName,
+      dates: orderData.booking.dates.join(", "),
+      returnDay: orderData.booking.dates[orderData.booking.dates.length - 1],
+      equipment: orderData.equipments.map(
+        (gear) =>
+          `${gear.name} ${gear.brand} ${gear.model} x${
+            gear.bookings.filter(
+              (book) => book.bookId === orderData.booking.id
+            )[0].quantity
+          }`
+      ),
+    };
+
+    const sentWsMessage = await sendWsMessage(msgData);
+    console.log(sentWsMessage)
   } catch (e) {
     console.log(e);
   }

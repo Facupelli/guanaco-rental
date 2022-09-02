@@ -1,13 +1,15 @@
-async function sendWsMessage(messageData) {
+const fetch = require("node-fetch");
+
+async function sendWsMessage(msgData) {
   const data = JSON.stringify({
     messaging_product: "whatsapp",
     recipient_type: "individual",
     to: "542647433662",
     type: "template",
     template: {
-      name: "pedido_recibido",
+      name: "guanaco_pedido_realizado",
       language: {
-        code: "es",
+        code: "es_AR",
       },
       components: [
         {
@@ -15,11 +17,23 @@ async function sendWsMessage(messageData) {
           parameters: [
             {
               type: "text",
-              text: `${fullName}`,
+              text: `${msgData.fullName}`,
             },
             {
               type: "text",
-              text: `${orderInfo}`,
+              text: `${msgData.pickupHour}`,
+            },
+            {
+              type: "text",
+              text: `${msgData.dateRange}`,
+            },
+            {
+              type: "text",
+              text: `${msgData.returnDay}`,
+            },
+            {
+              type: "text",
+              text: `${msgData.equipmentList}`,
             },
           ],
         },
