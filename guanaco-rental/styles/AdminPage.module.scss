@@ -49,13 +49,15 @@
   section {
     padding: 3rem 0rem;
     display: grid;
-    grid-template-columns: 45% 50%;
-    column-gap: 5%;
+    grid-template-columns: 45% 52%;
+    column-gap: 3%;
 
     .calendar {
       width: 100%;
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
       border-radius: 0.5rem;
+      height: fit-content;
+      padding: .5rem;
 
       .react-calendar__month-view__days__day--weekend {
         color: #dfdfdf;
@@ -71,13 +73,34 @@
       }
     }
 
-    .info {
+    .info_wrapper {
       > div {
         display: flex;
         align-items: baseline;
         gap: 2rem;
         margin: 0rem 0rem 1.5rem 0rem;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+        border-radius: .2rem;
+        padding: 1rem;
       }
+
+      .flex_10{
+        flex-basis: 10%;
+      }
+
+      .flex_20{
+        flex-basis: 20%;
+      }
+
+      .flex_50{
+        flex-basis: calc(50% - 6rem);
+      }
+
+      .bold{
+        font-weight: 600;
+      }
+
+
     }
   }
 }

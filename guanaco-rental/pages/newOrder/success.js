@@ -9,7 +9,7 @@ export default function NewOrderSuccess({ order }) {
   return (
     <div className={s.bg_grey}>
       <Head>
-        <title>Guanaco Rental</title>
+        <title>Success - Guanaco Rental</title>
         <meta
           name="description"
           content="Guanaco rental web, alquiler de equipos para cine online. San Juan, Argentina."

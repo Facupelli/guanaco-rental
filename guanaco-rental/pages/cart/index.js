@@ -84,21 +84,20 @@ export default function CartPage() {
 
   const handleClickBookOrder = async () => {
     if (!userData) {
-      console.log("registrate");
+      //registrate
       signIn()
       return;
     }
     if (!userData.phone && !userData.dniNumber) {
-      console.log("completa tu perfil");
+      //completa alta de cliente
       router.push("/newClient");
       return;
     }
     if (!userData.customerApproved) {
-      setError("Tu alta de cliente todavía no fue aprobada.");
+      //alta de cliente no aprobada
       return;
     }
 
-    // console.log("enviar pedido");
     setLoading(true);
 
     const totalPrice = getCartTotalPrice();
@@ -129,9 +128,9 @@ export default function CartPage() {
 
     if (newOrder && newOrder.message === "success") {
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
-      setLoading(false);
       dispatch(resetDate());
       dispatch(cleanCart());
+      setLoading(false);
       return;
     }
   };
