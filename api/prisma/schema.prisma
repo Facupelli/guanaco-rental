@@ -92,6 +92,7 @@ model Order {
 model Book {
   id                      String                @default(cuid()) @id
   dates                   String[]
+  pickupHour              String                @default("09:00")
   equipments              BookOnEquipment[]
   order                   Order?
 }

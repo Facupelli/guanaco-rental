@@ -106,6 +106,7 @@ export default function CartPage() {
     const data = JSON.stringify({
       cart,
       dates: date,
+      pickupHour,
       totalPrice: freeOrder ? 0 : totalPrice,
       userId: userData.id,
     });

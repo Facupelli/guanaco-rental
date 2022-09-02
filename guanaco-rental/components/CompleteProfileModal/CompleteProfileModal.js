@@ -9,7 +9,7 @@ import LoadingModal from "../LoadingModal/LoadingModal";
 
 import s from "./CompleteProfileModal.module.scss";
 
-export default function CompleteProfileModal({user}) {
+export default function CompleteProfileModal({ user }) {
   const {
     register,
     handleSubmit,
@@ -125,7 +125,7 @@ export default function CompleteProfileModal({user}) {
         <h1>FORMULARIO ALTA DE CLIENTE </h1>
         <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
           <fieldset className={s.personal_info_wrapper}>
-            <legend>INFORMACION CLIENTE</legend>
+            <legend>INFORMACIÓN CLIENTE</legend>
 
             <div className={s.inputs}>
               <label htmlFor="fullName">Nombre Completo:</label>
@@ -139,8 +139,14 @@ export default function CompleteProfileModal({user}) {
             </div>
 
             <div className={s.inputs}>
-              <label htmlFor="phone">Número de celular:</label>
-              <input required type="tel" id="phone" {...register("phone")} />
+              <label htmlFor="phone">Número de celular: (+54)</label>
+              <input
+                required
+                type="tel"
+                id="phone"
+                {...register("phone")}
+                placeholder="(código de área + número)"
+              />
               {errors.phone?.message}
             </div>
 
@@ -312,7 +318,7 @@ export default function CompleteProfileModal({user}) {
           </fieldset>
 
           <fieldset className={s.bank_info_wrapper}>
-            <legend>DATOS DE CUENTA BANCARIA:</legend>
+            <legend>DATOS DE CUENTA BANCARIA</legend>
             <div>
               <label htmlFor="bank">Banco:</label>
               <input type="text" id="bank" {...register("bank")} />

@@ -1,19 +1,19 @@
 @import "../../styles/app.scss";
 
-.bold{
+.bold {
   font-weight: 600;
 }
 
-.yellow{
-  border-bottom: 3px solid rgb(236, 203, 12)
+.yellow {
+  border-bottom: 3px solid rgb(236, 203, 12);
 }
 
-.orange{
+.orange {
   border-bottom: 3px solid rgb(175, 105, 0);
 }
 
-.green{
-  border-bottom: 3px solid rgb(0, 158, 0)
+.green {
+  border-bottom: 3px solid rgb(0, 158, 0);
 }
 
 .card_container {
@@ -29,11 +29,19 @@
     justify-items: flex-start;
     align-items: flex-start;
 
-    
+    .flex {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+
+      .pickup_hour {
+        font-size: 0.9em;
+      }
+    }
 
     button {
       @include m-button-orange;
-      padding: .4rem;
+      padding: 0.4rem;
       font-size: 0.7em;
     }
   }
@@ -43,15 +51,13 @@
     justify-content: flex-start;
     font-size: 0.9em;
     margin-left: 3%;
-    
+
     > button:first-child {
       @include m-button-gray;
       width: 10%;
       font-size: 0.8em;
-      padding: .2rem .4rem;
+      padding: 0.2rem 0.4rem;
     }
-
-    
   }
 
   .equipments_container {
@@ -62,16 +68,16 @@
     gap: 0.5rem;
     width: 60%;
 
-    >p{
+    > p {
       font-weight: 600;
     }
 
-    .cancel_order{
+    .cancel_order {
       @include m-button-danger;
       margin: 1rem 0rem 1rem auto;
       width: fit-content;
       font-size: 0.7em;
-      padding: .2rem .4rem;
+      padding: 0.2rem 0.4rem;
     }
   }
 }

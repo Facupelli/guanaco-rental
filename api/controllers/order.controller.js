@@ -19,6 +19,7 @@ async function postOrder(req, res, next) {
     book = await prisma.book.create({
       data: {
         dates: data.dates,
+        pickupHour: data.pickupHour,
       },
     });
 

@@ -15,15 +15,15 @@ export default function OrderCard({ order, getAllOrders }) {
 
   const getOrderStatus = () => {
     if (new Date().getTime() < new Date(order.booking.dates[0]).getTime()) {
-      return {status:"PENDIENTE", class: s.yellow };
+      return { status: "PENDIENTE", class: s.yellow };
     }
     if (new Date().getTime() > new Date(order.booking.dates.at(-1)).getTime()) {
-      return {status:"FINALIZADO", class: s.green};
+      return { status: "FINALIZADO", class: s.green };
     }
-    return {status:"EN PROCESO", class: s.orange};
+    return { status: "EN PROCESO", class: s.orange };
   };
 
-  console.log(`s.${getOrderStatus().class}`)
+  console.log(`s.${getOrderStatus().class}`);
 
   const handleDeleteOrder = async (id) => {
     const order = await fetch(
@@ -51,7 +51,10 @@ export default function OrderCard({ order, getAllOrders }) {
         <p>{order.user.dniNumber}</p>
         <p>{new Date(order.createdAt).toLocaleDateString()}</p>
         <div>
-          <p>retiro: {pickupDay}</p>
+          <div className={s.flex}>
+            <p>retiro: {pickupDay}</p>
+            <p className={s.pickup_hour}>- {order.booking.pickupHour}hs</p>
+          </div>
           <p>devolución: {returnDay}</p>
         </div>
         <p className={`${getOrderStatus().class}`}>{getOrderStatus().status}</p>
