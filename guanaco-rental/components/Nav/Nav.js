@@ -91,11 +91,6 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
                 />
               </button>
             </li>
-            {/* <li>
-              <Link href="/api/signup">
-                <a>REGISTRARSE</a>
-              </Link>
-            </li> */}
           </>
         )}
         <li onClick={cartPage ? null : handleShowCart} className={s.link_icon}>

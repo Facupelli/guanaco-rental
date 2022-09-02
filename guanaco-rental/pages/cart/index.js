@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formatPrice } from "../../utils/price_formater";
@@ -84,7 +85,7 @@ export default function CartPage() {
   const handleClickBookOrder = async () => {
     if (!userData) {
       console.log("registrate");
-      router.push("/api/signup");
+      signIn()
       return;
     }
     if (!userData.phone && !userData.dniNumber) {
