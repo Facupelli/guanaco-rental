@@ -92,20 +92,20 @@ async function postOrder(req, res, next) {
 
     const msgData = {
       fullName: orderData.user.fullName,
-      dates: orderData.booking.dates.join(", "),
-      returnDay: orderData.booking.dates[orderData.booking.dates.length - 1],
-      equipment: orderData.equipments.map(
+      pickupHour: orderData.booking.hour,
+      dateRange: [orderData.booking.dates[0], orderData.booking.dates[orderData.booking.dates.length - 1]].join(", "),
+      returnDay: new Date(orderData.booking.dates[orderData.booking.dates.length - 1]).toLocaleDateString(),
+      equipmentList: orderData.equipments.map(
         (gear) =>
           `${gear.name} ${gear.brand} ${gear.model} x${
             gear.bookings.filter(
               (book) => book.bookId === orderData.booking.id
             )[0].quantity
           }`
-      ),
+      ).join(', '),
     };
 
     const sentWsMessage = await sendWsMessage(msgData);
-    console.log(sentWsMessage)
   } catch (e) {
     console.log(e);
   }
