@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Guanaco Rental</title>
+        <title>Success! - Guanaco Rental</title>
         <meta
           name="description"
           content="Guanaco rental web, alquiler de equipos para cine online. San Juan, Argentina."

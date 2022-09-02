@@ -69,6 +69,10 @@ export default function AdminUsersPage({ clients, newCLients }) {
       <Head>
         <title>Admin Usuarios</title>
         <link rel="icon" href="/logo-favicon.ico" />
+        <link
+          rel="preconnect"
+          href="https://guanaco-rental-production.up.railway.app"
+        />
       </Head>
       <Nav />
       <AdminMain title="Usuarios">

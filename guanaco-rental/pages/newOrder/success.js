@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import Nav from "../../components/Nav/Nav";
 import Gear from "../../components/OrderCard/Gear/Gear";
@@ -7,6 +8,18 @@ import s from "../../styles/NewOrderSuccess.module.scss";
 export default function NewOrderSuccess({ order }) {
   return (
     <div className={s.bg_grey}>
+      <Head>
+        <title>Guanaco Rental</title>
+        <meta
+          name="description"
+          content="Guanaco rental web, alquiler de equipos para cine online. San Juan, Argentina."
+        />
+        <link rel="icon" href="/logo-favicon.ico" />
+        <link
+          rel="preconnect"
+          href="https://guanaco-rental-production.up.railway.app"
+        />
+      </Head>
       <Nav />
       <main className={s.main}>
         <h1>PEDIDO ORDENADO CON EXITO</h1>
