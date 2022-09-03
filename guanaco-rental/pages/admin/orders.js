@@ -80,8 +80,8 @@ export default function AdminOrdersPage({ session }) {
           <button
             type="button"
             onClick={() => {
-              if (skip >= 15) {
-                setSkip((prev) => prev - 15);
+              if (skip >= 10) {
+                setSkip((prev) => prev - 10);
               }
             }}
             disabled={skip === 0}
@@ -91,11 +91,11 @@ export default function AdminOrdersPage({ session }) {
           <button
             type="button"
             onClick={() => {
-              if (skip + 15 < totalOrders) {
-                setSkip((prev) => prev + 15);
+              if (skip + 10 < totalOrders) {
+                setSkip((prev) => prev + 10);
               }
             }}
-            disabled={skip + 15 >= totalOrders}
+            disabled={skip + 10 >= totalOrders}
           >
             {"->"}
           </button>
