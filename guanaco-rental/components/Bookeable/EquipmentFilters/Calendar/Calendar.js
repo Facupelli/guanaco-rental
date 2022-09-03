@@ -2,10 +2,10 @@ import Calendar from "react-calendar";
 import { useCallback, useRef, useState } from "react";
 import useOnClickOutside from "../../../../hooks/useOnClickOutside";
 import { useDispatch, useSelector } from "react-redux";
-
-import s from "./Calendar.module.scss";
 import { setPickupHour } from "../../../../redux/features/pickupDate/pickupDateSlice";
 import { useEffect } from "react";
+
+import s from "./Calendar.module.scss";
 
 export default function CalendarComponent({
   dateRange,

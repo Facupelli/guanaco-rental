@@ -4,40 +4,47 @@ import { unstable_getServerSession } from "next-auth";
 import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useEffect, useState } from "react";
+import { formatPrice } from "../../utils/price_formater";
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
 
 import s from "../../styles/AdminPage.module.scss";
-import { formatPrice } from "../../utils/price_formater";
-import Gear from "../../components/OrderCard/Gear/Gear";
 
 export default function AdminPage({ session }) {
   const [bookings, setBookings] = useState([]);
   const [dayBookings, setDayBookings] = useState([]);
-
-  console.log(dayBookings);
+  const [loading, setLoading] = useState(false);
 
   const showDayBookings = async (day) => {
+    setLoading(true);
     const localDate = day.toLocaleDateString("en-US");
-    console.log(localDate);
-    const dayBooks = await fetch(
-      process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/book?date=${localDate}`
-        : `http://localhost:3001/book?date=${localDate}`
-    );
-    const bookings = await dayBooks.json();
-    setDayBookings(bookings);
+    try {
+      const dayBooks = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/book?date=${localDate}`
+          : `http://localhost:3001/book?date=${localDate}`
+      );
+      const bookings = await dayBooks.json();
+      setDayBookings(bookings);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
   };
 
   const getBookings = async () => {
-    const books = await fetch(
-      process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/book`
-        : `http://localhost:3001/book`
-    );
-    const bookings = await books.json();
-    const dates = bookings.map((book) => book.dates).flat();
-    setBookings(dates);
+    try {
+      const books = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/book`
+          : `http://localhost:3001/book`
+      );
+      const bookings = await books.json();
+      const dates = bookings.map((book) => book.dates).flat();
+      setBookings(dates);
+    } catch (e) {
+      console.log(e)
+    }
   };
 
   useEffect(() => {
@@ -96,7 +103,10 @@ export default function AdminPage({ session }) {
             }}
           />
           <div className={s.info_wrapper}>
-            {dayBookings.length > 0 &&
+            {loading ? (
+              <p>Cargando...</p>
+            ) : (
+              dayBookings.length > 0 &&
               dayBookings.map((book) => (
                 <div key={book.id}>
                   <p className={s.flex_10}>
@@ -120,7 +130,8 @@ export default function AdminPage({ session }) {
                     ))}
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </div>
         </section>
       </main>
