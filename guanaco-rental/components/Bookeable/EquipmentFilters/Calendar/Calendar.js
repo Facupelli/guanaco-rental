@@ -1,10 +1,11 @@
 import Calendar from "react-calendar";
 import { useCallback, useRef, useState } from "react";
 import useOnClickOutside from "../../../../hooks/useOnClickOutside";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import s from "./Calendar.module.scss";
 import { setPickupHour } from "../../../../redux/features/pickupDate/pickupDateSlice";
+import { useEffect } from "react";
 
 export default function CalendarComponent({
   dateRange,
@@ -15,6 +16,8 @@ export default function CalendarComponent({
 }) {
   const calendarRef = useRef(null);
   const dispatch = useDispatch();
+
+  const pickupHour = useSelector(state => state.date.pickup_hour)
 
   useOnClickOutside(
     calendarRef,
@@ -28,6 +31,12 @@ export default function CalendarComponent({
   const handleChangeHour = (e) => {
     dispatch(setPickupHour(e.target.value));
   };
+
+  useEffect(() => {
+    if (dateRange && new Date(dateRange[0]).getDay() !== 5) {
+      dispatch(setPickupHour("09:00"));
+    }
+  }, [dateRange, dispatch]);
 
   const gearBookingDisabled = ({ date }) => {
     if (daysTaken.find((day) => new Date(day).getTime() === date.getTime())) {
@@ -72,7 +81,7 @@ export default function CalendarComponent({
         <div className={s.pickup_select_wrapper}>
           <label>Retiro a las</label>
           <select
-            defaultValue="09:00"
+            value={pickupHour}
             onChange={(e) => handleChangeHour(e)}
             disabled={
               !dateRange || (dateRange && new Date(dateRange[0]).getDay() !== 5)
