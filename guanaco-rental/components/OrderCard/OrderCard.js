@@ -23,8 +23,6 @@ export default function OrderCard({ order, getAllOrders }) {
     return { status: "EN PROCESO", class: s.orange };
   };
 
-  console.log(`s.${getOrderStatus().class}`);
-
   const handleDeleteOrder = async (id) => {
     const order = await fetch(
       process.env.NODE_ENV === "production"

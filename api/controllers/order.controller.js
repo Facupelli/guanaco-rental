@@ -94,16 +94,23 @@ async function postOrder(req, res, next) {
     const msgData = {
       fullName: orderData.user.fullName,
       pickupHour: orderData.booking.hour,
-      dateRange: [orderData.booking.dates[0], orderData.booking.dates[orderData.booking.dates.length - 1]].join(", "),
-      returnDay: new Date(orderData.booking.dates[orderData.booking.dates.length - 1]).toLocaleDateString(),
-      equipmentList: orderData.equipments.map(
-        (gear) =>
-          `${gear.name} ${gear.brand} ${gear.model} x${
-            gear.bookings.filter(
-              (book) => book.bookId === orderData.booking.id
-            )[0].quantity
-          }`
-      ).join(', '),
+      dateRange: [
+        orderData.booking.dates[0],
+        orderData.booking.dates[orderData.booking.dates.length - 1],
+      ].join(", "),
+      returnDay: new Date(
+        orderData.booking.dates[orderData.booking.dates.length - 1]
+      ).toLocaleDateString(),
+      equipmentList: orderData.equipments
+        .map(
+          (gear) =>
+            `${gear.name} ${gear.brand} ${gear.model} x${
+              gear.bookings.filter(
+                (book) => book.bookId === orderData.booking.id
+              )[0].quantity
+            }`
+        )
+        .join(", "),
     };
 
     const sentWsMessage = await sendWsMessage(msgData);
@@ -114,11 +121,11 @@ async function postOrder(req, res, next) {
 
 async function getOrders(req, res, next) {
   try {
-    const id = req.query;
+    const { id, skip } = req.query;
 
-    if (id.id) {
+    if (id) {
       const order = await prisma.order.findUnique({
-        where: id,
+        where: { id },
         include: {
           booking: true,
           equipments: { include: { bookings: true } },
@@ -131,6 +138,7 @@ async function getOrders(req, res, next) {
 
     const orders = await prisma.order.findMany({
       include: {
+        _count: {},
         user: true,
         equipments: { include: { bookings: true } },
         booking: true,
@@ -138,9 +146,17 @@ async function getOrders(req, res, next) {
       orderBy: {
         createdAt: "desc",
       },
+      skip: Number(skip),
+      take: 10,
     });
 
-    res.json(orders);
+    const count = await prisma.order.count({
+      select: {
+        _all: true,
+      },
+    });
+
+    res.json({orders, count: count._all});
   } catch (e) {
     console.log("getOrders error:", e);
   }

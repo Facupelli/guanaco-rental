@@ -14,4 +14,15 @@
     padding: 0rem 0.5rem;
     font-weight: 600;
   }
+
+  .pagination_btn_wrapper{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    button{
+      @include m-button;
+    }
+  }
 }

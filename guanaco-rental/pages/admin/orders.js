@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { getUniqueUser } from "../../utils/fetch_users";
@@ -13,16 +13,21 @@ export default function AdminOrdersPage({ session }) {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
-  const getAllOrders = async () => {
+  //pagination
+  const [totalOrders, setTotalOrders] = useState(0);
+  const [skip, setSkip] = useState(0);
+
+  const getAllOrders = useCallback(async () => {
     setLoading(true);
     const orders = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/order`
-        : "http://localhost:3001/order"
+        ? `https://guanaco-rental-production.up.railway.app/order?skip=${skip}`
+        : `http://localhost:3001/order?skip=${skip}`
     )
       .then((response) => response.json())
       .then((res) => {
-        setOrders(res);
+        setOrders(res.orders);
+        setTotalOrders(res.count);
         setLoading(false);
       })
       .catch((e) => {
@@ -31,11 +36,11 @@ export default function AdminOrdersPage({ session }) {
       });
 
     return orders;
-  };
+  }, [skip]);
 
   useEffect(() => {
     getAllOrders();
-  }, []);
+  }, [skip, getAllOrders]);
 
   return (
     <div className={s.grey_bg}>
@@ -62,8 +67,38 @@ export default function AdminOrdersPage({ session }) {
           ) : (
             orders &&
             orders.length > 0 &&
-            orders.map((order) => <OrderCard key={order.id} order={order} getAllOrders={getAllOrders} />)
+            orders.map((order) => (
+              <OrderCard
+                key={order.id}
+                order={order}
+                getAllOrders={getAllOrders}
+              />
+            ))
           )}
+        </div>
+        <div className={s.pagination_btn_wrapper}>
+          <button
+            type="button"
+            onClick={() => {
+              if (skip >= 15) {
+                setSkip((prev) => prev - 15);
+              }
+            }}
+            disabled={skip === 0}
+          >
+            {"<-"}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (skip + 15 < totalOrders) {
+                setSkip((prev) => prev + 15);
+              }
+            }}
+            disabled={skip + 15 >= totalOrders}
+          >
+            {"->"}
+          </button>
         </div>
       </AdminMain>
     </div>
