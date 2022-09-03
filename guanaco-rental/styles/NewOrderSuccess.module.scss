@@ -32,13 +32,17 @@
       font-weight: 600;
     }
   }
-  a {
-    margin-top: 2rem;
-    @include m-button-orange;
-    color: $m-black;
 
-    &:visited {
-      color: $m-black;
+  .link_wrapper {
+    margin-top: 2rem;
+
+    a {
+      @include m-button-orange;
+      // color: $m-black;
+
+      &:visited {
+        color: white;
+      }
     }
   }
 }

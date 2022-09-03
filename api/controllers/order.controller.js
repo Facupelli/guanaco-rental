@@ -73,31 +73,29 @@ async function postOrder(req, res, next) {
       },
     });
 
-    const mailData = {
-      user: orderData.user.fullName,
-      phone: orderData.user.phone,
-      email: orderData.user.email,
-      dates: orderData.booking.dates.join(", "),
-      equipment: orderData.equipments.map(
-        (gear) =>
-          `${gear.name} ${gear.brand} ${gear.model} x${
-            gear.bookings.filter(
-              (book) => book.bookId === orderData.booking.id
-            )[0].quantity
-          }`
-      ),
-      totalPrice: orderData.totalPrice,
-    };
+    // const mailData = {
+    //   user: orderData.user.fullName,
+    //   phone: orderData.user.phone,
+    //   email: orderData.user.email,
+    //   dates: orderData.booking.dates.join(", "),
+    //   equipment: orderData.equipments.map(
+    //     (gear) =>
+    //       `${gear.name} ${gear.brand} ${gear.model} x${
+    //         gear.bookings.filter(
+    //           (book) => book.bookId === orderData.booking.id
+    //         )[0].quantity
+    //       }`
+    //   ),
+    //   totalPrice: orderData.totalPrice,
+    // };
 
-    sendOrderSuccessEmail(mailData);
+    // sendOrderSuccessEmail(mailData);
 
     const msgData = {
+      phone: orderData.user.phone,
       fullName: orderData.user.fullName,
-      pickupHour: orderData.booking.hour,
-      dateRange: [
-        orderData.booking.dates[0],
-        orderData.booking.dates[orderData.booking.dates.length - 1],
-      ].join(", "),
+      pickupHour: orderData.booking.pickupHour,
+      pickupDay: new Date(orderData.booking.dates[0]).toLocaleDateString(),
       returnDay: new Date(
         orderData.booking.dates[orderData.booking.dates.length - 1]
       ).toLocaleDateString(),
@@ -113,7 +111,10 @@ async function postOrder(req, res, next) {
         .join(", "),
     };
 
+    console.log("msgData", msgData)
+
     const sentWsMessage = await sendWsMessage(msgData);
+    console.log(sentWsMessage)
   } catch (e) {
     console.log(e);
   }
@@ -156,7 +157,7 @@ async function getOrders(req, res, next) {
       },
     });
 
-    res.json({orders, count: count._all});
+    res.json({ orders, count: count._all });
   } catch (e) {
     console.log("getOrders error:", e);
   }

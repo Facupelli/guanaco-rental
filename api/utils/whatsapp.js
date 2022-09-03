@@ -4,28 +4,37 @@ async function sendWsMessage(msgData) {
   const data = JSON.stringify({
     messaging_product: "whatsapp",
     recipient_type: "individual",
-    to: "542647433662",
+    to: `54${msgData.phone}`,
     type: "template",
     template: {
-      name: "guanaco_pedido_realizado",
+      name: "guanaco_order",
       language: {
         code: "es_AR",
       },
       components: [
         {
-          type: "body",
+          type: "header",
           parameters: [
             {
               type: "text",
               text: `${msgData.fullName}`,
             },
+          ],
+        },
+        {
+          type: "body",
+          parameters: [
+            // {
+            //   type: "text",
+            //   text: `${msgData.fullName}`,
+            // },
             {
               type: "text",
-              text: `${msgData.pickupHour}`,
+              text: `${msgData.pickupDay}`,
             },
             {
               type: "text",
-              text: `${msgData.dateRange}`,
+              text: `${msgData.pickupHour}`,
             },
             {
               type: "text",
@@ -41,7 +50,6 @@ async function sendWsMessage(msgData) {
     },
   });
 
-
   try {
     const response = await fetch(
       `https://graph.facebook.com/v13.0/${process.env.WS_NUMBER_ID}/messages`,
@@ -54,7 +62,7 @@ async function sendWsMessage(msgData) {
         },
       }
     );
-    const whatsappRes = response.json()
+    const whatsappRes = response.json();
 
     return whatsappRes;
   } catch (err) {
