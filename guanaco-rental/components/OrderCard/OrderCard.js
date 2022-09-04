@@ -98,14 +98,14 @@ const PDF = ({ pickupDay, returnDay, order }) => {
     ),
   });
 
-  if (instance.loading) {
-    return <p className={s.bold}>Cargando...</p>;
-  }
+  if (instance.loading) return <p className={s.bold}>Cargando...</p>;
+
+  if (instance.error) return <div>Something went wrong: {error}</div>;
 
   return (
     <a
       href={instance.url}
-      // download={`Remito ${order.user.fullName} - ${order.number}`}
+      download={`Remito ${order.user.fullName} - ${order.number}`}
     >
       Descargar remito
     </a>
