@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { formatPrice } from "../../utils/price_formater";
-import Gear from "./Gear/Gear";
 import { usePDF } from "@react-pdf/renderer";
+import { RemitoPDF } from "./RemitoPDF";
+import Gear from "./Gear/Gear";
 
 import s from "./OrderCard.module.scss";
-import { RemitoPDF } from "./RemitoPDF";
 
 export default function OrderCard({ order, getAllOrders }) {
   const [showEquipment, setShowEquipment] = useState(false);
