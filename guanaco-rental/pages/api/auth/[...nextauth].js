@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
-import { getUniqueUser } from "../../../utils/fetch_users";
 
 export const authOptions = {
   providers: [

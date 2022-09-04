@@ -5,6 +5,11 @@ body {
   /* background-color: rgb(249, 249, 249); */
 }
 
+a {
+  text-decoration: none;
+  color: #ececec;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
