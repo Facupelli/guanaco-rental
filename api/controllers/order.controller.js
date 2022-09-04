@@ -114,7 +114,6 @@ async function postOrder(req, res, next) {
     console.log("msgData", msgData)
 
     const sentWsMessage = await sendWsMessage(msgData);
-    console.log(sentWsMessage)
   } catch (e) {
     console.log(e);
   }
