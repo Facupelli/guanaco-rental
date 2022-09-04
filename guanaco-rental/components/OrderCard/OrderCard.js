@@ -105,6 +105,8 @@ const PDF = ({ pickupDay, returnDay, order }) => {
   return (
     <a
       href={instance.url}
+      target="_blank"
+      rel="noreferrer"
       // download={`Remito ${order.user.fullName} - ${order.number}`}
     >
       Descargar remito
