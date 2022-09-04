@@ -14,6 +14,7 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  secret: process.env.SECRET,
   // callbacks: {
   //   async signIn({ user }) {
   //     console.log("CALLBACK", user);
