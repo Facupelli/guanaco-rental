@@ -1,10 +1,11 @@
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { formatPrice } from "../../utils/price_formater";
-import { usePDF } from "@react-pdf/renderer";
-import { RemitoPDF } from "./RemitoPDF";
 import Gear from "./Gear/Gear";
 
 import s from "./OrderCard.module.scss";
+
+const PDF = dynamic(() => import ('./PDF/PDF'))
 
 export default function OrderCard({ order, getAllOrders }) {
   const [showEquipment, setShowEquipment] = useState(false);
@@ -79,7 +80,12 @@ export default function OrderCard({ order, getAllOrders }) {
       )}
       <div className={s.remito_wrapper}>
         {!generatePDF && (
-          <button type="button" onClick={() => setGeneratePDF(true)}>
+          <button type="button" onClick={() => {
+            
+            
+            setGeneratePDF(true)
+            
+            }}>
             Generar Remito
           </button>
         )}
@@ -91,25 +97,4 @@ export default function OrderCard({ order, getAllOrders }) {
   );
 }
 
-const PDF = ({ pickupDay, returnDay, order }) => {
-  const [instance, updateInstance] = usePDF({
-    document: (
-      <RemitoPDF pickupDay={pickupDay} returnDay={returnDay} order={order} />
-    ),
-  });
 
-  if (instance.loading) return <p className={s.bold}>Cargando...</p>;
-
-  if (instance.error) return <div>Something went wrong: {error}</div>;
-
-  return (
-    <a
-      href={instance.url}
-      target="_blank"
-      rel="noreferrer"
-      // download={`Remito ${order.user.fullName} - ${order.number}`}
-    >
-      Descargar remito
-    </a>
-  );
-};
