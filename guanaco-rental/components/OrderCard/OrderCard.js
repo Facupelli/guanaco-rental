@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical, faAdd } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatPrice } from "../../utils/price_formater";
 import Gear from "./Gear/Gear";
 
@@ -15,6 +15,28 @@ export default function OrderCard({ order, getAllOrders }) {
   const [generatePDF, setGeneratePDF] = useState(false);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showAddEquipmentModal, setShowAddEquipmentModal] = useState(false);
+
+  const [searchInput, setSearchInput] = useState("");
+  const [equipments, setEquipments] = useState([]);
+
+  // console.log(order);
+  // console.log(equipments);
+
+  useEffect(() => {
+    if (searchInput.length > 0) {
+      const getEquipmentBySearch = async () => {
+        const response = await fetch(
+          process.env.NODE_ENV === "production"
+            ? `https://guanaco-rental-production.up.railway.app/equipment?search=${searchInput}`
+            : `http://localhost:3001/equipment?search=${searchInput}`
+        );
+        const equipment = await response.json();
+        setEquipments(equipment);
+      };
+      getEquipmentBySearch();
+    }
+  }, [searchInput]);
 
   const pickupDay = new Date(order.booking.dates[0]).toLocaleDateString();
   const returnDay = new Date(order.booking.dates.at(-1)).toLocaleDateString();
@@ -64,10 +86,12 @@ export default function OrderCard({ order, getAllOrders }) {
 
   const equipmentRows = generatePdfRows();
 
-  const deleteGearFromOrder = async (equipmentId) => {
+  const updateGearFromOrder = async (equipmentId, operation) => {
     const data = JSON.stringify({
-      id: order.id,
+      bookingId: order.bookingId,
+      orderId: order.id,
       equipmentId,
+      operation,
     });
 
     const updatedOrder = await fetch(
@@ -96,6 +120,46 @@ export default function OrderCard({ order, getAllOrders }) {
           >
             CANCELAR ORDEN
           </button>
+        </MessageModal>
+      )}
+      {showAddEquipmentModal && (
+        <MessageModal
+          showButton
+          btnFunc={() => setShowAddEquipmentModal(false)}
+        >
+          <input
+            type="search"
+            className={s.search}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          <div>
+            {equipments.length > 0 &&
+              equipments.map((gear) => (
+                <div key={gear.id} className={s.modal_gear_wrapper}>
+                  <p>
+                    {gear.name}
+                    {gear.brand}
+                    {gear.model}
+                  </p>
+                  <div className={s.add_gear_btn_wrapper}>
+                    <button
+                      type="button"
+                      aria-label="add_gear"
+                      onClick={() =>
+                        updateGearFromOrder(gear.id, "add").then(() =>
+                          getAllOrders()
+                        )
+                      }
+                    >
+                      <FontAwesomeIcon
+                        icon={faAdd}
+                        className={s.add_gear_icon}
+                      />
+                    </button>
+                  </div>
+                </div>
+              ))}
+          </div>
         </MessageModal>
       )}
       <div className={s.card_container}>
@@ -141,13 +205,17 @@ export default function OrderCard({ order, getAllOrders }) {
                     gear={gear}
                     order={order}
                     key={gear.id}
-                    deleteGearFromOrder={deleteGearFromOrder}
+                    updateGearFromOrder={updateGearFromOrder}
                     getAllOrders={getAllOrders}
                   />
                 ))}
             </div>
             <div className={s.add_gear_btn_wrapper}>
-              <button type="button" aria-label="add_gear">
+              <button
+                type="button"
+                aria-label="add_gear"
+                onClick={() => setShowAddEquipmentModal(true)}
+              >
                 <FontAwesomeIcon icon={faAdd} className={s.add_gear_icon} />
               </button>
             </div>

@@ -12,6 +12,8 @@
 
     button {
       @include cross-button;
+      display: flex;
+      align-items: center;
     }
   }
 }

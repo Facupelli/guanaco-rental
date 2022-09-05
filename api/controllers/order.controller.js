@@ -122,17 +122,45 @@ async function putOrder(req, res, next) {
   const data = req.body;
 
   try {
+    let updatedOrder;
+    let updatedBook;
 
-    const updatedOrder = await prisma.order.update({
-      where: { id: data.id },
-      data: {
-        equipments: { disconnect: {id: data.equipmentId} },
-      },
-    });
+    if (data.operation === "add") {
+      updatedOrder = await prisma.order.update({
+        where: { id: data.orderId },
+        data: {
+          equipments: { connect: { id: data.equipmentId } },
+        },
+      });
 
-    res.json({ message: "success", updatedOrder });
+      updatedBook = await prisma.bookOnEquipment.create({
+        data: {
+          book: { connect: { id: data.bookingId } },
+          equipment: { connect: { id: data.equipmentId } },
+          quantity: 1,
+        },
+      });
+    } else {
+      updatedOrder = await prisma.order.update({
+        where: { id: data.orderId },
+        data: {
+          equipments: { disconnect: { id: data.equipmentId } },
+        },
+      });
+
+      updatedBook = await prisma.bookOnEquipment.delete({
+        where: {
+          equipmentId_bookId: {
+            equipmentId: data.equipmentId,
+            bookId: data.bookingId,
+          },
+        },
+      });
+    }
+
+    res.json({ message: "success" });
   } catch (e) {
-    console.log(e);
+    console.log("putOrder error:", e);
   }
 }
 

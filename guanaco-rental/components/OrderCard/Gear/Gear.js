@@ -10,7 +10,7 @@ export default function Gear({
   gear,
   order,
   editable,
-  deleteGearFromOrder,
+  updateGearFromOrder,
   getAllOrders,
 }) {
   const [showModal, setShowModal] = useState(false);
@@ -21,7 +21,7 @@ export default function Gear({
         <MessageModal
           showButton
           btnFunc={() => {
-            deleteGearFromOrder(gear.id).then(() => getAllOrders());
+            updateGearFromOrder(gear.id, "remove").then(() => getAllOrders());
             setShowModal(false);
           }}
         >
