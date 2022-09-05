@@ -39,7 +39,9 @@ export default function EquipmentCard({ gear, setShowCart }) {
         <CalendarComponent
           setDatePickup={setShowCalendar}
           daysTaken={gear.bookings
-            .map((bookModel) => bookModel.book.dates)
+            .map((bookModel) =>
+              bookModel.book.dates.slice(0, bookModel.book.dates.length - 1)
+            )
             .flat()}
           freeTileClass={true}
         />

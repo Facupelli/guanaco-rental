@@ -39,9 +39,10 @@ export const generateAllDates = (dateRange) => {
 
 export const isAvailable = (dates, item) => {
   const filtered = item.bookings.filter(
-    (bookModel) =>
-      bookModel.book.dates.filter((date) => dates.indexOf(date) >= 0).length > 0
-  );
+    (bookModel) =>{
+      const bookedDates = bookModel.book.dates.slice(0,bookModel.book.dates.length-1);
+      return bookedDates.filter((date) => dates.indexOf(date) >= 0).length > 0
+  });
 
   if (filtered.length > 0) {
     const totalQuantity = filtered.reduce((val, acc) => {
