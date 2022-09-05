@@ -52,7 +52,7 @@ export default function Home() {
         <title>Guanaco Rental</title>
         <meta
           name="description"
-          content="Guanaco rental web, alquiler de equipos para cine online. San Juan, Argentina."
+          content="Guanaco rental web, alquiler de equipos para cine y fotografía. San Juan, Argentina."
         />
         <link rel="icon" href="/logo-favicon.ico" />
         <link
