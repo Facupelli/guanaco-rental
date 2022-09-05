@@ -59,7 +59,7 @@ export default function Home() {
           rel="preconnect"
           href="https://guanaco-rental-production.up.railway.app"
         />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com/gtag/" />
       </Head>
 
       <Script
