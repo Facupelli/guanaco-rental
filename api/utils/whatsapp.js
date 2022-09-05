@@ -7,7 +7,7 @@ async function sendWsMessage(msgData) {
     to: `54${msgData.phone}`,
     type: "template",
     template: {
-      name: "guanaco_pedido_ordenado",
+      name: "guanaco_order",
       language: {
         code: "es_AR",
       },

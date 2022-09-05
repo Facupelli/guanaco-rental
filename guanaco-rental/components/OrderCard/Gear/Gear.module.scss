@@ -12,6 +12,7 @@
 
     button {
       @include cross-button;
+      // color: $s-danger;
       display: flex;
       align-items: center;
     }

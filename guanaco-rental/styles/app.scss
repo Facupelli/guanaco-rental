@@ -5,6 +5,8 @@ $m-white: #ececec;
 $m-orange: #d06021;
 $s-orange: #e8831a;
 $bg-grey: #ebebeb;
+$m-danger: #dd0000;
+$s-danger: #f72929;
 
 @mixin app_width {
   max-width: 1100px;
@@ -66,7 +68,7 @@ $bg-grey: #ebebeb;
 
 @mixin m-button-danger {
   padding: 0.5rem 1rem;
-  background-color: #dd0000;
+  background-color: $m-danger;
   font-weight: bold;
   border: none;
   border-radius: 0.2rem;
