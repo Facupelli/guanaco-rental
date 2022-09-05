@@ -3,10 +3,11 @@ import { faEllipsisVertical, faAdd } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { formatPrice } from "../../utils/price_formater";
+import { generatePdfRows, getOrderStatus, handleDeleteOrder } from "../../utils/orders";
 import Gear from "./Gear/Gear";
+import MessageModal from "../MessageModal/MessageModal";
 
 import s from "./OrderCard.module.scss";
-import MessageModal from "../MessageModal/MessageModal";
 
 const PDF = dynamic(() => import("./PDF/PDF"));
 
@@ -19,9 +20,6 @@ export default function OrderCard({ order, getAllOrders }) {
 
   const [searchInput, setSearchInput] = useState("");
   const [equipments, setEquipments] = useState([]);
-
-  // console.log(order);
-  // console.log(equipments);
 
   useEffect(() => {
     if (searchInput.length > 0) {
@@ -41,50 +39,7 @@ export default function OrderCard({ order, getAllOrders }) {
   const pickupDay = new Date(order.booking.dates[0]).toLocaleDateString();
   const returnDay = new Date(order.booking.dates.at(-1)).toLocaleDateString();
 
-  const getOrderStatus = () => {
-    if (new Date().getTime() < new Date(order.booking.dates[0]).getTime()) {
-      return { status: "PENDIENTE", class: s.yellow };
-    }
-    if (new Date().getTime() > new Date(order.booking.dates.at(-1)).getTime()) {
-      return { status: "FINALIZADO", class: s.green };
-    }
-    return { status: "EN PROCESO", class: s.orange };
-  };
-
-  const handleDeleteOrder = async (id) => {
-    const order = await fetch(
-      process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/order/${id}`
-        : `http://localhost:3001/order/${id}`,
-      {
-        method: "DELETE",
-      }
-    )
-      .then((response) => response.json())
-      .catch((e) => console.log("error", e));
-
-    if (order.message === "success") {
-      getAllOrders();
-    }
-  };
-
-  const generatePdfRows = () => {
-    if (order.equipments.length > 0) {
-      const rows = Math.ceil(order.equipments.length / 4);
-
-      const equipmentRows = [];
-
-      for (let i = 0; i < order.equipments.length; i += 4) {
-        const chunk = order.equipments.slice(i, i + 4);
-        // do whatever
-        equipmentRows.push(chunk);
-      }
-
-      return equipmentRows;
-    }
-  };
-
-  const equipmentRows = generatePdfRows();
+  const equipmentRows = generatePdfRows(order);
 
   const updateGearFromOrder = async (equipmentId, operation) => {
     const data = JSON.stringify({
@@ -116,7 +71,7 @@ export default function OrderCard({ order, getAllOrders }) {
           <button
             type="button"
             className={s.cancel_order}
-            onClick={() => handleDeleteOrder(order.bookingId)}
+            onClick={() => handleDeleteOrder(order.bookingId, getAllOrders)}
           >
             CANCELAR ORDEN
           </button>
@@ -176,8 +131,8 @@ export default function OrderCard({ order, getAllOrders }) {
             </div>
             <p>devolución: {returnDay}</p>
           </div>
-          <p className={`${getOrderStatus().class}`}>
-            {getOrderStatus().status}
+          <p className={`${getOrderStatus(order, s).class}`}>
+            {getOrderStatus(order, s).status}
           </p>
           <button
             className={s.show_equipment_btn}
