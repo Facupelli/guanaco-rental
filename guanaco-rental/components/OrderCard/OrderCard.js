@@ -64,6 +64,27 @@ export default function OrderCard({ order, getAllOrders }) {
 
   const equipmentRows = generatePdfRows();
 
+  const deleteGearFromOrder = async (equipmentId) => {
+    const data = JSON.stringify({
+      id: order.id,
+      equipmentId,
+    });
+
+    const updatedOrder = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/order`
+        : "http://localhost:3001/order",
+      {
+        method: "PUT",
+        body: data,
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+  };
+
   return (
     <>
       {showDeleteModal && (
@@ -115,7 +136,14 @@ export default function OrderCard({ order, getAllOrders }) {
               <p>Equipos:</p>
               {order.equipments.length > 0 &&
                 order.equipments.map((gear) => (
-                  <Gear editable gear={gear} order={order} key={gear.id} />
+                  <Gear
+                    editable
+                    gear={gear}
+                    order={order}
+                    key={gear.id}
+                    deleteGearFromOrder={deleteGearFromOrder}
+                    getAllOrders={getAllOrders}
+                  />
                 ))}
             </div>
             <div className={s.add_gear_btn_wrapper}>

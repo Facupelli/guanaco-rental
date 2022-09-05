@@ -6,15 +6,25 @@ import MessageModal from "../../MessageModal/MessageModal";
 
 import s from "./Gear.module.scss";
 
-export default function Gear({ gear, order, editable }) {
+export default function Gear({
+  gear,
+  order,
+  editable,
+  deleteGearFromOrder,
+  getAllOrders,
+}) {
   const [showModal, setShowModal] = useState(false);
-
-  console.log(showModal)
 
   return (
     <>
       {showModal && (
-        <MessageModal showButton btnFunc={() => setShowModal(false)}>
+        <MessageModal
+          showButton
+          btnFunc={() => {
+            deleteGearFromOrder(gear.id).then(() => getAllOrders());
+            setShowModal(false);
+          }}
+        >
           Seguro que quieres eliminar este equipo del pedido?
         </MessageModal>
       )}

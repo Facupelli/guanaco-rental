@@ -111,10 +111,26 @@ async function postOrder(req, res, next) {
         .join("-  "),
     };
 
-    console.log("msgData", msgData);
-
     const sentWsMessage = await sendWsMessage(msgData);
     console.log(sentWsMessage);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function putOrder(req, res, next) {
+  const data = req.body;
+
+  try {
+
+    const updatedOrder = await prisma.order.update({
+      where: { id: data.id },
+      data: {
+        equipments: { disconnect: {id: data.equipmentId} },
+      },
+    });
+
+    res.json({ message: "success", updatedOrder });
   } catch (e) {
     console.log(e);
   }
@@ -180,4 +196,4 @@ async function deleteOrderById(req, res, next) {
   }
 }
 
-module.exports = { postOrder, getOrders, deleteOrderById };
+module.exports = { postOrder, getOrders, deleteOrderById, putOrder };
