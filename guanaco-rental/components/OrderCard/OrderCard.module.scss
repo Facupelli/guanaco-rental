@@ -1,5 +1,13 @@
 @import "../../styles/app.scss";
 
+.cancel_order {
+  @include m-button-danger;
+  margin: 1rem 0rem 1rem auto;
+  width: fit-content;
+  font-size: 0.7em;
+  padding: 0.5rem;
+}
+
 .bold {
   font-weight: 600;
 }
@@ -25,7 +33,7 @@
 
   .info_container {
     display: grid;
-    grid-template-columns: 3% 12.5% 12.5% 10% 10% 20% 13% 10% 10%;
+    grid-template-columns: 3% 14.5% 12.5% 10% 10% 20% 10% 10% 8% 2%;
     justify-items: flex-start;
     align-items: flex-start;
 
@@ -39,10 +47,32 @@
       }
     }
 
-    button {
+    .show_equipment_btn {
       @include m-button-orange;
       padding: 0.4rem;
       font-size: 0.7em;
+    }
+
+    .elipsis_menu_btn{
+      @include m-button-gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .add_gear_btn_wrapper{
+    margin-left: 3%;
+    margin-bottom: 2rem;
+
+    button{
+      @include cross-button;
+      color: $m-black;
+
+      .add_gear_icon{
+        height: 20px;
+        width: 20px;
+      }
     }
   }
 
@@ -62,7 +92,7 @@
 
   .equipments_container {
     margin-left: 3%;
-    padding: 1rem 0rem 1.5rem 0rem;
+    padding: 1rem 0rem 1rem 0rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -70,14 +100,6 @@
 
     > p {
       font-weight: 600;
-    }
-
-    .cancel_order {
-      @include m-button-danger;
-      margin: 1rem 0rem 1rem auto;
-      width: fit-content;
-      font-size: 0.7em;
-      padding: 0.2rem 0.4rem;
     }
   }
 }

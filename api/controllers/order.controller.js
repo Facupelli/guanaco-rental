@@ -102,18 +102,19 @@ async function postOrder(req, res, next) {
       equipmentList: orderData.equipments
         .map(
           (gear) =>
-            `${gear.name} ${gear.brand} ${gear.model} x${
+            `x${
               gear.bookings.filter(
                 (book) => book.bookId === orderData.booking.id
               )[0].quantity
-            }`
+            } ${gear.name} ${gear.brand} ${gear.model}`
         )
-        .join(", "),
+        .join("-  "),
     };
 
-    console.log("msgData", msgData)
+    console.log("msgData", msgData);
 
     const sentWsMessage = await sendWsMessage(msgData);
+    console.log(sentWsMessage);
   } catch (e) {
     console.log(e);
   }

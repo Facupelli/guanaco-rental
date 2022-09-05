@@ -7,27 +7,18 @@ async function sendWsMessage(msgData) {
     to: `54${msgData.phone}`,
     type: "template",
     template: {
-      name: "guanaco_order",
+      name: "guanaco_pedido_ordenado",
       language: {
         code: "es_AR",
       },
       components: [
         {
-          type: "header",
+          type: "body",
           parameters: [
             {
               type: "text",
               text: `${msgData.fullName}`,
             },
-          ],
-        },
-        {
-          type: "body",
-          parameters: [
-            // {
-            //   type: "text",
-            //   text: `${msgData.fullName}`,
-            // },
             {
               type: "text",
               text: `${msgData.pickupDay}`,

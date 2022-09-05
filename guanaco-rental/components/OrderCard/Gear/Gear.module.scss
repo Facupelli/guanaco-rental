@@ -1,7 +1,17 @@
+@import "../../../styles/app.scss";
 
+.gear_container {
+  display: grid;
+  grid-template-columns: 90% 5% 5%;
+  margin-left: 0.5rem;
 
-.gear_container{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    margin-left: .5rem;
+  .x_btn_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      @include cross-button;
+    }
+  }
 }
