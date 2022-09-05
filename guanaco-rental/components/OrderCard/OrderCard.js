@@ -5,7 +5,7 @@ import Gear from "./Gear/Gear";
 
 import s from "./OrderCard.module.scss";
 
-const PDF = dynamic(() => import ('./PDF/PDF'))
+const PDF = dynamic(() => import("./PDF/PDF"));
 
 export default function OrderCard({ order, getAllOrders }) {
   const [showEquipment, setShowEquipment] = useState(false);
@@ -40,6 +40,26 @@ export default function OrderCard({ order, getAllOrders }) {
       getAllOrders();
     }
   };
+
+  const generatePdfRows = () => {
+    if (order.equipments.length > 0) {
+      const rows = Math.ceil(order.equipments.length / 4);
+
+      const equipmentRows = [];
+
+      for (let i = 0; i < order.equipments.length; i += 4) {
+        const chunk = order.equipments.slice(i, i + 4);
+        // do whatever
+        equipmentRows.push(chunk);
+      }
+
+      return equipmentRows;
+    }
+  };
+
+  const equipmentRows = generatePdfRows();
+
+  console.log("rows:", typeof equipmentRows, equipmentRows);
 
   return (
     <div className={s.card_container}>
@@ -80,21 +100,24 @@ export default function OrderCard({ order, getAllOrders }) {
       )}
       <div className={s.remito_wrapper}>
         {!generatePDF && (
-          <button type="button" onClick={() => {
-            
-            
-            setGeneratePDF(true)
-            
-            }}>
+          <button
+            type="button"
+            onClick={() => {
+              setGeneratePDF(true);
+            }}
+          >
             Generar Remito
           </button>
         )}
         {generatePDF && (
-          <PDF pickupDay={pickupDay} returnDay={returnDay} order={order} />
+          <PDF
+            pickupDay={pickupDay}
+            returnDay={returnDay}
+            order={order}
+            equipmentRows={equipmentRows}
+          />
         )}
       </div>
     </div>
   );
 }
-
-
