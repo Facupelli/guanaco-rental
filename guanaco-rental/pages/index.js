@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Script from "next/script";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -59,6 +60,25 @@ export default function Home() {
           href="https://guanaco-rental-production.up.railway.app"
         />
       </Head>
+
+      <Script
+        id="ga-script"
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
+      <Script
+        id="ga-script2"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
 
       <Nav setShowCart={setShowCart} home />
 
