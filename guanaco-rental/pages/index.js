@@ -59,6 +59,7 @@ export default function Home() {
           rel="preconnect"
           href="https://guanaco-rental-production.up.railway.app"
         />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
       </Head>
 
       <Script
@@ -72,10 +73,12 @@ export default function Home() {
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
               page_path: window.location.pathname,
             });
+            gtag('set', 'transport', 'beacon');
+            gtag('send', 'pageview');
+            gtag('js', new Date());
           `,
         }}
       />
