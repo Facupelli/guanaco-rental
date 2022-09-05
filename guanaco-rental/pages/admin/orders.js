@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { getUniqueUser } from "../../utils/fetch_users";
+
 import AdminMain from "../../components/AdminMain/AdminMain";
 import Nav from "../../components/Nav/Nav";
 import OrderCard from "../../components/OrderCard/OrderCard";
@@ -64,9 +65,7 @@ export default function AdminOrdersPage({ session }) {
         <div>
           {loading ? (
             <p>Cargando...</p>
-          ) : (
-            orders &&
-            orders.length > 0 &&
+          ) : orders && orders.length > 0 ? (
             orders.map((order) => (
               <OrderCard
                 key={order.id}
@@ -74,6 +73,8 @@ export default function AdminOrdersPage({ session }) {
                 getAllOrders={getAllOrders}
               />
             ))
+          ) : (
+            <p className={s.no_orders_p}>No tienes ningun pedido :(</p>
           )}
         </div>
         <div className={s.pagination_btn_wrapper}>
