@@ -1,4 +1,4 @@
-import { formatPrice } from "../../utils/price_formater";
+import { formatPrice } from "../../utils/price";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/features/cart/cartSlice";
 import { isAvailable } from "../../utils/dates_functions";

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../../redux/features/cart/cartSlice";
-import { formatPrice } from "../../../../utils/price_formater";
+import { formatPrice } from "../../../../utils/price";
 import { isAvailable } from "../../../../utils/dates_functions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";

@@ -4,7 +4,7 @@ import { unstable_getServerSession } from "next-auth";
 import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useEffect, useState } from "react";
-import { formatPrice } from "../../utils/price_formater";
+import { formatPrice } from "../../utils/price";
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
 
@@ -75,6 +75,11 @@ export default function AdminPage({ session }) {
             <Link href="/admin/equipment">
               <li>
                 <a className={s.link}>Equipos</a>
+              </li>
+            </Link>
+            <Link href="/admin/rents">
+              <li>
+                <a className={s.link}>Rentas</a>
               </li>
             </Link>
           </ul>

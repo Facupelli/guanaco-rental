@@ -59,6 +59,12 @@ model Category {
   equipments              Equipment[]
 }
 
+enum Owner{
+  FEDERICO
+  OSCAR
+  BOTH
+}
+
 model Equipment {
   id                      String              @default(cuid()) @id
   name                    String
@@ -71,7 +77,7 @@ model Equipment {
   category                Category            @relation(fields: [categoryId], references: [id])
   categoryId              String
   orders                  Order[]
-  owner                   String              @default("Giaccaglia")
+  owner                   Owner               @default(FEDERICO)
   location                String              @default("San Juan")
   bookings                BookOnEquipment[]
   available               Boolean             @default(true)

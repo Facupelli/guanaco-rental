@@ -3,7 +3,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { formatPrice } from "../../utils/price_formater";
+import { formatPrice } from "../../utils/price";
 import {
   areAllItemsAvailable,
   generateAllDates,

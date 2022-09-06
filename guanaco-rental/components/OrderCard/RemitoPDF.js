@@ -7,7 +7,7 @@ import {
   Image,
   Font,
 } from "@react-pdf/renderer";
-import { formatPrice } from "../../utils/price_formater";
+import { formatPrice } from "../../utils/price";
 
 // Font.register({
 //   family: "Open Sans",

@@ -2,18 +2,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical, faAdd } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { formatPrice } from "../../utils/price_formater";
+import { formatPrice, getOwnerEarnings } from "../../utils/price";
 import {
   generatePdfRows,
   getOrderStatus,
   handleDeleteOrder,
 } from "../../utils/orders";
+import { getWorkingTotalDays } from "../../utils/dates_functions";
 
 import Gear from "./Gear/Gear";
 import MessageModal from "../MessageModal/MessageModal";
 
 import s from "./OrderCard.module.scss";
-import { getWorkingTotalDays } from "../../utils/dates_functions";
 
 const PDF = dynamic(() => import("./PDF/PDF"));
 
@@ -98,17 +98,36 @@ export default function OrderCard({ order, getAllOrders }) {
     }
   };
 
+  const earnings = getOwnerEarnings(order);
+
   return (
     <>
       {showDeleteModal && (
         <MessageModal btnFunc={() => setShowDeleteModal(false)}>
-          <button
-            type="button"
-            className={s.cancel_order}
-            onClick={() => handleDeleteOrder(order.bookingId, getAllOrders)}
-          >
-            CANCELAR ORDEN
-          </button>
+          <div className={s.menu_modal_wrapper}>
+            <button
+              type="button"
+              className={s.cancel_order}
+              onClick={() => handleDeleteOrder(order.bookingId, getAllOrders)}
+            >
+              CANCELAR ORDEN
+            </button>
+            <button
+              type="button"
+              className={s.earnings_btn}
+              onClick={() => getOwnerEarnings(order)}
+            >
+              OBTENER BALANCE
+            </button>
+            <p>
+              <span className={s.bold}>Federico:</span>{" "}
+              {formatPrice(earnings.totalFederico)}
+            </p>
+            <p>
+              <span className={s.bold}>Oscar:</span>{" "}
+              {formatPrice(earnings.totalOscar)}
+            </p>
+          </div>
         </MessageModal>
       )}
       {showAddEquipmentModal && (

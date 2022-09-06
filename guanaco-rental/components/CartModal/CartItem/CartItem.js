@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../../redux/features/cart/cartSlice";
-import { formatPrice } from "../../../utils/price_formater";
+import { formatPrice } from "../../../utils/price";
 import ItemCounter from "./ItemCounter/ItemCounter";
 import XmarkButton from "../../XmarkButton/XmarkButton";
 
