@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     fontSize: 11,
-    flexBasis: "48%",
-    marginRight: "2%",
+    flexBasis: "46%",
+    marginRight: "4%",
   },
   bold: {
     fontWeight: 600,
@@ -138,15 +138,18 @@ const styles = StyleSheet.create({
     marginRight: "auto",
   },
   bottomSigns: {
+    position: "absolute",
+    bottom: 0,
+    left: 25,
+    width: "92%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     fontSize: 8,
     padding: "15px 0px",
-    marginLeft: 50,
-    marginRight: 50,
-    marginBottom: 20,
-    marginTop: "auto",
+    marginBottom: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   signs: {
     borderTop: "1px solid black",
@@ -223,7 +226,7 @@ export const RemitoPDF = ({ pickupDay, returnDay, order, equipmentRows }) => (
           </Text>
         </View>
       </View>
-      
+
       <View style={styles.bgImageWrapper}>
         <Image
           src="/remito/guanaco-perfil-low.png"
@@ -238,8 +241,11 @@ export const RemitoPDF = ({ pickupDay, returnDay, order, equipmentRows }) => (
           return (
             <View
               key={i}
-              break={i === 7 || i === 14}
-              style={[styles.equipmentWrapper, { marginTop: i === 7 || i === 14 ? 85 : 0 }]}
+              break={i === 6 || i === 14}
+              style={[
+                styles.equipmentWrapper,
+                { marginTop: i === 6 || i === 14 ? 85 : 0 },
+              ]}
             >
               {equipment.map((gear) => (
                 <View style={styles.equipment} key={gear.id}>
@@ -285,7 +291,7 @@ export const RemitoPDF = ({ pickupDay, returnDay, order, equipmentRows }) => (
             })}
         </View> */}
 
-      <View style={styles.bottomSigns}>
+      <View fixed style={styles.bottomSigns}>
         <Text style={styles.signs}>FIRMA DEL RESPONSABLE DE PRODUCCIÓN</Text>
         <Text style={styles.signs}>FIRMA DEL RESPONSABLE DEl RENTAL</Text>
       </View>
