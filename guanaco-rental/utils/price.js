@@ -9,8 +9,8 @@ export const formatPrice = (price) => {
 };
 
 export const getOwnerEarnings = (order) => {
-  const totalFederico = 0;
-  const totalOscar = 0;
+  let totalFederico = 0;
+  let totalOscar = 0;
 
   const workingsDays = getWorkingTotalDays(order.booking.dates);
 

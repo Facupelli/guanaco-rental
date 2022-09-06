@@ -183,6 +183,18 @@ async function getOrders(req, res, next) {
       return;
     }
 
+    if (!skip) {
+      const allOrders = await prisma.order.findMany({
+        include: {
+          booking: true,
+          equipments: { include: { bookings: true } },
+          // user: true,
+        },
+      });
+      res.json(allOrders);
+      return;
+    }
+
     const orders = await prisma.order.findMany({
       include: {
         _count: {},
@@ -226,4 +238,24 @@ async function deleteOrderById(req, res, next) {
   }
 }
 
-module.exports = { postOrder, getOrders, deleteOrderById, putOrder };
+async function getTotalOfOrders(req, res, next) {
+  try {
+    const totalPrice = await prisma.order.aggregate({
+      _sum: {
+        totalPrice: true,
+      },
+    });
+
+    res.json(totalPrice);
+  } catch (e) {
+    console.log("getTotalOfOrders error:", e);
+  }
+}
+
+module.exports = {
+  postOrder,
+  getOrders,
+  deleteOrderById,
+  putOrder,
+  getTotalOfOrders,
+};
