@@ -20,7 +20,7 @@ export default function Gear({
         <MessageModal
           showButton
           btnFunc={() => {
-            updateGearFromOrder(gear.id, "remove").then(() => getAllOrders());
+            updateGearFromOrder(gear.id, gear.price, "remove").then(() => getAllOrders());
             setShowModal(false);
           }}
         >

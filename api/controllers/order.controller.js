@@ -130,6 +130,7 @@ async function putOrder(req, res, next) {
         where: { id: data.orderId },
         data: {
           equipments: { connect: { id: data.equipmentId } },
+          totalPrice: { increment: data.newPrice },
         },
       });
 
@@ -145,6 +146,7 @@ async function putOrder(req, res, next) {
         where: { id: data.orderId },
         data: {
           equipments: { disconnect: { id: data.equipmentId } },
+          totalPrice: { decrement: data.newPrice },
         },
       });
 

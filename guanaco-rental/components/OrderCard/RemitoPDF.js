@@ -241,10 +241,10 @@ export const RemitoPDF = ({ pickupDay, returnDay, order, equipmentRows }) => (
           return (
             <View
               key={i}
-              break={i === 6 || i === 14}
+              break={i === 6 || i === 13}
               style={[
                 styles.equipmentWrapper,
-                { marginTop: i === 6 || i === 14 ? 85 : 0 },
+                { marginTop: i === 6 || i === 13 ? 85 : 0 },
               ]}
             >
               {equipment.map((gear) => (

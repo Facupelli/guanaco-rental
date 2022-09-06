@@ -13,6 +13,7 @@ import Gear from "./Gear/Gear";
 import MessageModal from "../MessageModal/MessageModal";
 
 import s from "./OrderCard.module.scss";
+import { getWorkingTotalDays } from "../../utils/dates_functions";
 
 const PDF = dynamic(() => import("./PDF/PDF"));
 
@@ -46,12 +47,21 @@ export default function OrderCard({ order, getAllOrders }) {
 
   const equipmentRows = generatePdfRows(order);
 
-  const updateGearFromOrder = async (equipmentId, operation) => {
+  const updateGearFromOrder = async (equipmentId, equipmentPrice, operation) => {
+    const newTotalPrice = () => {
+      const workingDays = getWorkingTotalDays(order.booking.dates, order.booking.pickupHour)
+
+      return workingDays * equipmentPrice;
+    }
+
+    const newPrice = newTotalPrice()
+
     const data = JSON.stringify({
       bookingId: order.bookingId,
       orderId: order.id,
       equipmentId,
       operation,
+      newPrice,
     });
 
     const updatedOrder = await fetch(
@@ -106,7 +116,7 @@ export default function OrderCard({ order, getAllOrders }) {
                       type="button"
                       aria-label="add_gear"
                       onClick={() =>
-                        updateGearFromOrder(gear.id, "add").then(() =>
+                        updateGearFromOrder(gear.id, gear.price, "add").then(() =>
                           getAllOrders()
                         )
                       }

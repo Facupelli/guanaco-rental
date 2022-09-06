@@ -7,6 +7,7 @@ import { formatPrice } from "../../utils/price_formater";
 import {
   areAllItemsAvailable,
   generateAllDates,
+  getWorkingTotalDays,
 } from "../../utils/dates_functions";
 import {
   resetDate,
@@ -53,27 +54,7 @@ export default function CartPage() {
   }, [dateRange, dispatch]);
 
   const getCartTotalPrice = () => {
-    const getWorkingTotalDays = () => {
-      let weekDay = 0;
-      let weekendDay = 0;
-
-      for (let day of date) {
-        const newDay = new Date(day).getDay();
-        if (newDay === 6 || newDay === 0) {
-          weekendDay += 1;
-        } else {
-          if (new Date(day).getTime() === new Date(date[0]).getTime()) {
-            newDay === 5 && pickupHour === "09:00" ? (weekDay += 0.5) : null;
-            newDay === 5 && pickupHour === "20:00" ? (weekDay += 0) : null;
-          } else {
-            weekDay += 1;
-          }
-        }
-      }
-      return weekDay + weekendDay / 2;
-    };
-
-    const workingDays = getWorkingTotalDays();
+    const workingDays = getWorkingTotalDays(date, pickupHour);
 
     const totalPrice = cart.reduce((curr, acc) => {
       return curr + (acc.quantity ? acc.price * acc.quantity : acc.price);
@@ -85,7 +66,7 @@ export default function CartPage() {
   const handleClickBookOrder = async () => {
     if (!userData) {
       //registrate
-      signIn()
+      signIn();
       return;
     }
     if (!userData.phone && !userData.dniNumber) {
@@ -239,17 +220,21 @@ export default function CartPage() {
               <input
                 type="checkbox"
                 onClick={(e) => {
-                  console.log(e.target.checked)
-                  setFreeOrder(e.target.checked)}}
+                  console.log(e.target.checked);
+                  setFreeOrder(e.target.checked);
+                }}
               />
             </div>
           )}
           <div className={s.total_price_wrapper}>
             <p>Total:</p>
             <p className={s.p_bold}>
-              {freeOrder
+              {freeOrder || !date.length > 0
                 ? formatPrice(0)
-                : cart && cart.length > 0 && formatPrice(getCartTotalPrice())}
+                : cart &&
+                  cart.length > 0 &&
+                  date.length > 0 &&
+                  formatPrice(getCartTotalPrice())}
             </p>
           </div>
         </div>

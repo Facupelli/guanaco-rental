@@ -38,10 +38,12 @@ export const generateAllDates = (dateRange) => {
 };
 
 export const isAvailable = (dates, item) => {
-  const filtered = item.bookings.filter(
-    (bookModel) =>{
-      const bookedDates = bookModel.book.dates.slice(0,bookModel.book.dates.length-1);
-      return bookedDates.filter((date) => dates.indexOf(date) >= 0).length > 0
+  const filtered = item.bookings.filter((bookModel) => {
+    const bookedDates = bookModel.book.dates.slice(
+      0,
+      bookModel.book.dates.length - 1
+    );
+    return bookedDates.filter((date) => dates.indexOf(date) >= 0).length > 0;
   });
 
   if (filtered.length > 0) {
@@ -66,4 +68,24 @@ export const areAllItemsAvailable = (cart, date) => {
     }
   });
   return availability;
+};
+
+export const getWorkingTotalDays = (date, pickupHour) => {
+  let weekDay = 0;
+  let weekendDay = 0;
+
+  for (let day of date) {
+    const newDay = new Date(day).getDay();
+    if (newDay === 6 || newDay === 0) {
+      weekendDay += 1;
+    } else {
+      if (new Date(day).getTime() === new Date(date[0]).getTime()) {
+        newDay === 5 && pickupHour === "09:00" ? (weekDay += 0.5) : null;
+        newDay === 5 && pickupHour === "20:00" ? (weekDay += 0) : null;
+      } else {
+        weekDay += 1;
+      }
+    }
+  }
+  return (weekDay + weekendDay / 2) - 1;
 };
