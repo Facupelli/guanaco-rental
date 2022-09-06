@@ -105,28 +105,23 @@ export default function OrderCard({ order, getAllOrders }) {
       {showDeleteModal && (
         <MessageModal btnFunc={() => setShowDeleteModal(false)}>
           <div className={s.menu_modal_wrapper}>
-            <button
-              type="button"
-              className={s.cancel_order}
-              onClick={() => handleDeleteOrder(order.bookingId, getAllOrders)}
-            >
-              CANCELAR ORDEN
-            </button>
-            <button
-              type="button"
-              className={s.earnings_btn}
-              onClick={() => getOwnerEarnings(order)}
-            >
-              OBTENER BALANCE
-            </button>
-            <p>
-              <span className={s.bold}>Federico:</span>{" "}
-              {formatPrice(earnings.totalFederico)}
-            </p>
-            <p>
-              <span className={s.bold}>Oscar:</span>{" "}
-              {formatPrice(earnings.totalOscar)}
-            </p>
+            <div>
+              <p>Federico:</p>
+              <p className={s.bold}>{formatPrice(earnings.totalFederico)}</p>
+            </div>
+            <div>
+              <p>Oscar:</p>
+              <p className={s.bold}>{formatPrice(earnings.totalOscar)}</p>
+            </div>
+            <div className={s.cancel_btn_wrapper}>
+              <button
+                type="button"
+                className={s.cancel_order}
+                onClick={() => handleDeleteOrder(order.bookingId, getAllOrders)}
+              >
+                CANCELAR ORDEN
+              </button>
+            </div>
           </div>
         </MessageModal>
       )}

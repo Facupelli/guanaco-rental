@@ -1,20 +1,33 @@
 @import "../../styles/app.scss";
 
-.menu_modal_wrapper{
+.menu_modal_wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 0.5rem;
 
-  .cancel_order {
-    @include m-button-danger;
+  > div {
+    display: flex;
+    width: 100%;
+
+    p:first-child {
+      flex-basis: 25%;
+    }
   }
-  
-  .earnings_btn{
-    @include m-button;
+
+  .cancel_btn_wrapper {
+    margin-top: 1rem;
+    border-top: 1px solid $m-gray;
+
+    .cancel_order {
+      @include m-button-danger;
+      padding: 0.4rem;
+      font-size: 0.8em;
+      margin-top: 1rem;
+      margin-left: auto;
+    }
   }
 }
-
 
 .add_gear_title {
   h3 {
@@ -44,11 +57,11 @@
     width: 100%;
   }
 
-  .qty_input{
+  .qty_input {
     @include input;
     width: 35px;
-    padding: .4rem;
-    margin: 0rem .4rem;
+    padding: 0.4rem;
+    margin: 0rem 0.4rem;
     background-color: transparent;
     border-bottom: 2px solid $m-gray;
     text-align: center;
