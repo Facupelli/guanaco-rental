@@ -115,59 +115,15 @@ export default function OrderCard({ order, getAllOrders }) {
         <MessageModal
           showButton
           btnFunc={() => setShowAddEquipmentModal(false)}
+          btnName="CERRAR"
         >
-          <div className={s.add_gear_title}>
-            <h3>Agregar equipo a pedido</h3>
-            <p>(controlar stock manualmente!)</p>
-          </div>
-          <input
-            type="search"
-            className={s.search}
-            onChange={(e) =>
-              setAddGearInputs((prev) => ({ ...prev, search: e.target.value }))
-            }
+          <AddGearModalChildren
+            equipments={equipments}
+            setAddGearInputs={setAddGearInputs}
+            addGearInputs={addGearInputs}
+            updateGearFromOrder={updateGearFromOrder}
+            getAllOrders={getAllOrders}
           />
-          <div>
-            {equipments.length > 0 &&
-              equipments.map((gear) => (
-                <div key={gear.id} className={s.modal_gear_wrapper}>
-                  <p className={s.gear_name}>
-                    {gear.name} {gear.brand} {gear.model}
-                  </p>
-                  <input
-                    type="text"
-                    className={s.qty_input}
-                    onChange={(e) =>
-                      setAddGearInputs((prev) => ({
-                        ...prev,
-                        quantity: e.target.value,
-                      }))
-                    }
-                  />
-                  <div className={s.add_gear_btn_wrapper}>
-                    <button
-                      type="button"
-                      aria-label="add_gear"
-                      onClick={() => {
-                        if (
-                          addGearInputs.quantity &&
-                          addGearInputs.quantity <= gear.stock
-                        ) {
-                          updateGearFromOrder(gear.id, gear.price, "add").then(
-                            () => getAllOrders()
-                          );
-                        }
-                      }}
-                    >
-                      <FontAwesomeIcon
-                        icon={faAdd}
-                        className={s.add_gear_icon}
-                      />
-                    </button>
-                  </div>
-                </div>
-              ))}
-          </div>
         </MessageModal>
       )}
       <div className={s.card_container}>
@@ -253,3 +209,65 @@ export default function OrderCard({ order, getAllOrders }) {
     </>
   );
 }
+
+const AddGearModalChildren = ({
+  equipments,
+  setAddGearInputs,
+  addGearInputs,
+  updateGearFromOrder,
+  getAllOrders,
+}) => {
+  return (
+    <>
+      <div className={s.add_gear_title}>
+        <h3>Agregar equipo a pedido</h3>
+        <p>(controlar stock manualmente!)</p>
+      </div>
+      <input
+        type="search"
+        className={s.search}
+        onChange={(e) =>
+          setAddGearInputs((prev) => ({ ...prev, search: e.target.value }))
+        }
+      />
+      <div>
+        {equipments.length > 0 &&
+          equipments.map((gear) => (
+            <div key={gear.id} className={s.modal_gear_wrapper}>
+              <p className={s.gear_name}>
+                {gear.name} {gear.brand} {gear.model}
+              </p>
+              <input
+                type="text"
+                className={s.qty_input}
+                onChange={(e) =>
+                  setAddGearInputs((prev) => ({
+                    ...prev,
+                    quantity: e.target.value,
+                  }))
+                }
+              />
+              <div className={s.add_gear_btn_wrapper}>
+                <button
+                  type="button"
+                  aria-label="add_gear"
+                  onClick={() => {
+                    if (
+                      addGearInputs.quantity &&
+                      addGearInputs.quantity <= gear.stock
+                    ) {
+                      updateGearFromOrder(gear.id, gear.price, "add").then(() =>
+                        getAllOrders()
+                      );
+                    }
+                  }}
+                >
+                  <FontAwesomeIcon icon={faAdd} className={s.add_gear_icon} />
+                </button>
+              </div>
+            </div>
+          ))}
+      </div>
+    </>
+  );
+};

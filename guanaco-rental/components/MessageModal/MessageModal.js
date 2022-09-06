@@ -6,6 +6,7 @@ export default function MessageModal({
   children,
   showButton,
   btnFunc,
+  btnName
 }) {
   const modalRef = useRef();
 
@@ -17,7 +18,7 @@ export default function MessageModal({
       {showButton && (
         <div className={s.modal_btn}>
           <button type="button" onClick={btnFunc}>
-            OK
+            {btnName ? btnName : "OK"}
           </button>
         </div>
       )}
