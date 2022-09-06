@@ -30,14 +30,14 @@ Font.register({
   family: "Panton",
   fonts: [
     {
-      src: "http://db.onlinewebfonts.com/t/5920187ef0bf42859293e1ea01545b96.ttf",
+      src: "https://db.onlinewebfonts.com/t/5920187ef0bf42859293e1ea01545b96.ttf",
     },
     {
-      src: "http://db.onlinewebfonts.com/t/d5a58cd8ad7ce7bbe4716dc5b95fb0fb.ttf",
+      src: "https://db.onlinewebfonts.com/t/d5a58cd8ad7ce7bbe4716dc5b95fb0fb.ttf",
       fontWeight: 600,
     },
     {
-      src: "http://db.onlinewebfonts.com/t/24398819ac2f8f57d97b6d2c131686fe.ttf",
+      src: "https://db.onlinewebfonts.com/t/24398819ac2f8f57d97b6d2c131686fe.ttf",
       fontWeight: 700,
     },
   ],
