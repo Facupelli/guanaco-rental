@@ -138,7 +138,7 @@ async function putOrder(req, res, next) {
         data: {
           book: { connect: { id: data.bookingId } },
           equipment: { connect: { id: data.equipmentId } },
-          quantity: 1,
+          quantity: Number(data.quantity),
         },
       });
     } else {

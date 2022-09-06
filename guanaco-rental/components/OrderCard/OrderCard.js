@@ -24,37 +24,51 @@ export default function OrderCard({ order, getAllOrders }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAddEquipmentModal, setShowAddEquipmentModal] = useState(false);
 
-  const [searchInput, setSearchInput] = useState("");
+  const [addGearInputs, setAddGearInputs] = useState({
+    search: "",
+    quantity: "",
+  });
   const [equipments, setEquipments] = useState([]);
 
   useEffect(() => {
-    if (searchInput.length > 0) {
+    if (addGearInputs.search.length > 0) {
       const getEquipmentBySearch = async () => {
-        const response = await fetch(
-          process.env.NODE_ENV === "production"
-            ? `https://guanaco-rental-production.up.railway.app/equipment?search=${searchInput}`
-            : `http://localhost:3001/equipment?search=${searchInput}`
-        );
-        const equipment = await response.json();
-        setEquipments(equipment);
+        try {
+          const response = await fetch(
+            process.env.NODE_ENV === "production"
+              ? `https://guanaco-rental-production.up.railway.app/equipment?search=${addGearInputs.search}`
+              : `http://localhost:3001/equipment?search=${addGearInputs.search}`
+          );
+          const equipment = await response.json();
+          setEquipments(equipment);
+        } catch (e) {
+          console.log("getEquipmentBySearch error:", e);
+        }
       };
       getEquipmentBySearch();
     }
-  }, [searchInput]);
+  }, [addGearInputs.search]);
 
   const pickupDay = new Date(order.booking.dates[0]).toLocaleDateString();
   const returnDay = new Date(order.booking.dates.at(-1)).toLocaleDateString();
 
   const equipmentRows = generatePdfRows(order);
 
-  const updateGearFromOrder = async (equipmentId, equipmentPrice, operation) => {
+  const updateGearFromOrder = async (
+    equipmentId,
+    equipmentPrice,
+    operation
+  ) => {
     const newTotalPrice = () => {
-      const workingDays = getWorkingTotalDays(order.booking.dates, order.booking.pickupHour)
+      const workingDays = getWorkingTotalDays(
+        order.booking.dates,
+        order.booking.pickupHour
+      );
 
-      return workingDays * equipmentPrice;
-    }
+      return workingDays * (equipmentPrice * addGearInputs.quantity);
+    };
 
-    const newPrice = newTotalPrice()
+    const newPrice = newTotalPrice();
 
     const data = JSON.stringify({
       bookingId: order.bookingId,
@@ -62,21 +76,26 @@ export default function OrderCard({ order, getAllOrders }) {
       equipmentId,
       operation,
       newPrice,
+      quantity: addGearInputs.quantity,
     });
 
-    const updatedOrder = await fetch(
-      process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/order`
-        : "http://localhost:3001/order",
-      {
-        method: "PUT",
-        body: data,
-        headers: {
-          "Content-type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
+    try {
+      const updatedOrder = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/order`
+          : "http://localhost:3001/order",
+        {
+          method: "PUT",
+          body: data,
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+    } catch (e) {
+      console.log("updateOrder error:", e);
+    }
   };
 
   return (
@@ -97,29 +116,48 @@ export default function OrderCard({ order, getAllOrders }) {
           showButton
           btnFunc={() => setShowAddEquipmentModal(false)}
         >
+          <div className={s.add_gear_title}>
+            <h3>Agregar equipo a pedido</h3>
+            <p>(controlar stock manualmente!)</p>
+          </div>
           <input
             type="search"
             className={s.search}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={(e) =>
+              setAddGearInputs((prev) => ({ ...prev, search: e.target.value }))
+            }
           />
           <div>
             {equipments.length > 0 &&
               equipments.map((gear) => (
                 <div key={gear.id} className={s.modal_gear_wrapper}>
-                  <p>
-                    {gear.name}
-                    {gear.brand}
-                    {gear.model}
+                  <p className={s.gear_name}>
+                    {gear.name} {gear.brand} {gear.model}
                   </p>
+                  <input
+                    type="text"
+                    className={s.qty_input}
+                    onChange={(e) =>
+                      setAddGearInputs((prev) => ({
+                        ...prev,
+                        quantity: e.target.value,
+                      }))
+                    }
+                  />
                   <div className={s.add_gear_btn_wrapper}>
                     <button
                       type="button"
                       aria-label="add_gear"
-                      onClick={() =>
-                        updateGearFromOrder(gear.id, gear.price, "add").then(() =>
-                          getAllOrders()
-                        )
-                      }
+                      onClick={() => {
+                        if (
+                          addGearInputs.quantity &&
+                          addGearInputs.quantity <= gear.stock
+                        ) {
+                          updateGearFromOrder(gear.id, gear.price, "add").then(
+                            () => getAllOrders()
+                          );
+                        }
+                      }}
                     >
                       <FontAwesomeIcon
                         icon={faAdd}
