@@ -60,7 +60,7 @@ export default function CartModal({ showCart, setShowCart, setDatePickup }) {
         <Link href="/cart">
           <button type="button">VER CARRITO</button>
         </Link>
-        <button type="button">ALQUILAR</button>
+        {/* <button type="button">ALQUILAR</button> */}
       </div>
     </aside>
   );

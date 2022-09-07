@@ -7,6 +7,7 @@
   align-items: baseline;
   padding: 0.5rem 0rem;
   border-bottom: 2px solid $s-gray;
+  font-size: 1.1em;
 
   .item_title {
     display: flex;
@@ -55,6 +56,7 @@
   .item_container {
     grid-template-columns: 100%;
     margin-bottom: 1rem;
+    font-size: 1em;
 
     .wrapper {
       display: flex;

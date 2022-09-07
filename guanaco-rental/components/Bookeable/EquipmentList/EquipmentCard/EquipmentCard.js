@@ -80,7 +80,11 @@ export default function EquipmentCard({ gear, setShowCart }) {
               disabled={!availability}
               aria-label="add-to-cart"
             >
-              <FontAwesomeIcon icon={faCartPlus} className={s.cart_icon} />
+              {cart.filter((item) => item.id === gear.id).length > 0 ? (
+                <p>Agregado</p>
+              ) : (
+                <FontAwesomeIcon icon={faCartPlus} className={s.cart_icon} />
+              )}
             </button>
           </div>
         </div>
