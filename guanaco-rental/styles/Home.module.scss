@@ -20,6 +20,11 @@ $h-s-gray: #212121;
 
   button {
     cursor: pointer;
+    border: none;
+
+    a{
+      color: $m-black;
+    }
   }
 
   .home_img_wrapper {

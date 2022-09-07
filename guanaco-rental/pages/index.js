@@ -69,7 +69,9 @@ export default function Home() {
               <SocialMediaIcons width="30" />
               <div className={s.home_btns_wrapper}>
                 <button type="button">
-                  <Link href="/book"> Reservá tu alquiler</Link>
+                  <Link href="/book">
+                    <a> Reservá tu alquiler</a>
+                  </Link>
                 </button>
                 <button type="button">
                   Conocé nuestro concepto de COMUNIDAD
@@ -180,7 +182,7 @@ export default function Home() {
                     data-bbox="49.5 23 101 154"
                     viewBox="49.5 23 101 154"
                     height="75"
-                    width="75"
+                    width="50"
                     fill="#d06021"
                     xmlns="http://www.w3.org/2000/svg"
                     data-type="shape"
@@ -343,7 +345,9 @@ export default function Home() {
               </div>
               <div className={s.btns_column}>
                 <button type="button">
-                  <Link href="/book">Lista de Equipos Disponibles</Link>
+                  <Link href="/book">
+                    <a>Lista de Equipos Disponibles</a>
+                  </Link>
                 </button>
                 <button type="button">
                   <Link
@@ -351,14 +355,18 @@ export default function Home() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Condiciones de Alquiler
+                    <a>Condiciones de Alquiler</a>
                   </Link>
                 </button>
                 <button type="button">
-                  <Link href="/newClient">Alta de Cliente</Link>
+                  <Link href="/newClient">
+                    <a>Alta de Cliente</a>
+                  </Link>
                 </button>
                 <button type="button">
-                  <Link href="/faq">Pregunta Frecuentes</Link>
+                  <Link href="/faq">
+                    <a>Pregunta Frecuentes</a>
+                  </Link>
                 </button>
                 <div className={s.white_logo_wrapper}>
                   <Image

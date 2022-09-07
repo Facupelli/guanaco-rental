@@ -78,14 +78,19 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
             <a>FAQ</a>
           </Link>
         </li>
-        <li onClick={cartPage ? null : handleShowCart} className={s.link_icon}>
-          CARRITO
-          <FontAwesomeIcon icon={faCartShopping} width="20px" />
-        </li>
+        {route !== "home" && (
+          <li
+            onClick={cartPage ? null : handleShowCart}
+            className={s.link_icon}
+          >
+            CARRITO
+            <FontAwesomeIcon icon={faCartShopping} width="20px" />
+          </li>
+        )}
         {session ? (
           <li>
             <button onClick={() => signOut()} className={s.link_icon}>
-              CERRAR SESION
+              SALIR
               <FontAwesomeIcon
                 icon={faArrowRightFromBracket}
                 className={s.icon}
@@ -106,7 +111,7 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
                 className={s.link_icon_google}
                 onClick={() => signIn("google")}
               >
-                <p>INICIAR SESION</p>
+                <p>ENTRAR CON</p>
                 <p className={s.justify_between}>
                   GOOGLE <FontAwesomeIcon icon={faGoogle} />
                 </p>
@@ -114,7 +119,7 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
             </li>
             <li>
               <button className={s.link_icon_google}>
-                <p>INICIAR SESION</p>
+                <p>ENTRAR CON</p>
                 <p className={s.justify_between}>
                   FACEBOOK <FontAwesomeIcon icon={faFacebook} />
                 </p>
