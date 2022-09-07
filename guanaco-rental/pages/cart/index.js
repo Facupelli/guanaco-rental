@@ -119,7 +119,7 @@ export default function CartPage() {
   return (
     <div>
       <Head>
-        <title>Guanaco Cart</title>
+        <title>Guanaco Carrito</title>
         <meta
           name="description"
           content="Guanaco rental website, book filming equipment online. San Juan, Argentina."
