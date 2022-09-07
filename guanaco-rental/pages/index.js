@@ -64,6 +64,7 @@ export default function Home() {
                 height={3126}
                 width={4088}
                 objectFit="contain"
+                quality={65}
               />
               <SocialMediaIcons width="30" />
               <div className={s.home_btns_wrapper}>
@@ -79,6 +80,7 @@ export default function Home() {
               src="/homeImages/bg/camara-web.jpg"
               objectFit="cover"
               layout="fill"
+              quality={65}
             />
           </div>
         </section>
@@ -237,6 +239,7 @@ export default function Home() {
                 width={800}
                 height={60}
                 objectFit="contain"
+                quality={65}
               />
             </div>
           </div>
@@ -252,6 +255,7 @@ export default function Home() {
                   layout="fill"
                   alt="lali_project"
                   src="/homeImages/projects/lali.jpg"
+                  quality={65}
                 />
               </div>
               <div className={s.grid_img_wrapper}>
@@ -260,6 +264,7 @@ export default function Home() {
                   layout="fill"
                   alt="living_project"
                   src="/homeImages/projects/living.jpg"
+                  quality={65}
                 />
               </div>
               <div className={s.grid_img_wrapper}>
@@ -268,6 +273,7 @@ export default function Home() {
                   layout="fill"
                   alt="abanico_project"
                   src="/homeImages/projects/abanico.jpg"
+                  quality={65}
                 />
               </div>
               <div className={s.grid_img_wrapper}>
@@ -276,6 +282,7 @@ export default function Home() {
                   layout="fill"
                   alt="sentada_project"
                   src="/homeImages/projects/sentada.jpg"
+                  quality={65}
                 />
               </div>
               <div className={s.grid_img_wrapper}>
@@ -284,6 +291,7 @@ export default function Home() {
                   layout="fill"
                   alt="patio_project"
                   src="/homeImages/projects/patio.jpg"
+                  quality={65}
                 />
               </div>
               <div className={s.grid_img_wrapper}>
@@ -292,6 +300,7 @@ export default function Home() {
                   layout="fill"
                   alt="violoncello_project"
                   src="/homeImages/projects/violoncello.jpg"
+                  quality={65}
                 />
               </div>
             </div>
@@ -302,6 +311,7 @@ export default function Home() {
                 height={74}
                 alt="faja_clientes"
                 objectFit="contain"
+                quality={65}
               />
             </div>
           </div>
@@ -313,6 +323,7 @@ export default function Home() {
               objectFit="cover"
               layout="fill"
               alt="route_bg"
+              quality={65}
             />
           </div>
           <div className={`${s.absolute} ${s.app_width}`}>
@@ -359,6 +370,7 @@ export default function Home() {
                     height={3333}
                     layout="responsive"
                     alt="white_logo"
+                    quality={65}
                   />
                 </div>
               </div>
@@ -376,6 +388,7 @@ export default function Home() {
                   layout="responsive"
                   objectFit="contain"
                   alt="guanaco_alquila"
+                  quality={65}
                 />
               </div>
               <div className={s.contact_img_guanaco_wrapper}>
@@ -384,6 +397,7 @@ export default function Home() {
                   layout="fill"
                   objectFit="contain"
                   alt="guanaco"
+                  quality={65}
                 />
               </div>
             </div>
