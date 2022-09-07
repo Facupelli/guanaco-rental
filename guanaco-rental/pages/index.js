@@ -251,60 +251,128 @@ export default function Home() {
             <h2>PROYECTOS</h2>
             <p>Algunos de los proyectos filmados con equipos del rental</p>
             <div className={s.grid}>
-              <div className={s.grid_img_wrapper}>
-                <Image
-                  objectFit="cover"
-                  layout="fill"
-                  alt="lali_project"
-                  src="/homeImages/projects/lali.jpg"
-                  quality={65}
-                />
-              </div>
-              <div className={s.grid_img_wrapper}>
-                <Image
-                  objectFit="cover"
-                  layout="fill"
-                  alt="living_project"
-                  src="/homeImages/projects/living.jpg"
-                  quality={65}
-                />
-              </div>
-              <div className={s.grid_img_wrapper}>
-                <Image
-                  objectFit="cover"
-                  layout="fill"
-                  alt="abanico_project"
-                  src="/homeImages/projects/abanico.jpg"
-                  quality={65}
-                />
-              </div>
-              <div className={s.grid_img_wrapper}>
-                <Image
-                  objectFit="cover"
-                  layout="fill"
-                  alt="sentada_project"
-                  src="/homeImages/projects/sentada.jpg"
-                  quality={65}
-                />
-              </div>
-              <div className={s.grid_img_wrapper}>
-                <Image
-                  objectFit="cover"
-                  layout="fill"
-                  alt="patio_project"
-                  src="/homeImages/projects/patio.jpg"
-                  quality={65}
-                />
-              </div>
-              <div className={s.grid_img_wrapper}>
-                <Image
-                  objectFit="cover"
-                  layout="fill"
-                  alt="violoncello_project"
-                  src="/homeImages/projects/violoncello.jpg"
-                  quality={65}
-                />
-              </div>
+              <a
+                href="https://www.youtube.com/watch?v=k_240CA8-O8"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className={s.grid_img_wrapper}>
+                  <Image
+                    objectFit="cover"
+                    layout="fill"
+                    alt="lali_project"
+                    src="/homeImages/projects/lali.jpg"
+                    quality={65}
+                  />
+                  <div className={s.hover_overlap}>
+                    <p>LALI - 2 son 3</p>
+                    <p>BS+</p>
+                    <p>Dir: Juan Gonsz</p>
+                    <p>Df: Agostina Poblete</p>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="https://www.youtube.com/watch?v=LDO1idWxG9Q"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className={s.grid_img_wrapper}>
+                  <Image
+                    objectFit="cover"
+                    layout="fill"
+                    alt="living_project"
+                    src="/homeImages/projects/living.jpg"
+                    quality={65}
+                  />
+                  <div className={s.hover_overlap}>
+                    <p>Isla de Caras - Tu forma de decir adiós</p>
+                    <p>Dir: LOBA</p>
+                    <p>DF: Oscar Diaz</p>
+                    <p>Prod: Payo Saravia</p>
+                    <p>1AC: Agostina Poblete</p>
+                    <p>Montaje: David Chacón</p>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="https://www.youtube.com/watch?v=M2dUG7WaE48"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className={s.grid_img_wrapper}>
+                  <Image
+                    objectFit="cover"
+                    layout="fill"
+                    alt="abanico_project"
+                    src="/homeImages/projects/abanico.jpg"
+                    quality={65}
+                  />
+                  <div className={s.hover_overlap}>
+                    <p>Teatro del Bicentenario - Madama Butterfly</p>
+                    <p>PEZ DORADO CREATIVE CO.</p>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="https://www.youtube.com/watch?v=aLRNt9hwLh4"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className={s.grid_img_wrapper}>
+                  <Image
+                    objectFit="cover"
+                    layout="fill"
+                    alt="sentada_project"
+                    src="/homeImages/projects/sentada.jpg"
+                    quality={65}
+                  />
+                  <div className={s.hover_overlap}>
+                    <p>Martina Flores - Te pido</p>
+                    <p>ALTA PRODUCTORA</p>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="https://www.youtube.com/watch?v=lS_UVwqNY08"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className={s.grid_img_wrapper}>
+                  <Image
+                    objectFit="cover"
+                    layout="fill"
+                    alt="patio_project"
+                    src="/homeImages/projects/patio.jpg"
+                    quality={65}
+                  />
+                  <div className={s.hover_overlap}>
+                    <p>Solo Juan -Lo que fuimos</p>
+                    <p>SHOT BY PRISMO</p>
+                    <p>Dir: David Chacón</p>
+                    <p>DF: Agostina Poblete</p>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="https://www.youtube.com/watch?v=ZoxKkGpRbtk"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className={s.grid_img_wrapper}>
+                  <Image
+                    objectFit="cover"
+                    layout="fill"
+                    alt="violoncello_project"
+                    src="/homeImages/projects/violoncello.jpg"
+                    quality={65}
+                  />
+                  <div className={s.hover_overlap}>
+                    <p>Cande y Paulo - NPR Tiny Desk</p>
+                    <p>Dir: Guillermo Correa</p>
+                  </div>
+                </div>
+              </a>
             </div>
             <div className={s.faja_img_wrapper}>
               <Image
@@ -352,13 +420,13 @@ export default function Home() {
                   </Link>
                 </button>
                 <button type="button">
-                  <Link
+                  <a
                     href="https://drive.google.com/file/d/1btblH9iNNgabi3uPw6gOmMTbJBelYrKP/view"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <a>Condiciones de Alquiler</a>
-                  </Link>
+                    Condiciones de Alquiler
+                  </a>
                 </button>
                 <button type="button">
                   <Link href="/newClient">

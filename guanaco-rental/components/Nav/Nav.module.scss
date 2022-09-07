@@ -12,6 +12,7 @@
   font-family: "Panton";
   position: relative;
   z-index: 10;
+  font-weight: 400;
 
   .logo_container {
     margin-right: auto;
@@ -48,14 +49,12 @@
 
     li {
       cursor: pointer;
-      font-weight: 600;
 
       button {
         background-color: transparent;
         border: none;
         color: $m-white;
         font-family: "Panton";
-        font-weight: 600;
         font-size: 1em;
         cursor: pointer;
 

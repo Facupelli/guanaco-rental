@@ -4,7 +4,6 @@ import { useState } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
-// import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
 import MessageModal from "../../components/MessageModal/MessageModal";
 import Nav from "../../components/Nav/Nav";
 

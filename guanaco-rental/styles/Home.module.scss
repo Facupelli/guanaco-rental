@@ -52,7 +52,7 @@ $h-s-gray: #212121;
 
       button {
         width: 100%;
-        padding: 0.5rem 0rem;
+        padding: 0.8rem 0rem;
       }
     }
   }
@@ -123,6 +123,44 @@ $h-s-gray: #212121;
         .grid_img_wrapper {
           height: 350px;
           position: relative;
+          transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+
+          &:hover .hover_overlap {
+            opacity: 100%;
+            cursor: pointer;
+          }
+
+          &:hover{
+            transform: scale(1.05);
+            z-index: 10;
+          }
+
+          .hover_overlap {
+            background-color: rgba(48, 48, 48, 0.5);
+            opacity: 0%;
+            height: 350px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .2rem;
+            padding: 0 2rem;
+            transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+
+            > p {
+              font-weight: 300;
+              font-size: 1em;
+              color: white;
+            }
+
+            > p:first-child {
+              font-size: 1.5em;
+              margin-bottom: .6rem;
+              text-align: center;
+            }
+          }
         }
       }
 
@@ -253,8 +291,6 @@ $h-s-gray: #212121;
     }
   }
 }
-
-
 
 @media (max-width: 768px) {
   .main {
