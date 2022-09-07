@@ -115,7 +115,7 @@ export default function CompleteProfileModal({ user }) {
           showButton
           btnFunc={() => {
             setMessage("");
-            router.push("/");
+            router.push("/book");
           }}
         >
           <p>{message}</p>

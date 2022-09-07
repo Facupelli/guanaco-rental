@@ -1,5 +1,454 @@
+@import "../styles/app.scss";
+
+$h-gray: #2f2e2e;
+$h-s-gray: #212121;
+
+@mixin section-title {
+  font-weight: 500;
+  font-size: 2.5em;
+  text-align: center;
+}
+
+.app_width {
+  @include app_width;
+}
+
 .main {
   font-family: "Panton";
   background-color: #ebebeb;
   min-height: 100vh;
+
+  button {
+    cursor: pointer;
+  }
+
+  .home_img_wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 800px;
+    background-color: red;
+  }
+
+  .logo_img_wrapper {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    top: 30%;
+    left: 50%;
+    width: 500px;
+    height: 200px;
+
+    .home_btns_wrapper {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+
+      button {
+        width: 100%;
+        padding: 0.5rem 0rem;
+      }
+    }
+  }
+
+  .services_container {
+    background-color: $h-gray;
+    padding: 6rem 4rem;
+    color: $m-white;
+
+    > div {
+      h2 {
+        @include section-title;
+      }
+
+      .services_wrapper {
+        margin-top: 4rem;
+        display: flex;
+        justify-content: space-around;
+        gap: 1.5rem;
+        font-weight: 300;
+
+        > div {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .service_icon_wrapper {
+            padding: 0 0 1rem 0;
+          }
+
+          p {
+            text-align: center;
+            padding: 0rem 0rem 1rem 0rem;
+          }
+        }
+      }
+    }
+
+    .faja_img_wrapper {
+      width: 80%;
+      height: 60px;
+      margin-top: 2rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .projects_container {
+    background-color: $h-s-gray;
+    padding: 6rem 4rem;
+    color: $m-white;
+
+    > div {
+      h2 {
+        @include section-title;
+      }
+
+      > p {
+        text-align: center;
+        padding: 1rem 0rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 33.33%);
+
+        .grid_img_wrapper {
+          height: 350px;
+          position: relative;
+        }
+      }
+
+      .faja_img_wrapper {
+        width: 80%;
+        height: 74px;
+        margin-top: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
+  .us_container {
+    position: relative;
+    .bg_img_wrapper {
+      width: 100%;
+      height: 600px;
+      position: relative;
+    }
+
+    .absolute {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      z-index: 5;
+      width: 75%;
+
+      .flex_two_columns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+
+        .us_column {
+          flex-basis: 65%;
+          background-color: $m-white;
+          padding: 3rem 2rem;
+
+          h2 {
+            @include section-title;
+          }
+
+          > p {
+            padding: 1rem 0rem;
+            text-align: center;
+          }
+        }
+
+        .btns_column {
+          flex-basis: calc(35% - 2rem);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+
+          button {
+            width: 100%;
+            border: none;
+            padding: 0.6rem 0rem;
+          }
+
+          .white_logo_wrapper {
+            width: 60%;
+          }
+        }
+      }
+    }
+  }
+
+  .contact_container {
+    background-color: #d1cac9;
+    height: 800px;
+    padding: 6rem 0rem;
+
+    .images_wrapper {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      width: 60%;
+      height: 200px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+
+      .contact_img_wrapper {
+        width: 65%;
+        height: 150px;
+        position: absolute;
+        bottom: 50px;
+        left: -15px;
+        z-index: 5;
+      }
+      .contact_img_guanaco_wrapper {
+        width: 50%;
+        height: 350px;
+        position: absolute;
+        bottom: -60px;
+        right: 0px;
+      }
+    }
+
+    .contact_card {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: $m-white;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 3rem 0rem;
+
+      h2 {
+        @include section-title;
+      }
+
+      > div,
+      > p {
+        padding: 1rem 0rem;
+      }
+    }
+  }
+
+  .footer {
+    background-color: $h-gray;
+    padding: 2rem 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $m-white;
+    font-weight: 300;
+
+    > p {
+      margin-top: 1rem;
+      font-size: 0.9em;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    .logo_img_wrapper {
+      width: 300px;
+      height: 100px;
+    }
+
+    .services_container {
+      padding: 3rem 0rem;
+
+      > div {
+        .services_wrapper {
+          flex-wrap: wrap;
+          column-gap: 1rem;
+          justify-content: center;
+
+          > div {
+            flex-basis: 30%;
+          }
+        }
+
+        .faja_img_wrapper {
+          width: 100%;
+          height: 80px;
+        }
+      }
+    }
+
+    .projects_container {
+      padding: 6rem 0rem;
+
+      > div {
+        .grid {
+          grid-template-columns: 50% 50%;
+          width: 100%;
+
+          .grid_img_wrapper {
+            height: 225px;
+            width: 100%;
+            position: relative;
+          }
+        }
+      }
+    }
+
+    .us_container {
+      .bg_img_wrapper {
+        width: 100%;
+        height: 1000px;
+        background-color: green;
+      }
+
+      .absolute {
+        width: 90%;
+        .flex_two_columns {
+          .us_column {
+            flex-basis: 90%;
+          }
+          .btns_column {
+            flex-basis: 90%;
+
+            button {
+              margin: 0rem 0rem 0.5rem 0;
+            }
+
+            .white_logo_wrapper {
+              margin-top: 1rem;
+              width: 50%;
+            }
+          }
+        }
+      }
+    }
+
+    .contact_container {
+      .images_wrapper {
+        width: 100%;
+        height: 200px;
+
+        .contact_img_wrapper {
+          display: none;
+        }
+        .contact_img_guanaco_wrapper {
+          width: 90%;
+          height: 375px;
+          position: absolute;
+          bottom: -50px;
+          right: 5%;
+        }
+      }
+
+      .contact_card {
+        width: 90%;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 480px) {
+  .main {
+    .logo_img_wrapper {
+      width: 300px;
+      height: 100px;
+    }
+
+    .services_container {
+      padding: 3rem 0rem;
+
+      > div {
+        .services_wrapper {
+          flex-wrap: wrap;
+          column-gap: 1rem;
+          justify-content: center;
+
+          > div {
+            flex-basis: 45%;
+          }
+        }
+
+        .faja_img_wrapper {
+          width: 100%;
+          height: 80px;
+        }
+      }
+    }
+
+    .projects_container {
+      padding: 6rem 0rem;
+
+      > div {
+        .grid {
+          grid-template-columns: 100%;
+          width: 100%;
+
+          .grid_img_wrapper {
+            height: 225px;
+            width: 100%;
+            position: relative;
+          }
+        }
+      }
+    }
+
+    .us_container {
+      .bg_img_wrapper {
+        width: 100%;
+        height: 1000px;
+      }
+
+      .absolute {
+        width: 90%;
+        .flex_two_columns {
+          .us_column {
+            flex-basis: 90%;
+          }
+          .btns_column {
+            flex-basis: 90%;
+
+            button {
+              margin: 0rem 0rem 0.5rem 0;
+            }
+
+            .white_logo_wrapper {
+              margin-top: 1rem;
+              width: 50%;
+            }
+          }
+        }
+      }
+    }
+
+    .contact_container {
+      .images_wrapper {
+        width: 90%;
+        height: 200px;
+
+        .contact_img_wrapper {
+          display: none;
+        }
+        .contact_img_guanaco_wrapper {
+          width: 90%;
+          height: 300px;
+          position: absolute;
+          bottom: -50px;
+          right: 10%;
+        }
+      }
+
+      .contact_card {
+        width: 90%;
+      }
+    }
+  }
 }

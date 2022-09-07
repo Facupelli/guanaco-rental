@@ -210,7 +210,7 @@ export default function CartPage() {
             >
               agendar pedido
             </button>
-            <Link href="/">
+            <Link href="/book">
               <button type="button">continuar alquilando</button>
             </Link>
           </div>

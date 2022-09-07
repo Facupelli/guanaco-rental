@@ -38,6 +38,14 @@
       gap: 0.5rem;
     }
 
+    .link_icon_google{
+      font-size: .8em;
+
+      >p:first-child{
+        font-size: .9em;
+      }
+    }
+
     li {
       cursor: pointer;
       font-weight: 600;

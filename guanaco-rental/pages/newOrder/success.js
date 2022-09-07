@@ -48,7 +48,7 @@ export default function NewOrderSuccess({ order }) {
           </article>
         )}
         <div className={s.link_wrapper}>
-          <Link href="/">
+          <Link href="/book">
             <a>TERMINADO</a>
           </Link>
         </div>

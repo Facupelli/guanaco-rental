@@ -1,0 +1,29 @@
+@import "../../../styles/app.scss";
+
+.social_net_icons_wrapper {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: $m-white;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    .social_net_icon_30 {
+      width: 30px;
+      height: 30px;
+      color: $m-black;
+    }
+
+    .social_net_icon_20 {
+        width: 20px;
+        height: 20px;
+        color: $m-black;
+      }
+  }
+}

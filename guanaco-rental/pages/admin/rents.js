@@ -6,7 +6,7 @@ import { formatPrice, getOwnerEarnings } from "../../utils/price";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import Nav from "../../components/Nav/Nav";
 
-import s from "../../styles/AdminRents.module.scss";
+import s from "../../styles/AdminRentsPage.module.scss";
 
 export default function AdminRents({ totalPrice, orders }) {
   const earnings = orders.map((order) => getOwnerEarnings(order));

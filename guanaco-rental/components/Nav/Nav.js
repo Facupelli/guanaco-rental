@@ -4,6 +4,10 @@ import {
   faCartShopping,
   faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGoogle,
+  faFacebook
+} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
@@ -66,9 +70,18 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
           </Link>
         </li>
         <li>
+          <Link href="/book">
+            <a>RESERVAS ONLINE</a>
+          </Link>
+        </li>
+        <li>
           <Link href="/faq">
             <a>FAQ</a>
           </Link>
+        </li>
+        <li onClick={cartPage ? null : handleShowCart} className={s.link_icon}>
+          CARRITO
+          <FontAwesomeIcon icon={faCartShopping} width="20px" />
         </li>
         {session ? (
           <li>
@@ -83,20 +96,27 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
         ) : (
           <>
             <li>
-              <button onClick={() => signIn()} className={s.link_icon}>
+              {/* <button onClick={() => signIn()} className={s.link_icon}>
                 INICIAR SESION
                 <FontAwesomeIcon
                   icon={faArrowRightToBracket}
                   className={s.icon}
                 />
+              </button> */}
+              <button className={s.link_icon_google} onClick={() => signIn("google")}>
+                <p>INICIAR SESION</p>
+                <p className={s.justify_between}>GOOGLE <FontAwesomeIcon icon={faGoogle} /></p>
+              </button>
+            </li>
+            <li>
+              <button className={s.link_icon_google}>
+                <p>INICIAR SESION</p>
+                <p className={s.justify_between}>FACEBOOK <FontAwesomeIcon icon={faFacebook} /></p>
               </button>
             </li>
           </>
         )}
-        <li onClick={cartPage ? null : handleShowCart} className={s.link_icon}>
-          CARRITO
-          <FontAwesomeIcon icon={faCartShopping} width="20px" />
-        </li>
+        
         {userRole === "ADMIN" && (
           <li>
             <Link href="/admin">
