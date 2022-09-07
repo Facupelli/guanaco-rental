@@ -93,8 +93,8 @@ $h-s-gray: #212121;
 
     .faja_img_wrapper {
       position: relative;
-      width: 80%;
-      height: 40px;
+      width: 100%;
+      height: 60px;
       margin-top: 2rem;
       margin-left: auto;
       margin-right: auto;
@@ -130,7 +130,7 @@ $h-s-gray: #212121;
             cursor: pointer;
           }
 
-          &:hover{
+          &:hover {
             transform: scale(1.05);
             z-index: 10;
           }
@@ -145,7 +145,7 @@ $h-s-gray: #212121;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: .2rem;
+            gap: 0.2rem;
             padding: 0 2rem;
             transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
@@ -157,7 +157,7 @@ $h-s-gray: #212121;
 
             > p:first-child {
               font-size: 1.5em;
-              margin-bottom: .6rem;
+              margin-bottom: 0.6rem;
               text-align: center;
             }
           }
@@ -250,12 +250,13 @@ $h-s-gray: #212121;
 
       .contact_img_wrapper {
         width: 65%;
-        height: 150px;
+        height: 190px;
         position: absolute;
-        bottom: 50px;
+        bottom: 0px;
         left: -15px;
         z-index: 5;
       }
+      
       .contact_img_guanaco_wrapper {
         width: 50%;
         height: 350px;
@@ -372,14 +373,8 @@ $h-s-gray: #212121;
         height: 200px;
 
         .contact_img_wrapper {
-          display: none;
-        }
-        .contact_img_guanaco_wrapper {
-          width: 90%;
-          height: 375px;
-          position: absolute;
-          bottom: -50px;
-          right: 5%;
+          width: 60%;
+          left: 15px;
         }
       }
 
