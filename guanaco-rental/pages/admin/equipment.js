@@ -46,7 +46,9 @@ export default function AdminEquipment({ equipment }) {
         <title>Admin Equipment</title>
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
+
       <Nav />
+
       <AdminMain title="Equipos">
         <div className={s.flex}>
           <p>

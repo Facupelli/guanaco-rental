@@ -43,7 +43,7 @@ export default function AdminPage({ session }) {
       const dates = bookings.map((book) => book.dates).flat();
       setBookings(dates);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   };
 

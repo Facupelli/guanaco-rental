@@ -50,9 +50,7 @@ export default function Home() {
         }}
       />
 
-      <header>
-        <Nav route="home" />
-      </header>
+      <Nav route="home" />
 
       <main className={s.main}>
         <section id="home">

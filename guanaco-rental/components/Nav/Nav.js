@@ -35,107 +35,109 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
   );
 
   return (
-    <nav className={s.nav_container}>
-      <Link href="/">
-        <div className={s.logo_container}>
-          <Image
-            src="/guanaco-rental-logo.svg"
-            alt="guanaco-logo"
-            width={75}
-            height={75}
-            layout="intrinsic"
-            objectFit="contain"
-          />
-        </div>
-      </Link>
-      {route !== "home" && (
-        <button
-          type="button"
-          onClick={cartPage ? null : handleShowCart}
-          className={s.cart_btn}
-          aria-label="cart_button"
-        >
-          <FontAwesomeIcon icon={faCartShopping} className={s.cart_icon} />
-        </button>
-      )}
-      <input type="checkbox" name="click" className={s.click} id="click" />
-      <label htmlFor="click" className={s.icon_container}>
-        <FontAwesomeIcon icon={faBars} className={s.bars_icon} />
-      </label>
-      <ul ref={menuRef}>
-        <li>
-          <Link href="/">
-            <a>INICIO</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/book">
-            <a>RESERVAS ONLINE</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/faq">
-            <a>FAQ</a>
-          </Link>
-        </li>
+    <header>
+      <nav className={s.nav_container}>
+        <Link href="/">
+          <div className={s.logo_container}>
+            <Image
+              src="/guanaco-rental-logo.svg"
+              alt="guanaco-logo"
+              width={75}
+              height={75}
+              layout="intrinsic"
+              objectFit="contain"
+            />
+          </div>
+        </Link>
         {route !== "home" && (
-          <li
+          <button
+            type="button"
             onClick={cartPage ? null : handleShowCart}
-            className={s.link_icon}
+            className={s.cart_btn}
+            aria-label="cart_button"
           >
-            CARRITO
-            <FontAwesomeIcon icon={faCartShopping} width="20px" />
-          </li>
+            <FontAwesomeIcon icon={faCartShopping} className={s.cart_icon} />
+          </button>
         )}
-        {session ? (
+        <input type="checkbox" name="click" className={s.click} id="click" />
+        <label htmlFor="click" className={s.icon_container}>
+          <FontAwesomeIcon icon={faBars} className={s.bars_icon} />
+        </label>
+        <ul ref={menuRef}>
           <li>
-            <button onClick={() => signOut()} className={s.link_icon}>
-              SALIR
-              <FontAwesomeIcon
-                icon={faArrowRightFromBracket}
-                className={s.icon}
-              />
-            </button>
+            <Link href="/">
+              <a>INICIO</a>
+            </Link>
           </li>
-        ) : (
-          <>
+          <li>
+            <Link href="/book">
+              <a>RESERVAS ONLINE</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/faq">
+              <a>FAQ</a>
+            </Link>
+          </li>
+          {route !== "home" && (
+            <li
+              onClick={cartPage ? null : handleShowCart}
+              className={s.link_icon}
+            >
+              CARRITO
+              <FontAwesomeIcon icon={faCartShopping} width="20px" />
+            </li>
+          )}
+          {session ? (
             <li>
-              {/* <button onClick={() => signIn()} className={s.link_icon}>
+              <button onClick={() => signOut()} className={s.link_icon}>
+                SALIR
+                <FontAwesomeIcon
+                  icon={faArrowRightFromBracket}
+                  className={s.icon}
+                />
+              </button>
+            </li>
+          ) : (
+            <>
+              <li>
+                {/* <button onClick={() => signIn()} className={s.link_icon}>
                 INICIAR SESION
                 <FontAwesomeIcon
                   icon={faArrowRightToBracket}
                   className={s.icon}
                 />
               </button> */}
-              <button
-                className={s.link_icon_google}
-                onClick={() => signIn("google")}
-              >
-                <p>ENTRAR CON</p>
-                <p className={s.justify_between}>
-                  GOOGLE <FontAwesomeIcon icon={faGoogle} />
-                </p>
-              </button>
-            </li>
-            <li>
-              <button className={s.link_icon_google}>
-                <p>ENTRAR CON</p>
-                <p className={s.justify_between}>
-                  FACEBOOK <FontAwesomeIcon icon={faFacebook} />
-                </p>
-              </button>
-            </li>
-          </>
-        )}
+                <button
+                  className={s.link_icon_google}
+                  onClick={() => signIn("google")}
+                >
+                  <p>ENTRAR CON</p>
+                  <p className={s.justify_between}>
+                    GOOGLE <FontAwesomeIcon icon={faGoogle} />
+                  </p>
+                </button>
+              </li>
+              <li>
+                <button className={s.link_icon_google}>
+                  <p>ENTRAR CON</p>
+                  <p className={s.justify_between}>
+                    FACEBOOK <FontAwesomeIcon icon={faFacebook} />
+                  </p>
+                </button>
+              </li>
+            </>
+          )}
 
-        {userRole === "ADMIN" && (
-          <li>
-            <Link href="/admin">
-              <a>ADMIN</a>
-            </Link>
-          </li>
-        )}
-      </ul>
-    </nav>
+          {userRole === "ADMIN" && (
+            <li>
+              <Link href="/admin">
+                <a>ADMIN</a>
+              </Link>
+            </li>
+          )}
+        </ul>
+      </nav>
+    </header>
   );
 }
