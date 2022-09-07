@@ -7,7 +7,7 @@
 
 .main {
   @include app_width;
-  margin-top: 3rem;
+  padding-top: calc(3rem + 70px);
   padding-bottom: 3rem;
   font-family: "Panton";
 

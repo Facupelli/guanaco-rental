@@ -17,6 +17,7 @@ $h-s-gray: #212121;
   font-family: "Panton";
   background-color: #ebebeb;
   min-height: 100vh;
+  padding-top: 70px;
 
   button {
     cursor: pointer;
@@ -256,7 +257,7 @@ $h-s-gray: #212121;
         left: -15px;
         z-index: 5;
       }
-      
+
       .contact_img_guanaco_wrapper {
         width: 50%;
         height: 350px;

@@ -2,7 +2,7 @@
 
 .main {
   @include app_width;
-  margin-top: 3rem;
+  padding-top: calc(3rem + 70px);
 
   .title_wrapper {
     display: flex;
