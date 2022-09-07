@@ -21,9 +21,26 @@
     }
 
     .social_net_icon_20 {
+      width: 20px;
+      height: 20px;
+      color: $m-black;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .social_net_icons_wrapper {
+    > div {
+      .social_net_icon_30 {
         width: 20px;
         height: 20px;
+      }
+
+      .social_net_icon_20 {
+        width: 15px;
+        height: 15px;
         color: $m-black;
       }
+    }
   }
 }

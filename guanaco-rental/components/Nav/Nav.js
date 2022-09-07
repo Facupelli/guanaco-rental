@@ -4,10 +4,7 @@ import {
   faCartShopping,
   faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faGoogle,
-  faFacebook
-} from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
@@ -18,12 +15,12 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 import s from "./Nav.module.scss";
 
-export default function Nav({ setShowCart, cartPage, home, role }) {
+export default function Nav({ setShowCart, cartPage, route, role }) {
   const { data: session } = useSession();
   const userRole = useSelector((state) => state.user.data.role);
 
   const handleShowCart = () => {
-    if (home) {
+    if (route === "book") {
       setShowCart(true);
     }
   };
@@ -51,14 +48,16 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
           />
         </div>
       </Link>
-      <button
-        type="button"
-        onClick={cartPage ? null : handleShowCart}
-        className={s.cart_btn}
-        aria-label="cart_button"
-      >
-        <FontAwesomeIcon icon={faCartShopping} className={s.cart_icon} />
-      </button>
+      {route !== "home" && (
+        <button
+          type="button"
+          onClick={cartPage ? null : handleShowCart}
+          className={s.cart_btn}
+          aria-label="cart_button"
+        >
+          <FontAwesomeIcon icon={faCartShopping} className={s.cart_icon} />
+        </button>
+      )}
       <input type="checkbox" name="click" className={s.click} id="click" />
       <label htmlFor="click" className={s.icon_container}>
         <FontAwesomeIcon icon={faBars} className={s.bars_icon} />
@@ -103,20 +102,27 @@ export default function Nav({ setShowCart, cartPage, home, role }) {
                   className={s.icon}
                 />
               </button> */}
-              <button className={s.link_icon_google} onClick={() => signIn("google")}>
+              <button
+                className={s.link_icon_google}
+                onClick={() => signIn("google")}
+              >
                 <p>INICIAR SESION</p>
-                <p className={s.justify_between}>GOOGLE <FontAwesomeIcon icon={faGoogle} /></p>
+                <p className={s.justify_between}>
+                  GOOGLE <FontAwesomeIcon icon={faGoogle} />
+                </p>
               </button>
             </li>
             <li>
               <button className={s.link_icon_google}>
                 <p>INICIAR SESION</p>
-                <p className={s.justify_between}>FACEBOOK <FontAwesomeIcon icon={faFacebook} /></p>
+                <p className={s.justify_between}>
+                  FACEBOOK <FontAwesomeIcon icon={faFacebook} />
+                </p>
               </button>
             </li>
           </>
         )}
-        
+
         {userRole === "ADMIN" && (
           <li>
             <Link href="/admin">

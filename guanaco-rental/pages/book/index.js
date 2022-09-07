@@ -83,7 +83,7 @@ export default function Home() {
         }}
       />
 
-      <Nav setShowCart={setShowCart} home />
+      <Nav setShowCart={setShowCart} route="book" />
 
       <main className={styles.main}>
         {datePickup && (

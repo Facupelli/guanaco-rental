@@ -51,7 +51,7 @@ export default function Home() {
       />
 
       <header>
-        <Nav />
+        <Nav route="home" />
       </header>
 
       <main className={s.main}>
@@ -235,9 +235,7 @@ export default function Home() {
             <div className={s.faja_img_wrapper}>
               <Image
                 src="/homeImages/assets/faja-logos-marcas.webp"
-                layout="responsive"
-                width={800}
-                height={60}
+                layout="fill"
                 objectFit="contain"
                 quality={65}
               />
@@ -307,10 +305,9 @@ export default function Home() {
             <div className={s.faja_img_wrapper}>
               <Image
                 src="/homeImages/assets/faja-logos-clientes.webp"
-                width={830}
-                height={74}
                 alt="faja_clientes"
                 objectFit="contain"
+                layout="fill"
                 quality={65}
               />
             </div>
@@ -402,21 +399,23 @@ export default function Home() {
               </div>
             </div>
             <div className={s.contact_card}>
-              <h2>CONTACTO</h2>
               <div>
-                <p>Whatsapp: +54 9 2645855761</p>
-                <p>hola@guanacorental.com</p>
-              </div>
-              <div>
-                <p>Ig: guanaco.rentalaudiovisual</p>
-                <p>Fb: Guanaco Rental</p>
-                <p>Youtube: /guanacorental</p>
-              </div>
-              <p>HORARIO:</p>
-              <div>
-                <p>Retiros: 8am - 9am</p>
-                <p>Devoluciones: 9am - 10am</p>
-                <p>Domingo: Cerrado</p>
+                <h2>CONTACTO</h2>
+                <div>
+                  <p>Whatsapp: +54 9 2645855761</p>
+                  <p>hola@guanacorental.com</p>
+                </div>
+                <div>
+                  <p>Ig: guanaco.rentalaudiovisual</p>
+                  <p>Fb: Guanaco Rental</p>
+                  <p>Youtube: /guanacorental</p>
+                </div>
+                <p>HORARIO:</p>
+                <div>
+                  <p>Retiros: 8am - 9am</p>
+                  <p>Devoluciones: 9am - 10am</p>
+                  <p>Domingo: Cerrado</p>
+                </div>
               </div>
             </div>
           </div>
