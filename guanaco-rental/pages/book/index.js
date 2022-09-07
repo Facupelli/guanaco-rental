@@ -15,6 +15,7 @@ import Bookeable from "../../components/Bookeable/Bookeable";
 import Nav from "../../components/Nav/Nav";
 import CartModal from "../../components/CartModal/CartModal";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
+import Footer from "../../components/Home/Footer/Footer";
 
 import styles from "../../styles/BookPage.module.scss";
 
@@ -104,6 +105,7 @@ export default function Home() {
           setShowCart={setShowCart}
         />
       </main>
+      <Footer />
     </div>
   );
 }

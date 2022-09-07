@@ -22,7 +22,7 @@ $h-s-gray: #212121;
     cursor: pointer;
     border: none;
 
-    a{
+    a {
       color: $m-black;
     }
   }
@@ -252,22 +252,9 @@ $h-s-gray: #212121;
       }
     }
   }
-
-  .footer {
-    background-color: $h-gray;
-    padding: 2rem 0rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: $m-white;
-    font-weight: 300;
-
-    > p {
-      margin-top: 1rem;
-      font-size: 0.9em;
-    }
-  }
 }
+
+
 
 @media (max-width: 768px) {
   .main {
@@ -413,7 +400,7 @@ $h-s-gray: #212121;
           }
         }
 
-        .faja_img_wrapper{
+        .faja_img_wrapper {
           height: 40px;
           width: 100%;
         }

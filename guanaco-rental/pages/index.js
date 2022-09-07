@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
+import Footer from "../components/Home/Footer/Footer";
 
 //COMPONENTS
 import SocialMediaIcons from "../components/Home/SocialMediaIcons/SocialMediaIcons";
@@ -426,11 +427,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <footer className={s.footer}>
-          <SocialMediaIcons />
-          <p>© 2021. Guanaco Rental. San Juan, Argentina.</p>
-        </footer>
       </main>
+      <Footer />
     </div>
   );
 }
