@@ -50,6 +50,15 @@
     li {
       cursor: pointer;
 
+      a {
+        &:visited {
+          color: $m-white;
+        }
+        &:hover {
+          color: $m-orange;
+        }
+      }
+
       button {
         background-color: transparent;
         border: none;
