@@ -64,6 +64,7 @@ export default function Home() {
                 width={4088}
                 objectFit="contain"
                 quality={65}
+                alt="guanaco-logo"
               />
               <SocialMediaIcons width="30" />
               <div className={s.home_btns_wrapper}>
@@ -82,6 +83,7 @@ export default function Home() {
               objectFit="cover"
               layout="fill"
               quality={65}
+              alt="camara-bg"
             />
           </div>
         </section>
@@ -239,6 +241,7 @@ export default function Home() {
                 layout="fill"
                 objectFit="contain"
                 quality={65}
+                alt="faja-marcas"
               />
             </div>
           </div>
@@ -432,31 +435,3 @@ export default function Home() {
     </div>
   );
 }
-
-// export const getServerSideProps = async (ctx) => {
-//   const session = await unstable_getServerSession(
-//     ctx.req,
-//     ctx.res,
-//     authOptions
-//   );
-
-//   let user;
-//   if (session) {
-//     const response = await getOrCreateUser(session.user);
-//     user = response.user;
-//   }
-
-//   if (user && (user.petitionSent === "DENIED" || !user.petitionSent)) {
-//     return {
-//       redirect: {
-//         destination: "/newClient",
-//       },
-//     };
-//   }
-
-//   return {
-//     props: {
-//       session,
-//     },
-//   };
-// };

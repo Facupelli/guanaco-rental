@@ -1,12 +1,16 @@
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import Head from "next/head";
 import { useState } from "react";
-import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
+import Head from "next/head";
+import dynamic from "next/dynamic";
+
+// import CompleteProfileModal from "../../components/CompleteProfileModal/CompleteProfileModal";
 import MessageModal from "../../components/MessageModal/MessageModal";
 import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/NewClientPage.module.scss";
+
+const CompleteProfileModal = dynamic(() => import("../../components/CompleteProfileModal/CompleteProfileModal"))
 
 export default function NewClientPage({ user }) {
   const [showModal, setShowModal] = useState(true);
