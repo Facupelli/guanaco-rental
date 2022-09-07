@@ -84,8 +84,21 @@
   }
 }
 
+@media (max-width: 768px) {
+  .cart_container{
+    width: 70%;
+    height: calc(100% - 70px);
+    margin: 0px;
+  }
 
-@media (max-width: 920px) {
+  .hide{
+    right: -100%;
+  }
+
+}
+
+
+@media (max-width: 480px) {
   .cart_container{
     width: 100%;
     height: calc(100% - 70px);
