@@ -57,7 +57,7 @@
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
       border-radius: 0.5rem;
       height: fit-content;
-      padding: .5rem;
+      padding: 0.5rem;
 
       .react-calendar__month-view__days__day--weekend {
         color: #dfdfdf;
@@ -80,37 +80,77 @@
         gap: 2rem;
         margin: 0rem 0rem 1.5rem 0rem;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-        border-radius: .2rem;
+        border-radius: 0.2rem;
         padding: 1rem;
       }
 
-      .flex_10{
+      .flex_10 {
         flex-basis: 10%;
       }
 
-      .flex_20{
+      .flex_20 {
         flex-basis: 20%;
       }
 
-      .flex_50{
+      .flex_50 {
         flex-basis: calc(50% - 6rem);
       }
 
-      .bold{
+      .bold {
         font-weight: 600;
       }
-
-
     }
   }
 }
 
-@media (max-width: 920px) {
+@media (max-width: 768px) {
+  .main {
+    section {
+      grid-template-columns: 100%;
+      row-gap: 1rem;
+
+      .calendar {
+        width: 70%;
+      }
+
+      .info_wrapper {
+        > div {
+          flex-wrap: wrap;
+          column-gap: 2rem;
+          row-gap: 0.5rem;
+          width: 70%;
+
+          .flex_50 {
+            flex-basis: calc(100% - 6rem);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
   .main {
     nav {
       ul {
-        flex-direction: column;
-        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 1rem;
+      }
+    }
+
+    section {
+      grid-template-columns: 100%;
+      row-gap: 1rem;
+
+      .calendar {
+        width: 100%;
+      }
+
+      .info_wrapper {
+        > div {
+          width: 100%;
+        }
       }
     }
   }

@@ -71,3 +71,29 @@
   margin: 1rem 0rem;
   border-radius: 0.2rem;
 }
+
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 70% 70%;
+    // column-gap: 5%;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 100%;
+    // column-gap: 5%;
+  }
+  
+  .card_container{
+    .user_summary{
+      flex-wrap: wrap;
+
+      .bold{
+        font-weight: 500;
+      }
+    }
+  }
+}
