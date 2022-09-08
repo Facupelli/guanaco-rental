@@ -1,3 +1,4 @@
+import { getWorkingTotalDays } from "./dates_functions";
 import s from "../components/OrderCard/OrderCard.module.scss";
 
 export const getOrderStatus = (order) => {
@@ -40,5 +41,58 @@ export const handleDeleteOrder = async (id, getAllOrders) => {
 
   if (order.message === "success") {
     getAllOrders();
+  }
+};
+
+export const updateGearFromOrder = async (
+  order,
+  gear,
+  operation,
+  addGearInputs
+) => {
+  const newTotalPrice = () => {
+    const workingDays = getWorkingTotalDays(
+      order.booking.dates,
+      order.booking.pickupHour
+    );
+
+    if (operation === "remove") {
+      const gearQuantity = gear.bookings.filter(
+        (book) => book.bookId === order.booking.id
+      )[0].quantity;
+
+      return workingDays * gear.price * gearQuantity;
+    }
+
+    return workingDays * (gear.price * addGearInputs.quantity);
+  };
+
+  const newPrice = newTotalPrice();
+
+  const data = JSON.stringify({
+    bookingId: order.bookingId,
+    orderId: order.id,
+    equipmentId: gear.id,
+    operation,
+    newPrice,
+    quantity: addGearInputs.quantity,
+  });
+
+  try {
+    const updatedOrder = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/order`
+        : "http://localhost:3001/order",
+      {
+        method: "PUT",
+        body: data,
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+  } catch (e) {
+    console.log("updateOrder error:", e);
   }
 };

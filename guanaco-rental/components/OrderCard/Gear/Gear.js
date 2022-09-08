@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import XmarkButton from "../../XmarkButton/XmarkButton";
 import MessageModal from "../../MessageModal/MessageModal";
+import { updateGearFromOrder } from "../../../utils/orders";
 
 import s from "./Gear.module.scss";
 
@@ -9,7 +10,6 @@ export default function Gear({
   gear,
   order,
   editable,
-  updateGearFromOrder,
   getAllOrders,
 }) {
   const [showModal, setShowModal] = useState(false);
@@ -20,7 +20,7 @@ export default function Gear({
         <MessageModal
           showButton
           btnFunc={() => {
-            updateGearFromOrder(gear, "remove").then(() => getAllOrders());
+            updateGearFromOrder(order, gear, "remove", 0).then(() => getAllOrders());
             setShowModal(false);
           }}
         >

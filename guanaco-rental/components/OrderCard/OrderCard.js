@@ -7,8 +7,8 @@ import {
   generatePdfRows,
   getOrderStatus,
   handleDeleteOrder,
+  updateGearFromOrder,
 } from "../../utils/orders";
-import { getWorkingTotalDays } from "../../utils/dates_functions";
 
 import Gear from "./Gear/Gear";
 import MessageModal from "../MessageModal/MessageModal";
@@ -54,54 +54,6 @@ export default function OrderCard({ order, getAllOrders }) {
 
   const equipmentRows = generatePdfRows(order);
 
-  const updateGearFromOrder = async (gear, operation) => {
-    const newTotalPrice = () => {
-      const workingDays = getWorkingTotalDays(
-        order.booking.dates,
-        order.booking.pickupHour
-      );
-
-      if (operation === "remove") {
-        const gearQuantity = gear.bookings.filter(
-          (book) => book.bookId === order.booking.id
-        )[0].quantity;
-
-        return (workingDays * gear.price * gearQuantity);
-      }
-
-      return workingDays * (gear.price * addGearInputs.quantity);
-    };
-
-    const newPrice = newTotalPrice();
-
-    const data = JSON.stringify({
-      bookingId: order.bookingId,
-      orderId: order.id,
-      equipmentId: gear.id,
-      operation,
-      newPrice,
-      quantity: addGearInputs.quantity,
-    });
-
-    try {
-      const updatedOrder = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/order`
-          : "http://localhost:3001/order",
-        {
-          method: "PUT",
-          body: data,
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-    } catch (e) {
-      console.log("updateOrder error:", e);
-    }
-  };
-
   const [earnings, setEarnings] = useState({});
 
   return (
@@ -139,8 +91,8 @@ export default function OrderCard({ order, getAllOrders }) {
             equipments={equipments}
             setAddGearInputs={setAddGearInputs}
             addGearInputs={addGearInputs}
-            updateGearFromOrder={updateGearFromOrder}
             getAllOrders={getAllOrders}
+            order={order}
           />
         </MessageModal>
       )}
@@ -190,7 +142,6 @@ export default function OrderCard({ order, getAllOrders }) {
                     gear={gear}
                     order={order}
                     key={gear.id}
-                    updateGearFromOrder={updateGearFromOrder}
                     getAllOrders={getAllOrders}
                   />
                 ))}
@@ -235,8 +186,8 @@ const AddGearModalChildren = ({
   equipments,
   setAddGearInputs,
   addGearInputs,
-  updateGearFromOrder,
   getAllOrders,
+  order,
 }) => {
   return (
     <>
@@ -277,7 +228,7 @@ const AddGearModalChildren = ({
                       addGearInputs.quantity &&
                       addGearInputs.quantity <= gear.stock
                     ) {
-                      updateGearFromOrder(gear, "add").then(() =>
+                      updateGearFromOrder(order, gear, "add", addGearInputs).then(() =>
                         getAllOrders()
                       );
                     }
