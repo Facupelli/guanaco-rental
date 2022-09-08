@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Nav from "../../components/Nav/Nav";
 import s from "../../styles/FaqPage.module.scss";
 
@@ -8,7 +9,7 @@ export default function FaqPage() {
         <title>FAQ</title>
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
-      <Nav />
+      <Nav route="faq" />
       <main className={s.main}>
         <h1>FAQ</h1>
         <ul className={s.index}>

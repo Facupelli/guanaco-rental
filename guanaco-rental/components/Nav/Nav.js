@@ -79,7 +79,12 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
               <a>FAQ</a>
             </Link>
           </li>
-          {route !== "home" && (
+          <li>
+            <Link href="/community">
+              <a>COMUNIDAD</a>
+            </Link>
+          </li>
+          {route !== "home" && route !== "faq" && route !== "community" && (
             <li
               onClick={cartPage ? null : handleShowCart}
               className={s.link_icon}
