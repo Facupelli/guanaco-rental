@@ -134,7 +134,7 @@ export default function AdminRents({ totalPrice, orders }) {
 
           <RentsCard>
             <div className={s.title_wrapper}>
-              <h3>PERSONALIZADO</h3>
+              <h3>FINALIZADAS - PERSONALIZADO</h3>
               <div className={s.select_wrapper}>
                 <label htmlFor="date">Desde:</label>
                 <select
