@@ -20,6 +20,8 @@ export default function CommunityPage() {
             layout="fill"
             alt="bg"
             objectFit="cover"
+            priority
+            quality={60}
           />
           <div className={s.content}>
             <h1>COMUNIDAD</h1>
@@ -30,6 +32,7 @@ export default function CommunityPage() {
                   layout="fill"
                   objectFit="cover"
                   alt="gallery_3"
+                  quality={50}
                 />
               </div>
               <div className={s.gallery_img}>
@@ -38,6 +41,7 @@ export default function CommunityPage() {
                   layout="fill"
                   objectFit="cover"
                   alt="gallery_4"
+                  quality={50}
                 />
               </div>
               <div className={s.gallery_img}>
@@ -46,6 +50,7 @@ export default function CommunityPage() {
                   layout="fill"
                   objectFit="cover"
                   alt="gallery_6"
+                  quality={50}
                 />
               </div>
               <div className={s.gallery_img}>
@@ -54,6 +59,7 @@ export default function CommunityPage() {
                   layout="fill"
                   objectFit="cover"
                   alt="gallery_7"
+                  quality={50}
                 />
               </div>
               <div className={`${s.gallery_img} ${s.display_none}`}>
@@ -62,6 +68,7 @@ export default function CommunityPage() {
                   layout="fill"
                   objectFit="cover"
                   alt="gallery_13"
+                  quality={50}
                 />
               </div>
               <div className={`${s.gallery_img} ${s.display_none}`}>
@@ -70,6 +77,7 @@ export default function CommunityPage() {
                   layout="fill"
                   objectFit="cover"
                   alt="gallery_16"
+                  quality={50}
                 />
               </div>
             </div>
