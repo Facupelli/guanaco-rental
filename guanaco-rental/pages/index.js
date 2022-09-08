@@ -84,6 +84,7 @@ export default function Home() {
               layout="fill"
               quality={65}
               alt="camara-bg"
+              priority
             />
           </div>
         </section>
