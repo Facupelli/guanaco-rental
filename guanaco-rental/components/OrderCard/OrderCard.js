@@ -54,18 +54,22 @@ export default function OrderCard({ order, getAllOrders }) {
 
   const equipmentRows = generatePdfRows(order);
 
-  const updateGearFromOrder = async (
-    equipmentId,
-    equipmentPrice,
-    operation
-  ) => {
+  const updateGearFromOrder = async (gear, operation) => {
     const newTotalPrice = () => {
       const workingDays = getWorkingTotalDays(
         order.booking.dates,
         order.booking.pickupHour
       );
 
-      return workingDays * (equipmentPrice * addGearInputs.quantity);
+      if (operation === "remove") {
+        const gearQuantity = gear.bookings.filter(
+          (book) => book.bookId === order.booking.id
+        )[0].quantity;
+
+        return (workingDays * gear.price * gearQuantity);
+      }
+
+      return workingDays * (gear.price * addGearInputs.quantity);
     };
 
     const newPrice = newTotalPrice();
@@ -73,7 +77,7 @@ export default function OrderCard({ order, getAllOrders }) {
     const data = JSON.stringify({
       bookingId: order.bookingId,
       orderId: order.id,
-      equipmentId,
+      equipmentId: gear.id,
       operation,
       newPrice,
       quantity: addGearInputs.quantity,
@@ -98,7 +102,7 @@ export default function OrderCard({ order, getAllOrders }) {
     }
   };
 
-  const earnings = getOwnerEarnings(order);
+  const [earnings, setEarnings] = useState({});
 
   return (
     <>
@@ -107,11 +111,11 @@ export default function OrderCard({ order, getAllOrders }) {
           <div className={s.menu_modal_wrapper}>
             <div>
               <p>Federico:</p>
-              <p className={s.bold}>{formatPrice(earnings.totalFederico)}</p>
+              <p className={s.bold}>{formatPrice(earnings?.totalFederico)}</p>
             </div>
             <div>
               <p>Oscar:</p>
-              <p className={s.bold}>{formatPrice(earnings.totalOscar)}</p>
+              <p className={s.bold}>{formatPrice(earnings?.totalOscar)}</p>
             </div>
             <div className={s.cancel_btn_wrapper}>
               <button
@@ -167,7 +171,10 @@ export default function OrderCard({ order, getAllOrders }) {
           <button
             className={s.elipsis_menu_btn}
             aria-label="menu-btn"
-            onClick={() => setShowDeleteModal(true)}
+            onClick={() => {
+              setEarnings(getOwnerEarnings(order));
+              setShowDeleteModal(true);
+            }}
           >
             <FontAwesomeIcon icon={faEllipsisVertical} />
           </button>
@@ -270,7 +277,7 @@ const AddGearModalChildren = ({
                       addGearInputs.quantity &&
                       addGearInputs.quantity <= gear.stock
                     ) {
-                      updateGearFromOrder(gear.id, gear.price, "add").then(() =>
+                      updateGearFromOrder(gear, "add").then(() =>
                         getAllOrders()
                       );
                     }

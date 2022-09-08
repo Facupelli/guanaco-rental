@@ -12,6 +12,7 @@ export const getOwnerEarnings = (order) => {
   let totalFederico = 0;
   let totalOscar = 0;
 
+
   const workingsDays = getWorkingTotalDays(order.booking.dates);
 
   for (let gear of order.equipments) {

@@ -70,22 +70,38 @@ export const areAllItemsAvailable = (cart, date) => {
   return availability;
 };
 
-export const getWorkingTotalDays = (date, pickupHour) => {
+export const getWorkingTotalDays = (dates, pickupHour) => {
   let weekDay = 0;
   let weekendDay = 0;
+  let bookedDates = dates.slice(0, -1);
 
-  for (let day of date) {
+  for (let day of bookedDates) {
     const newDay = new Date(day).getDay();
+
+    //si es sabado o domingo
     if (newDay === 6 || newDay === 0) {
       weekendDay += 1;
     } else {
-      if (new Date(day).getTime() === new Date(date[0]).getTime()) {
-        newDay === 5 && pickupHour === "09:00" ? (weekDay += 0.5) : null;
-        newDay === 5 && pickupHour === "20:00" ? (weekDay += 0) : null;
-      } else {
+      //si es el primer dia
+      if (
+        new Date(day).getTime() === new Date(bookedDates[0]).getTime() &&
+        newDay === 5 &&
+        pickupHour === "09:00"
+      ) {
+        weekDay += 0.5;
+      } else if (
+        new Date(day).getTime() === new Date(bookedDates[0]).getTime() &&
+        newDay === 5 &&
+        pickupHour === "20:00"
+      ) {
+        weekDay += 0;
+      }
+      //si es cualquier otro dia de la semana habil
+      else {
         weekDay += 1;
       }
     }
   }
-  return (weekDay + weekendDay / 2) - 1;
+
+  return weekDay + weekendDay / 2;
 };
