@@ -19,6 +19,31 @@ export default function AdminRents({ totalPrice, orders }) {
     return curr + acc.totalOscar;
   }, 0);
 
+  const totalFinishedOrders = () => {
+    const today = new Date().getTime();
+    const finishedOrders = orders.filter(
+      (order) => new Date(order.booking.dates[order.booking.dates.length -1]).getTime() < today
+    );
+    const total = finishedOrders.reduce((curr, acc) => {
+      curr + acc.totalPrice;
+    }, 0);
+
+    const eachEarnings = finishedOrders.map((order) => getOwnerEarnings(order));
+
+    const federico = eachEarnings.reduce((curr, acc) => {
+      return curr + acc.totalFederico;
+    }, 0);
+
+    const oscar = eachEarnings.reduce((curr, acc) => {
+      return curr + acc.totalOscar;
+    }, 0);
+
+    return {
+      total,
+      federico,
+      oscar,
+    };
+  };
 
   return (
     <div className={s.grey_bg}>
@@ -28,9 +53,17 @@ export default function AdminRents({ totalPrice, orders }) {
       </Head>
       <Nav />
       <AdminMain title="Rentas">
+        <h3>TODAS</h3>
         <p>TOTAL: {formatPrice(totalPrice)}</p>
         <p>Federico: {formatPrice(federicoEarnings)}</p>
         <p>Oscar: {formatPrice(oscarEarnings)}</p>
+
+        <div>
+          <h3>FINALIZADAS</h3>
+          <p>TOTAL: {formatPrice(totalFinishedOrders().total)}</p>
+          <p>Federico: {formatPrice(totalFinishedOrders().federico)}</p>
+          <p>Oscar: {formatPrice(totalFinishedOrders().oscar)}</p>
+        </div>
       </AdminMain>
     </div>
   );

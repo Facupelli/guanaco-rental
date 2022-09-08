@@ -37,7 +37,7 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
   return (
     <header>
       <nav className={s.nav_container}>
-        <Link href="/">
+        <Link href="/book">
           <div className={s.logo_container}>
             <Image
               src="/guanaco-rental-logo.svg"

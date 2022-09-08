@@ -4,6 +4,10 @@ import s from "../../styles/FaqPage.module.scss";
 export default function FaqPage() {
   return (
     <div>
+       <Head>
+        <title>FAQ</title>
+        <link rel="icon" href="/logo-favicon.ico" />
+      </Head>
       <Nav />
       <main className={s.main}>
         <h1>FAQ</h1>
