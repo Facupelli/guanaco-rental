@@ -53,3 +53,16 @@
 
   }
 }
+
+
+@media (max-width: 480px) {
+  .grey_bg{
+    .section{
+      padding-bottom: 3rem;
+
+      .flex{
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
