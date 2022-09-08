@@ -146,19 +146,19 @@ export default function OrderCard({ order, getAllOrders }) {
       )}
       <div className={s.card_container}>
         <div className={s.info_container}>
-          <p>{order.number}</p>
+          <p className={s.mobile_bold}>{order.number}</p>
           <p>{order.user.fullName}</p>
           <p>{order.user.phone}</p>
-          <p>{order.user.dniNumber}</p>
+          <p className={s.mobile_none}>{order.user.dniNumber}</p>
           <p>{new Date(order.createdAt).toLocaleDateString()}</p>
-          <div>
+          <div className={s.flex_b_100}>
             <div className={s.flex}>
               <p>retiro: {pickupDay}</p>
               <p className={s.pickup_hour}>- {order.booking.pickupHour}hs</p>
             </div>
             <p>devolución: {returnDay}</p>
           </div>
-          <p className={`${getOrderStatus(order, s).class}`}>
+          <p  className={`${getOrderStatus(order, s).class}`}>
             {getOrderStatus(order, s).status}
           </p>
           <button
@@ -169,7 +169,7 @@ export default function OrderCard({ order, getAllOrders }) {
           </button>
           <p>{formatPrice(order.totalPrice)}</p>
           <button
-            className={s.elipsis_menu_btn}
+            className={`${s.elipsis_menu_btn}`}
             aria-label="menu-btn"
             onClick={() => {
               setEarnings(getOwnerEarnings(order));

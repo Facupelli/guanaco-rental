@@ -165,3 +165,62 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .card_container {
+    display: flex;
+    flex-direction: column;
+
+    .info_container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      row-gap: 0.5rem;
+      column-gap: 1rem;
+
+      .mobile_bold{
+        font-weight: 600;
+      }
+
+      .mobile_none {
+        display: none;
+      }
+
+    }
+
+    .equipments_container {
+      width: calc(97% - 1rem);
+      padding: 1rem 0rem 0rem 0rem;
+    }
+
+    .add_gear_btn_wrapper {
+      margin-bottom: 0;
+      button {
+        padding-left: 0;
+      }
+    }
+
+    .remito_wrapper {
+      margin: 0;
+      display: block;
+      padding-top: 1rem;
+
+      > button:first-child {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 480px) {
+  .card_container {
+    gap: 0.5rem;
+
+    .info_container {
+      .flex_b_100 {
+        flex-basis: 100%;
+      }
+    }
+  }
+}
