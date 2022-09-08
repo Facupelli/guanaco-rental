@@ -13,13 +13,13 @@ export const getOwnerEarnings = (order) => {
   let totalOscar = 0;
 
   const workingsDays = getWorkingTotalDays(order.booking.dates, order.booking.pickupHour);
-
+  
   for (let gear of order.equipments) {
     const gearQty = gear.bookings.filter(
       (book) => book.bookId === order.booking.id
-    )[0].quantity;
-
-    if (gear.owner === "FEDERICO") {
+      )[0].quantity;
+      
+      if (gear.owner === "FEDERICO") {
       totalFederico += workingsDays * gear.price * gearQty;
     } else if (gear.owner === "OSCAR") {
       totalOscar += workingsDays * gear.price * gearQty;

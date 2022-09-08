@@ -93,6 +93,13 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
               <FontAwesomeIcon icon={faCartShopping} width="20px" />
             </li>
           )}
+          {userRole === "ADMIN" && (
+            <li>
+              <Link href="/admin">
+                <a>ADMIN</a>
+              </Link>
+            </li>
+          )}
           {session ? (
             <li>
               <button onClick={() => signOut()} className={s.link_icon}>
@@ -132,14 +139,6 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
                 </button>
               </li>
             </>
-          )}
-
-          {userRole === "ADMIN" && (
-            <li>
-              <Link href="/admin">
-                <a>ADMIN</a>
-              </Link>
-            </li>
           )}
         </ul>
       </nav>

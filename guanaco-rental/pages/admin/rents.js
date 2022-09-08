@@ -7,8 +7,17 @@ import AdminMain from "../../components/AdminMain/AdminMain";
 import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminRentsPage.module.scss";
+import { useEffect, useState } from "react";
 
 export default function AdminRents({ totalPrice, orders }) {
+  const [totalFinished, setTotalFinished] = useState({});
+  const [totalPending, setTotalPending] = useState({});
+  const [totalCustom, setTotalCustom] = useState({});
+
+  const [selectedDate, setSelectedDate] = useState();
+
+  const today = new Date();
+
   const earnings = orders.map((order) => getOwnerEarnings(order));
 
   const federicoEarnings = earnings.reduce((curr, acc) => {
@@ -19,16 +28,36 @@ export default function AdminRents({ totalPrice, orders }) {
     return curr + acc.totalOscar;
   }, 0);
 
-  const totalFinishedOrders = () => {
-    const today = new Date().getTime();
-    const finishedOrders = orders.filter(
-      (order) => new Date(order.booking.dates[order.booking.dates.length -1]).getTime() < today
-    );
-    const total = finishedOrders.reduce((curr, acc) => {
-      curr + acc.totalPrice;
+  const totalFromOrders = ({ finished, date }) => {
+    const todayTime = today.getTime();
+    const filterDateTime = new Date(date).getTime();
+
+    let filteredOrders;
+    if (!date) {
+      filteredOrders = orders.filter((order) => {
+        const lastRentDayTime = new Date(
+          order.booking.dates[order.booking.dates.length - 1]
+        ).getTime();
+
+        return finished
+          ? lastRentDayTime < (date ? filterDateTime : todayTime)
+          : lastRentDayTime > todayTime;
+      });
+    } else {
+      filteredOrders = orders.filter((order) => {
+        const lastRentDayTime = new Date(
+          order.booking.dates[order.booking.dates.length - 1]
+        ).getTime();
+
+        return lastRentDayTime < todayTime && lastRentDayTime > filterDateTime;
+      });
+    }
+
+    const total = filteredOrders.reduce((curr, acc) => {
+      return curr + acc.totalPrice;
     }, 0);
 
-    const eachEarnings = finishedOrders.map((order) => getOwnerEarnings(order));
+    const eachEarnings = filteredOrders.map((order) => getOwnerEarnings(order));
 
     const federico = eachEarnings.reduce((curr, acc) => {
       return curr + acc.totalFederico;
@@ -45,6 +74,15 @@ export default function AdminRents({ totalPrice, orders }) {
     };
   };
 
+  useEffect(() => {
+    setTotalFinished(totalFromOrders({ finished: true }));
+    setTotalPending(totalFromOrders({ finished: false }));
+  }, []);
+
+  useEffect(() => {
+    setTotalCustom(totalFromOrders({ finished: false, date: selectedDate }));
+  }, [selectedDate]);
+
   return (
     <div className={s.grey_bg}>
       <Head>
@@ -53,16 +91,98 @@ export default function AdminRents({ totalPrice, orders }) {
       </Head>
       <Nav />
       <AdminMain title="Rentas">
-        <h3>TODAS</h3>
-        <p>TOTAL: {formatPrice(totalPrice)}</p>
-        <p>Federico: {formatPrice(federicoEarnings)}</p>
-        <p>Oscar: {formatPrice(oscarEarnings)}</p>
+        <div>
+          <h3>TODAS</h3>
+          <p>TOTAL: {formatPrice(totalPrice)}</p>
+          <p>Federico: {formatPrice(federicoEarnings)}</p>
+          <p>Oscar: {formatPrice(oscarEarnings)}</p>
+        </div>
 
         <div>
           <h3>FINALIZADAS</h3>
-          <p>TOTAL: {formatPrice(totalFinishedOrders().total)}</p>
-          <p>Federico: {formatPrice(totalFinishedOrders().federico)}</p>
-          <p>Oscar: {formatPrice(totalFinishedOrders().oscar)}</p>
+          <p>
+            TOTAL: {totalFinished.total && formatPrice(totalFinished.total)}
+          </p>
+          <p>
+            Federico:{" "}
+            {totalFinished.federico && formatPrice(totalFinished.federico)}
+          </p>
+          <p>
+            Oscar: {totalFinished.oscar && formatPrice(totalFinished.oscar)}
+          </p>
+        </div>
+
+        <div>
+          <h3>PENDIENTES</h3>
+          <p>TOTAL: {totalPending.total && formatPrice(totalPending.total)}</p>
+          <p>
+            Federico:{" "}
+            {totalPending.federico && formatPrice(totalPending.federico)}
+          </p>
+          <p>Oscar: {totalPending.oscar && formatPrice(totalPending.oscar)}</p>
+        </div>
+
+        <div>
+          <h3>PERSONALIZADO</h3>
+          <div>
+            <label htmlFor="date">fecha:</label>
+            <select id="date" onChange={(e) => setSelectedDate(e.target.value)}>
+              <option value={null}>Seleccionar</option>
+              <option
+                value={
+                  new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    today.getDate() - 7
+                  )
+                }
+              >
+                1 semana
+              </option>
+              <option
+                value={
+                  new Date(
+                    today.getFullYear(),
+                    today.getMonth() - 1,
+                    today.getDate()
+                  )
+                }
+              >
+                1 mes
+              </option>
+              <option
+                value={
+                  new Date(
+                    today.getFullYear(),
+                    today.getMonth() - 6,
+                    today.getDate()
+                  )
+                }
+              >
+                6 meses
+              </option>
+              <option
+                value={
+                  new Date(
+                    today.getFullYear() - 1,
+                    today.getMonth(),
+                    today.getDate()
+                  )
+                }
+              >
+                1 año
+              </option>
+              <option value={new Date(today.getFullYear(), 0, 1)}>
+                este año
+              </option>
+            </select>
+          </div>
+          <p>TOTAL: {totalCustom.total && formatPrice(totalCustom.total)}</p>
+          <p>
+            Federico:{" "}
+            {totalCustom.federico && formatPrice(totalCustom.federico)}
+          </p>
+          <p>Oscar: {totalCustom.oscar && formatPrice(totalCustom.oscar)}</p>
         </div>
       </AdminMain>
     </div>
