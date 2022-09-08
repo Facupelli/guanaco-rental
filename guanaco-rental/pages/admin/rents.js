@@ -8,6 +8,7 @@ import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminRentsPage.module.scss";
 import { useEffect, useState } from "react";
+import RentsCard from "../../components/RentsCard/RentsCard";
 
 export default function AdminRents({ totalPrice, orders }) {
   const [totalFinished, setTotalFinished] = useState({});
@@ -80,7 +81,9 @@ export default function AdminRents({ totalPrice, orders }) {
   }, []);
 
   useEffect(() => {
-    setTotalCustom(totalFromOrders({ finished: false, date: selectedDate }));
+    if (selectedDate) {
+      setTotalCustom(totalFromOrders({ finished: false, date: selectedDate }));
+    }
   }, [selectedDate]);
 
   return (
@@ -91,99 +94,124 @@ export default function AdminRents({ totalPrice, orders }) {
       </Head>
       <Nav />
       <AdminMain title="Rentas">
-        <div>
-          <h3>TODAS</h3>
-          <p>TOTAL: {formatPrice(totalPrice)}</p>
-          <p>Federico: {formatPrice(federicoEarnings)}</p>
-          <p>Oscar: {formatPrice(oscarEarnings)}</p>
-        </div>
+        <section className={s.section}>
+          <div className={s.flex}>
+            <RentsCard>
+              <h3>TODAS</h3>
+              <p><span className={s.bold}>Total:</span> {formatPrice(totalPrice)}</p>
+              <p><span className={s.bold}>Federico:</span> {formatPrice(federicoEarnings)}</p>
+              <p><span className={s.bold}>Oscar:</span> {formatPrice(oscarEarnings)}</p>
+            </RentsCard>
 
-        <div>
-          <h3>FINALIZADAS</h3>
-          <p>
-            TOTAL: {totalFinished.total && formatPrice(totalFinished.total)}
-          </p>
-          <p>
-            Federico:{" "}
-            {totalFinished.federico && formatPrice(totalFinished.federico)}
-          </p>
-          <p>
-            Oscar: {totalFinished.oscar && formatPrice(totalFinished.oscar)}
-          </p>
-        </div>
+            <RentsCard>
+              <h3>FINALIZADAS</h3>
+              <p>
+                Total: {totalFinished.total && formatPrice(totalFinished.total)}
+              </p>
+              <p>
+                Federico:{" "}
+                {totalFinished.federico && formatPrice(totalFinished.federico)}
+              </p>
+              <p>
+                Oscar: {totalFinished.oscar && formatPrice(totalFinished.oscar)}
+              </p>
+            </RentsCard>
 
-        <div>
-          <h3>PENDIENTES</h3>
-          <p>TOTAL: {totalPending.total && formatPrice(totalPending.total)}</p>
-          <p>
-            Federico:{" "}
-            {totalPending.federico && formatPrice(totalPending.federico)}
-          </p>
-          <p>Oscar: {totalPending.oscar && formatPrice(totalPending.oscar)}</p>
-        </div>
-
-        <div>
-          <h3>PERSONALIZADO</h3>
-          <div>
-            <label htmlFor="date">fecha:</label>
-            <select id="date" onChange={(e) => setSelectedDate(e.target.value)}>
-              <option value={null}>Seleccionar</option>
-              <option
-                value={
-                  new Date(
-                    today.getFullYear(),
-                    today.getMonth(),
-                    today.getDate() - 7
-                  )
-                }
-              >
-                1 semana
-              </option>
-              <option
-                value={
-                  new Date(
-                    today.getFullYear(),
-                    today.getMonth() - 1,
-                    today.getDate()
-                  )
-                }
-              >
-                1 mes
-              </option>
-              <option
-                value={
-                  new Date(
-                    today.getFullYear(),
-                    today.getMonth() - 6,
-                    today.getDate()
-                  )
-                }
-              >
-                6 meses
-              </option>
-              <option
-                value={
-                  new Date(
-                    today.getFullYear() - 1,
-                    today.getMonth(),
-                    today.getDate()
-                  )
-                }
-              >
-                1 año
-              </option>
-              <option value={new Date(today.getFullYear(), 0, 1)}>
-                este año
-              </option>
-            </select>
+            <RentsCard>
+              <h3>PENDIENTES</h3>
+              <p>
+                TOTAL: {totalPending.total && formatPrice(totalPending.total)}
+              </p>
+              <p>
+                Federico:{" "}
+                {totalPending.federico && formatPrice(totalPending.federico)}
+              </p>
+              <p>
+                Oscar: {totalPending.oscar && formatPrice(totalPending.oscar)}
+              </p>
+            </RentsCard>
           </div>
-          <p>TOTAL: {totalCustom.total && formatPrice(totalCustom.total)}</p>
-          <p>
-            Federico:{" "}
-            {totalCustom.federico && formatPrice(totalCustom.federico)}
-          </p>
-          <p>Oscar: {totalCustom.oscar && formatPrice(totalCustom.oscar)}</p>
-        </div>
+
+          <RentsCard>
+            <div className={s.title_wrapper}>
+              <h3>PERSONALIZADO</h3>
+              <div className={s.select_wrapper}>
+                <label htmlFor="date">Desde:</label>
+                <select
+                  id="date"
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                >
+                  <option value={null}>Seleccionar</option>
+                  <option
+                    value={
+                      new Date(
+                        today.getFullYear(),
+                        today.getMonth(),
+                        today.getDate() - 7
+                      )
+                    }
+                  >
+                    1 semana
+                  </option>
+                  <option
+                    value={
+                      new Date(
+                        today.getFullYear(),
+                        today.getMonth() - 1,
+                        today.getDate()
+                      )
+                    }
+                  >
+                    1 mes
+                  </option>
+                  <option
+                    value={
+                      new Date(
+                        today.getFullYear(),
+                        today.getMonth() - 6,
+                        today.getDate()
+                      )
+                    }
+                  >
+                    6 meses
+                  </option>
+                  <option
+                    value={
+                      new Date(
+                        today.getFullYear() - 1,
+                        today.getMonth(),
+                        today.getDate()
+                      )
+                    }
+                  >
+                    1 año
+                  </option>
+                  <option value={new Date(today.getFullYear(), 0, 1)}>
+                    este año
+                  </option>
+                </select>
+              </div>
+            </div>
+            <p>
+              TOTAL:{" "}
+              {totalCustom.total
+                ? formatPrice(totalCustom.total)
+                : formatPrice(0)}
+            </p>
+            <p>
+              Federico:{" "}
+              {totalCustom.federico
+                ? formatPrice(totalCustom.federico)
+                : formatPrice(0)}
+            </p>
+            <p>
+              Oscar:{" "}
+              {totalCustom.oscar
+                ? formatPrice(totalCustom.oscar)
+                : formatPrice(0)}
+            </p>
+          </RentsCard>
+        </section>
       </AdminMain>
     </div>
   );

@@ -90,7 +90,7 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
               className={s.link_icon}
             >
               CARRITO
-              <FontAwesomeIcon icon={faCartShopping} width="20px" />
+              <FontAwesomeIcon icon={faCartShopping} className={s.icon} />
             </li>
           )}
           {userRole === "ADMIN" && (

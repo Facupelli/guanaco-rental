@@ -1,8 +1,8 @@
 @import "../../styles/app.scss";
 
 .icon{
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 .nav_container {
@@ -13,7 +13,7 @@
   position: fixed;
   width: 100%;
   z-index: 15;
-  font-weight: 400;
+  font-weight: 300;
 
   .logo_container {
     margin-right: auto;

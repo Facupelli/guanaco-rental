@@ -3,4 +3,53 @@
 .grey_bg {
   background-color: $bg-grey;
   min-height: 100vh;
+
+  .section {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .bold{
+      font-weight: 500;
+    }
+
+    .flex {
+      display: flex;
+      justify-content: space-around;
+      gap: 2rem;
+
+      > div {
+        width: 100%;
+      }
+
+      h3 {
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+    }
+
+    .title_wrapper {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+
+      h3 {
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .select_wrapper {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+  
+        select {
+          @include m-select;
+          padding: 0.2rem;
+        }
+      }
+    }
+
+  }
 }
