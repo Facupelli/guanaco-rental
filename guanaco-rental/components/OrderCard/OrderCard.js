@@ -7,6 +7,7 @@ import {
   generatePdfRows,
   getOrderStatus,
   handleDeleteOrder,
+  handleDeliveredChange,
   updateGearFromOrder,
 } from "../../utils/orders";
 
@@ -28,6 +29,7 @@ export default function OrderCard({ order, getAllOrders }) {
     search: "",
     quantity: "",
   });
+
   const [equipments, setEquipments] = useState([]);
 
   useEffect(() => {
@@ -110,9 +112,22 @@ export default function OrderCard({ order, getAllOrders }) {
             </div>
             <p>devolución: {returnDay}</p>
           </div>
-          <p  className={`${getOrderStatus(order, s).class}`}>
-            {getOrderStatus(order, s).status}
-          </p>
+          {getOrderStatus(order).status === "EN PROCESO" ? (
+            <div className={s.delivered_btn_wrapper}>
+              <label>ENTREGADO</label>
+              <input
+                type="checkbox"
+                defaultChecked={order.delivered}
+                onClick={() =>
+                  handleDeliveredChange(order.id, true, getAllOrders)
+                }
+              />
+            </div>
+          ) : (
+            <p className={`${getOrderStatus(order)?.class}`}>
+              {getOrderStatus(order)?.status}
+            </p>
+          )}
           <button
             className={s.show_equipment_btn}
             onClick={() => setShowEquipment(!showEquipment)}
@@ -146,15 +161,17 @@ export default function OrderCard({ order, getAllOrders }) {
                   />
                 ))}
             </div>
-            <div className={s.add_gear_btn_wrapper}>
-              <button
-                type="button"
-                aria-label="add_gear"
-                onClick={() => setShowAddEquipmentModal(true)}
-              >
-                <FontAwesomeIcon icon={faAdd} className={s.add_gear_icon} />
-              </button>
-            </div>
+            {!order.delivered && (
+              <div className={s.add_gear_btn_wrapper}>
+                <button
+                  type="button"
+                  aria-label="add_gear"
+                  onClick={() => setShowAddEquipmentModal(true)}
+                >
+                  <FontAwesomeIcon icon={faAdd} className={s.add_gear_icon} />
+                </button>
+              </div>
+            )}
           </>
         )}
         <div className={s.remito_wrapper}>
@@ -228,9 +245,12 @@ const AddGearModalChildren = ({
                       addGearInputs.quantity &&
                       addGearInputs.quantity <= gear.stock
                     ) {
-                      updateGearFromOrder(order, gear, "add", addGearInputs).then(() =>
-                        getAllOrders()
-                      );
+                      updateGearFromOrder(
+                        order,
+                        gear,
+                        "add",
+                        addGearInputs
+                      ).then(() => getAllOrders());
                     }
                   }}
                 >

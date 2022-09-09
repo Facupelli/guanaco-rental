@@ -92,6 +92,7 @@ model Order {
   totalPrice              Int
   booking                 Book                @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   bookingId               String              @unique
+  delivered               Boolean             @default(false)
   createdAt               DateTime            @default(now())
 }
 

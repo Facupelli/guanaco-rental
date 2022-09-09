@@ -6,12 +6,7 @@ import { updateGearFromOrder } from "../../../utils/orders";
 
 import s from "./Gear.module.scss";
 
-export default function Gear({
-  gear,
-  order,
-  editable,
-  getAllOrders,
-}) {
+export default function Gear({ gear, order, editable, getAllOrders }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -20,7 +15,9 @@ export default function Gear({
         <MessageModal
           showButton
           btnFunc={() => {
-            updateGearFromOrder(order, gear, "remove", 0).then(() => getAllOrders());
+            updateGearFromOrder(order, gear, "remove", 0).then(() =>
+              getAllOrders()
+            );
             setShowModal(false);
           }}
         >
@@ -38,7 +35,7 @@ export default function Gear({
               .quantity
           }
         </p>
-        {editable && (
+        {editable && !order.delivered && (
           <div className={s.x_btn_wrapper}>
             <XmarkButton handleClose={() => setShowModal(true)} />
           </div>

@@ -39,7 +39,7 @@ export const handleDeleteOrder = async (id, getAllOrders) => {
     .then((response) => response.json())
     .catch((e) => console.log("error", e));
 
-  if (order.message === "success") {
+  if (order?.message === "success") {
     getAllOrders();
   }
 };
@@ -94,5 +94,36 @@ export const updateGearFromOrder = async (
     );
   } catch (e) {
     console.log("updateOrder error:", e);
+  }
+};
+
+
+export const handleDeliveredChange = async (orderId, delivered, getAllOrders) => {
+  const data = JSON.stringify({
+    orderId,
+    delivered,
+  });
+
+  try {
+    const updatedOrder = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/order`
+        : "http://localhost:3001/order",
+      {
+        method: "PUT",
+        body: data,
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    const order = await updatedOrder.json();
+
+    if (order?.message === "success") {
+      getAllOrders();
+    }
+  } catch (e) {
+    console.log(e);
   }
 };

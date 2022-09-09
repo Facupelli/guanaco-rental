@@ -121,6 +121,19 @@ async function postOrder(req, res, next) {
 async function putOrder(req, res, next) {
   const data = req.body;
 
+  if (data.delivered) {
+    try {
+      const order = await prisma.order.update({
+        where: { id: data.orderId },
+        data: { delivered: data.delivered },
+      });
+      res.json({ message: "success" });
+      return;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   try {
     let updatedOrder;
     let updatedBook;

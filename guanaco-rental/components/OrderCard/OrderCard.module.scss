@@ -107,6 +107,12 @@
       }
     }
 
+    .delivered_btn_wrapper{
+      display: flex;
+      flex-direction: column;
+      gap: .5rem
+    }
+
     .show_equipment_btn {
       @include m-button-orange;
       padding: 0.4rem;
