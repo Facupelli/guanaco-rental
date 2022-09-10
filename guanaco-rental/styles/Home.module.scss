@@ -492,7 +492,7 @@ $h-s-gray: #212121;
         .flex_two_columns {
           .btns_column {
             font-size: 0.9em;
-            row-gap: .5rem;
+            row-gap: 0.5rem;
 
             a {
               padding: 0.5rem 0rem;
@@ -505,32 +505,32 @@ $h-s-gray: #212121;
           }
         }
       }
+    }
 
-      .contact_container {
-        .images_wrapper {
-          width: 90%;
-          height: 200px;
+    .contact_container {
+      .images_wrapper {
+        width: 90%;
+        height: 200px;
 
-          .contact_img_wrapper {
-            display: none;
-          }
-          .contact_img_guanaco_wrapper {
-            width: 90%;
-            height: 300px;
-            position: absolute;
-            bottom: -50px;
-            right: 10%;
-          }
+        .contact_img_wrapper {
+          display: none;
         }
-
-        .contact_card {
+        .contact_img_guanaco_wrapper {
           width: 90%;
-          padding-bottom: 2rem;
+          height: 300px;
+          position: absolute;
+          bottom: -50px;
+          right: 10%;
+        }
+      }
 
-          > div {
-            width: 70%;
-            text-align: left;
-          }
+      .contact_card {
+        width: 90%;
+        padding-bottom: 2rem;
+
+        > div {
+          width: 70%;
+          text-align: left;
         }
       }
     }
