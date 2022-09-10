@@ -42,8 +42,8 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
             <Image
               src="/guanaco-rental-logo.svg"
               alt="guanaco-logo"
-              width={75}
-              height={75}
+              width={60}
+              height={60}
               layout="intrinsic"
               objectFit="contain"
             />

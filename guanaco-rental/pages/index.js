@@ -65,6 +65,9 @@ export default function Home() {
                 objectFit="contain"
                 quality={65}
                 alt="guanaco-logo"
+                size="(max-width: 480px) 300px,
+                      (max-width: 768px) 300px
+                      500px"
               />
               <SocialMediaIcons width="30" />
               <div className={s.home_btns_wrapper}>
