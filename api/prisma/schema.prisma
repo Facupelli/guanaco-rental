@@ -13,6 +13,7 @@ datasource db {
 
 enum Role{
   USER
+  EMPLOYEE
   ADMIN
 }
 
@@ -24,7 +25,7 @@ enum Petition{
 
 model User {
   id                      String        @default(cuid()) @id
-  role                    Role?
+  role                    Role          @default(USER)
   fullName                String?
   phone                   String?       @unique
   email                   String        @unique

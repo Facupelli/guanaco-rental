@@ -18,7 +18,7 @@ import s from "./OrderCard.module.scss";
 
 const PDF = dynamic(() => import("./PDF/PDF"));
 
-export default function OrderCard({ order, getAllOrders }) {
+export default function OrderCard({ order, getAllOrders, userRole }) {
   const [showEquipment, setShowEquipment] = useState(false);
   const [generatePDF, setGeneratePDF] = useState(false);
 
@@ -63,14 +63,20 @@ export default function OrderCard({ order, getAllOrders }) {
       {showDeleteModal && (
         <MessageModal btnFunc={() => setShowDeleteModal(false)}>
           <div className={s.menu_modal_wrapper}>
-            <div>
-              <p>Federico:</p>
-              <p className={s.bold}>{formatPrice(earnings?.totalFederico)}</p>
-            </div>
-            <div>
-              <p>Oscar:</p>
-              <p className={s.bold}>{formatPrice(earnings?.totalOscar)}</p>
-            </div>
+            {userRole === "ADMIN" && (
+              <>
+                <div>
+                  <p>Federico:</p>
+                  <p className={s.bold}>
+                    {formatPrice(earnings?.totalFederico)}
+                  </p>
+                </div>
+                <div>
+                  <p>Oscar:</p>
+                  <p className={s.bold}>{formatPrice(earnings?.totalOscar)}</p>
+                </div>
+              </>
+            )}
             <div className={s.cancel_btn_wrapper}>
               <button
                 type="button"

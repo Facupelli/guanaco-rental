@@ -1,16 +1,30 @@
 import Head from "next/head";
 import Link from "next/link";
 import { unstable_getServerSession } from "next-auth";
-import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
+import { useSession } from "next-auth/react";
+import { getOrCreateUser, getUniqueUser } from "../../utils/fetch_users";
 import { useEffect, useState } from "react";
 import { formatPrice } from "../../utils/price";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserId } from "../../redux/features/user/userSlice";
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
 
 import s from "../../styles/AdminPage.module.scss";
 
-export default function AdminPage({ session }) {
+export default function AdminPage() {
+  const dispatch = useDispatch();
+  const userRole = useSelector((state) => state.user.data.role);
+
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (!userRole) {
+      getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
+    }
+  }, [session?.user, userRole]);
+
   const [bookings, setBookings] = useState([]);
   const [dayBookings, setDayBookings] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -72,16 +86,20 @@ export default function AdminPage({ session }) {
                 <a className={s.link}>Usuarios</a>
               </li>
             </Link>
-            <Link href="/admin/equipment">
-              <li>
-                <a className={s.link}>Equipos</a>
-              </li>
-            </Link>
-            <Link href="/admin/rents">
-              <li>
-                <a className={s.link}>Rentas</a>
-              </li>
-            </Link>
+            {userRole === "ADMIN" && (
+              <>
+                <Link href="/admin/equipment">
+                  <li>
+                    <a className={s.link}>Equipos</a>
+                  </li>
+                </Link>
+                <Link href="/admin/rents">
+                  <li>
+                    <a className={s.link}>Rentas</a>
+                  </li>
+                </Link>
+              </>
+            )}
           </ul>
         </nav>
         <section>
@@ -153,15 +171,15 @@ export async function getServerSideProps(ctx) {
 
   const user = await getUniqueUser(session?.user.email);
 
-  if (!session || user?.role !== "ADMIN") {
+  if (user?.role === "ADMIN" || user?.role === "EMPLOYEE") {
     return {
-      redirect: {
-        destination: "/",
-      },
+      props: { session },
     };
   }
 
   return {
-    props: { session },
+    redirect: {
+      destination: "/",
+    },
   };
 }

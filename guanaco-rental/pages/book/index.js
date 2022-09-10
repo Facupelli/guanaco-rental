@@ -60,7 +60,10 @@ export default function Home() {
           rel="preconnect"
           href="https://guanaco-rental-production.up.railway.app"
         />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com/gtag/" />
+        <link
+          rel="dns-prefetch"
+          href="https://www.googletagmanager.com/gtag/"
+        />
       </Head>
 
       <Script
@@ -121,6 +124,14 @@ export const getServerSideProps = async (ctx) => {
   if (session) {
     const response = await getOrCreateUser(session.user);
     user = response.user;
+  }
+
+  if (user?.role === "ADMIN" || user?.role === "EMPLOYEE") {
+    return {
+      props: {
+        session,
+      },
+    };
   }
 
   if (user && (user.petitionSent === "DENIED" || !user.petitionSent)) {

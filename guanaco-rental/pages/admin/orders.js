@@ -9,8 +9,11 @@ import Nav from "../../components/Nav/Nav";
 import OrderCard from "../../components/OrderCard/OrderCard";
 
 import s from "../../styles/AdminOrdersPage.module.scss";
+import { useSelector } from "react-redux";
 
 export default function AdminOrdersPage({ session }) {
+  const userRole = useSelector(state => state.user.data.role)
+
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
 
@@ -71,6 +74,7 @@ export default function AdminOrdersPage({ session }) {
                 key={order.id}
                 order={order}
                 getAllOrders={getAllOrders}
+                userRole={userRole}
               />
             ))
           ) : (
@@ -115,17 +119,15 @@ export async function getServerSideProps(ctx) {
 
   const user = await getUniqueUser(session?.user.email);
 
-  if (!session || user?.role !== "ADMIN") {
+  if (user?.role === "ADMIN" || user?.role === "EMPLOYEE") {
     return {
-      redirect: {
-        destination: "/",
-      },
+      props: { session },
     };
   }
 
   return {
-    props: {
-      session,
+    redirect: {
+      destination: "/",
     },
   };
 }

@@ -158,35 +158,35 @@ export async function getServerSideProps(ctx) {
 
   const user = await getUniqueUser(session?.user.email);
 
-  if (!session || user?.role !== "ADMIN") {
+  if (user?.role === "ADMIN" || user?.role === "EMPLOYEE") {
+    const newCLients = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/users?newClients=${true}`
+        : `http://localhost:3001/users?newClients=${true}`
+    )
+      .then((response) => response.json())
+      .catch((e) => console.log("fecth error:", e));
+
+    const clients = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://guanaco-rental-production.up.railway.app/users?clients=${true}`
+        : `http://localhost:3001/users?clients=${true}`
+    )
+      .then((response) => response.json())
+      .catch((e) => console.log("fecth error:", e));
+
     return {
-      redirect: {
-        destination: "/",
+      props: {
+        newCLients,
+        clients,
+        session,
       },
     };
   }
 
-  const newCLients = await fetch(
-    process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/users?newClients=${true}`
-      : `http://localhost:3001/users?newClients=${true}`
-  )
-    .then((response) => response.json())
-    .catch((e) => console.log("fecth error:", e));
-
-  const clients = await fetch(
-    process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/users?clients=${true}`
-      : `http://localhost:3001/users?clients=${true}`
-  )
-    .then((response) => response.json())
-    .catch((e) => console.log("fecth error:", e));
-
   return {
-    props: {
-      newCLients,
-      clients,
-      session,
+    redirect: {
+      destination: "/",
     },
   };
 }

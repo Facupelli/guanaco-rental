@@ -93,7 +93,7 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
               <FontAwesomeIcon icon={faCartShopping} className={s.icon} />
             </li>
           )}
-          {userRole === "ADMIN" && (
+          {userRole === "ADMIN" || userRole === "EMPLOYEE" && (
             <li>
               <Link href="/admin">
                 <a>ADMIN</a>
