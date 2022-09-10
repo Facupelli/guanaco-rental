@@ -39,14 +39,14 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
       <nav className={s.nav_container}>
         <Link href="/book">
           <div className={s.logo_container}>
-            <Image
-              src="/guanaco-rental-logo.svg"
-              alt="guanaco-logo"
-              width={60}
-              height={60}
-              layout="intrinsic"
-              objectFit="contain"
-            />
+            <div>
+              <Image
+                src="/guanaco-rental-logo.svg"
+                alt="guanaco-logo"
+                layout="fill"
+                objectFit="contain"
+              />
+            </div>
           </div>
         </Link>
         {route !== "home" && (

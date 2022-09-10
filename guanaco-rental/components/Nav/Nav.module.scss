@@ -1,6 +1,6 @@
 @import "../../styles/app.scss";
 
-.icon{
+.icon {
   width: 16px;
   height: 16px;
 }
@@ -23,6 +23,12 @@
     z-index: 10;
     filter: drop-shadow(5px 5px 10px rgba(17, 17, 17, 0.356));
     cursor: pointer;
+
+    > div {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
   }
 
   ul {
@@ -40,11 +46,11 @@
       gap: 0.5rem;
     }
 
-    .link_icon_google{
-      font-size: .8em;
+    .link_icon_google {
+      font-size: 0.8em;
 
-      >p:first-child{
-        font-size: .9em;
+      > p:first-child {
+        font-size: 0.9em;
       }
     }
 
@@ -110,8 +116,11 @@
     .logo_container {
       margin-right: auto;
       position: static;
-      width: 60px;
-      height: 60px;
+
+      > div {
+        width: 60px;
+        height: 60px;
+      }
     }
 
     .icon_container,
@@ -124,7 +133,8 @@
       border: none;
     }
 
-    .cart_icon, .bars_icon {
+    .cart_icon,
+    .bars_icon {
       color: $m-white;
       width: 25px;
       height: 25px;
