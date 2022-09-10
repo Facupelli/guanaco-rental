@@ -74,16 +74,20 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
               <a>RESERVAS ONLINE</a>
             </Link>
           </li>
-          <li>
-            <Link href="/faq">
-              <a>FAQ</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/community">
-              <a>COMUNIDAD</a>
-            </Link>
-          </li>
+          {route === "home" && (
+            <>
+              <li>
+                <Link href="/faq">
+                  <a>FAQ</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/community">
+                  <a>COMUNIDAD</a>
+                </Link>
+              </li>
+            </>
+          )}
           {route !== "home" && route !== "faq" && route !== "community" && (
             <li
               onClick={cartPage ? null : handleShowCart}
@@ -93,13 +97,14 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
               <FontAwesomeIcon icon={faCartShopping} className={s.icon} />
             </li>
           )}
-          {userRole === "ADMIN" || userRole === "EMPLOYEE" && (
-            <li>
-              <Link href="/admin">
-                <a>ADMIN</a>
-              </Link>
-            </li>
-          )}
+          {userRole === "ADMIN" ||
+            (userRole === "EMPLOYEE" && (
+              <li>
+                <Link href="/admin">
+                  <a>ADMIN</a>
+                </Link>
+              </li>
+            ))}
           {session ? (
             <li>
               <button onClick={() => signOut()} className={s.link_icon}>

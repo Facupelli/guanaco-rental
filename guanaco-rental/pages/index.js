@@ -68,14 +68,12 @@ export default function Home() {
               />
               <SocialMediaIcons width="30" />
               <div className={s.home_btns_wrapper}>
-                <button type="button">
-                  <Link href="/book">
-                    <a> Reservá tu alquiler</a>
-                  </Link>
-                </button>
-                <button type="button">
-                  Conocé nuestro concepto de COMUNIDAD
-                </button>
+                <Link href="/book">
+                  <a> Reservá tu alquiler</a>
+                </Link>
+                <Link href="/community">
+                  <a>Conocé nuestro concepto de COMUNIDAD</a>
+                </Link>
               </div>
             </div>
             <Image
