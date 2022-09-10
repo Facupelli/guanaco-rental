@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchEquipment } from "../../redux/features/equipment/equipmentSlice";
+
+import EquipmentSearchBar from "./EquipmentSearchBar/EquipmentSearchBar";
 import EquipmentFilters from "./EquipmentFilters/EquipmentFilters";
 import EquipmentList from "./EquipmentList/EquipmentList";
 import EquipmentOrder from "./EquipmentOrder/EquipmentOrder";
-import { useEffect, useState } from "react";
-import EquipmentSearchBar from "./EquipmentSearchBar/EquipmentSearchBar";
-import { useDispatch } from "react-redux";
-import { fetchEquipment } from "../../redux/features/equipment/equipmentSlice";
 
 import s from "./Bookeable.module.scss";
 

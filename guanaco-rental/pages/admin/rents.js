@@ -3,12 +3,13 @@ import { unstable_getServerSession } from "next-auth";
 import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { formatPrice, getOwnerEarnings } from "../../utils/price";
-import AdminMain from "../../components/AdminMain/AdminMain";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
 import Nav from "../../components/Nav/Nav";
+import AdminMain from "../../components/AdminMain/AdminMain";
+import RentsCard from "../../components/RentsCard/RentsCard";
 
 import s from "../../styles/AdminRentsPage.module.scss";
-import { useEffect, useState } from "react";
-import RentsCard from "../../components/RentsCard/RentsCard";
 
 export default function AdminRents({ totalPrice, orders }) {
   const [totalFinished, setTotalFinished] = useState({});
@@ -17,7 +18,7 @@ export default function AdminRents({ totalPrice, orders }) {
 
   const [selectedDate, setSelectedDate] = useState();
 
-  const today = new Date();
+  const today = useMemo(() => new Date(), []);
 
   const earnings = orders.map((order) => getOwnerEarnings(order));
 
@@ -29,62 +30,69 @@ export default function AdminRents({ totalPrice, orders }) {
     return curr + acc.totalOscar;
   }, 0);
 
-  const totalFromOrders = ({ finished, date }) => {
-    const todayTime = today.getTime();
-    const filterDateTime = new Date(date).getTime();
+  const totalFromOrders = useCallback(
+    ({ finished, date }) => {
+      const todayTime = today.getTime();
+      const filterDateTime = new Date(date).getTime();
 
-    let filteredOrders;
-    if (!date) {
-      filteredOrders = orders.filter((order) => {
-        const lastRentDayTime = new Date(
-          order.booking.dates[order.booking.dates.length - 1]
-        ).getTime();
+      let filteredOrders;
+      if (!date) {
+        filteredOrders = orders.filter((order) => {
+          const lastRentDayTime = new Date(
+            order.booking.dates[order.booking.dates.length - 1]
+          ).getTime();
 
-        return finished
-          ? lastRentDayTime < (date ? filterDateTime : todayTime)
-          : lastRentDayTime > todayTime;
-      });
-    } else {
-      filteredOrders = orders.filter((order) => {
-        const lastRentDayTime = new Date(
-          order.booking.dates[order.booking.dates.length - 1]
-        ).getTime();
+          return finished
+            ? lastRentDayTime < (date ? filterDateTime : todayTime)
+            : lastRentDayTime > todayTime;
+        });
+      } else {
+        filteredOrders = orders.filter((order) => {
+          const lastRentDayTime = new Date(
+            order.booking.dates[order.booking.dates.length - 1]
+          ).getTime();
 
-        return lastRentDayTime < todayTime && lastRentDayTime > filterDateTime;
-      });
-    }
+          return (
+            lastRentDayTime < todayTime && lastRentDayTime > filterDateTime
+          );
+        });
+      }
 
-    const total = filteredOrders.reduce((curr, acc) => {
-      return curr + acc.totalPrice;
-    }, 0);
+      const total = filteredOrders.reduce((curr, acc) => {
+        return curr + acc.totalPrice;
+      }, 0);
 
-    const eachEarnings = filteredOrders.map((order) => getOwnerEarnings(order));
+      const eachEarnings = filteredOrders.map((order) =>
+        getOwnerEarnings(order)
+      );
 
-    const federico = eachEarnings.reduce((curr, acc) => {
-      return curr + acc.totalFederico;
-    }, 0);
+      const federico = eachEarnings.reduce((curr, acc) => {
+        return curr + acc.totalFederico;
+      }, 0);
 
-    const oscar = eachEarnings.reduce((curr, acc) => {
-      return curr + acc.totalOscar;
-    }, 0);
+      const oscar = eachEarnings.reduce((curr, acc) => {
+        return curr + acc.totalOscar;
+      }, 0);
 
-    return {
-      total,
-      federico,
-      oscar,
-    };
-  };
+      return {
+        total,
+        federico,
+        oscar,
+      };
+    },
+    [orders, today]
+  );
 
   useEffect(() => {
     setTotalFinished(totalFromOrders({ finished: true }));
     setTotalPending(totalFromOrders({ finished: false }));
-  }, []);
+  }, [totalFromOrders]);
 
   useEffect(() => {
     if (selectedDate) {
       setTotalCustom(totalFromOrders({ finished: false, date: selectedDate }));
     }
-  }, [selectedDate]);
+  }, [selectedDate, totalFromOrders]);
 
   return (
     <div className={s.grey_bg}>
@@ -98,9 +106,17 @@ export default function AdminRents({ totalPrice, orders }) {
           <div className={s.flex}>
             <RentsCard>
               <h3>TODAS</h3>
-              <p><span className={s.bold}>Total:</span> {formatPrice(totalPrice)}</p>
-              <p><span className={s.bold}>Federico:</span> {formatPrice(federicoEarnings)}</p>
-              <p><span className={s.bold}>Oscar:</span> {formatPrice(oscarEarnings)}</p>
+              <p>
+                <span className={s.bold}>Total:</span> {formatPrice(totalPrice)}
+              </p>
+              <p>
+                <span className={s.bold}>Federico:</span>{" "}
+                {formatPrice(federicoEarnings)}
+              </p>
+              <p>
+                <span className={s.bold}>Oscar:</span>{" "}
+                {formatPrice(oscarEarnings)}
+              </p>
             </RentsCard>
 
             <RentsCard>

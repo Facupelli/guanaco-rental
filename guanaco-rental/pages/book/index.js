@@ -1,5 +1,8 @@
 import Head from "next/head";
 import Script from "next/script";
+import Link from "next/link";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -7,9 +10,6 @@ import { setDate } from "../../redux/features/pickupDate/pickupDateSlice";
 import { generateAllDates } from "../../utils/dates_functions";
 import { getOrCreateUser } from "../../utils/fetch_users";
 import { setUserId } from "../../redux/features/user/userSlice";
-import { unstable_getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]";
-import Link from "next/link";
 
 //COMPONENTS
 import Bookeable from "../../components/Bookeable/Bookeable";
@@ -34,8 +34,6 @@ export default function Home({ showNewClientModal }) {
   const dispatch = useDispatch();
 
   const { data: session } = useSession();
-
-  // console.log("NEXT AUTH", session);
 
   useEffect(() => {
     if (session?.user && !userData) {

@@ -20,10 +20,6 @@ export default function Home() {
           content="Guanaco rental web, alquiler de equipos para cine y fotografía. San Juan, Argentina."
         />
         <link rel="icon" href="/logo-favicon.ico" />
-        {/* <link
-          rel="preconnect"
-          href="https://guanaco-rental-production.up.railway.app"
-        /> */}
         <link
           rel="dns-prefetch"
           href="https://www.googletagmanager.com/gtag/"

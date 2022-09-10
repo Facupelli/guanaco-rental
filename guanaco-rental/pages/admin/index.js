@@ -23,7 +23,7 @@ export default function AdminPage() {
     if (!userRole) {
       getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
     }
-  }, [session?.user, userRole]);
+  }, [session?.user, userRole, dispatch]);
 
   const [bookings, setBookings] = useState([]);
   const [dayBookings, setDayBookings] = useState([]);
