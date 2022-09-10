@@ -9,6 +9,7 @@ import { getOrCreateUser } from "../../utils/fetch_users";
 import { setUserId } from "../../redux/features/user/userSlice";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
+import Link from "next/link";
 
 //COMPONENTS
 import Bookeable from "../../components/Bookeable/Bookeable";
@@ -16,11 +17,14 @@ import Nav from "../../components/Nav/Nav";
 import CartModal from "../../components/CartModal/CartModal";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 import Footer from "../../components/Home/Footer/Footer";
+import MessageModal from "../../components/MessageModal/MessageModal";
 
-import styles from "../../styles/BookPage.module.scss";
+import s from "../../styles/BookPage.module.scss";
 
-export default function Home() {
+export default function Home({ showNewClientModal }) {
   const userData = useSelector((state) => state.user.data);
+
+  const [showModal, setShowModal] = useState(showNewClientModal);
 
   const [showCart, setShowCart] = useState(false);
 
@@ -48,7 +52,7 @@ export default function Home() {
   }, [dateRange, dispatch]);
 
   return (
-    <div className={styles.container}>
+    <div className={s.container}>
       <Head>
         <title>Guanaco Rental</title>
         <meta
@@ -89,7 +93,26 @@ export default function Home() {
 
       <Nav setShowCart={setShowCart} route="book" />
 
-      <main className={styles.main}>
+      {showModal && (
+        <MessageModal btnFunc={() => setShowModal(false)}>
+          <p className={s.bold}>IMPORTANTE</p>
+          <p>
+            Para poder alquilar equipos es necesario llenar este formulario de
+            alta de cliente. Una vez aprobado (puede demorar hasta 48hs) podras
+            realizar tus reservas a través de la web.
+          </p>
+          <div className={s.modal_links}>
+            <Link href="/newClient">
+              <a>IR AL ALTA</a>
+            </Link>
+            <button type="button" onClick={() => setShowModal(false)}>
+              CERRAR
+            </button>
+          </div>
+        </MessageModal>
+      )}
+
+      <main className={s.main}>
         {datePickup && (
           <CalendarComponent
             dateRange={dateRange}
@@ -136,8 +159,8 @@ export const getServerSideProps = async (ctx) => {
 
   if (user && (user.petitionSent === "DENIED" || !user.petitionSent)) {
     return {
-      redirect: {
-        destination: "/newClient",
+      props: {
+        showNewClientModal: true,
       },
     };
   }

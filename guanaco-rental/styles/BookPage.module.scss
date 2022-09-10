@@ -1,7 +1,25 @@
+@import "../styles/app.scss";
+
 .main {
-    font-family: "Panton";
-    background-color: #ebebeb;
-    min-height: 100vh;
-    padding-top: 70px;
+  font-family: "Panton";
+  background-color: #ebebeb;
+  min-height: 100vh;
+  padding-top: 70px;
+}
+
+.bold {
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.modal_links {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  a,
+  button {
+    @include m-button;
   }
-  
+}

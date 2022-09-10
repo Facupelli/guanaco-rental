@@ -13,7 +13,7 @@ export const schema = yup
     student: yup.boolean(),
     employee: yup.boolean(),
     company: yup.string(),
-    cuit: yup.string().required(),
+    cuit: yup.string(),
     bussinessName: yup.string(),
     contacts: yup.object({
       contact1: yup.string().required(),

@@ -221,10 +221,13 @@ $h-s-gray: #212121;
           align-items: center;
           justify-content: space-between;
 
-          button {
+          a {
+            text-align: center;
             width: 100%;
             border: none;
             padding: 0.6rem 0rem;
+            background-color: $m-white;
+            color: " $m-black";
           }
 
           .white_logo_wrapper {
@@ -442,10 +445,10 @@ $h-s-gray: #212121;
 
               > p {
                 font-weight: 300;
-                font-size: .8em;
+                font-size: 0.8em;
                 color: white;
               }
-  
+
               > p:first-child {
                 font-size: 1.3em;
                 margin-bottom: 0.6rem;

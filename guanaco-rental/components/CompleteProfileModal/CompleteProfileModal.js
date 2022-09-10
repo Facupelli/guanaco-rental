@@ -263,7 +263,7 @@ export default function CompleteProfileModal({ user }) {
 
             <div className={s.inputs}>
               <label htmlFor="cuit">CUIT:</label>
-              <input required type="text" id="cuit" {...register("cuit")} />
+              <input type="text" id="cuit" {...register("cuit")} />
               {errors.cuit?.message}
             </div>
 

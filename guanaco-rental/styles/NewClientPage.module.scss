@@ -1,3 +1,21 @@
+@import "../styles/app.scss";
+
+.sesion_btns_wrapper{
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  .link_icon_google{
+    font-size: .8em;
+    @include m-button;
+  
+    >p:first-child{
+      font-size: .9em;
+    }
+  }
+}
+
 .main {
   position: relative;
   padding-top: 70px;

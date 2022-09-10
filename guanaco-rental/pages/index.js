@@ -415,30 +415,26 @@ export default function Home() {
                 <p>El equipo de Guanaco Rental.</p>
               </div>
               <div className={s.btns_column}>
-                <button type="button">
-                  <Link href="/book">
-                    <a>Lista de Equipos Disponibles</a>
-                  </Link>
-                </button>
-                <button type="button">
-                  <a
-                    href="https://drive.google.com/file/d/1btblH9iNNgabi3uPw6gOmMTbJBelYrKP/view"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Condiciones de Alquiler
-                  </a>
-                </button>
-                <button type="button">
-                  <Link href="/newClient">
-                    <a>Alta de Cliente</a>
-                  </Link>
-                </button>
-                <button type="button">
-                  <Link href="/faq">
-                    <a>Pregunta Frecuentes</a>
-                  </Link>
-                </button>
+                <a
+                  href="https://docs.google.com/spreadsheets/d/1vaMcH5CP917FiXiMjSo80oefliX0vkuI/edit#gid=1636345783"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Lista de Equipos Disponibles
+                </a>
+                <a
+                  href="https://drive.google.com/file/d/1btblH9iNNgabi3uPw6gOmMTbJBelYrKP/view"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Condiciones de Alquiler
+                </a>
+                <Link href="/newClient">
+                  <a>Alta de Cliente</a>
+                </Link>
+                <Link href="/faq">
+                  <a>Pregunta Frecuentes</a>
+                </Link>
                 <div className={s.white_logo_wrapper}>
                   <Image
                     src="/homeImages/assets/white-logo.png"

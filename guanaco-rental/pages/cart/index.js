@@ -31,6 +31,7 @@ export default function CartPage() {
 
   const [freeOrder, setFreeOrder] = useState(false);
 
+  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -76,6 +77,7 @@ export default function CartPage() {
     }
     if (!userData.customerApproved) {
       //alta de cliente no aprobada
+      setShowModal(true);
       return;
     }
 
@@ -133,6 +135,12 @@ export default function CartPage() {
           setDateRange={setDateRange}
           setDatePickup={setDatePickup}
         />
+      )}
+      {showModal && (
+        <MessageModal showButton btnFunc={() => setShowModal(false)}>
+          Tu alta de cliente todavía no fue aprobada, recuerda que puede demorar
+          hasta 48hs.
+        </MessageModal>
       )}
       {loading && (
         <LoadingModal>
