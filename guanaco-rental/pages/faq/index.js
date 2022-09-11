@@ -6,7 +6,7 @@ export default function FaqPage() {
   return (
     <div>
        <Head>
-        <title>FAQ</title>
+        <title>Guanaco FAQ</title>
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
       <Nav route="faq" />

@@ -2,7 +2,8 @@
 
 .main {
   @include app_width;
-  padding: 3rem 0rem;
+  padding-top: calc(3rem + 70px);
+  padding-bottom: 3rem;
   font-family: "Panton";
   color: $m-black;
 
