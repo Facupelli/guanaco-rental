@@ -263,10 +263,10 @@ export async function getServerSideProps(ctx) {
       ? `https://guanaco-rental-production.up.railway.app/rents`
       : `http://localhost:3001/rents`
   )
-    .then((response) => {
-      console.log(response.json());
-    })
+    .then((res) => res.json())
     .catch((e) => console.log("fecth error:", e));
+
+  console.log(totalPrice);
 
   return {
     props: {

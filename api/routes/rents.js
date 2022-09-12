@@ -4,6 +4,6 @@ const {
 } = require("../controllers/rents.controller");
 const router = express.Router();
 
-router.get("/rents", getTotalOfOrders);
+router.get("/", getTotalOfOrders);
 
 module.exports = router;
