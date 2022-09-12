@@ -234,6 +234,27 @@ async function getOrders(req, res, next) {
   }
 }
 
+async function getOrderById(req, res, next) {
+  const id = req.params;
+
+  try {
+    if (id) {
+      const order = await prisma.order.findUnique({
+        where: id,
+        include: {
+          booking: true,
+          equipments: { include: { bookings: true } },
+          user: true,
+        },
+      });
+
+      res.json(order);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 async function deleteOrderById(req, res, next) {
   const id = req.params;
 
@@ -268,6 +289,7 @@ async function getTotalOfOrders(req, res, next) {
 module.exports = {
   postOrder,
   getOrders,
+  getOrderById,
   deleteOrderById,
   putOrder,
   getTotalOfOrders,

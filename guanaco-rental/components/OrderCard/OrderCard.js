@@ -34,9 +34,13 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
   const debouncedGearInput = useDebounce(addGearInputs.search, 500);
 
   const [equipments, setEquipments] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const [earnings, setEarnings] = useState({});
 
   useEffect(() => {
     if (debouncedGearInput) {
+      setLoading(true);
       const getEquipmentBySearch = async () => {
         try {
           const response = await fetch(
@@ -49,6 +53,7 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
         } catch (e) {
           console.log("getEquipmentBySearch error:", e);
         }
+        setLoading(false);
       };
       getEquipmentBySearch();
     }
@@ -58,8 +63,6 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
   const returnDay = new Date(order.booking.dates.at(-1)).toLocaleDateString();
 
   const equipmentRows = generatePdfRows(order);
-
-  const [earnings, setEarnings] = useState({});
 
   return (
     <>
@@ -96,7 +99,7 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
         <MessageModal
           showButton
           btnFunc={() => setShowAddEquipmentModal(false)}
-          btnName="CERRAR"
+          btnName={loading ? "CARGANDO" : "CERRAR"}
         >
           <AddGearModalChildren
             equipments={equipments}
@@ -104,6 +107,7 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
             addGearInputs={addGearInputs}
             getAllOrders={getAllOrders}
             order={order}
+            loading={loading}
           />
         </MessageModal>
       )}
@@ -214,6 +218,7 @@ const AddGearModalChildren = ({
   addGearInputs,
   getAllOrders,
   order,
+  loading,
 }) => {
   return (
     <>
@@ -229,7 +234,9 @@ const AddGearModalChildren = ({
         }
       />
       <div>
-        {equipments.length > 0 &&
+        {loading && <p>Cargando...</p>}
+        {!loading &&
+          equipments.length > 0 &&
           equipments.map((gear) => (
             <div key={gear.id} className={s.modal_gear_wrapper}>
               <p className={s.gear_name}>

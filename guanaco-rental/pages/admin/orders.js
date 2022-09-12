@@ -3,16 +3,16 @@ import { useCallback, useEffect, useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { getUniqueUser } from "../../utils/fetch_users";
+import { useSelector } from "react-redux";
 
 import AdminMain from "../../components/AdminMain/AdminMain";
 import Nav from "../../components/Nav/Nav";
 import OrderCard from "../../components/OrderCard/OrderCard";
 
 import s from "../../styles/AdminOrdersPage.module.scss";
-import { useSelector } from "react-redux";
 
 export default function AdminOrdersPage({ session }) {
-  const userRole = useSelector(state => state.user.data.role)
+  const userRole = useSelector((state) => state.user.data.role);
 
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
