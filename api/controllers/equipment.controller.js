@@ -75,6 +75,9 @@ async function putEquipment(req, res, next) {
       const updatedGear = await prisma.equipment.update({
         where: { id: data.id },
         data: {
+          name: data.name,
+          brand: data.brand,
+          model: data.model,
           available: Boolean(data.available),
           stock: Number(data.stock),
           price: Number(data.price),

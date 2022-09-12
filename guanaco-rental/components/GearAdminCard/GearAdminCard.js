@@ -48,10 +48,10 @@ export default function GearAdminCard({ gear, getEquipment }) {
       </div>
       <div className={s.flex_grow_2}>
         <div className={`${s.flex_wrapper} ${s.bold}`}>
-          <p>{gear.name}</p>
-          <p>{gear.brand}</p>
+          <input type="text" defaultValue={gear.name} {...register("name")} />
+          <input type="text" defaultValue={gear.brand} {...register("brand")} />
         </div>
-        <p>{gear.model}</p>
+        <input type="text" defaultValue={gear.model} {...register("model")} />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={`${s.flex_wrapper} `}>
