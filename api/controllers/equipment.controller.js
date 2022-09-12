@@ -42,6 +42,7 @@ async function getEquipment(req, res, next) {
     const pipeline = {
       where: { available: true },
       include: { bookings: { include: { book: true } } },
+      orderBy: { bookings: { _count: "desc" } },
     };
 
     if (category && category !== "undefined" && category !== "all") {
