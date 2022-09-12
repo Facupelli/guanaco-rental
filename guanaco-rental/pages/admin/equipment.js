@@ -1,31 +1,36 @@
 import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { getUniqueUser } from "../../utils/fetch_users";
+import { useDebounce } from "../../hooks/useDebounce";
+
+import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
-import Nav from "../../components/Nav/Nav";
+import EquipmentSearchBar from "../../components/Bookeable/EquipmentSearchBar/EquipmentSearchBar";
 
 import s from "../../styles/AdminEquipmentPage.module.scss";
 
 export default function AdminEquipment({ equipment }) {
-  const router = useRouter();
   const [equipmentList, setEquipmentList] = useState([]);
   const [category, setCategory] = useState("all");
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const debouncedSearch = useDebounce(searchInput, 500);
 
   const getEquipment = useCallback(async () => {
     try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/equipment?category=${category}`
-          : `http://localhost:3001/equipment?category=${category}`
+          ? `https://guanaco-rental-production.up.railway.app/equipment?category=${category}&search=${debouncedSearch}`
+          : `http://localhost:3001/equipment?category=${category}&search=${debouncedSearch}`
       );
       const data = await response.json();
       setEquipmentList(data);
     } catch (e) {}
-  }, [category]);
+  }, [category, debouncedSearch]);
 
   useEffect(() => {
     if (category === "all") {
@@ -35,10 +40,9 @@ export default function AdminEquipment({ equipment }) {
     }
   }, [category, equipment, getEquipment]);
 
-  //   <div className={s.flex}>
-  //   <h1>Equipos</h1>
-  //   <p>total: {equipment.length}</p>
-  // </div>
+  useEffect(() => {
+    getEquipment();
+  }, [debouncedSearch]);
 
   return (
     <div className={s.grey_bg}>
@@ -51,27 +55,32 @@ export default function AdminEquipment({ equipment }) {
 
       <AdminMain title="Equipos">
         <div className={s.flex}>
-          <p>
-            Total: <span className={s.bold}>{equipment.length}</span>
-          </p>
-          <div>
-            <select
-              defaultValue="all"
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="all">TODOS</option>
-              <option value="camaras">CAMARAS</option>
-              <option value="lentes">LENTES</option>
-              <option value="monitores">MONITORES</option>
-              <option value="estabilizadores/tripodes">
-                ESTABILIZADORES/TRIPODES
-              </option>
-              <option value="iluminacion">ILUMINACION</option>
-              <option value="sonido">SONIDO</option>
-              <option value="grip">GRIP</option>
-              <option value="otros">OTROS</option>
-              <option value="drones">DRONES</option>
-            </select>
+          <EquipmentSearchBar
+            onInputChange={(e) => setSearchInput(e.target.value)}
+          />
+          <div className={s.flex_baseline}>
+            <p>
+              Total: <span className={s.bold}>{equipment.length}</span>
+            </p>
+            <div>
+              <select
+                defaultValue="all"
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="all">TODOS</option>
+                <option value="camaras">CAMARAS</option>
+                <option value="lentes">LENTES</option>
+                <option value="monitores">MONITORES</option>
+                <option value="estabilizadores/tripodes">
+                  ESTABILIZADORES/TRIPODES
+                </option>
+                <option value="iluminacion">ILUMINACION</option>
+                <option value="sonido">SONIDO</option>
+                <option value="grip">GRIP</option>
+                <option value="otros">OTROS</option>
+                <option value="drones">DRONES</option>
+              </select>
+            </div>
           </div>
         </div>
         <div>

@@ -3,7 +3,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import s from "./EquipmentSearchBar.module.scss";
 
-export default function EquipmentSearchBar({ setFilters, filters }) {
+export default function EquipmentSearchBar({ onInputChange }) {
   const { handleSubmit } = useForm();
   const onSubmit = (data) => console.log(data);
 
@@ -14,9 +14,7 @@ export default function EquipmentSearchBar({ setFilters, filters }) {
         className={s.search_input}
         type="search"
         placeholder="Buscar equipos"
-        onChange={(e) =>
-          setFilters((prev) => ({ ...prev, search: e.target.value }))
-        }
+        onChange={onInputChange}
       />
     </form>
   );

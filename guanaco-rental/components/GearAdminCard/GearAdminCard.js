@@ -79,11 +79,20 @@ export default function GearAdminCard({ gear, getEquipment }) {
             {...register("price")}
           />
         </div>
-        <div className={`${s.flex_wrapper} `}>
+        {/* <div className={`${s.flex_wrapper} `}>
           <label>Sucursal:</label>
           <select defaultValue={gear.location} {...register("location")}>
             <option value="San Juan">San Juan</option>
             <option value="Mendoza">Mendoza</option>
+          </select>
+        </div> */}
+        <div className={s.flex_wrapper}>
+          <label>de:</label>
+          <select defaultValue={gear.owner} {...register("owner")}>
+            <option value="FEDERICO">Federico</option>
+            <option value="OSCAR">Oscar</option>
+            <option value="BOTH">Ambos</option>
+            <option value="SUB">Subalquilado</option>
           </select>
         </div>
         <button>ACTUALIZAR</button>
@@ -91,3 +100,12 @@ export default function GearAdminCard({ gear, getEquipment }) {
     </div>
   );
 }
+
+// const handleCountry = (e) => {
+//   const country = europeCountry.find((c) => c === e.target.value);
+//   if (country) {
+//     setValue(e.target.value);
+//   } else {
+//     setValue("");
+//   }
+// };

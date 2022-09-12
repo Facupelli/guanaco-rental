@@ -21,7 +21,7 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
     search: "",
   });
 
-  const debouncedSearch = useDebounce(filters.search, 500)
+  const debouncedSearch = useDebounce(filters.search, 500);
 
   useEffect(() => {
     dispatch(fetchEquipment(filters.category, filters.order, debouncedSearch));
@@ -38,7 +38,11 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
       />
       <section>
         <div className={s.top_filters_wrapper}>
-          <EquipmentSearchBar setFilters={setFilters} filters={filters} />
+          <EquipmentSearchBar
+            onInputChange={(e) =>
+              setFilters((prev) => ({ ...prev, search: e.target.value }))
+            }
+          />
           <EquipmentOrder setFilters={setFilters} filters={filters} />
         </div>
         <EquipmentList

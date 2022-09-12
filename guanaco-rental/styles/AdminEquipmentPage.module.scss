@@ -6,15 +6,20 @@
   min-height: 100vh;
 
   .flex {
-    width: 80%;
     margin: 1rem 0rem;
     display: flex;
-    align-items: baseline;
-    justify-content: flex-end;
-    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+
+    .flex_baseline{
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
     
     .bold{
-      font-weight: 600
+      font-weight: 700
     }
 
     select {
