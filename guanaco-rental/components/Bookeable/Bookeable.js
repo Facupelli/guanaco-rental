@@ -8,6 +8,7 @@ import EquipmentList from "./EquipmentList/EquipmentList";
 import EquipmentOrder from "./EquipmentOrder/EquipmentOrder";
 
 import s from "./Bookeable.module.scss";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
   const dispatch = useDispatch();
@@ -20,9 +21,11 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
     search: "",
   });
 
+  const debouncedSearch = useDebounce(filters.search, 500)
+
   useEffect(() => {
-    dispatch(fetchEquipment(filters.category, filters.order, filters.search));
-  }, [filters.category, filters.order, filters.search, dispatch]);
+    dispatch(fetchEquipment(filters.category, filters.order, debouncedSearch));
+  }, [filters.category, filters.order, debouncedSearch, dispatch]);
 
   return (
     <section className={s.container}>

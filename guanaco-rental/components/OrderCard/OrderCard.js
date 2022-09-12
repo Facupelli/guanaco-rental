@@ -10,6 +10,7 @@ import {
   handleDeliveredChange,
   updateGearFromOrder,
 } from "../../utils/orders";
+import { useDebounce } from "../../hooks/useDebounce";
 
 import Gear from "./Gear/Gear";
 import MessageModal from "../MessageModal/MessageModal";
@@ -30,10 +31,12 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
     quantity: "",
   });
 
+  const debouncedGearInput = useDebounce(addGearInputs.search, 500);
+
   const [equipments, setEquipments] = useState([]);
 
   useEffect(() => {
-    if (addGearInputs.search.length > 0) {
+    if (debouncedGearInput) {
       const getEquipmentBySearch = async () => {
         try {
           const response = await fetch(
@@ -49,7 +52,7 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
       };
       getEquipmentBySearch();
     }
-  }, [addGearInputs.search]);
+  }, [debouncedGearInput]);
 
   const pickupDay = new Date(order.booking.dates[0]).toLocaleDateString();
   const returnDay = new Date(order.booking.dates.at(-1)).toLocaleDateString();

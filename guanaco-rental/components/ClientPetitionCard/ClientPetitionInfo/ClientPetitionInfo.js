@@ -1,8 +1,10 @@
 import { supabase } from "../../../lib/supabase";
 import Image from "next/image";
-import { useState } from "react";
-import MessageModal from "../../MessageModal/MessageModal";
 import { useDownloadBlob } from "../../../hooks/useDownloadBlob";
+import { useState } from "react";
+
+import MessageModal from "../../MessageModal/MessageModal";
+
 import s from "./ClientPetitionInfo.module.scss";
 
 export default function ClientPetitionInfo({
