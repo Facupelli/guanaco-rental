@@ -29,10 +29,12 @@ export default function GearAdminCard({ gear, getEquipment }) {
           Accept: "application/json",
         },
       }
-    ).then((response) => {
-      console.log("UpdatedGear", response.json());
-      getEquipment();
-    });
+    )
+      .then((response) => {
+        console.log("UpdatedGear", response.json());
+        getEquipment();
+      })
+      .catch((e) => console.log("updateGear error:", e));
   };
 
   return (

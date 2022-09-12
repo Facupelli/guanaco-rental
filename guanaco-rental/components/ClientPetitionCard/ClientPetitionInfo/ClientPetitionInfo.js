@@ -34,12 +34,14 @@ export default function ClientPetitionInfo({
           Accept: "application/json",
         },
       }
-    ).then((response) => {
-      console.log("UpdatedUser", response.json());
-      setNewClientInfo({});
-      getNewClientUsers();
-      getClientUsers();
-    });
+    )
+      .then((response) => {
+        console.log("UpdatedUser", response.json());
+        setNewClientInfo({});
+        getNewClientUsers();
+        getClientUsers();
+      })
+      .catch((e) => console.log("update user error:", e));
   };
 
   return (
