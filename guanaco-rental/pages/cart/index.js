@@ -68,6 +68,8 @@ export default function CartPage() {
 
     const cartTotal = totalPrice * workingDays;
 
+    console.log(date);
+
     if (cartTotal > 40000 || date?.length - 1 > 3) {
       return {
         originalTotal: cartTotal,
@@ -75,7 +77,7 @@ export default function CartPage() {
         discount: "10%",
       };
     }
-    if (userData?.orders.length > 10 && cartTotal > 15000) {
+    if (userData?.orders?.length > 10 && cartTotal > 15000) {
       return {
         originalTotal: cartTotal,
         total: cartTotal - cartTotal * 0.1,
