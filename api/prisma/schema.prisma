@@ -64,6 +64,7 @@ enum Owner{
   FEDERICO
   OSCAR
   BOTH
+  SUB
 }
 
 model Equipment {

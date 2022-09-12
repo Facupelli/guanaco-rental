@@ -272,25 +272,10 @@ async function deleteOrderById(req, res, next) {
   }
 }
 
-async function getTotalOfOrders(req, res, next) {
-  try {
-    const totalPrice = await prisma.order.aggregate({
-      _sum: {
-        totalPrice: true,
-      },
-    });
-
-    res.json(totalPrice);
-  } catch (e) {
-    console.log("getTotalOfOrders error:", e);
-  }
-}
-
 module.exports = {
   postOrder,
   getOrders,
   getOrderById,
   deleteOrderById,
   putOrder,
-  getTotalOfOrders,
 };

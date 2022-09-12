@@ -260,10 +260,12 @@ export async function getServerSideProps(ctx) {
 
   const totalPrice = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/order/rents`
-      : `http://localhost:3001/order/rents`
+      ? `https://guanaco-rental-production.up.railway.app/rents`
+      : `http://localhost:3001/rents`
   )
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response.json());
+    })
     .catch((e) => console.log("fecth error:", e));
 
   return {

@@ -5,7 +5,7 @@ import s from "../../styles/FaqPage.module.scss";
 export default function FaqPage() {
   return (
     <div>
-       <Head>
+      <Head>
         <title>Guanaco FAQ</title>
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
@@ -30,10 +30,10 @@ export default function FaqPage() {
               ¿CÓMPO PUEDO ALQUILAR EN GUANACO RENTAL?
             </p>
             <p>
-              Nuestro objetivo es que el proceso de alquiler sea sencillo y
-              accesible. Podés encontrar nuestros REQUISITOS DE ALQUILER y
-              FORMULARIO DE ALTA DE CLIENTE vía Web, Whatsapp o en nuestra
-              oficina.
+              Registrándote en Guanacorental.com vas a poder hacer tu pedido en
+              cualquier momento! Luego que aceptemos tu formulario de alta de
+              cliente vas a poder llenar tu carrito para generar el alquiler.
+              Cualquier consulta no dudes en escribirnos por whastapp.
             </p>
           </div>
           <div>
