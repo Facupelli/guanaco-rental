@@ -81,6 +81,10 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
                   <p>Oscar:</p>
                   <p className={s.bold}>{formatPrice(earnings?.totalOscar)}</p>
                 </div>
+                <div>
+                  <p>Subalquiler:</p>
+                  <p className={s.bold}>{formatPrice(earnings?.totalSub)}</p>
+                </div>
               </>
             )}
             <div className={s.cancel_btn_wrapper}>

@@ -11,6 +11,7 @@ export const formatPrice = (price) => {
 export const getOwnerEarnings = (order) => {
   let totalFederico = 0;
   let totalOscar = 0;
+  let totalSub = 0;
 
   const workingsDays = getWorkingTotalDays(order.booking.dates, order.booking.pickupHour);
   
@@ -23,6 +24,10 @@ export const getOwnerEarnings = (order) => {
       totalFederico += workingsDays * gear.price * gearQty;
     } else if (gear.owner === "OSCAR") {
       totalOscar += workingsDays * gear.price * gearQty;
+    } else if (gear.owner === "SUB"){
+      totalSub += (workingsDays * gear.price * gearQty) * 0.7;
+      totalFederico += (workingsDays * gear.price * gearQty) * 0.15;
+      totalOscar += (workingsDays * gear.price * gearQty) * 0.15;
     } else {
       totalFederico += (workingsDays * gear.price * gearQty) / 2;
       totalOscar += (workingsDays * gear.price * gearQty) / 2;
@@ -32,5 +37,6 @@ export const getOwnerEarnings = (order) => {
   return {
     totalFederico,
     totalOscar,
+    totalSub
   };
 };

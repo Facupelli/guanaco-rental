@@ -17,7 +17,7 @@ import s from "./Nav.module.scss";
 
 export default function Nav({ setShowCart, cartPage, route, role }) {
   const { data: session } = useSession();
-  const userRole = useSelector((state) => state.user.data.role);
+  const userRole = useSelector((state) => state.user.data?.role);
 
   const handleShowCart = () => {
     if (route === "book") {

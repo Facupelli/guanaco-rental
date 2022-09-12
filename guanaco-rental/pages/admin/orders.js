@@ -2,8 +2,10 @@ import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { getUniqueUser } from "../../utils/fetch_users";
-import { useSelector } from "react-redux";
+import { getOrCreateUser, getUniqueUser } from "../../utils/fetch_users";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserId } from "../../redux/features/user/userSlice";
+import { useSession } from "next-auth/react";
 
 import AdminMain from "../../components/AdminMain/AdminMain";
 import Nav from "../../components/Nav/Nav";
@@ -11,8 +13,18 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 
 import s from "../../styles/AdminOrdersPage.module.scss";
 
-export default function AdminOrdersPage({ session }) {
-  const userRole = useSelector((state) => state.user.data.role);
+export default function AdminOrdersPage({}) {
+  const dispatch = useDispatch();
+
+  const userRole = useSelector((state) => state.user.data?.role);
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (!userRole) {
+      console.log(!userRole, session.user);
+      getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
+    }
+  }, [userRole]);
 
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);

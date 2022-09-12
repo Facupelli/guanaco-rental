@@ -30,6 +30,10 @@ export default function AdminRents({ totalPrice, orders }) {
     return curr + acc.totalOscar;
   }, 0);
 
+  const subEarnings = earnings.reduce((curr, acc) => {
+    return curr + acc.totalSub
+  },0)
+
   const totalFromOrders = useCallback(
     ({ finished, date }) => {
       const todayTime = today.getTime();
@@ -74,10 +78,15 @@ export default function AdminRents({ totalPrice, orders }) {
         return curr + acc.totalOscar;
       }, 0);
 
+      const sub = eachEarnings.reduce((curr, acc) => {
+        return curr + acc.totalSub;
+      }, 0);
+
       return {
         total,
         federico,
         oscar,
+        sub,
       };
     },
     [orders, today]
@@ -117,6 +126,10 @@ export default function AdminRents({ totalPrice, orders }) {
                 <span className={s.bold}>Oscar:</span>{" "}
                 {formatPrice(oscarEarnings)}
               </p>
+              <p>
+                <span className={s.bold}>Subalquiler:</span>{" "}
+                {formatPrice(subEarnings)}
+              </p>
             </RentsCard>
 
             <RentsCard>
@@ -131,6 +144,9 @@ export default function AdminRents({ totalPrice, orders }) {
               <p>
                 Oscar: {totalFinished.oscar && formatPrice(totalFinished.oscar)}
               </p>
+              <p>
+                Subalquiler: {totalFinished.oscar && formatPrice(totalFinished.sub)}
+              </p>
             </RentsCard>
 
             <RentsCard>
@@ -144,6 +160,9 @@ export default function AdminRents({ totalPrice, orders }) {
               </p>
               <p>
                 Oscar: {totalPending.oscar && formatPrice(totalPending.oscar)}
+              </p>
+              <p>
+                Subalquiler: {totalPending.oscar && formatPrice(totalPending.sub)}
               </p>
             </RentsCard>
           </div>
@@ -224,6 +243,12 @@ export default function AdminRents({ totalPrice, orders }) {
               Oscar:{" "}
               {totalCustom.oscar
                 ? formatPrice(totalCustom.oscar)
+                : formatPrice(0)}
+            </p>
+            <p>
+              Subalquiler:{" "}
+              {totalCustom.oscar
+                ? formatPrice(totalCustom.sub)
                 : formatPrice(0)}
             </p>
           </RentsCard>
