@@ -9,6 +9,9 @@ async function postUser(req, res, next) {
       where: {
         email: data.email,
       },
+      include: {
+        orders: { select: { number: true } },
+      },
       update: {
         phone: data.phone,
         fullName: data.fullName,

@@ -61,7 +61,14 @@ export default function CartPage() {
       return curr + (acc.quantity ? acc.price * acc.quantity : acc.price);
     }, 0);
 
-    return totalPrice * workingDays;
+    const cartTotal = totalPrice * workingDays;
+
+    if(cartTotal > 40000 || dateRange.length + 1 > 3){
+      return cartTotal - (cartTotal * 0.1)
+    }
+    if(userData.orders.length > 10 && cartTotal > 15000){
+      return cartTotal - (cartTotal * 0.1)
+    }
   };
 
   const handleClickBookOrder = async () => {
