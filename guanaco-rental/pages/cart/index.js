@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,9 +33,12 @@ export default function CartPage() {
 
   const [freeOrder, setFreeOrder] = useState(false);
 
-  const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState({
+    modal: false,
+    question: false,
+    loading: false,
+    error: "",
+  });
 
   const [datePickup, setDatePickup] = useState(false);
   const [dateRange, setDateRange] = useState(null);
@@ -63,12 +68,21 @@ export default function CartPage() {
 
     const cartTotal = totalPrice * workingDays;
 
-    if(cartTotal > 40000 || dateRange.length + 1 > 3){
-      return cartTotal - (cartTotal * 0.1)
+    if (cartTotal > 40000 || date.length - 1 > 3) {
+      return {
+        originalTotal: cartTotal,
+        total: cartTotal - cartTotal * 0.1,
+        discount: "10%",
+      };
     }
-    if(userData.orders.length > 10 && cartTotal > 15000){
-      return cartTotal - (cartTotal * 0.1)
+    if (userData.orders.length > 10 && cartTotal > 15000) {
+      return {
+        originalTotal: cartTotal,
+        total: cartTotal - cartTotal * 0.1,
+        discount: "10%",
+      };
     }
+    return { total: cartTotal };
   };
 
   const handleClickBookOrder = async () => {
@@ -88,7 +102,7 @@ export default function CartPage() {
       return;
     }
 
-    setLoading(true);
+    setShowModal((prev) => ({ ...prev, loading: true }));
 
     const totalPrice = getCartTotalPrice();
 
@@ -96,7 +110,7 @@ export default function CartPage() {
       cart,
       dates: date,
       pickupHour,
-      totalPrice: freeOrder ? 0 : totalPrice,
+      totalPrice: freeOrder ? 0 : totalPrice.total,
       userId: userData.id,
     });
 
@@ -114,13 +128,17 @@ export default function CartPage() {
       }
     )
       .then((response) => response.json())
-      .catch((e) => setError("error, vuelve a intentarlo", e));
+      .catch((e) =>
+        setShowModal((prev) => ({
+          ...prev,
+          eror: "error, vuelve a intentarlo",
+        }))
+      );
 
     if (newOrder && newOrder.message === "success") {
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
       dispatch(resetDate());
       dispatch(cleanCart());
-      setLoading(false);
       return;
     }
   };
@@ -143,20 +161,57 @@ export default function CartPage() {
           setDatePickup={setDatePickup}
         />
       )}
-      {showModal && (
-        <MessageModal showButton btnFunc={() => setShowModal(false)}>
+      {showModal.question && (
+        <MessageModal
+          showButton
+          btnFunc={() =>
+            setShowModal((prev) => ({
+              ...prev,
+              question: false,
+            }))
+          }
+          btnName="CERRAR"
+        >
+          <p>
+            A los pedidos que superen los $40.000 o que se alquilen por más de 3
+            días se les aplica un descuento de 10%.
+          </p>
+          <p>
+            A nuestros clientes frecuentes con más de 10 pedidos realizados, si
+            el pedido supera los $15.000 se le aplica un descento de 10%.
+          </p>
+        </MessageModal>
+      )}
+      {showModal.modal && (
+        <MessageModal
+          showButton
+          btnFunc={() =>
+            setShowModal((prev) => ({
+              ...prev,
+              modal: false,
+            }))
+          }
+        >
           Tu alta de cliente todavía no fue aprobada, recuerda que puede demorar
           hasta 48hs.
         </MessageModal>
       )}
-      {loading && (
+      {showModal.loading && (
         <LoadingModal>
           <p>Procesando...</p>
         </LoadingModal>
       )}
-      {error && (
-        <MessageModal showButton btnFunc={() => setError("")}>
-          <p>{error}</p>
+      {showModal.error && (
+        <MessageModal
+          showButton
+          btnFunc={() =>
+            setShowModal((prev) => ({
+              ...prev,
+              eror: "",
+            }))
+          }
+        >
+          <p>{showModal.error}</p>
         </MessageModal>
       )}
       <main className={s.main}>
@@ -216,7 +271,7 @@ export default function CartPage() {
               disabled={
                 date.length > 0 &&
                 cart.length > 0 &&
-                getCartTotalPrice() > 0 &&
+                getCartTotalPrice().total > 0 &&
                 areAllItemsAvailable(cart, date)
                   ? false
                   : true
@@ -241,16 +296,39 @@ export default function CartPage() {
               />
             </div>
           )}
-          <div className={s.total_price_wrapper}>
-            <p>Total:</p>
-            <p className={s.p_bold}>
-              {freeOrder || !date.length > 0
-                ? formatPrice(0)
-                : cart &&
-                  cart.length > 0 &&
-                  date.length > 0 &&
-                  formatPrice(getCartTotalPrice())}
-            </p>
+          <div className={s.total_wrapper}>
+            {getCartTotalPrice().discount && (
+              <>
+                <div className={`${s.total_price_wrapper} ${s.font_small}`}>
+                  <p>Sub Total:</p>
+                  <p>{formatPrice(getCartTotalPrice().originalTotal)}</p>
+                </div>
+                <div className={`${s.total_price_wrapper} ${s.font_small}`}>
+                  <p>
+                    Descuento:{" "}
+                    <FontAwesomeIcon
+                      icon={faCircleQuestion}
+                      className={s.question_icon}
+                      onClick={() =>
+                        setShowModal((prev) => ({ ...prev, question: true }))
+                      }
+                    />
+                  </p>
+                  <p>{getCartTotalPrice().discount}</p>
+                </div>
+              </>
+            )}
+            <div className={`${s.total_price_wrapper} ${s.margin_1}`}>
+              <p>Total:</p>
+              <p className={s.p_bold}>
+                {freeOrder || !date.length > 0
+                  ? formatPrice(0)
+                  : cart &&
+                    cart.length > 0 &&
+                    date.length > 0 &&
+                    formatPrice(getCartTotalPrice().total)}
+              </p>
+            </div>
           </div>
         </div>
       </main>

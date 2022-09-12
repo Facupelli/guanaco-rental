@@ -9,7 +9,6 @@
   padding-top: calc(3rem + 70px);
   // padding-top: 70px;
 
-
   > div {
     margin-bottom: 2rem;
   }
@@ -73,19 +72,42 @@
       }
     }
 
-    .total_price_wrapper {
+    .total_wrapper {
       margin-top: 1rem;
       display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      font-size: 1.2em;
+      flex-direction: column;
+      row-gap: 0.2rem;
 
-      .p_bold {
-        font-size: 1.1em;
-        font-weight: 700;
+      .margin_1 {
+        margin-top: 1rem;
+        font-size: 1.2em;
       }
 
-      
+      .font_small {
+        font-size: 0.9em;
+      }
+
+      .total_price_wrapper {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+
+        .p_bold {
+          font-size: 1.1em;
+          font-weight: 700;
+        }
+
+        .question_icon{
+          height: 15px;
+          width: 15px;
+          color: $m-orange;
+          cursor: pointer;
+
+          &:hover{
+            color: $s-orange;
+          }
+        }
+      }
     }
   }
 }
