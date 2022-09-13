@@ -29,16 +29,15 @@ async function getCoupons(req, res, next) {
     let finishedCoupons = [];
     let activeCoupons = [];
 
+    
     coupons.map((coupon) => {
       if (
-        !coupon.maxOrders ||
-        !coupon.expirationDate ||
-        coupon.orders.length < coupon.maxOrders ||
-        new Date().getTime() < new Date(coupon.expirationDate).getTime()
+        (coupon.maxOrders && coupon.orders.length >= coupon.maxOrders) ||
+        (coupon.expirationDate && new Date().getTime() > new Date(coupon.expirationDate).getTime())
       ) {
-        activeCoupons.push(coupon);
-      } else {
         finishedCoupons.push(coupon);
+      } else {
+        activeCoupons.push(coupon);
       }
     });
 
