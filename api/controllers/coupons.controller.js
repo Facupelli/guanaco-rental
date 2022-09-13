@@ -29,11 +29,11 @@ async function getCoupons(req, res, next) {
     let finishedCoupons = [];
     let activeCoupons = [];
 
-    
     coupons.map((coupon) => {
       if (
         (coupon.maxOrders && coupon.orders.length >= coupon.maxOrders) ||
-        (coupon.expirationDate && new Date().getTime() > new Date(coupon.expirationDate).getTime())
+        (coupon.expirationDate &&
+          new Date().getTime() > new Date(coupon.expirationDate).getTime())
       ) {
         finishedCoupons.push(coupon);
       } else {
@@ -44,6 +44,35 @@ async function getCoupons(req, res, next) {
     res.json({ finishedCoupons, activeCoupons });
   } catch (e) {
     console.log("getCoupons error:", e);
+  }
+}
+
+async function getCouponByName(req, res, next) {
+  const name = req.params;
+  try {
+    if (name) {
+      const coupon = await prisma.coupon.findUnique({
+        where: name,
+        include: { orders: true },
+      });
+
+      if (!coupon) {
+        res.json({ message: "cupón inválido" });
+        return;
+      }
+
+      if (
+        (coupon.maxOrders && coupon.orders.length >= coupon.maxOrders) ||
+        (coupon.expirationDate &&
+          new Date().getTime() > new Date(coupon.expirationDate).getTime())
+      ) {
+        res.json({ message: "cupón inválido" });
+      } else {
+        res.json({ message: "success", coupon });
+      }
+    }
+  } catch (e) {
+    console.log("getCouponById error:", e);
   }
 }
 
@@ -68,4 +97,5 @@ module.exports = {
   postCoupon,
   getCoupons,
   deleteCouponById,
+  getCouponByName,
 };

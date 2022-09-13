@@ -31,7 +31,13 @@ export default function CartPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const userData = useSelector((state) => state.user.data);
+  const cart = useSelector((state) => state.cart.items);
+  const date = useSelector((state) => state.date.date_range);
+  const pickupHour = useSelector((state) => state.date.pickup_hour);
+
   const [freeOrder, setFreeOrder] = useState(false);
+  const [couponName, setCoupon] = useState("");
 
   const [showModal, setShowModal] = useState({
     modal: false,
@@ -43,10 +49,19 @@ export default function CartPage() {
   const [datePickup, setDatePickup] = useState(false);
   const [dateRange, setDateRange] = useState(null);
 
-  const userData = useSelector((state) => state.user.data);
-  const cart = useSelector((state) => state.cart.items);
-  const date = useSelector((state) => state.date.date_range);
-  const pickupHour = useSelector((state) => state.date.pickup_hour);
+  const [totalCartPrice, setTotalCartPrice] = useState({});
+
+  const [couponApplied, setCouponApplied] = useState({
+    success: false,
+    coupon: {},
+    error: "",
+  });
+
+  useEffect(() => {
+    if (date && cart.length > 0) {
+      setTotalCartPrice(getCartTotalPrice(couponApplied));
+    }
+  }, [date, cart, couponApplied.success]);
 
   const handleSelectDateRange = () => {
     setDatePickup(true);
@@ -59,7 +74,7 @@ export default function CartPage() {
     }
   }, [dateRange, dispatch]);
 
-  const getCartTotalPrice = () => {
+  const getCartTotalPrice = (couponApplied) => {
     const workingDays = getWorkingTotalDays(date, pickupHour);
 
     const totalPrice = cart.reduce((curr, acc) => {
@@ -68,6 +83,12 @@ export default function CartPage() {
 
     const cartTotal = totalPrice * workingDays;
 
+    if (couponApplied?.success) {
+      return {
+        total: cartTotal - cartTotal * (couponApplied.coupon.discount / 100),
+      };
+    }
+
     if (cartTotal > 40000 || date?.length - 1 > 3) {
       return {
         originalTotal: cartTotal,
@@ -75,6 +96,7 @@ export default function CartPage() {
         discount: "10%",
       };
     }
+
     if (userData?.orders?.length > 10 && cartTotal > 15000) {
       return {
         originalTotal: cartTotal,
@@ -82,7 +104,40 @@ export default function CartPage() {
         discount: "10%",
       };
     }
+
     return { total: cartTotal };
+  };
+
+  const handleApplyCoupon = async () => {
+    setCouponApplied((prev) => ({ ...prev, error: "" }));
+    try {
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/coupons/${couponName}`
+          : `http://localhost:3001/coupons/${couponName}`
+      );
+      const coupon = await response.json();
+      if (coupon.message === "success") {
+        setCouponApplied((prev) => ({
+          ...prev,
+          success: true,
+          coupon: coupon.coupon,
+        }));
+      } else {
+        setCouponApplied((prev) => ({
+          success: false,
+          coupon: {},
+          error: coupon.message,
+        }));
+      }
+    } catch (e) {
+      console.log("apply coupon error:", e);
+      setCouponApplied((prev) => ({
+        success: false,
+        coupon: {},
+        error: "hubo un error",
+      }));
+    }
   };
 
   const handleClickBookOrder = async () => {
@@ -104,14 +159,13 @@ export default function CartPage() {
 
     setShowModal((prev) => ({ ...prev, loading: true }));
 
-    const totalPrice = getCartTotalPrice();
-
     const data = JSON.stringify({
       cart,
       dates: date,
       pickupHour,
-      totalPrice: freeOrder ? 0 : totalPrice.total,
+      totalPrice: freeOrder ? 0 : totalCartPrice.total,
       userId: userData.id,
+      couponId: couponApplied?.success ? couponApplied.coupon.id : null,
     });
 
     const newOrder = await fetch(
@@ -180,9 +234,7 @@ export default function CartPage() {
             A nuestros clientes frecuentes con más de 10 pedidos realizados, si
             el pedido supera los $15.000 se le aplica un descento de 10%.
           </p>
-          <p>
-            Si tienes un cupón los descuentos NO son acumulativos.
-          </p>
+          <p>Si tienes un cupón los descuentos NO son acumulativos.</p>
         </MessageModal>
       )}
       {showModal.modal && (
@@ -274,7 +326,7 @@ export default function CartPage() {
               disabled={
                 date.length > 0 &&
                 cart.length > 0 &&
-                getCartTotalPrice().total > 0 &&
+                totalCartPrice.total > 0 &&
                 areAllItemsAvailable(cart, date)
                   ? false
                   : true
@@ -300,11 +352,11 @@ export default function CartPage() {
             </div>
           )}
           <div className={s.total_wrapper}>
-            {getCartTotalPrice().discount && (
+            {totalCartPrice.discount && (
               <>
                 <div className={`${s.total_price_wrapper} ${s.font_small}`}>
                   <p>Sub Total:</p>
-                  <p>{formatPrice(getCartTotalPrice().originalTotal)}</p>
+                  <p>{formatPrice(totalCartPrice.originalTotal)}</p>
                 </div>
                 <div className={`${s.total_price_wrapper} ${s.font_small}`}>
                   <p>
@@ -317,7 +369,7 @@ export default function CartPage() {
                       }
                     />
                   </p>
-                  <p>{getCartTotalPrice().discount}</p>
+                  <p>{totalCartPrice.discount}</p>
                 </div>
               </>
             )}
@@ -325,9 +377,16 @@ export default function CartPage() {
               <details>
                 <summary>Ingresar un cupón de descuento</summary>
                 <div>
-                  <input type="text" placeholder="ingresar código" />
-                  <button type="button">APLICAR</button>
+                  <input
+                    type="text"
+                    placeholder="ingresar código"
+                    onChange={(e) => setCoupon(e.target.value)}
+                  />
+                  <button type="button" onClick={handleApplyCoupon}>
+                    APLICAR
+                  </button>
                 </div>
+                {couponApplied.error && <p>{couponApplied.error}</p>}
               </details>
             </div>
             <div className={`${s.total_price_wrapper} ${s.margin_1}`}>
@@ -338,7 +397,7 @@ export default function CartPage() {
                   : cart &&
                     cart.length > 0 &&
                     date.length > 0 &&
-                    formatPrice(getCartTotalPrice().total)}
+                    formatPrice(totalCartPrice.total)}
               </p>
             </div>
           </div>
