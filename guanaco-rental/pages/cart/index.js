@@ -68,8 +68,6 @@ export default function CartPage() {
 
     const cartTotal = totalPrice * workingDays;
 
-    console.log(date);
-
     if (cartTotal > 40000 || date?.length - 1 > 3) {
       return {
         originalTotal: cartTotal,
@@ -181,6 +179,9 @@ export default function CartPage() {
           <p>
             A nuestros clientes frecuentes con más de 10 pedidos realizados, si
             el pedido supera los $15.000 se le aplica un descento de 10%.
+          </p>
+          <p>
+            Si tienes un cupón los descuentos NO son acumulativos.
           </p>
         </MessageModal>
       )}
@@ -320,6 +321,15 @@ export default function CartPage() {
                 </div>
               </>
             )}
+            <div className={s.coupon}>
+              <details>
+                <summary>Ingresar un cupón de descuento</summary>
+                <div>
+                  <input type="text" placeholder="ingresar código" />
+                  <button type="button">APLICAR</button>
+                </div>
+              </details>
+            </div>
             <div className={`${s.total_price_wrapper} ${s.margin_1}`}>
               <p>Total:</p>
               <p className={s.p_bold}>

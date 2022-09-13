@@ -78,6 +78,39 @@
       flex-direction: column;
       row-gap: 0.2rem;
 
+      .coupon {
+        margin-top: 2rem;
+        font-size: 0.9em;
+        border: 1px solid $m-gray;
+        border-radius: 0.2rem;
+        padding: 0.8rem;
+
+        details {
+          summary{
+            display: list-item;
+            cursor: pointer;
+          }
+
+          > div {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+
+            input {
+              @include input;
+              padding: 0.2rem 0.4rem;
+              border: none;
+            }
+
+            button {
+              @include m-button;
+              font-size: 0.9em;
+              padding: 0.4rem 0.8rem;
+            }
+          }
+        }
+      }
+
       .margin_1 {
         margin-top: 1rem;
         font-size: 1.2em;
@@ -97,13 +130,13 @@
           font-weight: 700;
         }
 
-        .question_icon{
+        .question_icon {
           height: 15px;
           width: 15px;
           color: $m-orange;
           cursor: pointer;
 
-          &:hover{
+          &:hover {
             color: $s-orange;
           }
         }
@@ -130,17 +163,9 @@
     }
 
     .summary {
-      width: 70%;
+      width: 100%;
       margin-left: auto;
       margin-right: auto;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .main {
-    .summary {
-      width: 100%;
     }
   }
 }
