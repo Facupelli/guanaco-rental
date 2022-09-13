@@ -165,7 +165,7 @@ export default function CartPage() {
       pickupHour,
       totalPrice: freeOrder ? 0 : totalCartPrice.total,
       userId: userData.id,
-      couponId: couponApplied?.success ? couponApplied.coupon.id : null,
+      couponId: couponApplied?.success ? couponApplied.coupon.id : undefined,
     });
 
     const newOrder = await fetch(

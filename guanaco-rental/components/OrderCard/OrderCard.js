@@ -210,6 +210,9 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
               equipmentRows={equipmentRows}
             />
           )}
+          {order.coupon && (
+            <p className={s.coupon_name}>cupón: {order.coupon.name}</p>
+          )}
         </div>
       </div>
     </>

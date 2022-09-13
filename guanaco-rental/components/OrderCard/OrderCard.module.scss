@@ -135,6 +135,7 @@
   .remito_wrapper {
     display: flex;
     justify-content: flex-start;
+    align-items: baseline;
     font-size: 0.9em;
     margin-left: 3%;
 
@@ -143,6 +144,11 @@
       width: 10%;
       font-size: 0.8em;
       padding: 0.2rem 0.4rem;
+    }
+
+    .coupon_name{
+      margin: 0 1rem;
+      font-size: .8em;
     }
   }
 

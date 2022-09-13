@@ -44,14 +44,19 @@ async function postOrder(req, res, next) {
   try {
     const equipmentsIds = data.cart.map((item) => ({ id: item.id }));
 
+    const newData = {
+      user: { connect: { id: data.userId } },
+      equipments: { connect: equipmentsIds },
+      totalPrice: data.totalPrice,
+      booking: { connect: { id: book.id } },
+    };
+
+    if (data.couponId) {
+      newData.coupon = { connect: { id: data.couponId } };
+    }
+
     newOrder = await prisma.order.create({
-      data: {
-        user: { connect: { id: data.userId } },
-        equipments: { connect: equipmentsIds },
-        totalPrice: data.totalPrice,
-        booking: { connect: { id: book.id } },
-        coupon: { connect: { id: data.couponId } },
-      },
+      data: newData,
     });
 
     res.json({ message: "success", newOrder });
@@ -191,6 +196,7 @@ async function getOrders(req, res, next) {
           booking: true,
           equipments: { include: { bookings: true } },
           user: true,
+          coupon: { select: { name: true } },
         },
       });
       res.json(order);
@@ -202,6 +208,7 @@ async function getOrders(req, res, next) {
         include: {
           booking: true,
           equipments: { include: { bookings: true } },
+          coupon: { select: { name: true } },
           // user: true,
         },
       });
@@ -215,6 +222,7 @@ async function getOrders(req, res, next) {
         user: true,
         equipments: { include: { bookings: true } },
         booking: true,
+        coupon: { select: { name: true } },
       },
       orderBy: {
         createdAt: "desc",
