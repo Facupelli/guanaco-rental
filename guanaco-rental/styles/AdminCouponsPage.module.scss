@@ -1,16 +1,15 @@
 @import "../styles/app.scss";
 
-
-.form{
+.form {
   display: flex;
   flex-direction: column;
 
-  input{
+  input {
     @include input;
     margin-bottom: 1rem;
   }
 
-  button{
+  button {
     @include m-button;
   }
 }
@@ -30,15 +29,31 @@
   .flex_50_50 {
     margin-top: 1rem;
     display: flex;
+    gap: 2rem;
 
     > section {
-      flex-basis: 50%;
+      flex-basis: calc(50% - 1rem);
+
+      > div {
+        margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
+
+        > div {
+          flex-basis: 50%;
+        }
+      }
     }
   }
 }
 
-// @media (max-width: 480px) {
-//   .grey_bg {
-
-//   }
-// }
+@media (max-width: 768px) {
+  .grey_bg {
+    .flex_50_50 {
+      flex-wrap: wrap;
+      > section {
+        flex-basis: 100%;
+      }
+    }
+  }
+}

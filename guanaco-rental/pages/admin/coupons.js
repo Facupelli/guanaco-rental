@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import MessageModal from "../../components/MessageModal/MessageModal";
+import AdminCouponCard from "../../components/AdminCouponCard/AdminCouponCard";
 
 import s from "../../styles/AdminCouponsPage.module.scss";
 
@@ -15,15 +16,12 @@ export default function AdminRents({}) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const [showCouponModal, setShowCouponModal] = useState(false);
 
   const [coupons, setCoupons] = useState({});
-
-  console.log(coupons);
 
   const getCoupons = async () => {
     const response = await fetch(
@@ -57,8 +55,6 @@ export default function AdminRents({}) {
         }
       );
       const newCoupon = await response.json();
-
-      console.log(newCoupon);
 
       if (newCoupon.message === "success") {
         getCoupons();
@@ -110,10 +106,10 @@ export default function AdminRents({}) {
         <div className={s.flex_50_50}>
           <section>
             <h3>CUPONES FINALIZADOS</h3>
-            <div>
+            <div className={s.finished_coupons_wrapper}>
               {coupons.finishedCoupons?.length > 0 &&
                 coupons.finishedCoupons.map((coupon) => (
-                  <div key={coupon.id}>{coupon.name}</div>
+                  <AdminCouponCard key={coupon.id} coupon={coupon} danger />
                 ))}
             </div>
           </section>
@@ -122,7 +118,7 @@ export default function AdminRents({}) {
             <div>
               {coupons.activeCoupons?.length > 0 &&
                 coupons.activeCoupons.map((coupon) => (
-                  <div key={coupon.id}>{coupon.name}</div>
+                  <AdminCouponCard key={coupon.id} coupon={coupon} />
                 ))}
             </div>
           </section>
