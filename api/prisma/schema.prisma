@@ -95,6 +95,8 @@ model Order {
   booking                 Book                @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   bookingId               String              @unique
   delivered               Boolean             @default(false)
+  coupon                  Coupon              @relation(fields: [couponId], references: [id])
+  couponId                String
   createdAt               DateTime            @default(now())
 }
 
@@ -117,3 +119,12 @@ model BookOnEquipment {
   @@id([equipmentId, bookId])
 }
 
+
+model Coupon {
+  id                      String                @default(cuid()) @id
+  name                    String
+  discount                Int
+  expirationDate          DateTime?
+  maxOrders               Int?
+  orders                  Order[]
+}

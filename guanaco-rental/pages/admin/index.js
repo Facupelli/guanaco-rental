@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { formatPrice } from "../../utils/price";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserId } from "../../redux/features/user/userSlice";
+
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
 
@@ -96,6 +97,11 @@ export default function AdminPage() {
                 <Link href="/admin/rents">
                   <li>
                     <a className={s.link}>Rentas</a>
+                  </li>
+                </Link>
+                <Link href="/admin/coupons">
+                  <li>
+                    <a className={s.link}>Cupones</a>
                   </li>
                 </Link>
               </>

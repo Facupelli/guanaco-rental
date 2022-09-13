@@ -20,19 +20,27 @@ export default function AdminRents({ totalPrice, orders }) {
 
   const today = useMemo(() => new Date(), []);
 
-  const earnings = orders.map((order) => getOwnerEarnings(order));
+  const eachEarnings = () => {
+    const earnings = orders.map((order) => getOwnerEarnings(order));
 
-  const federicoEarnings = earnings.reduce((curr, acc) => {
-    return curr + acc.totalFederico;
-  }, 0);
+    const federicoEarnings = earnings.reduce((curr, acc) => {
+      return curr + acc.totalFederico;
+    }, 0);
 
-  const oscarEarnings = earnings.reduce((curr, acc) => {
-    return curr + acc.totalOscar;
-  }, 0);
+    const oscarEarnings = earnings.reduce((curr, acc) => {
+      return curr + acc.totalOscar;
+    }, 0);
 
-  const subEarnings = earnings.reduce((curr, acc) => {
-    return curr + acc.totalSub
-  },0)
+    const subEarnings = earnings.reduce((curr, acc) => {
+      return curr + acc.totalSub;
+    }, 0);
+
+    return {
+      federicoEarnings,
+      oscarEarnings,
+      subEarnings,
+    };
+  };
 
   const totalFromOrders = useCallback(
     ({ finished, date }) => {
@@ -120,15 +128,15 @@ export default function AdminRents({ totalPrice, orders }) {
               </p>
               <p>
                 <span className={s.bold}>Federico:</span>{" "}
-                {formatPrice(federicoEarnings)}
+                {formatPrice(eachEarnings().federicoEarnings)}
               </p>
               <p>
                 <span className={s.bold}>Oscar:</span>{" "}
-                {formatPrice(oscarEarnings)}
+                {formatPrice(eachEarnings().oscarEarnings)}
               </p>
               <p>
                 <span className={s.bold}>Subalquiler:</span>{" "}
-                {formatPrice(subEarnings)}
+                {formatPrice(eachEarnings().subEarnings)}
               </p>
             </RentsCard>
 
@@ -145,7 +153,8 @@ export default function AdminRents({ totalPrice, orders }) {
                 Oscar: {totalFinished.oscar && formatPrice(totalFinished.oscar)}
               </p>
               <p>
-                Subalquiler: {totalFinished.oscar && formatPrice(totalFinished.sub)}
+                Subalquiler:{" "}
+                {totalFinished.oscar && formatPrice(totalFinished.sub)}
               </p>
             </RentsCard>
 
@@ -162,7 +171,8 @@ export default function AdminRents({ totalPrice, orders }) {
                 Oscar: {totalPending.oscar && formatPrice(totalPending.oscar)}
               </p>
               <p>
-                Subalquiler: {totalPending.oscar && formatPrice(totalPending.sub)}
+                Subalquiler:{" "}
+                {totalPending.oscar && formatPrice(totalPending.sub)}
               </p>
             </RentsCard>
           </div>
@@ -290,8 +300,6 @@ export async function getServerSideProps(ctx) {
   )
     .then((res) => res.json())
     .catch((e) => console.log("fecth error:", e));
-
-  console.log(totalPrice);
 
   return {
     props: {
