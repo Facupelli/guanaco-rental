@@ -13,7 +13,7 @@ import CreateCoupon from "../../components/AdminCreateCoupon/CreateCoupon";
 
 import s from "../../styles/AdminCouponsPage.module.scss";
 
-export default function AdminRents({}) {
+export default function AdminCoupons({}) {
   const [showCouponModal, setShowCouponModal] = useState(false);
 
   const { coupons, getCoupons, loading } = useFetchCoupons();

@@ -1,0 +1,35 @@
+@import "../styles/app.scss";
+
+.grey_bg {
+  background-color: $bg-grey;
+  min-height: 100vh;
+
+  .add_discount_btn_wrapper {
+    margin-top: 2rem;
+
+    button {
+      @include m-button-orange;
+    }
+  }
+
+  section {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .discount_card_container {
+      background-color: white;
+      padding: 1.5rem;
+
+      p{
+        margin-bottom: .2rem;
+
+        strong {
+          font-weight: 600;
+        }
+      }
+
+    }
+  }
+}

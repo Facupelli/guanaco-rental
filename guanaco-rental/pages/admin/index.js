@@ -93,6 +93,11 @@ export default function AdminPage() {
                     <a className={s.link}>Cupones</a>
                   </li>
                 </Link>
+                <Link href="/admin/fixedDiscounts">
+                  <li>
+                    <a className={s.link}>Descuentos Fijos</a>
+                  </li>
+                </Link>
               </>
             )}
           </ul>

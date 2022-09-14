@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function postFixedDiscount(req, res, next) {
-  const { minPrice, minDates, minUserOrders } = req.body;
+  const { minPrice, minDates, minUserOrders, discount } = req.body;
 
   try {
     const fixedDiscount = await prisma.fixedDiscount.create({
@@ -10,6 +10,7 @@ async function postFixedDiscount(req, res, next) {
         minPrice: Number(minPrice),
         minDates: Number(minDates),
         minUserOrders: Number(minUserOrders),
+        discount: Number(discount),
       },
     });
 

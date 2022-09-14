@@ -135,5 +135,6 @@ model FixedDiscount {
     minPrice                Int
     minDates                Int
     minUserOrders           Int
+    discount                Int
     orders                  Order[]
 }
