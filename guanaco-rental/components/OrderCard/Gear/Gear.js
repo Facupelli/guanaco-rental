@@ -6,7 +6,7 @@ import { updateGearFromOrder } from "../../../utils/orders";
 
 import s from "./Gear.module.scss";
 
-export default function Gear({ gear, order, editable, getAllOrders }) {
+export default function Gear({ gear, order, editable, refetchOrders }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ export default function Gear({ gear, order, editable, getAllOrders }) {
           showButton
           btnFunc={() => {
             updateGearFromOrder(order, gear, "remove", 0).then(() =>
-              getAllOrders()
+            refetchOrders()
             );
             setShowModal(false);
           }}

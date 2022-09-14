@@ -19,7 +19,7 @@ import s from "./OrderCard.module.scss";
 
 const PDF = dynamic(() => import("./PDF/PDF"));
 
-export default function OrderCard({ order, getAllOrders, userRole }) {
+export default function OrderCard({ order, userRole, refetchOrders }) {
   const [showEquipment, setShowEquipment] = useState(false);
   const [generatePDF, setGeneratePDF] = useState(false);
 
@@ -91,7 +91,9 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
               <button
                 type="button"
                 className={s.cancel_order}
-                onClick={() => handleDeleteOrder(order.bookingId, getAllOrders)}
+                onClick={() =>
+                  handleDeleteOrder(order.bookingId, refetchOrders)
+                }
               >
                 CANCELAR ORDEN
               </button>
@@ -109,9 +111,9 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
             equipments={equipments}
             setAddGearInputs={setAddGearInputs}
             addGearInputs={addGearInputs}
-            getAllOrders={getAllOrders}
             order={order}
             loading={loading}
+            refetchOrders={refetchOrders}
           />
         </MessageModal>
       )}
@@ -136,7 +138,7 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
                 type="checkbox"
                 defaultChecked={order.delivered}
                 onClick={() =>
-                  handleDeliveredChange(order.id, true, getAllOrders)
+                  handleDeliveredChange(order.id, true, refetchOrders)
                 }
               />
             </div>
@@ -174,7 +176,7 @@ export default function OrderCard({ order, getAllOrders, userRole }) {
                     gear={gear}
                     order={order}
                     key={gear.id}
-                    getAllOrders={getAllOrders}
+                    refetchOrders={refetchOrders}
                   />
                 ))}
             </div>
@@ -223,9 +225,9 @@ const AddGearModalChildren = ({
   equipments,
   setAddGearInputs,
   addGearInputs,
-  getAllOrders,
   order,
   loading,
+  refetchOrders,
 }) => {
   return (
     <>
@@ -273,7 +275,7 @@ const AddGearModalChildren = ({
                         gear,
                         "add",
                         addGearInputs
-                      ).then(() => getAllOrders());
+                      ).then(() => refetchOrders());
                     }
                   }}
                 >

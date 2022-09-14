@@ -1,6 +1,14 @@
 import { getWorkingTotalDays } from "./dates_functions";
 import s from "../components/OrderCard/OrderCard.module.scss";
 
+export const fetchAllOrders = (skip) => {
+  return fetch(
+    process.env.NODE_ENV === "production"
+      ? `https://guanaco-rental-production.up.railway.app/order?skip=${skip}`
+      : `http://localhost:3001/order?skip=${skip}`
+  ).then((res) => res.json());
+};
+
 export const getOrderStatus = (order) => {
   if (new Date().getTime() < new Date(order.booking.dates[0]).getTime()) {
     return { status: "PENDIENTE", class: s.yellow };
@@ -27,7 +35,7 @@ export const generatePdfRows = (order) => {
   }
 };
 
-export const handleDeleteOrder = async (id, getAllOrders) => {
+export const handleDeleteOrder = async (id, refetchOrders) => {
   const order = await fetch(
     process.env.NODE_ENV === "production"
       ? `https://guanaco-rental-production.up.railway.app/order/${id}`
@@ -40,7 +48,7 @@ export const handleDeleteOrder = async (id, getAllOrders) => {
     .catch((e) => console.log("error", e));
 
   if (order?.message === "success") {
-    getAllOrders();
+    refetchOrders(10);
   }
 };
 
@@ -97,8 +105,11 @@ export const updateGearFromOrder = async (
   }
 };
 
-
-export const handleDeliveredChange = async (orderId, delivered, getAllOrders) => {
+export const handleDeliveredChange = async (
+  orderId,
+  delivered,
+  refetchOrders
+) => {
   const data = JSON.stringify({
     orderId,
     delivered,
@@ -121,7 +132,7 @@ export const handleDeliveredChange = async (orderId, delivered, getAllOrders) =>
     const order = await updatedOrder.json();
 
     if (order?.message === "success") {
-      getAllOrders();
+      refetchOrders(10);
     }
   } catch (e) {
     console.log(e);
