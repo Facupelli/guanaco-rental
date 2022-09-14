@@ -9,6 +9,7 @@ import {
   setDate,
 } from "../../redux/features/pickupDate/pickupDateSlice";
 import { cleanCart } from "../../redux/features/cart/cartSlice";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 import { useSetCartTotal } from "../../hooks/useSetCartTotal";
 
@@ -26,6 +27,7 @@ import LoadingModal from "../../components/LoadingModal/LoadingModal";
 import CartPageList from "../../components/CartPageList/CartPageList";
 import AddCoupon from "../../components/AddCoupon/AddCoupon";
 import CartSubTotal from "../../components/CartSubTotal/CartSubTotal";
+import NavButton from "../../components/Nav/NavButton/NavButton";
 
 import s from "../../styles/CartPage.module.scss";
 
@@ -135,7 +137,14 @@ export default function CartPage() {
         />
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
-      <Nav cartPage />
+      <Nav cartPage>
+        <li>
+          <NavButton
+            name="CARRITO"
+            icon={faCartShopping}
+          />
+        </li>
+      </Nav>
       {datePickup && (
         <CalendarComponent
           dateRange={dateRange}

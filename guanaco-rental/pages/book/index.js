@@ -10,6 +10,7 @@ import { setDate } from "../../redux/features/pickupDate/pickupDateSlice";
 import { generateAllDates } from "../../utils/dates_functions";
 import { getOrCreateUser } from "../../utils/fetch_users";
 import { setUserId } from "../../redux/features/user/userSlice";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 //COMPONENTS
 import Bookeable from "../../components/Bookeable/Bookeable";
@@ -18,6 +19,7 @@ import CartModal from "../../components/CartModal/CartModal";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 import Footer from "../../components/Home/Footer/Footer";
 import MessageModal from "../../components/MessageModal/MessageModal";
+import NavButton from "../../components/Nav/NavButton/NavButton";
 
 import s from "../../styles/BookPage.module.scss";
 
@@ -89,7 +91,11 @@ export default function Home({ showNewClientModal }) {
         }}
       />
 
-      <Nav setShowCart={setShowCart} route="book" />
+      <Nav setShowCart={setShowCart}>
+        <li>
+          <NavButton name="CARRITO" icon={faCartShopping} handleOnClick={() => setShowCart(true)} />
+        </li>
+      </Nav>
 
       {showModal && (
         <MessageModal btnFunc={() => setShowModal(false)}>

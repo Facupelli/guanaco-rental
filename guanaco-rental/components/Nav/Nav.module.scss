@@ -1,10 +1,5 @@
 @import "../../styles/app.scss";
 
-.icon {
-  width: 16px;
-  height: 16px;
-}
-
 .nav_container {
   background-color: $m-black;
   color: $m-white;
@@ -39,13 +34,6 @@
     justify-content: flex-end;
     gap: 2rem;
     position: relative;
-
-    .link_icon {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 300;
-    }
 
     .link_icon_google {
       font-size: 0.8em;

@@ -1,21 +1,22 @@
+import Image from "next/image";
+import Link from "next/link";
 import {
   faArrowRightFromBracket,
   faBars,
   faCartShopping,
-  faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
-import { useCallback, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useCallback, useRef } from "react";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+
+import NavButton from "./NavButton/NavButton";
 
 import s from "./Nav.module.scss";
 
-export default function Nav({ setShowCart, cartPage, route, role }) {
+export default function Nav({ setShowCart, cartPage, route, role, children }) {
   const { data: session } = useSession();
   const userRole = useSelector((state) => state.user.data?.role);
 
@@ -74,29 +75,9 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
               <a>RESERVAS ONLINE</a>
             </Link>
           </li>
-          {route === "home" && (
-            <>
-              <li>
-                <Link href="/faq">
-                  <a>FAQ</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/community">
-                  <a>COMUNIDAD</a>
-                </Link>
-              </li>
-            </>
-          )}
-          {route !== "home" && route !== "faq" && route !== "community" && (
-            <li
-              onClick={cartPage ? null : handleShowCart}
-              className={s.link_icon}
-            >
-              CARRITO
-              <FontAwesomeIcon icon={faCartShopping} className={s.icon} />
-            </li>
-          )}
+
+          {children}
+
           {(userRole === "ADMIN" || userRole === "EMPLOYEE") && (
             <li>
               <Link href="/admin">
@@ -106,24 +87,15 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
           )}
           {session ? (
             <li>
-              <button onClick={() => signOut()} className={s.link_icon}>
-                SALIR
-                <FontAwesomeIcon
-                  icon={faArrowRightFromBracket}
-                  className={s.icon}
-                />
-              </button>
+              <NavButton
+                name="SALIR"
+                icon={faArrowRightFromBracket}
+                handleOnClick={() => signOut()}
+              />
             </li>
           ) : (
             <>
               <li>
-                {/* <button onClick={() => signIn()} className={s.link_icon}>
-                INICIAR SESION
-                <FontAwesomeIcon
-                  icon={faArrowRightToBracket}
-                  className={s.icon}
-                />
-              </button> */}
                 <button
                   className={s.link_icon_google}
                   onClick={() => signIn("google")}

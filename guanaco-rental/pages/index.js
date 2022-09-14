@@ -7,6 +7,7 @@ import Footer from "../components/Home/Footer/Footer";
 //COMPONENTS
 import SocialMediaIcons from "../components/Home/SocialMediaIcons/SocialMediaIcons";
 import Nav from "../components/Nav/Nav";
+import NavLink from "../components/Nav/NavLink/NavLink";
 
 import s from "../styles/Home.module.scss";
 
@@ -47,7 +48,14 @@ export default function Home() {
         }}
       />
 
-      <Nav route="home" />
+      <Nav>
+        <li>
+          <NavLink href="/faq" name="FAQ" />
+        </li>
+        <li>
+          <NavLink href="/community" name="COMUNIDAD" />
+        </li>
+      </Nav>
 
       <main className={s.main}>
         <section id="home">
