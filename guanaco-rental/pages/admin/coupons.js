@@ -2,7 +2,6 @@ import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useFetchCoupons } from "../../utils/coupons";
 
@@ -10,51 +9,14 @@ import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import MessageModal from "../../components/MessageModal/MessageModal";
 import AdminCouponCard from "../../components/AdminCouponCard/AdminCouponCard";
+import CreateCoupon from "../../components/AdminCreateCoupon/CreateCoupon";
 
 import s from "../../styles/AdminCouponsPage.module.scss";
 
 export default function AdminRents({}) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
   const [showCouponModal, setShowCouponModal] = useState(false);
-  const [newCouponLoading, setNewCouponLoading] = useState(false);
 
   const { coupons, getCoupons, loading } = useFetchCoupons();
-  
-  const onSubmit = async (data) => {
-    const couponData = JSON.stringify(data);
-
-    try {
-      setNewCouponLoading(true);
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/coupons`
-          : "http://localhost:3001/coupons",
-        {
-          method: "POST",
-          body: couponData,
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-      const newCoupon = await response.json();
-
-      if (newCoupon.message === "success") {
-        getCoupons();
-        setNewCouponLoading(false);
-        setShowCouponModal(false);
-      }
-    } catch (e) {
-      console.log("create coupon error:", e);
-      setNewCouponLoading(false);
-    }
-  };
 
   return (
     <div className={s.grey_bg}>
@@ -65,30 +27,14 @@ export default function AdminRents({}) {
       <Nav />
       {showCouponModal && (
         <MessageModal
-          // showButton
-          // btnName="CREAR"
           btnFunc={() => {
             setShowCouponModal(false);
           }}
         >
-          <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-            <h2>CREAR CUPÓN</h2>
-            <label htmlFor="name">Nombre*:</label>
-            <input type="text" id="name" {...register("name")} />
-            <label htmlFor="discount">Descuento*: (%)</label>
-            <input type="text" id="discount" {...register("discount")} />
-            <label htmlFor="expirationDate">Fecha de expiración:</label>
-            <input
-              type="date"
-              id="expirationDate"
-              {...register("expirationDate")}
-            />
-            <label htmlFor="maxOrders">Máximo número de pedidos:</label>
-            <input type="text" id="maxOrders" {...register("maxOrders")} />
-            <button type="submit">
-              {newCouponLoading ? "CARGANDO" : "CREAR"}
-            </button>
-          </form>
+          <CreateCoupon
+            getCoupons={getCoupons}
+            setShowCouponModal={setShowCouponModal}
+          />
         </MessageModal>
       )}
       <AdminMain title="Cupones">

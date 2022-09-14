@@ -1,24 +1,5 @@
 @import "../styles/app.scss";
 
-.form {
-  display: flex;
-  flex-direction: column;
-
-  h2{
-    margin-bottom: 2rem;
-  }
-
-  input {
-    @include input;
-    margin-bottom: 1rem;
-  }
-
-  button {
-    margin-top: 2rem;
-    @include m-button;
-  }
-}
-
 .grey_bg {
   background-color: $bg-grey;
   min-height: 100vh;
@@ -71,8 +52,8 @@
       > section {
         flex-basis: 100%;
 
-        >div{
-          >div{
+        > div {
+          > div {
             flex-basis: 100%;
           }
         }
