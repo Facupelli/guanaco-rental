@@ -62,8 +62,8 @@ export async function getServerSideProps(context) {
 
   const order = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/order?id=${id}`
-      : `http://localhost:3001/order?id=${id}`
+      ? `https://guanaco-rental-production.up.railway.app/order/${id}`
+      : `http://localhost:3001/order/${id}`
   )
     .then((response) => response.json())
     .catch((e) => console.log("fecth error:", e));

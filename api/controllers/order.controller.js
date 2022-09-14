@@ -190,21 +190,7 @@ async function putOrder(req, res, next) {
 
 async function getOrders(req, res, next) {
   try {
-    const { id, skip } = req.query;
-
-    if (id) {
-      const order = await prisma.order.findUnique({
-        where: { id },
-        include: {
-          booking: true,
-          equipments: { include: { bookings: true } },
-          user: true,
-          coupon: { select: { name: true } },
-        },
-      });
-      res.json(order);
-      return;
-    }
+    const { skip } = req.query;
 
     if (!skip) {
       const allOrders = await prisma.order.findMany({
