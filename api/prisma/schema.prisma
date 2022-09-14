@@ -97,6 +97,8 @@ model Order {
   delivered               Boolean             @default(false)
   coupon                  Coupon?             @relation(fields: [couponId], references: [id])
   couponId                String?
+  fixedDiscount           FixedDiscount?      @relation(fields: [fixedDiscountId], references: [id])
+  fixedDiscountId         String?
   createdAt               DateTime            @default(now())
 }
 
@@ -119,7 +121,6 @@ model BookOnEquipment {
   @@id([equipmentId, bookId])
 }
 
-
 model Coupon {
   id                      String                @default(cuid()) @id
   name                    String                @unique
@@ -127,4 +128,12 @@ model Coupon {
   expirationDate          DateTime?
   maxOrders               Int?
   orders                  Order[]
+}
+
+model FixedDiscount {
+    id                      String                @default(cuid()) @id
+    minPrice                Int
+    minDates                Int
+    minUserOrders           Int
+    orders                  Order[]
 }
