@@ -12,6 +12,7 @@ import MessageModal from "../../components/MessageModal/MessageModal";
 import CreateDiscount from "../../components/AdminCreateDiscount/AdminCreateDiscount";
 
 import s from "../../styles/AdminFixedDiscountsPage.module.scss";
+import AdminDiscountCard from "../../components/AdminDiscountCard/AdminDiscountCard";
 
 export default function AdminFixedDiscounts({}) {
   const [showModal, setShowModal] = useState(false);
@@ -37,20 +38,20 @@ export default function AdminFixedDiscounts({}) {
 
       <AdminMain title="Descuentos Fijos">
         <div className={s.add_discount_btn_wrapper}>
-          <button type="button" onClick={() => setShowModal(true)}>
+          <button
+            disabled={true}
+            type="button"
+            onClick={() => setShowModal(true)}
+          >
             crear descuento
           </button>
         </div>
         <section>
+          {loading && <p>Cargando...</p>}
           {!loading &&
             fixedDiscounts.length > 0 &&
             fixedDiscounts.map((discount) => (
-              <div key={discount.id} className={s.discount_card_container}>
-                <p><strong>Precio mínimo:</strong> {formatPrice(discount.minPrice)}</p>
-                <p><strong>Jornadas mínimas:</strong> {discount.minDates}</p>
-                <p><strong>Pedidos mínimos:</strong> {discount.minUserOrders}</p>
-                <p><strong>Descuento: </strong>{discount.discount}%</p>
-              </div>
+              <AdminDiscountCard key={discount.id} discount={discount} />
             ))}
         </section>
       </AdminMain>

@@ -1,0 +1,49 @@
+@import "../../styles/app.scss";
+
+.discount_card_container {
+  background-color: white;
+  padding: 1.5rem;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .flex {
+    display: flex;
+    gap: 1rem;
+
+    label {
+      flex-basis: calc(60% - 0.5rem);
+      font-weight: 600;
+    }
+
+    input {
+      border: none;
+      flex-basis: 40%;
+      width: 40%;
+      padding: 0.2rem;
+      border-bottom: 1px solid white;
+
+      &:disabled {
+        background-color: white;
+      }
+    }
+
+    .input_edit {
+      border-bottom: 1px solid $m-orange;
+      background-color: rgb(238, 238, 238);
+    }
+  }
+
+  .edit_btn_wrapper {
+    display: block;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      margin-top: 1rem;
+      @include m-button;
+      padding: 0.2rem 0.4rem;
+    }
+  }
+}

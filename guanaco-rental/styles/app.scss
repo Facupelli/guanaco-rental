@@ -36,7 +36,7 @@ $s-danger: #f72929;
 @mixin btn-disabled {
   &:disabled {
     background-color: $s-gray;
-    color: $m-black;
+    color: $m-gray;
     border: none;
 
     &:hover {
