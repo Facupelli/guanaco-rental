@@ -6,6 +6,26 @@
   box-shadow: rgba(0, 0, 0, 0.1);
   border-radius: 0.2rem;
 
+  > div {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      border: none;
+      background-color: transparent;
+
+      .trash_icon {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        
+        &:hover {
+          color: $s-danger;
+        }
+      }
+    }
+  }
+
   .bold {
     font-weight: 700;
   }

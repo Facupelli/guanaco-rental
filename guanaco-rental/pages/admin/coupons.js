@@ -37,6 +37,25 @@ export default function AdminRents({}) {
     getCoupons();
   }, []);
 
+  const handleDeleteCoupon = async (couponId) => {
+    try {
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/coupons/${couponId}`
+          : `http://localhost:3001/coupons/${couponId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const deletedCoupon = await response.json();
+      if (deletedCoupon.message === "success") {
+        getCoupons();
+      }
+    } catch (e) {
+      console.log("delete coupon error:", e);
+    }
+  };
+
   const onSubmit = async (data) => {
     const couponData = JSON.stringify(data);
 
@@ -109,7 +128,12 @@ export default function AdminRents({}) {
             <div className={s.finished_coupons_wrapper}>
               {coupons.finishedCoupons?.length > 0 &&
                 coupons.finishedCoupons.map((coupon) => (
-                  <AdminCouponCard key={coupon.id} coupon={coupon} danger />
+                  <AdminCouponCard
+                    key={coupon.id}
+                    coupon={coupon}
+                    handleDeleteCoupon={handleDeleteCoupon}
+                    danger
+                  />
                 ))}
             </div>
           </section>
@@ -118,7 +142,11 @@ export default function AdminRents({}) {
             <div>
               {coupons.activeCoupons?.length > 0 &&
                 coupons.activeCoupons.map((coupon) => (
-                  <AdminCouponCard key={coupon.id} coupon={coupon} />
+                  <AdminCouponCard
+                    key={coupon.id}
+                    coupon={coupon}
+                    handleDeleteCoupon={handleDeleteCoupon}
+                  />
                 ))}
             </div>
           </section>
