@@ -22,13 +22,13 @@ import {
 import { handleApplyCoupon } from "../../utils/coupons";
 
 //COMPONENTS
-import CartPageItem from "../../components/CartPageItem/CartPageItem";
 import Nav from "../../components/Nav/Nav";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 import MessageModal from "../../components/MessageModal/MessageModal";
 import LoadingModal from "../../components/LoadingModal/LoadingModal";
 
 import s from "../../styles/CartPage.module.scss";
+import CartPageList from "../../components/CartPageList/CartPageList";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -201,20 +201,7 @@ export default function CartPage() {
         </MessageModal>
       )}
       <main className={s.main}>
-        <div>
-          <div className={s.table_titles}>
-            <p>Equipos</p>
-            <p>Cantidad</p>
-            <p>Precio</p>
-          </div>
-          {cart && cart.length > 0 ? (
-            cart.map((item) => (
-              <CartPageItem key={item.id} item={item} dates={date} />
-            ))
-          ) : (
-            <p>No tiene equipos agregados al carrito!</p>
-          )}
-        </div>
+        <CartPageList cart={cart} date={date} />
         <div className={s.summary}>
           {date && date.length > 0 ? (
             <div className={s.date_range}>

@@ -13,12 +13,6 @@
     margin-bottom: 2rem;
   }
 
-  .table_titles {
-    display: grid;
-    grid-template-columns: 70% 15% 15%;
-    margin-bottom: 1rem;
-  }
-
   .summary {
     .select_date_btn {
       width: 100%;
@@ -86,7 +80,7 @@
         padding: 0.8rem;
 
         details {
-          summary{
+          summary {
             display: list-item;
             cursor: pointer;
           }
@@ -109,9 +103,9 @@
             }
           }
 
-          >p{
+          > p {
             color: $m-danger;
-            margin-top: .5rem;
+            margin-top: 0.5rem;
           }
         }
       }
