@@ -8,7 +8,7 @@ export const formatPrice = (price) => {
   }).format(price);
 };
 
-export const getOwnerEarnings = (order) => {
+export const getOwnerEarningsByOrder = (order) => {
   let totalFederico = 0;
   let totalOscar = 0;
   let totalSub = 0;
@@ -38,5 +38,27 @@ export const getOwnerEarnings = (order) => {
     totalFederico,
     totalOscar,
     totalSub
+  };
+};
+
+export const getEachTotalEarnings = (orders) => {
+  const eachEarnings = orders.map((order) => getOwnerEarningsByOrder(order));
+
+  const federicoEarnings = eachEarnings.reduce((curr, acc) => {
+    return curr + acc.totalFederico;
+  }, 0);
+
+  const oscarEarnings = eachEarnings.reduce((curr, acc) => {
+    return curr + acc.totalOscar;
+  }, 0);
+
+  const subEarnings = eachEarnings.reduce((curr, acc) => {
+    return curr + acc.totalSub;
+  }, 0);
+
+  return {
+    federicoEarnings,
+    oscarEarnings,
+    subEarnings,
   };
 };

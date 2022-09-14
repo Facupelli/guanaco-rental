@@ -2,7 +2,7 @@ import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { formatPrice, getOwnerEarnings } from "../../utils/price";
+import { formatPrice, getEachTotalEarnings, getOwnerEarningsByOrder } from "../../utils/price";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import Nav from "../../components/Nav/Nav";
@@ -18,29 +18,7 @@ export default function AdminRents({ totalPrice, orders }) {
 
   const [selectedDate, setSelectedDate] = useState();
 
-  const today = useMemo(() => new Date(), []);
-
-  const eachEarnings = () => {
-    const earnings = orders.map((order) => getOwnerEarnings(order));
-
-    const federicoEarnings = earnings.reduce((curr, acc) => {
-      return curr + acc.totalFederico;
-    }, 0);
-
-    const oscarEarnings = earnings.reduce((curr, acc) => {
-      return curr + acc.totalOscar;
-    }, 0);
-
-    const subEarnings = earnings.reduce((curr, acc) => {
-      return curr + acc.totalSub;
-    }, 0);
-
-    return {
-      federicoEarnings,
-      oscarEarnings,
-      subEarnings,
-    };
-  };
+  const today = useMemo(() => new Date(), []);  
 
   const totalFromOrders = useCallback(
     ({ finished, date }) => {
@@ -75,7 +53,7 @@ export default function AdminRents({ totalPrice, orders }) {
       }, 0);
 
       const eachEarnings = filteredOrders.map((order) =>
-        getOwnerEarnings(order)
+        getOwnerEarningsByOrder(order)
       );
 
       const federico = eachEarnings.reduce((curr, acc) => {
@@ -128,15 +106,15 @@ export default function AdminRents({ totalPrice, orders }) {
               </p>
               <p>
                 <span className={s.bold}>Federico:</span>{" "}
-                {formatPrice(eachEarnings().federicoEarnings)}
+                {formatPrice(getEachTotalEarnings(orders).federicoEarnings)}
               </p>
               <p>
                 <span className={s.bold}>Oscar:</span>{" "}
-                {formatPrice(eachEarnings().oscarEarnings)}
+                {formatPrice(getEachTotalEarnings(orders).oscarEarnings)}
               </p>
               <p>
                 <span className={s.bold}>Subalquiler:</span>{" "}
-                {formatPrice(eachEarnings().subEarnings)}
+                {formatPrice(getEachTotalEarnings(orders).subEarnings)}
               </p>
             </RentsCard>
 
