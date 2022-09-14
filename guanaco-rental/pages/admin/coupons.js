@@ -3,7 +3,8 @@ import { unstable_getServerSession } from "next-auth";
 import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useFetchCoupons } from "../../utils/coupons";
 
 import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
@@ -20,52 +21,10 @@ export default function AdminRents({}) {
   } = useForm();
 
   const [showCouponModal, setShowCouponModal] = useState(false);
-
-  const [coupons, setCoupons] = useState({});
-  const [loading, setLoading] = useState(true);
   const [newCouponLoading, setNewCouponLoading] = useState(false);
 
-
-  const getCoupons = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/coupons`
-          : "http://localhost:3001/coupons"
-      );
-      const coupons = await response.json();
-      setCoupons(coupons);
-      setLoading(false);
-    } catch (e) {
-      console.log(e);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getCoupons();
-  }, []);
-
-  const handleDeleteCoupon = async (couponId) => {
-    try {
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/coupons/${couponId}`
-          : `http://localhost:3001/coupons/${couponId}`,
-        {
-          method: "DELETE",
-        }
-      );
-      const deletedCoupon = await response.json();
-      if (deletedCoupon.message === "success") {
-        getCoupons();
-      }
-    } catch (e) {
-      console.log("delete coupon error:", e);
-    }
-  };
-
+  const { coupons, getCoupons, loading } = useFetchCoupons();
+  
   const onSubmit = async (data) => {
     const couponData = JSON.stringify(data);
 
@@ -126,7 +85,9 @@ export default function AdminRents({}) {
             />
             <label htmlFor="maxOrders">Máximo número de pedidos:</label>
             <input type="text" id="maxOrders" {...register("maxOrders")} />
-            <button type="submit">{newCouponLoading ? "CARGANDO" : "CREAR"}</button>
+            <button type="submit">
+              {newCouponLoading ? "CARGANDO" : "CREAR"}
+            </button>
           </form>
         </MessageModal>
       )}
@@ -147,8 +108,8 @@ export default function AdminRents({}) {
                   <AdminCouponCard
                     key={coupon.id}
                     coupon={coupon}
-                    handleDeleteCoupon={handleDeleteCoupon}
                     danger
+                    getCoupons={getCoupons}
                   />
                 ))}
             </div>
@@ -163,7 +124,7 @@ export default function AdminRents({}) {
                   <AdminCouponCard
                     key={coupon.id}
                     coupon={coupon}
-                    handleDeleteCoupon={handleDeleteCoupon}
+                    getCoupons={getCoupons}
                   />
                 ))}
             </div>
