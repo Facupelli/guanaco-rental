@@ -51,7 +51,11 @@ export default function AdminFixedDiscounts({}) {
           {!loading &&
             fixedDiscounts.length > 0 &&
             fixedDiscounts.map((discount) => (
-              <AdminDiscountCard key={discount.id} discount={discount} />
+              <AdminDiscountCard
+                key={discount.id}
+                discount={discount}
+                getFixedDiscounts={getFixedDiscounts}
+              />
             ))}
         </section>
       </AdminMain>

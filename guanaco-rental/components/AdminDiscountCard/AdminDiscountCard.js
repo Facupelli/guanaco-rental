@@ -1,23 +1,58 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { formatPrice } from "../../utils/price";
 import s from "./AdminDiscountCard.module.scss";
 
-export default function AdminDiscountCard({ discount }) {
+export default function AdminDiscountCard({ discount, getFixedDiscounts }) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const [editMode, setEditMode] = useState(false);
 
-  const handlePutDiscount = async () => {
+  useEffect(() => {
+    reset(discount);
+  }, []);
+
+  const onSubmit = async (data) => {
     setEditMode(false);
+
+    const discountData = JSON.stringify({
+      ...data,
+      id: discount.id,
+    });
+    try {
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/fixedDiscounts`
+          : "http://localhost:3001/fixedDiscounts",
+        {
+          method: "PUT",
+          body: discountData,
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      const discount = await response.json();
+      if (discount.message === "success") {
+        getFixedDiscounts();
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
-    <div className={s.discount_card_container}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={s.discount_card_container}
+    >
       <div className={s.flex}>
         <label htmlFor="minPrice">Precio mínimo:</label>
         <input
@@ -63,13 +98,11 @@ export default function AdminDiscountCard({ discount }) {
         />
       </div>
       <div className={s.edit_btn_wrapper}>
-        <button
-          type="button"
-          onClick={editMode ? handlePutDiscount : () => setEditMode(true)}
-        >
-          {editMode ? "CONFIRMAR" : "EDITAR"}
+        <button type="button" onClick={() => setEditMode(true)}>
+          EDITAR
         </button>
+        {editMode && <button type="submit">CONFIRMAR</button>}
       </div>
-    </div>
+    </form>
   );
 }
