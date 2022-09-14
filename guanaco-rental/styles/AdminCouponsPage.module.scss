@@ -43,9 +43,10 @@
         margin-top: 1rem;
         display: flex;
         gap: 1rem;
+        flex-wrap: wrap;
 
         > div {
-          flex-basis: 50%;
+          flex-basis: calc(50% - 1rem);
         }
       }
     }

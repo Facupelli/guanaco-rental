@@ -23,6 +23,8 @@ export default function AdminRents({}) {
 
   const [coupons, setCoupons] = useState({});
   const [loading, setLoading] = useState(true);
+  const [newCouponLoading, setNewCouponLoading] = useState(false);
+
 
   const getCoupons = async () => {
     setLoading(true);
@@ -68,6 +70,7 @@ export default function AdminRents({}) {
     const couponData = JSON.stringify(data);
 
     try {
+      setNewCouponLoading(true);
       const response = await fetch(
         process.env.NODE_ENV === "production"
           ? `https://guanaco-rental-production.up.railway.app/coupons`
@@ -85,10 +88,12 @@ export default function AdminRents({}) {
 
       if (newCoupon.message === "success") {
         getCoupons();
+        setNewCouponLoading(false);
         setShowCouponModal(false);
       }
     } catch (e) {
       console.log("create coupon error:", e);
+      setNewCouponLoading(false);
     }
   };
 
@@ -121,7 +126,7 @@ export default function AdminRents({}) {
             />
             <label htmlFor="maxOrders">Máximo número de pedidos:</label>
             <input type="text" id="maxOrders" {...register("maxOrders")} />
-            <button type="submit">CREAR</button>
+            <button type="submit">{newCouponLoading ? "CARGANDO" : "CREAR"}</button>
           </form>
         </MessageModal>
       )}
