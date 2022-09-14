@@ -156,9 +156,9 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  const user = await getUniqueUser(session?.user.email);
+  const res = await getUniqueUser(session?.user.email);
 
-  if (user?.role === "ADMIN" || user?.role === "EMPLOYEE") {
+  if (res.user?.role === "ADMIN" || user?.role === "EMPLOYEE") {
     const newCLients = await fetch(
       process.env.NODE_ENV === "production"
         ? `https://guanaco-rental-production.up.railway.app/users?newClients=${true}`

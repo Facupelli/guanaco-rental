@@ -1,12 +1,10 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { getOrCreateUser, getUniqueUser } from "../../utils/fetch_users";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserId } from "../../redux/features/user/userSlice";
-import { useSession } from "next-auth/react";
+import { getUniqueUser } from "../../utils/fetch_users";
 import { useFetchAllOrders } from "../../hooks/useFetchAllOrders";
+import { useGetUserRole } from "../../hooks/useGetUserRole";
 
 import AdminMain from "../../components/AdminMain/AdminMain";
 import Nav from "../../components/Nav/Nav";
@@ -15,21 +13,13 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 import s from "../../styles/AdminOrdersPage.module.scss";
 
 export default function AdminOrdersPage({}) {
-  const dispatch = useDispatch();
-
-  const userRole = useSelector((state) => state.user.data?.role);
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (!userRole) {
-      getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
-    }
-  }, [userRole]);
+  const { userRole } = useGetUserRole();
 
   //pagination
   const [skip, setSkip] = useState(0);
 
-  const { orders, totalOrders, loading, refetchOrders } = useFetchAllOrders(skip);
+  const { orders, totalOrders, loading, refetchOrders } =
+    useFetchAllOrders(skip);
 
   return (
     <div className={s.grey_bg}>
@@ -102,9 +92,9 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  const user = await getUniqueUser(session?.user.email);
+  const res = await getUniqueUser(session?.user.email);
 
-  if (user?.role === "ADMIN" || user?.role === "EMPLOYEE") {
+  if (res.user?.role === "ADMIN" || res.user?.role === "EMPLOYEE") {
     return {
       props: { session },
     };

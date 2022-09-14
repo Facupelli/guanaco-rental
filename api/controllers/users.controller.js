@@ -122,7 +122,7 @@ async function getUniqueUser(req, res, next) {
       where: { email },
     });
 
-    res.json(user);
+    res.json({user});
   } catch (e) {
     console.log("getUniqueUser error:", e);
     return;

@@ -2,12 +2,10 @@ import Head from "next/head";
 import Link from "next/link";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useSession } from "next-auth/react";
-import { getOrCreateUser, getUniqueUser } from "../../utils/fetch_users";
+import { getUniqueUser } from "../../utils/fetch_users";
 import { useEffect, useState } from "react";
 import { formatPrice } from "../../utils/price";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserId } from "../../redux/features/user/userSlice";
+import { useGetUserRole } from "../../hooks/useGetUserRole";
 
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
@@ -15,16 +13,7 @@ import Calendar from "react-calendar";
 import s from "../../styles/AdminPage.module.scss";
 
 export default function AdminPage() {
-  const dispatch = useDispatch();
-  const userRole = useSelector((state) => state.user.data.role);
-
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (!userRole) {
-      getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
-    }
-  }, [session?.user, userRole, dispatch]);
+  const { userRole } = useGetUserRole();
 
   const [bookings, setBookings] = useState([]);
   const [dayBookings, setDayBookings] = useState([]);
@@ -175,9 +164,9 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  const user = await getUniqueUser(session?.user.email);
+  const res = await getUniqueUser(session?.user.email);
 
-  if (user?.role === "ADMIN" || user?.role === "EMPLOYEE") {
+  if (res.user?.role === "ADMIN" || res.user?.role === "EMPLOYEE") {
     return {
       props: { session },
     };

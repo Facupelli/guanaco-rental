@@ -15,15 +15,6 @@ export const authOptions = {
     // ...add more providers here
   ],
   secret: process.env.SECRET,
-  // callbacks: {
-  //   async signIn({ user }) {
-  //     console.log("CALLBACK", user);
-  //     const userData = await getUniqueUser(user.email);
-  //     if (!userData.petitionSent) {
-  //       return "/newClient";
-  //     }
-  //   },
-  // },
 };
 
 export default NextAuth(authOptions);
