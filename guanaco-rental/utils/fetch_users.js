@@ -13,7 +13,9 @@ export const getOrCreateUser = async (user) => {
         Accept: "application/json",
       },
     }
-  ).then((response) => response.json());
+  )
+    .catch((e) => console.log("fecth error:", e))
+    .then((response) => response.json());
 
   return upsertUser;
 };
@@ -24,8 +26,8 @@ export const getUniqueUser = async (email) => {
       ? `https://guanaco-rental-production.up.railway.app/users/${email}`
       : `http://localhost:3001/users/${email}`
   )
-    .then((response) => response.json())
-    .catch((e) => console.log("fecth error:", e));
+    .catch((e) => console.log("fecth error:", e))
+    .then((response) => response.json());
 
   return user;
 };

@@ -1,22 +1,25 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { formatPrice } from "../../utils/price";
-import {
-  areAllItemsAvailable,
-  generateAllDates,
-  getWorkingTotalDays,
-} from "../../utils/dates_functions";
 import {
   resetDate,
   setDate,
 } from "../../redux/features/pickupDate/pickupDateSlice";
-import { useRouter } from "next/router";
 import { cleanCart } from "../../redux/features/cart/cartSlice";
+
+import { useSetCartTotal } from "../../hooks/useSetCartTotal";
+
+import { formatPrice } from "../../utils/price";
+import {
+  areAllItemsAvailable,
+  generateAllDates,
+} from "../../utils/dates_functions";
+import { handleApplyCoupon } from "../../utils/coupons";
 
 //COMPONENTS
 import CartPageItem from "../../components/CartPageItem/CartPageItem";
@@ -46,22 +49,16 @@ export default function CartPage() {
     error: "",
   });
 
-  const [datePickup, setDatePickup] = useState(false);
-  const [dateRange, setDateRange] = useState(null);
-
-  const [totalCartPrice, setTotalCartPrice] = useState({});
-
   const [couponApplied, setCouponApplied] = useState({
     success: false,
     coupon: {},
     error: "",
   });
 
-  useEffect(() => {
-    if (date && cart.length > 0) {
-      setTotalCartPrice(getCartTotalPrice(couponApplied));
-    }
-  }, [date, cart, couponApplied.success]);
+  const [datePickup, setDatePickup] = useState(false);
+  const [dateRange, setDateRange] = useState(null);
+
+  const { totalCartPrice } = useSetCartTotal(couponApplied);
 
   const handleSelectDateRange = () => {
     setDatePickup(true);
@@ -73,72 +70,6 @@ export default function CartPage() {
       dispatch(setDate(allDates));
     }
   }, [dateRange, dispatch]);
-
-  const getCartTotalPrice = (couponApplied) => {
-    const workingDays = getWorkingTotalDays(date, pickupHour);
-
-    const totalPrice = cart.reduce((curr, acc) => {
-      return curr + (acc.quantity ? acc.price * acc.quantity : acc.price);
-    }, 0);
-
-    const cartTotal = totalPrice * workingDays;
-
-    if (couponApplied?.success) {
-      return {
-        total: cartTotal - cartTotal * (couponApplied.coupon.discount / 100),
-      };
-    }
-
-    if (cartTotal > 40000 || date?.length - 1 > 3) {
-      return {
-        originalTotal: cartTotal,
-        total: cartTotal - cartTotal * 0.1,
-        discount: "10%",
-      };
-    }
-
-    if (userData?.orders?.length > 10 && cartTotal > 15000) {
-      return {
-        originalTotal: cartTotal,
-        total: cartTotal - cartTotal * 0.1,
-        discount: "10%",
-      };
-    }
-
-    return { total: cartTotal };
-  };
-
-  const handleApplyCoupon = async () => {
-    setCouponApplied((prev) => ({ ...prev, error: "" }));
-    try {
-      const response = await fetch(
-        process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/coupons/${couponName}`
-          : `http://localhost:3001/coupons/${couponName}`
-      );
-      const coupon = await response.json();
-      if (coupon.message === "success") {
-        setCouponApplied((prev) => ({
-          ...prev,
-          success: true,
-          coupon: coupon.coupon,
-        }));
-      } else {
-        setCouponApplied((prev) => ({
-          success: false,
-          coupon: {},
-          error: coupon.message,
-        }));
-      }
-    } catch (e) {
-      console.log("apply coupon error:", e);
-      setCouponApplied((prev) => ({
-        success: false,
-        coupon: {},
-        error: "hubo un error",
-      }));
-    }
-  };
 
   const handleClickBookOrder = async () => {
     if (!userData) {
@@ -382,7 +313,12 @@ export default function CartPage() {
                     placeholder="ingresar código"
                     onChange={(e) => setCoupon(e.target.value)}
                   />
-                  <button type="button" onClick={handleApplyCoupon}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleApplyCoupon(couponName, setCouponApplied)
+                    }
+                  >
                     APLICAR
                   </button>
                 </div>

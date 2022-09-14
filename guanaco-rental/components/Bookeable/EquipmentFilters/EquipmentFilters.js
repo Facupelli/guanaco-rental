@@ -15,7 +15,7 @@ export default function EquipmentFilters({
 }) {
   const date = useSelector((state) => state.date.date_range);
   const { handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {};
 
   const onSelectCategory = (e) => {
     setFilters((prev) => ({ ...prev, category: e.target.value }));
@@ -28,7 +28,7 @@ export default function EquipmentFilters({
     filtersRef,
     useCallback(() => {
       document.getElementById("filters").checked = false;
-    },[])
+    }, [])
   );
 
   return (
