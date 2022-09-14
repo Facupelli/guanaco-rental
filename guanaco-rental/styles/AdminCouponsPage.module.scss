@@ -63,3 +63,20 @@
     }
   }
 }
+
+@media (max-width: 480px) {
+  .grey_bg {
+    .flex_50_50 {
+      flex-wrap: wrap;
+      > section {
+        flex-basis: 100%;
+
+        >div{
+          >div{
+            flex-basis: 100%;
+          }
+        }
+      }
+    }
+  }
+}
