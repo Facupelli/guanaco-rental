@@ -1,8 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,16 +17,17 @@ import {
   areAllItemsAvailable,
   generateAllDates,
 } from "../../utils/dates_functions";
-import { handleApplyCoupon } from "../../utils/coupons";
 
 //COMPONENTS
 import Nav from "../../components/Nav/Nav";
 import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calendar/Calendar";
 import MessageModal from "../../components/MessageModal/MessageModal";
 import LoadingModal from "../../components/LoadingModal/LoadingModal";
+import CartPageList from "../../components/CartPageList/CartPageList";
+import AddCoupon from "../../components/AddCoupon/AddCoupon";
+import CartSubTotal from "../../components/CartSubTotal/CartSubTotal";
 
 import s from "../../styles/CartPage.module.scss";
-import CartPageList from "../../components/CartPageList/CartPageList";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -40,11 +39,9 @@ export default function CartPage() {
   const pickupHour = useSelector((state) => state.date.pickup_hour);
 
   const [freeOrder, setFreeOrder] = useState(false);
-  const [couponName, setCoupon] = useState("");
 
   const [showModal, setShowModal] = useState({
     modal: false,
-    question: false,
     loading: false,
     error: "",
   });
@@ -145,28 +142,6 @@ export default function CartPage() {
           setDateRange={setDateRange}
           setDatePickup={setDatePickup}
         />
-      )}
-      {showModal.question && (
-        <MessageModal
-          showButton
-          btnFunc={() =>
-            setShowModal((prev) => ({
-              ...prev,
-              question: false,
-            }))
-          }
-          btnName="CERRAR"
-        >
-          <p>
-            A los pedidos que superen los $40.000 o que se alquilen por más de 3
-            días se les aplica un descuento de 10%.
-          </p>
-          <p>
-            A nuestros clientes frecuentes con más de 10 pedidos realizados, si
-            el pedido supera los $15.000 se le aplica un descento de 10%.
-          </p>
-          <p>Si tienes un cupón los descuentos NO son acumulativos.</p>
-        </MessageModal>
       )}
       {showModal.modal && (
         <MessageModal
@@ -270,48 +245,11 @@ export default function CartPage() {
             </div>
           )}
           <div className={s.total_wrapper}>
-            {totalCartPrice.discount && (
-              <>
-                <div className={`${s.total_price_wrapper} ${s.font_small}`}>
-                  <p>Sub Total:</p>
-                  <p>{formatPrice(totalCartPrice.originalTotal)}</p>
-                </div>
-                <div className={`${s.total_price_wrapper} ${s.font_small}`}>
-                  <p>
-                    Descuento:{" "}
-                    <FontAwesomeIcon
-                      icon={faCircleQuestion}
-                      className={s.question_icon}
-                      onClick={() =>
-                        setShowModal((prev) => ({ ...prev, question: true }))
-                      }
-                    />
-                  </p>
-                  <p>{totalCartPrice.discount}</p>
-                </div>
-              </>
-            )}
-            <div className={s.coupon}>
-              <details>
-                <summary>Ingresar un cupón de descuento</summary>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="ingresar código"
-                    onChange={(e) => setCoupon(e.target.value)}
-                  />
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handleApplyCoupon(couponName, setCouponApplied)
-                    }
-                  >
-                    APLICAR
-                  </button>
-                </div>
-                {couponApplied.error && <p>{couponApplied.error}</p>}
-              </details>
-            </div>
+            <CartSubTotal totalCartPrice={totalCartPrice} />
+            <AddCoupon
+              setCouponApplied={setCouponApplied}
+              couponApplied={couponApplied}
+            />
             <div className={`${s.total_price_wrapper} ${s.margin_1}`}>
               <p>Total:</p>
               <p className={s.p_bold}>

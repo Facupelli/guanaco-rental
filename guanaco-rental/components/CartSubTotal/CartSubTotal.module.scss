@@ -1,0 +1,22 @@
+@import "../../styles/app.scss";
+
+.font_small {
+  font-size: 0.9em;
+}
+
+.flex {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  .question_icon {
+    height: 15px;
+    width: 15px;
+    color: $m-orange;
+    cursor: pointer;
+
+    &:hover {
+      color: $s-orange;
+    }
+  }
+}
