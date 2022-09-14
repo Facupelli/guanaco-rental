@@ -15,6 +15,7 @@ async function postOrder(req, res, next) {
 
   let book;
 
+  // CREATE BOOK & CREATE BOOKONEQUIPMENT FOR EVERY GEAR
   try {
     book = await prisma.book.create({
       data: {
@@ -41,6 +42,7 @@ async function postOrder(req, res, next) {
 
   let newOrder;
 
+  // CREATE ORDER CONNECTING PREVIOUS BOOK
   try {
     const equipmentsIds = data.cart.map((item) => ({ id: item.id }));
 
@@ -67,6 +69,7 @@ async function postOrder(req, res, next) {
     return;
   }
 
+  // SEND EMAIL TO ADMINS & WS MESSAGE TO USER
   try {
     const orderData = await prisma.order.findUnique({
       where: { id: newOrder.id },

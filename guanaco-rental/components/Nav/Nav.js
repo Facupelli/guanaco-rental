@@ -135,7 +135,10 @@ export default function Nav({ setShowCart, cartPage, route, role }) {
                 </button>
               </li>
               <li>
-                <button className={s.link_icon_google}>
+                <button
+                  className={s.link_icon_google}
+                  onClick={() => signIn("facebook")}
+                >
                   <p>ENTRAR CON</p>
                   <p className={s.justify_between}>
                     FACEBOOK <FontAwesomeIcon icon={faFacebook} />
