@@ -4,12 +4,17 @@
   display: flex;
   flex-direction: column;
 
+  h2{
+    margin-bottom: 2rem;
+  }
+
   input {
     @include input;
     margin-bottom: 1rem;
   }
 
   button {
+    margin-top: 2rem;
     @include m-button;
   }
 }

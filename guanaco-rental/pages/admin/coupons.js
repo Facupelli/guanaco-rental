@@ -100,6 +100,7 @@ export default function AdminRents({}) {
           }}
         >
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+            <h2>CREAR CUPÓN</h2>
             <label htmlFor="name">Nombre*:</label>
             <input type="text" id="name" {...register("name")} />
             <label htmlFor="discount">Descuento*: (%)</label>
