@@ -22,15 +22,23 @@ export default function AdminRents({}) {
   const [showCouponModal, setShowCouponModal] = useState(false);
 
   const [coupons, setCoupons] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const getCoupons = async () => {
-    const response = await fetch(
-      process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/coupons`
-        : "http://localhost:3001/coupons"
-    );
-    const coupons = await response.json();
-    setCoupons(coupons);
+    setLoading(true);
+    try {
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/coupons`
+          : "http://localhost:3001/coupons"
+      );
+      const coupons = await response.json();
+      setCoupons(coupons);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -127,7 +135,9 @@ export default function AdminRents({}) {
           <section>
             <h3>CUPONES FINALIZADOS</h3>
             <div className={s.finished_coupons_wrapper}>
-              {coupons.finishedCoupons?.length > 0 &&
+              {loading && <p>Cargando...</p>}
+              {!loading &&
+                coupons.finishedCoupons?.length > 0 &&
                 coupons.finishedCoupons.map((coupon) => (
                   <AdminCouponCard
                     key={coupon.id}
@@ -141,7 +151,9 @@ export default function AdminRents({}) {
           <section>
             <h3>CUPONES ACTIVOS</h3>
             <div>
-              {coupons.activeCoupons?.length > 0 &&
+              {loading && <p>Cargando...</p>}
+              {!loading &&
+                coupons.activeCoupons?.length > 0 &&
                 coupons.activeCoupons.map((coupon) => (
                   <AdminCouponCard
                     key={coupon.id}
