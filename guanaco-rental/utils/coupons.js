@@ -39,7 +39,7 @@ export const fetchCoupon = (couponName) => {
 };
 
 export const handleApplyCoupon = (couponName, setCouponApplied) => {
-  setCouponApplied((prev) => ({ ...prev, error: "" }));
+  setCouponApplied((prev) => ({ ...prev, error: "", loading: true }));
 
   fetchCoupon(couponName)
     .catch((e) => console.log("apply coupon error:", e))
@@ -49,12 +49,14 @@ export const handleApplyCoupon = (couponName, setCouponApplied) => {
           ...prev,
           success: true,
           coupon: coupon.coupon,
+          loading: false,
         }));
       } else {
         setCouponApplied((prev) => ({
           success: false,
           coupon: {},
           error: coupon.message,
+          loading: false,
         }));
       }
     });

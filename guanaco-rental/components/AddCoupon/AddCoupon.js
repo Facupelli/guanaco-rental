@@ -19,7 +19,7 @@ export default function AddCoupon({setCouponApplied, couponApplied}) {
             type="button"
             onClick={() => handleApplyCoupon(couponName, setCouponApplied)}
           >
-            APLICAR
+            {couponApplied.loading ? "CARGANDO" : "APLICAR"}
           </button>
         </div>
         {couponApplied.error && <p>{couponApplied.error}</p>}

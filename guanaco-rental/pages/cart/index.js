@@ -48,6 +48,7 @@ export default function CartPage() {
     success: false,
     coupon: {},
     error: "",
+    loading: false,
   });
 
   const [datePickup, setDatePickup] = useState(false);
