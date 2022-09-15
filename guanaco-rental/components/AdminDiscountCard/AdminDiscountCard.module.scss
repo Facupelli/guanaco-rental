@@ -3,32 +3,35 @@
 .discount_card_container {
   background-color: white;
   padding: 1.5rem;
-  height: 230px;
-  width: 350px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  
 
-  strong{
-    font-weight: 700;
-    font-size: 1.1em;
+  >p{
+    margin-bottom: 1rem;
+    color: $m-black;
+
+    strong {
+      font-weight: 700;
+      font-size: 1.1em;
+    }
   }
+
 
   .flex {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
 
     label {
-      flex-basis: calc(60% - 0.5rem);
-      font-weight: 600;
+      font-weight: 400;
     }
 
     input {
       border: none;
-      flex-basis: 40%;
-      width: 40%;
+      font-size: 1em;
+      font-weight: 600;
       padding: 0.2rem;
       border-bottom: 1px solid white;
+      margin-bottom: .5rem;
+      color: $m-black;
 
       &:disabled {
         background-color: white;

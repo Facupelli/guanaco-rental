@@ -53,43 +53,49 @@ export default function AdminDiscountCard({ discount, getFixedDiscounts }) {
       onSubmit={handleSubmit(onSubmit)}
       className={s.discount_card_container}
     >
-      <div className={s.flex}>
-        <p><strong>{discount.name}</strong></p>        
-      </div>
+      <p>
+        <strong>{discount.name}</strong>
+      </p>
       <div className={s.flex}>
         <label htmlFor="minPrice">Precio mínimo:</label>
-        <input
-          type="text"
-          id="minPrice"
-          defaultValue={discount.minPrice}
-          {...register("minPrice")}
-          disabled={editMode ? false : true}
-          className={`${editMode ? s.input_edit : ""}`}
-        />
-      </div>
-      <div className={s.flex}>
+        {discount.minPrice ? (
+          <input
+            type="text"
+            id="minPrice"
+            defaultValue={discount.minPrice}
+            {...register("minPrice")}
+            disabled={editMode ? false : true}
+            className={`${editMode ? s.input_edit : ""}`}
+          />
+        ) : (
+          <p>-</p>
+        )}
         <label htmlFor="minDates">Jornadas mínimas:</label>
-        <input
-          type="text"
-          id="minDates"
-          defaultValue={discount.minDates}
-          {...register("minDates")}
-          disabled={editMode ? false : true}
-          className={`${editMode ? s.input_edit : ""}`}
-        />
-      </div>
-      <div className={s.flex}>
+        {discount.minDates ? (
+          <input
+            type="text"
+            id="minDates"
+            defaultValue={discount.minDates}
+            {...register("minDates")}
+            disabled={editMode ? false : true}
+            className={`${editMode ? s.input_edit : ""}`}
+          />
+        ) : (
+          <p>-</p>
+        )}
         <label htmlFor="minUserOrders">Pedidos minímos:</label>
-        <input
-          type="text"
-          id="minUserOrders"
-          defaultValue={discount.minUserOrders}
-          {...register("minUserOrders")}
-          disabled={editMode ? false : true}
-          className={`${editMode ? s.input_edit : ""}`}
-        />
-      </div>
-      <div className={s.flex}>
+        {discount.minUserOrders ? (
+          <input
+            type="text"
+            id="minUserOrders"
+            defaultValue={discount.minUserOrders}
+            {...register("minUserOrders")}
+            disabled={editMode ? false : true}
+            className={`${editMode ? s.input_edit : ""}`}
+          />
+        ) : (
+          <p>-</p>
+        )}
         <label htmlFor="discount">Descuento: %</label>
         <input
           type="text"
@@ -100,6 +106,7 @@ export default function AdminDiscountCard({ discount, getFixedDiscounts }) {
           className={`${editMode ? s.input_edit : ""}`}
         />
       </div>
+
       <div className={s.edit_btn_wrapper}>
         <button type="button" onClick={() => setEditMode(true)}>
           EDITAR
