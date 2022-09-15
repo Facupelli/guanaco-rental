@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical, faAdd } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { formatPrice, getOwnerEarnings } from "../../utils/price";
+import { formatPrice, getOwnerEarningsByOrder } from "../../utils/price";
 import {
   generatePdfRows,
   getOrderStatus,
@@ -45,8 +45,8 @@ export default function OrderCard({ order, userRole, refetchOrders }) {
         try {
           const response = await fetch(
             process.env.NODE_ENV === "production"
-              ? `https://guanaco-rental-production.up.railway.app/equipment?search=${addGearInputs.search}`
-              : `http://localhost:3001/equipment?search=${addGearInputs.search}`
+              ? `https://guanaco-rental-production.up.railway.app/equipment?search=${debouncedGearInput}`
+              : `http://localhost:3001/equipment?search=${debouncedGearInput}`
           );
           const equipment = await response.json();
           setEquipments(equipment);
@@ -158,7 +158,7 @@ export default function OrderCard({ order, userRole, refetchOrders }) {
             className={`${s.elipsis_menu_btn}`}
             aria-label="menu-btn"
             onClick={() => {
-              setEarnings(getOwnerEarnings(order));
+              setEarnings(getOwnerEarningsByOrder(order));
               setShowDeleteModal(true);
             }}
           >

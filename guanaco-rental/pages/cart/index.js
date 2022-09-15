@@ -89,7 +89,7 @@ export default function CartPage() {
       cart,
       dates: date,
       pickupHour,
-      totalPrice: freeOrder ? 0 : totalCartPrice.total,
+      totalPrice: freeOrder ? 0 : totalCartDefinitive.total,
       userId: userData.id,
       couponId: couponApplied?.success ? couponApplied.coupon.id : undefined,
     });

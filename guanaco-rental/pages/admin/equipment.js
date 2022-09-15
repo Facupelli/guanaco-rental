@@ -42,7 +42,7 @@ export default function AdminEquipment({ equipment }) {
 
   useEffect(() => {
     getEquipment();
-  }, [debouncedSearch]);
+  }, [debouncedSearch, getEquipment]);
 
   return (
     <div className={s.grey_bg}>

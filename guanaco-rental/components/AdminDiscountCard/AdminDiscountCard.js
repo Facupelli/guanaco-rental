@@ -16,7 +16,7 @@ export default function AdminDiscountCard({ discount, getFixedDiscounts }) {
 
   useEffect(() => {
     reset(discount);
-  }, []);
+  }, [reset, discount]);
 
   const onSubmit = async (data) => {
     setEditMode(false);
