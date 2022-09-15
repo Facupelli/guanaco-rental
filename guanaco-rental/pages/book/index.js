@@ -6,11 +6,10 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { setDate } from "../../redux/features/pickupDate/pickupDateSlice";
-import { generateAllDates } from "../../utils/dates_functions";
 import { getOrCreateUser } from "../../utils/fetch_users";
 import { setUserId } from "../../redux/features/user/userSlice";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { useDateRange } from "../../hooks/useDateRange";
 
 //COMPONENTS
 import Bookeable from "../../components/Bookeable/Bookeable";
@@ -24,16 +23,14 @@ import NavButton from "../../components/Nav/NavButton/NavButton";
 import s from "../../styles/BookPage.module.scss";
 
 export default function Home({ showNewClientModal }) {
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.data);
 
   const [showModal, setShowModal] = useState(showNewClientModal);
-
   const [showCart, setShowCart] = useState(false);
 
   const [datePickup, setDatePickup] = useState(false);
-  const [dateRange, setDateRange] = useState(null);
-
-  const dispatch = useDispatch();
+  const { dateRange, setDateRange } = useDateRange();
 
   const { data: session } = useSession();
 
@@ -42,14 +39,6 @@ export default function Home({ showNewClientModal }) {
       getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
     }
   }, [session, userData, dispatch]);
-
-  useEffect(() => {
-    if (dateRange) {
-      const allDates = generateAllDates(dateRange);
-
-      dispatch(setDate(allDates));
-    }
-  }, [dateRange, dispatch]);
 
   return (
     <div className={s.container}>
@@ -93,7 +82,11 @@ export default function Home({ showNewClientModal }) {
 
       <Nav setShowCart={setShowCart}>
         <li>
-          <NavButton name="CARRITO" icon={faCartShopping} handleOnClick={() => setShowCart(true)} />
+          <NavButton
+            name="CARRITO"
+            icon={faCartShopping}
+            handleOnClick={() => setShowCart(true)}
+          />
         </li>
       </Nav>
 

@@ -41,8 +41,9 @@ $s-danger: #f72929;
 
     &:hover {
       background-color: $s-gray;
-      color: $m-black;
+      color: $m-gray;
       border: none;
+      cursor: auto;
     }
   }
 }

@@ -2,12 +2,9 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  resetDate,
-  setDate,
-} from "../../redux/features/pickupDate/pickupDateSlice";
+import { resetDate } from "../../redux/features/pickupDate/pickupDateSlice";
 import { cleanCart } from "../../redux/features/cart/cartSlice";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,11 +12,7 @@ import { useSumCartItems } from "../../hooks/useSumCartItems";
 import { useCartTotal } from "../../hooks/useCartTotal";
 
 import { formatPrice } from "../../utils/price";
-import {
-  areAllItemsAvailable,
-  generateAllDates,
-} from "../../utils/dates_functions";
-
+import { areAllItemsAvailable } from "../../utils/dates_functions";
 
 //COMPONENTS
 import Nav from "../../components/Nav/Nav";
@@ -32,6 +25,7 @@ import CartSubTotal from "../../components/CartSubTotal/CartSubTotal";
 import NavButton from "../../components/Nav/NavButton/NavButton";
 
 import s from "../../styles/CartPage.module.scss";
+import { useDateRange } from "../../hooks/useDateRange";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -57,7 +51,7 @@ export default function CartPage() {
   });
 
   const [datePickup, setDatePickup] = useState(false);
-  const [dateRange, setDateRange] = useState(null);
+  const { dateRange, setDateRange } = useDateRange();
 
   const { totalCartPrice } = useSumCartItems();
 
@@ -71,13 +65,6 @@ export default function CartPage() {
   const handleSelectDateRange = () => {
     setDatePickup(true);
   };
-
-  useEffect(() => {
-    if (dateRange) {
-      const allDates = generateAllDates(dateRange);
-      dispatch(setDate(allDates));
-    }
-  }, [dateRange, dispatch]);
 
   const handleClickBookOrder = async () => {
     if (!userData) {
@@ -194,7 +181,7 @@ export default function CartPage() {
         <CartPageList cart={cart} date={date} />
         <div className={s.summary}>
           {date && date.length > 0 ? (
-            <div className={s.date_range}>
+            <div className={s.date_range} onClick={handleSelectDateRange}>
               <div>
                 <div>
                   <p>Retiro:</p>
