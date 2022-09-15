@@ -37,12 +37,12 @@ export default function CartSubTotal({ totalCartPrice }) {
           </div>
           <div className={`${s.flex} ${s.font_small} ${s.margin_b}`}>
             <p>
-              Descuento:{" "}
-              <FontAwesomeIcon
+              Descuento:
+              {/* <FontAwesomeIcon
                 icon={faCircleQuestion}
                 className={s.question_icon}
                 onClick={() => setShowModal(true)}
-              />
+              /> */}
             </p>
             <p>{totalCartPrice.discount}%</p>
           </div>
