@@ -136,6 +136,11 @@
         flex-wrap: wrap;
         justify-content: space-around;
         gap: 1rem;
+
+        li{
+          width: 100%;
+          padding: .5rem;
+        }
       }
     }
 
