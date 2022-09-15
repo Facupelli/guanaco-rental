@@ -54,6 +54,9 @@ export default function AdminDiscountCard({ discount, getFixedDiscounts }) {
       className={s.discount_card_container}
     >
       <div className={s.flex}>
+        <p><strong>{discount.name}</strong></p>        
+      </div>
+      <div className={s.flex}>
         <label htmlFor="minPrice">Precio mínimo:</label>
         <input
           type="text"

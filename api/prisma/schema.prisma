@@ -132,9 +132,10 @@ model Coupon {
 
 model FixedDiscount {
     id                      String                @default(cuid()) @id
-    minPrice                Int
-    minDates                Int
-    minUserOrders           Int
+    name                    String
+    minPrice                Int?
+    minDates                Int?
+    minUserOrders           Int?
     discount                Int
     orders                  Order[]
 }

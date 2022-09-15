@@ -33,7 +33,7 @@ export default function CartSubTotal({ totalCartPrice }) {
         <>
           <div className={`${s.flex} ${s.font_small}`}>
             <p>Sub Total:</p>
-            <p>{formatPrice(totalCartPrice.originalTotal)}</p>
+            <p>{formatPrice(totalCartPrice.subTotal)}</p>
           </div>
           <div className={`${s.flex} ${s.font_small}`}>
             <p>
@@ -44,7 +44,7 @@ export default function CartSubTotal({ totalCartPrice }) {
                 onClick={() => setShowModal(true)}
               />
             </p>
-            <p>{totalCartPrice.discount}</p>
+            <p>{totalCartPrice.discount}%</p>
           </div>
         </>
       )}

@@ -4,15 +4,14 @@ import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useFetchFixedDiscounts } from "../../utils/fixedDiscounts";
 import { useState } from "react";
-import { formatPrice } from "../../utils/price";
 
 import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import MessageModal from "../../components/MessageModal/MessageModal";
 import CreateDiscount from "../../components/AdminCreateDiscount/AdminCreateDiscount";
+import AdminDiscountCard from "../../components/AdminDiscountCard/AdminDiscountCard";
 
 import s from "../../styles/AdminFixedDiscountsPage.module.scss";
-import AdminDiscountCard from "../../components/AdminDiscountCard/AdminDiscountCard";
 
 export default function AdminFixedDiscounts({}) {
   const [showModal, setShowModal] = useState(false);
@@ -39,7 +38,7 @@ export default function AdminFixedDiscounts({}) {
       <AdminMain title="Descuentos Fijos">
         <div className={s.add_discount_btn_wrapper}>
           <button
-            disabled={true}
+            // disabled={true}
             type="button"
             onClick={() => setShowModal(true)}
           >

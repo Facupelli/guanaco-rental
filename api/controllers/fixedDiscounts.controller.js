@@ -1,15 +1,17 @@
+const data = require("@primer/octicons");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function postFixedDiscount(req, res, next) {
-  const { minPrice, minDates, minUserOrders, discount } = req.body;
+  const { minPrice, minDates, minUserOrders, discount, name } = req.body;
 
   try {
     const fixedDiscount = await prisma.fixedDiscount.create({
       data: {
-        minPrice: Number(minPrice),
-        minDates: Number(minDates),
-        minUserOrders: Number(minUserOrders),
+        name: name,
+        minPrice: minPrice ? Number(minPrice) : null,
+        minDates: minDates ? Number(minDates) : null,
+        minUserOrders: minUserOrders ? Number(minUserOrders) : null,
         discount: Number(discount),
       },
     });

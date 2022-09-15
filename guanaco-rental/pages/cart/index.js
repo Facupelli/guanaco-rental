@@ -11,13 +11,15 @@ import {
 import { cleanCart } from "../../redux/features/cart/cartSlice";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
-import { useSetCartTotal } from "../../hooks/useSetCartTotal";
+import { useSumCartItems } from "../../hooks/useSumCartItems";
+import { useCartTotal } from "../../hooks/useCartTotal";
 
 import { formatPrice } from "../../utils/price";
 import {
   areAllItemsAvailable,
   generateAllDates,
 } from "../../utils/dates_functions";
+
 
 //COMPONENTS
 import Nav from "../../components/Nav/Nav";
@@ -57,7 +59,14 @@ export default function CartPage() {
   const [datePickup, setDatePickup] = useState(false);
   const [dateRange, setDateRange] = useState(null);
 
-  const { totalCartPrice } = useSetCartTotal(couponApplied);
+  const { totalCartPrice } = useSumCartItems();
+
+  const { totalCartDefinitive } = useCartTotal(
+    totalCartPrice,
+    date,
+    userData.orders,
+    couponApplied
+  );
 
   const handleSelectDateRange = () => {
     setDatePickup(true);
@@ -139,10 +148,7 @@ export default function CartPage() {
       </Head>
       <Nav cartPage>
         <li>
-          <NavButton
-            name="CARRITO"
-            icon={faCartShopping}
-          />
+          <NavButton name="CARRITO" icon={faCartShopping} />
         </li>
       </Nav>
       {datePickup && (
@@ -228,7 +234,7 @@ export default function CartPage() {
               disabled={
                 date.length > 0 &&
                 cart.length > 0 &&
-                totalCartPrice.total > 0 &&
+                totalCartPrice > 0 &&
                 areAllItemsAvailable(cart, date)
                   ? false
                   : true
@@ -254,7 +260,7 @@ export default function CartPage() {
             </div>
           )}
           <div className={s.total_wrapper}>
-            <CartSubTotal totalCartPrice={totalCartPrice} />
+            <CartSubTotal totalCartPrice={totalCartDefinitive} />
             <AddCoupon
               setCouponApplied={setCouponApplied}
               couponApplied={couponApplied}
@@ -267,7 +273,7 @@ export default function CartPage() {
                   : cart &&
                     cart.length > 0 &&
                     date.length > 0 &&
-                    formatPrice(totalCartPrice.total)}
+                    formatPrice(totalCartDefinitive.total)}
               </p>
             </div>
           </div>

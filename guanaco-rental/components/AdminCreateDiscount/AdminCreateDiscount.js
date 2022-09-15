@@ -46,11 +46,13 @@ export default function CreateDiscount({ getFixedDiscounts, setShowModal }) {
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <h2>CREAR DECUENTO FIJO</h2>
-      <label htmlFor="minPrice">Precio mínimo*:</label>
+      <label htmlFor="name">Nombre:</label>
+      <input type="text" id="name" {...register("name")} />
+      <label htmlFor="minPrice">Precio mínimo:</label>
       <input type="text" id="minPrice" {...register("minPrice")} />
-      <label htmlFor="minDates">Jornadas mínimas*:</label>
+      <label htmlFor="minDates">Jornadas mínimas:</label>
       <input type="text" id="minDates" {...register("minDates")} />
-      <label htmlFor="minUserOrders">Pedidos de usuario minímos*:</label>
+      <label htmlFor="minUserOrders">Pedidos de usuario minímos:</label>
       <input type="text" id="minUserOrders" {...register("minUserOrders")} />
       <label htmlFor="discount">Descuento*: (%)</label>
       <input type="text" id="discount" {...register("discount")} />

@@ -3,10 +3,16 @@
 .discount_card_container {
   background-color: white;
   padding: 1.5rem;
-  height: 200px;
+  height: 230px;
+  width: 350px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  strong{
+    font-weight: 700;
+    font-size: 1.1em;
+  }
 
   .flex {
     display: flex;
