@@ -1,4 +1,4 @@
-@import "../../styles/app.scss";
+@import "../../../styles/app.scss";
 
 .font_small {
   font-size: 0.9em;
@@ -19,4 +19,8 @@
       color: $s-orange;
     }
   }
+}
+
+.margin_b{
+  margin-bottom: 1rem;
 }

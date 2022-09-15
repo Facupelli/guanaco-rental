@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
-import { formatPrice } from "../../utils/price";
+import { formatPrice } from "../../../utils/price";
 import { useState } from "react";
 
-import MessageModal from "../MessageModal/MessageModal";
+import MessageModal from "../../MessageModal/MessageModal";
 
 import s from "./CartSubTotal.module.scss";
 
@@ -35,7 +35,7 @@ export default function CartSubTotal({ totalCartPrice }) {
             <p>Sub Total:</p>
             <p>{formatPrice(totalCartPrice.subTotal)}</p>
           </div>
-          <div className={`${s.flex} ${s.font_small}`}>
+          <div className={`${s.flex} ${s.font_small} ${s.margin_b}`}>
             <p>
               Descuento:{" "}
               <FontAwesomeIcon

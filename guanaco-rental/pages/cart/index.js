@@ -10,6 +10,7 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 import { useSumCartItems } from "../../hooks/useSumCartItems";
 import { useCartTotal } from "../../hooks/useCartTotal";
+import { useDateRange } from "../../hooks/useDateRange";
 
 import { formatPrice } from "../../utils/price";
 import { areAllItemsAvailable } from "../../utils/dates_functions";
@@ -21,11 +22,10 @@ import MessageModal from "../../components/MessageModal/MessageModal";
 import LoadingModal from "../../components/LoadingModal/LoadingModal";
 import CartPageList from "../../components/CartPageList/CartPageList";
 import AddCoupon from "../../components/AddCoupon/AddCoupon";
-import CartSubTotal from "../../components/CartSubTotal/CartSubTotal";
 import NavButton from "../../components/Nav/NavButton/NavButton";
+import CartSubTotal from "../../components/CartPageList/CartSubTotal/CartSubTotal";
 
 import s from "../../styles/CartPage.module.scss";
-import { useDateRange } from "../../hooks/useDateRange";
 
 export default function CartPage() {
   const dispatch = useDispatch();
