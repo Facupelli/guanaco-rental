@@ -40,8 +40,6 @@ export const authOptions = {
       session.user.role = userLogged.role;
       session.user.petitionSent = userLogged.petitionSent;
 
-      console.log(userLogged, session)
-
       if (userLogged.message === "Logged in successfully") return session;
     },
   },
