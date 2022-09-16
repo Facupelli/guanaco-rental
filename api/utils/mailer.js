@@ -2,7 +2,6 @@ const hbs = require("nodemailer-express-handlebars");
 const nodemailer = require("nodemailer");
 const path = require("path");
 const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
 
 async function sendMail(data) {
   const CLIENT_EMAIL = process.env.CLIENT_EMAIL;
@@ -22,9 +21,11 @@ async function sendMail(data) {
     const accessToken = await OAuth2Client.getAccessToken();
 
     const transport = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
-        type: "oauth2",
+        type: "OAuth2",
         user: CLIENT_EMAIL,
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,

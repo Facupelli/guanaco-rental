@@ -8,6 +8,7 @@ export const useFetchAllOrders = (skip) => {
   const [totalOrders, setTotalOrders] = useState(0);
 
   useEffect(() => {
+    setLoading(true);
     fetchAllOrders(skip)
       .catch((e) => console.log(e))
       .then((res) => {

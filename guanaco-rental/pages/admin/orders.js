@@ -20,6 +20,8 @@ export default function AdminOrdersPage({}) {
   const { orders, totalOrders, loading, refetchOrders } =
     useFetchAllOrders(skip);
 
+    console.log("LOADING", loading)
+
   return (
     <div className={s.grey_bg}>
       <Head>
