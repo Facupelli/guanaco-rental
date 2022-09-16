@@ -88,9 +88,7 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  const res = await getUniqueUser(session?.user.email);
-
-  if (!session || res.user?.role !== "ADMIN") {
+  if (!session || session?.user.role !== "ADMIN") {
     return {
       redirect: {
         destination: "/",

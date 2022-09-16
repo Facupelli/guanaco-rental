@@ -7,8 +7,11 @@ const book = require("./book");
 const rents = require("./rents");
 const coupons = require("./coupons");
 const fixedDiscounts = require("./fixedDiscounts");
+const log = require("./login");
 
 const router = Router();
+
+router.use("/log", log);
 
 router.use("/equipment", equipment);
 router.use("/users", users);

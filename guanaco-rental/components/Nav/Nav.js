@@ -16,9 +16,8 @@ import NavButton from "./NavButton/NavButton";
 
 import s from "./Nav.module.scss";
 
-export default function Nav({ setShowCart, cartPage, route, role, children }) {
+export default function Nav({ setShowCart, cartPage, route, children }) {
   const { data: session } = useSession();
-  const userRole = useSelector((state) => state.user.data?.role);
 
   const handleShowCart = () => {
     if (route === "book") {
@@ -78,7 +77,7 @@ export default function Nav({ setShowCart, cartPage, route, role, children }) {
 
           {children}
 
-          {(userRole === "ADMIN" || userRole === "EMPLOYEE") && (
+          {(session?.user.role === "ADMIN" || session?.user.role === "EMPLOYEE") && (
             <li>
               <Link href="/admin">
                 <a>ADMIN</a>

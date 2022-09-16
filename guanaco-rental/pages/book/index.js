@@ -3,11 +3,7 @@ import Script from "next/script";
 import Link from "next/link";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useSession } from "next-auth/react";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getOrCreateUser } from "../../utils/fetch_users";
-import { setUserId } from "../../redux/features/user/userSlice";
+import { useState } from "react";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useDateRange } from "../../hooks/useDateRange";
 
@@ -23,22 +19,11 @@ import NavButton from "../../components/Nav/NavButton/NavButton";
 import s from "../../styles/BookPage.module.scss";
 
 export default function Home({ showNewClientModal }) {
-  const dispatch = useDispatch();
-  const userData = useSelector((state) => state.user.data);
-
   const [showModal, setShowModal] = useState(showNewClientModal);
   const [showCart, setShowCart] = useState(false);
 
   const [datePickup, setDatePickup] = useState(false);
   const { dateRange, setDateRange } = useDateRange();
-
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session?.user && !userData) {
-      getOrCreateUser(session.user).then((res) => dispatch(setUserId(res)));
-    }
-  }, [session, userData, dispatch]);
 
   return (
     <div className={s.container}>
@@ -94,8 +79,8 @@ export default function Home({ showNewClientModal }) {
         <MessageModal btnFunc={() => setShowModal(false)}>
           <p className={s.bold}>IMPORTANTE</p>
           <p>
-            Para poder alquilar equipos es necesario llenar este formulario de
-            alta de cliente. Una vez aprobado (puede demorar hasta 48hs) podras
+            Para poder alquilar equipos es necesario llenar el formulario de
+            alta de cliente. Una vez aprobado (puede demorar hasta 48hs) podrás
             realizar tus reservas a través de la web.
           </p>
           <div className={s.modal_links}>
@@ -140,13 +125,7 @@ export const getServerSideProps = async (ctx) => {
     authOptions
   );
 
-  let user;
-  if (session) {
-    const response = await getOrCreateUser(session.user);
-    user = response.user;
-  }
-
-  if (user?.role === "ADMIN" || user?.role === "EMPLOYEE") {
+  if (session?.user.role === "ADMIN" || session?.user.role === "EMPLOYEE") {
     return {
       props: {
         session,
@@ -154,7 +133,7 @@ export const getServerSideProps = async (ctx) => {
     };
   }
 
-  if (user && (user.petitionSent === "DENIED" || !user.petitionSent)) {
+  if (session?.user.petitionSent === "DENIED" || !session?.user.petitionSent) {
     return {
       props: {
         showNewClientModal: true,

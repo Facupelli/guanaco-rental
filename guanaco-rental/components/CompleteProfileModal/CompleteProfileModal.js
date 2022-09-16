@@ -20,6 +20,8 @@ export default function CompleteProfileModal({ user }) {
     resolver: yupResolver(schema),
   });
 
+  console.log(user)
+
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -134,6 +136,7 @@ export default function CompleteProfileModal({ user }) {
                 required
                 type="text"
                 id="fullName"
+                defaultValue={user.name}
                 {...register("fullName")}
               />
               {errors.fullName?.message}

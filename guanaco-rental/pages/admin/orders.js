@@ -2,9 +2,8 @@ import Head from "next/head";
 import { useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { getUniqueUser } from "../../utils/fetch_users";
 import { useFetchAllOrders } from "../../hooks/useFetchAllOrders";
-import { useGetUserRole } from "../../hooks/useGetUserRole";
+import { useSession } from "next-auth/react";
 
 import AdminMain from "../../components/AdminMain/AdminMain";
 import Nav from "../../components/Nav/Nav";
@@ -13,7 +12,7 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 import s from "../../styles/AdminOrdersPage.module.scss";
 
 export default function AdminOrdersPage({}) {
-  const { userRole } = useGetUserRole();
+  const { data: session } = useSession();
 
   //pagination
   const [skip, setSkip] = useState(0);
@@ -48,7 +47,7 @@ export default function AdminOrdersPage({}) {
               <OrderCard
                 key={order.id}
                 order={order}
-                userRole={userRole}
+                userRole={session?.user.role}
                 refetchOrders={refetchOrders}
               />
             ))
@@ -92,9 +91,7 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  const res = await getUniqueUser(session?.user.email);
-
-  if (res.user?.role === "ADMIN" || res.user?.role === "EMPLOYEE") {
+  if (session?.user.role === "ADMIN" || session?.user.role === "EMPLOYEE") {
     return {
       props: { session },
     };

@@ -2,10 +2,9 @@ import Head from "next/head";
 import Link from "next/link";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { getUniqueUser } from "../../utils/fetch_users";
 import { useEffect, useState } from "react";
 import { formatPrice } from "../../utils/price";
-import { useGetUserRole } from "../../hooks/useGetUserRole";
+import { useSession } from "next-auth/react";
 
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
@@ -13,7 +12,7 @@ import Calendar from "react-calendar";
 import s from "../../styles/AdminPage.module.scss";
 
 export default function AdminPage() {
-  const { userRole } = useGetUserRole();
+  const { data: session } = useSession();
 
   const [bookings, setBookings] = useState([]);
   const [dayBookings, setDayBookings] = useState([]);
@@ -76,7 +75,7 @@ export default function AdminPage() {
                 <a className={s.link}>Usuarios</a>
               </li>
             </Link>
-            {userRole === "ADMIN" && (
+            {session?.user.role === "ADMIN" && (
               <>
                 <Link href="/admin/equipment">
                   <li>
@@ -169,9 +168,7 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  const res = await getUniqueUser(session?.user.email);
-
-  if (res.user?.role === "ADMIN" || res.user?.role === "EMPLOYEE") {
+  if (session?.user.role === "ADMIN" || session?.user.role === "EMPLOYEE") {
     return {
       props: { session },
     };
