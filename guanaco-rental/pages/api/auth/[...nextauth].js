@@ -16,9 +16,11 @@ export const authOptions = {
   ],
   callbacks: {
     async session({ session }) {
-      const data = JSON.stringify({ email: session.user.email, name: session.user.name });
+      const data = JSON.stringify({
+        email: session.user.email,
+        name: session.user.name,
+      });
 
-      // try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
           ? `https://guanaco-rental-production.up.railway.app/log`
@@ -38,9 +40,6 @@ export const authOptions = {
       session.user.petitionSent = userLogged.petitionSent;
 
       if (userLogged.message === "Logged in successfully") return session;
-      // } catch (e) {
-      //   console.log(e);
-      // }
     },
   },
 };

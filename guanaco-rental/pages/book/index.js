@@ -3,9 +3,13 @@ import Script from "next/script";
 import Link from "next/link";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useDateRange } from "../../hooks/useDateRange";
+import { useDispatch, useSelector } from "react-redux";
+import { getUniqueUser } from "../../utils/fetch_users";
+import { setUserId } from "../../redux/features/user/userSlice";
+import { useSession } from "next-auth/react";
 
 //COMPONENTS
 import Bookeable from "../../components/Bookeable/Bookeable";
@@ -19,11 +23,24 @@ import NavButton from "../../components/Nav/NavButton/NavButton";
 import s from "../../styles/BookPage.module.scss";
 
 export default function Home({ showNewClientModal }) {
+  const dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState(showNewClientModal);
   const [showCart, setShowCart] = useState(false);
 
   const [datePickup, setDatePickup] = useState(false);
   const { dateRange, setDateRange } = useDateRange();
+
+  const userData = useSelector((state) => state.user.data);
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (!userData) {
+      getUniqueUser(session?.user.email).then((res) =>
+        dispatch(setUserId(res))
+      );
+    }
+  }, [userData, session]);
 
   return (
     <div className={s.container}>
@@ -133,7 +150,7 @@ export const getServerSideProps = async (ctx) => {
     };
   }
 
-  if (session?.user.petitionSent === "DENIED" || !session?.user.petitionSent) {
+  if (session?.user.petitionSent === "DENIED") {
     return {
       props: {
         showNewClientModal: true,

@@ -1,5 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-const { sendOrderSuccessEmail } = require("../utils/mailer");
+const { sendMail } = require("../utils/mailer");
 const { sendWsMessage } = require("../utils/whatsapp");
 const prisma = new PrismaClient();
 
@@ -98,30 +98,31 @@ async function postOrder(req, res, next) {
     //   totalPrice: orderData.totalPrice,
     // };
 
-    // sendOrderSuccessEmail(mailData);
+    // const mailSent = await sendMail(mailData);
+    // console.log("MAIL", mailSent);
 
-    const msgData = {
-      phone: orderData.user.phone,
-      fullName: orderData.user.fullName,
-      pickupHour: orderData.booking.pickupHour,
-      pickupDay: new Date(orderData.booking.dates[0]).toLocaleDateString(),
-      returnDay: new Date(
-        orderData.booking.dates[orderData.booking.dates.length - 1]
-      ).toLocaleDateString(),
-      equipmentList: orderData.equipments
-        .map(
-          (gear) =>
-            `x${
-              gear.bookings.filter(
-                (book) => book.bookId === orderData.booking.id
-              )[0].quantity
-            } ${gear.name} ${gear.brand} ${gear.model}`
-        )
-        .join("-  "),
-    };
+    // const msgData = {
+    //   phone: orderData.user.phone,
+    //   fullName: orderData.user.fullName,
+    //   pickupHour: orderData.booking.pickupHour,
+    //   pickupDay: new Date(orderData.booking.dates[0]).toLocaleDateString(),
+    //   returnDay: new Date(
+    //     orderData.booking.dates[orderData.booking.dates.length - 1]
+    //   ).toLocaleDateString(),
+    //   equipmentList: orderData.equipments
+    //     .map(
+    //       (gear) =>
+    //         `x${
+    //           gear.bookings.filter(
+    //             (book) => book.bookId === orderData.booking.id
+    //           )[0].quantity
+    //         } ${gear.name} ${gear.brand} ${gear.model}`
+    //     )
+    //     .join("-  "),
+    // };
 
-    const sentWsMessage = await sendWsMessage(msgData);
-    console.log(sentWsMessage);
+    // const sentWsMessage = await sendWsMessage(msgData);
+    // console.log(sentWsMessage);
   } catch (e) {
     console.log(e);
   }
