@@ -14,34 +14,36 @@ export const authOptions = {
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     }),
   ],
-  // callbacks: {
-  //   async session({ session }) {
-  //     const data = JSON.stringify({
-  //       email: session.user.email,
-  //       name: session.user.name,
-  //     });
+  callbacks: {
+    async session({ session }) {
+      const data = JSON.stringify({
+        email: session.user.email,
+        name: session.user.name,
+      });
 
-  //     const response = await fetch(
-  //       process.env.NODE_ENV === "production"
-  //         ? `https://guanaco-rental-production.up.railway.app/log`
-  //         : "http://localhost:3001/log",
-  //       {
-  //         method: "POST",
-  //         body: data,
-  //         headers: {
-  //           "Content-type": "application/json",
-  //           Accept: "application/json",
-  //         },
-  //       }
-  //     );
-  //     const userLogged = await response.json();
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? `https://guanaco-rental-production.up.railway.app/log`
+          : "http://localhost:3001/log",
+        {
+          method: "POST",
+          body: data,
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      const userLogged = await response.json();
 
-  //     session.user.role = userLogged.role;
-  //     session.user.petitionSent = userLogged.petitionSent;
+      console.log('USERLOOGGED', userLogged)
 
-  //     if (userLogged.message === "Logged in successfully") return session;
-  //   },
-  // },
+      session.user.role = userLogged.role;
+      session.user.petitionSent = userLogged.petitionSent;
+
+      if (userLogged.message === "Logged in successfully") return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
