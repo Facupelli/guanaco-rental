@@ -2,7 +2,6 @@ import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useCallback, useEffect, useState } from "react";
-import { getUniqueUser } from "../../utils/fetch_users";
 import { useDebounce } from "../../hooks/useDebounce";
 
 import Nav from "../../components/Nav/Nav";

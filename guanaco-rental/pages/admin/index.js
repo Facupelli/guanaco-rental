@@ -131,25 +131,28 @@ export default function AdminPage() {
               dayBookings.length > 0 &&
               dayBookings.map((book) => (
                 <div key={book.id}>
-                  <p className={s.flex_10}>
-                    <span className={s.bold}>N°</span> {book.order.number}
-                  </p>
-                  <p className={s.flex_20}>
-                    <span className={s.bold}>Total:</span>{" "}
-                    {formatPrice(book.order.totalPrice)}
-                  </p>
-                  <div className={s.flex_10}>
-                    <p className={s.bold}>Fechas:</p>
-                    <p>{new Date(book.dates[0]).toLocaleDateString()}</p>
-                    <p>{new Date(book.dates.at(-1)).toLocaleDateString()}</p>
-                  </div>
-                  <div className={s.flex_50}>
-                    <p className={s.bold}>Equipos:</p>
-                    {book.order.equipments.map((gear) => (
-                      <p key={gear.id}>
-                        {gear.name} {gear.brand} {gear.model}
-                      </p>
-                    ))}
+                  <p className={s.bold}>{book.order.user.fullName}</p>
+                  <div>
+                    <p className={s.flex_10}>
+                      <span className={s.bold}>N°</span> {book.order.number}
+                    </p>
+                    <p className={s.flex_20}>
+                      <span className={s.bold}>Total:</span>{" "}
+                      {formatPrice(book.order.totalPrice)}
+                    </p>
+                    <div className={s.flex_10}>
+                      <p className={s.bold}>Fechas:</p>
+                      <p>{new Date(book.dates[0]).toLocaleDateString()}</p>
+                      <p>{new Date(book.dates.at(-1)).toLocaleDateString()}</p>
+                    </div>
+                    <div className={s.flex_50}>
+                      <p className={s.bold}>Equipos:</p>
+                      {book.order.equipments.map((gear) => (
+                        <p key={gear.id}>
+                          {gear.name} {gear.brand} {gear.model}
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))

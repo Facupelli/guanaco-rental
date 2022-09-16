@@ -120,6 +120,15 @@ async function getUniqueUser(req, res, next) {
   try {
     const user = await prisma.user.findUnique({
       where: { email },
+      select:{
+        id:true,
+        fullName:true,
+        orders:true,
+        phone:true,
+        dniNumber: true,
+        customerApproved:true,
+        petitionSent:true,
+      }
     });
 
     res.json({user});

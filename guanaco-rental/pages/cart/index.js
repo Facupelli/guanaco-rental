@@ -1,11 +1,12 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetDate } from "../../redux/features/pickupDate/pickupDateSlice";
 import { cleanCart } from "../../redux/features/cart/cartSlice";
+import { setUserId } from "../../redux/features/user/userSlice";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 import { useSumCartItems } from "../../hooks/useSumCartItems";
@@ -14,6 +15,7 @@ import { useDateRange } from "../../hooks/useDateRange";
 
 import { formatPrice } from "../../utils/price";
 import { areAllItemsAvailable } from "../../utils/dates_functions";
+import { getUniqueUser } from "../../utils/fetch_users";
 
 //COMPONENTS
 import Nav from "../../components/Nav/Nav";
@@ -31,10 +33,18 @@ export default function CartPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const { data: session } = useSession();
+
   const userData = useSelector((state) => state.user.data);
   const cart = useSelector((state) => state.cart.items);
   const date = useSelector((state) => state.date.date_range);
   const pickupHour = useSelector((state) => state.date.pickup_hour);
+
+  useEffect(() => {
+    if (!userData) {
+      getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));
+    }
+  }, [userData]);
 
   const [freeOrder, setFreeOrder] = useState(false);
 
@@ -235,7 +245,7 @@ export default function CartPage() {
               <button type="button">continuar alquilando</button>
             </Link>
           </div>
-          {userData && userData.role === "ADMIN" && (
+          {session && session?.user.role === "ADMIN" && (
             <div className={s.free_order_wrapper}>
               <label>Alquilar gratis porque soy el dueño del rental:</label>
               <input

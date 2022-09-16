@@ -18,6 +18,7 @@ async function getBookingsByDate(req, res, next) {
               equipments: true,
               totalPrice: true,
               number: true,
+              user: { select: { fullName: true } },
             },
           },
         },

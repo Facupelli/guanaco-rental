@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
-import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useFetchFixedDiscounts } from "../../utils/fixedDiscounts";
 import { useState } from "react";

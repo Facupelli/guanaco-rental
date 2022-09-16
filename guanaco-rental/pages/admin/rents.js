@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
-import { getUniqueUser } from "../../utils/fetch_users";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { formatPrice, getEachTotalEarnings, getOwnerEarningsByOrder } from "../../utils/price";
 import { useCallback, useEffect, useMemo, useState } from "react";
