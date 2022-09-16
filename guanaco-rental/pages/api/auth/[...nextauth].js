@@ -42,6 +42,7 @@ export const authOptions = {
       session.user.petitionSent = userLogged.petitionSent;
 
       if (userLogged.message === "Logged in successfully") return session;
+      return false
     },
   },
 };
