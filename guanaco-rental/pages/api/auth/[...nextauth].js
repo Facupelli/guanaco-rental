@@ -16,7 +16,6 @@ export const authOptions = {
   ],
   callbacks: {
     async session({ session }) {
-      console.log("USERLOOGGED", session);
 
       const data = JSON.stringify({
         email: session.user.email,
@@ -37,8 +36,6 @@ export const authOptions = {
         }
       );
       const userLogged = await response.json();
-
-      console.log("USERLOOGGED", userLogged);
 
       session.user.role = userLogged.role;
       session.user.petitionSent = userLogged.petitionSent;
