@@ -27,6 +27,12 @@
         @include m-button;
         font-size: 0.9em;
         padding: 0.4rem 0.8rem;
+
+        .flex{
+          display: flex;
+          align-items: center;
+          gap: .5rem;
+        }
       }
     }
 

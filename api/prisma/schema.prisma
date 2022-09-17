@@ -18,6 +18,7 @@ enum Role{
 }
 
 enum Petition{
+  false
   PENDING
   APPROVED
   DENIED
@@ -46,7 +47,7 @@ model User {
   bank                    String?
   alias                   String?
   cbu                     String?
-  petitionSent            Petition?
+  petitionSent            Petition      @default(false)
   customerApproved        Boolean?
   customerApprovedAt      DateTime?
   createdAt               DateTime      @default(now()) @map(name: "created_at")

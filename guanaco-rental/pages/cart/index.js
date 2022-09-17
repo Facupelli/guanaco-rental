@@ -28,6 +28,7 @@ import NavButton from "../../components/Nav/NavButton/NavButton";
 import CartSubTotal from "../../components/CartPageList/CartSubTotal/CartSubTotal";
 
 import s from "../../styles/CartPage.module.scss";
+import Loader from "../../components/Loaders/Loader/Loader";
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -172,7 +173,9 @@ export default function CartPage() {
       )}
       {showModal.loading && (
         <LoadingModal>
-          <p>Procesando...</p>
+          <p className={s.processing_flex}>
+            Procesando <Loader />
+          </p>
         </LoadingModal>
       )}
       {showModal.error && (

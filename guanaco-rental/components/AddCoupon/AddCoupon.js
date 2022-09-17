@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { handleApplyCoupon } from "../../utils/coupons";
+import ButtonLoader from "../Loaders/ButtonLoader/ButtonLoader";
 import s from "./AddCoupon.module.scss";
 
-export default function AddCoupon({setCouponApplied, couponApplied}) {
+export default function AddCoupon({ setCouponApplied, couponApplied }) {
   const [couponName, setCoupon] = useState("");
 
   return (
@@ -19,7 +20,13 @@ export default function AddCoupon({setCouponApplied, couponApplied}) {
             type="button"
             onClick={() => handleApplyCoupon(couponName, setCouponApplied)}
           >
-            {couponApplied.loading ? "CARGANDO" : "APLICAR"}
+            {couponApplied.loading ? (
+              <p className={s.flex}>
+                CARGANDO <ButtonLoader />
+              </p>
+            ) : (
+              "APLICAR"
+            )}
           </button>
         </div>
         {couponApplied.error && <p>{couponApplied.error}</p>}

@@ -1,5 +1,12 @@
 @import "./app.scss";
 
+.processing_flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem
+}
+
 .main {
   @include app_width;
   display: grid;

@@ -1,6 +1,7 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import Loader from "../../Loaders/Loader/Loader";
 import EquipmentCard from "./EquipmentCard/EquipmentCard";
+
 import s from "./EquipmentList.module.scss";
 
 export default function EquipmentList({
@@ -15,11 +16,13 @@ export default function EquipmentList({
     return qtyToShow >= equipment.length;
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className={s.container}>
-      {isLoading ? (
-        <p>Cargando...</p>
-      ) : equipment.length > 0 ? (
+      {equipment.length > 0 ? (
         <>
           <div className={s.cards_wrapper}>
             {equipment.slice(0, qtyToShow).map((gear) => (
