@@ -38,7 +38,7 @@ export default function Home({ showNewClientModal }) {
     if (!userData && session) {
       getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));
     }
-  }, [userData, session]);
+  }, [userData, session, dispatch]);
 
   return (
     <div className={s.container}>

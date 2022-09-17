@@ -44,7 +44,7 @@ export default function CartPage() {
     if (!userData && session) {
       getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));
     }
-  }, [userData]);
+  }, [userData, session, dispatch]);
 
   const [freeOrder, setFreeOrder] = useState(false);
 
