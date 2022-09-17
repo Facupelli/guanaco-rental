@@ -42,7 +42,7 @@ async function login(req, res, next) {
         petitionSent: user.petitionSent,
       });
   } catch (e) {
-    console.log("login error:", e);
+    next(e);
   }
 }
 

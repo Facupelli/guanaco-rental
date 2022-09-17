@@ -46,8 +46,7 @@ async function postUser(req, res, next) {
 
     res.json(response);
   } catch (e) {
-    console.log("postUser error:", e);
-    return;
+    next(e);
   }
 }
 
@@ -66,8 +65,7 @@ async function putUser(req, res, next) {
 
     res.json({ message: "success", updatedUser });
   } catch (e) {
-    console.log("putUser error:", e);
-    return;
+    next(e);
   }
 }
 
@@ -110,7 +108,7 @@ async function getUsers(req, res, next) {
 
     res.json(users);
   } catch (e) {
-    console.log("getUsers error:", e);
+    next(e);
   }
 }
 
@@ -120,21 +118,20 @@ async function getUniqueUser(req, res, next) {
   try {
     const user = await prisma.user.findUnique({
       where: { email },
-      select:{
-        id:true,
-        fullName:true,
-        orders:true,
-        phone:true,
+      select: {
+        id: true,
+        fullName: true,
+        orders: true,
+        phone: true,
         dniNumber: true,
-        customerApproved:true,
-        petitionSent:true,
-      }
+        customerApproved: true,
+        petitionSent: true,
+      },
     });
 
-    res.json({user});
+    res.json({ user });
   } catch (e) {
-    console.log("getUniqueUser error:", e);
-    return;
+    next(e);
   }
 }
 

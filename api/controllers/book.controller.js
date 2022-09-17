@@ -33,8 +33,7 @@ async function getBookingsByDate(req, res, next) {
       res.json(bookings);
     }
   } catch (e) {
-    console.log(e);
-    return;
+    next(e);
   }
 }
 

@@ -33,9 +33,7 @@ async function getEquipment(req, res, next) {
       return;
     }
   } catch (e) {
-    console.log("search equipment error:", e);
-    res.json({ errorMessage: "error searching, please refresh" });
-    return;
+    next(e);
   }
 
   try {
@@ -62,9 +60,7 @@ async function getEquipment(req, res, next) {
 
     res.json(equipment);
   } catch (e) {
-    console.log("find equipment error:", e);
-    res.json({ errorMessage: "error getting equipment, please refresh" });
-    return;
+    next(e);
   }
 }
 
@@ -91,8 +87,7 @@ async function putEquipment(req, res, next) {
       console.log("missing gear id");
     }
   } catch (e) {
-    console.log(e);
-    return;
+    next(e);
   }
 }
 

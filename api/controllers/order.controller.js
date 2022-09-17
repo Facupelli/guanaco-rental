@@ -36,8 +36,7 @@ async function postOrder(req, res, next) {
       )
     );
   } catch (e) {
-    console.log("equipment book update error:", e);
-    return;
+    next(e);
   }
 
   let newOrder;
@@ -63,10 +62,8 @@ async function postOrder(req, res, next) {
 
     res.json({ message: "success", newOrder });
   } catch (e) {
-    console.log("order create error:", e);
     const bookDeleted = await prisma.book.delete({ where: { id: book.id } });
-    console.log(bookDeleted);
-    return;
+    next(e);
   }
 
   // SEND EMAIL TO ADMINS & WS MESSAGE TO USER
@@ -124,7 +121,7 @@ async function postOrder(req, res, next) {
     // const sentWsMessage = await sendWsMessage(msgData);
     // console.log(sentWsMessage);
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 }
 
@@ -140,7 +137,7 @@ async function putOrder(req, res, next) {
       res.json({ message: "success" });
       return;
     } catch (e) {
-      console.log(e);
+      next(e);
     }
   }
 
@@ -185,7 +182,7 @@ async function putOrder(req, res, next) {
 
     res.json({ message: "success" });
   } catch (e) {
-    console.log("putOrder error:", e);
+    next(e);
   }
 }
 
@@ -229,7 +226,7 @@ async function getOrders(req, res, next) {
 
     res.json({ orders, count: count._all });
   } catch (e) {
-    console.log("getOrders error:", e);
+    next(e);
   }
 }
 
@@ -250,7 +247,7 @@ async function getOrderById(req, res, next) {
       res.json(order);
     }
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 }
 
@@ -266,8 +263,7 @@ async function deleteOrderById(req, res, next) {
       res.json({ message: "success", deletedOrder });
     }
   } catch (e) {
-    console.log(e);
-    return;
+    next(e);
   }
 }
 

@@ -17,7 +17,7 @@ async function postFixedDiscount(req, res, next) {
 
     res.json({ message: "success", fixedDiscount });
   } catch (e) {
-    console.log("postFixedDiscount error:", e);
+    next(e);
   }
 }
 
@@ -37,7 +37,7 @@ async function putFixedDiscount(req, res, next) {
 
     res.json({ message: "success", fixedDiscount });
   } catch (e) {
-    console.log("postFixedDiscount error:", e);
+    next(e);
   }
 }
 
@@ -49,7 +49,7 @@ async function getFixedDiscounts(req, res, next) {
 
     res.json(fixedDiscounts);
   } catch (e) {
-    console.log("getFixedDiscounts error:", e);
+    next(e);
   }
 }
 

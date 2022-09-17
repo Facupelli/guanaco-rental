@@ -11,7 +11,7 @@ async function getTotalOfOrders(req, res, next) {
 
     res.json(totalPrice);
   } catch (e) {
-    console.log("getTotalOfOrders error:", e);
+    next(e);
   }
 }
 

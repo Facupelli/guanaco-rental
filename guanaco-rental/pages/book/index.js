@@ -35,10 +35,8 @@ export default function Home({ showNewClientModal }) {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (!userData) {
-      getUniqueUser(session?.user.email).then((res) =>
-        dispatch(setUserId(res))
-      );
+    if (!userData && session) {
+      getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));
     }
   }, [userData, session]);
 

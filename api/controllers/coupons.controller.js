@@ -16,7 +16,7 @@ async function postCoupon(req, res, next) {
 
     res.json({ message: "success", coupon });
   } catch (e) {
-    console.log("postCoupon error:", e);
+    next(e);
   }
 }
 
@@ -43,7 +43,7 @@ async function getCoupons(req, res, next) {
 
     res.json({ finishedCoupons, activeCoupons });
   } catch (e) {
-    console.log("getCoupons error:", e);
+    next(e);
   }
 }
 
@@ -72,7 +72,7 @@ async function getCouponByName(req, res, next) {
       }
     }
   } catch (e) {
-    console.log("getCouponById error:", e);
+    next(e);
   }
 }
 
@@ -89,7 +89,7 @@ async function deleteCouponById(req, res, next) {
       console.log("missing id");
     }
   } catch (e) {
-    console.log("getCoupons error:", e);
+    next(e);
   }
 }
 
