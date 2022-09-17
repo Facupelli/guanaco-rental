@@ -7,11 +7,20 @@
   height: 80%;
 }
 
-.loader {
+.small {
+  width: 15px;
+  height: 15px;
+  border: 2px solid $m-orange;
+}
+
+.default {
   width: 30px;
   height: 30px;
-  background-color: transparent;
   border: 4px solid $m-orange;
+}
+
+.loader {
+  background-color: transparent;
   border-bottom-color: transparent;
   border-radius: 100%;
   animation: rotation 1s linear infinite;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { handleApplyCoupon } from "../../utils/coupons";
-import ButtonLoader from "../Loaders/ButtonLoader/ButtonLoader";
+import Loader from "../Loaders/Loader/Loader";
 import s from "./AddCoupon.module.scss";
 
 export default function AddCoupon({ setCouponApplied, couponApplied }) {
@@ -22,7 +22,7 @@ export default function AddCoupon({ setCouponApplied, couponApplied }) {
           >
             {couponApplied.loading ? (
               <p className={s.flex}>
-                CARGANDO <ButtonLoader />
+                CARGANDO <Loader small />
               </p>
             ) : (
               "APLICAR"
