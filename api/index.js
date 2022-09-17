@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3001;
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://guanaco-rental.vercel.app/",
+  "https://guanaco-rental.vercel.app",
 ];
 
 app.use(
