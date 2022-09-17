@@ -1,14 +1,33 @@
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const helmet = require("helmet");
 const routes = require("./routes/index");
 
 const app = express();
 
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
-app.use(cookieParser())
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://guanaco-rental.vercel.app/",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORS policy for this site does not " +
+          "allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
+app.use(helmet());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
