@@ -8,26 +8,26 @@ const app = express();
 
 const PORT = process.env.PORT || 3001;
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://guanaco-rental.vercel.app",
-  "https://guanaco-rental.vercel.app/book",
-  "https://accounts.google.com",
-];
+// const allowedOrigins = [
+//   "http://localhost:3000",
+//   "https://guanaco-rental.vercel.app",
+//   "https://guanaco-rental.vercel.app/book",
+//   "https://accounts.google.com",
+// ];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) === -1) {
-        var msg =
-          "The CORS policy for this site does not " +
-          "allow access from the specified Origin.";
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
-  })
-);
+// {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.indexOf(origin) === -1) {
+//       var msg =
+//         "The CORS policy for this site does not " +
+//         "allow access from the specified Origin.";
+//       return callback(new Error(msg), false);
+//     }
+//     return callback(null, true);
+//   },
+// }
+
+app.use(cors());
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
