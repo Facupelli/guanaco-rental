@@ -41,7 +41,7 @@ export default function CartPage() {
   const pickupHour = useSelector((state) => state.date.pickup_hour);
 
   useEffect(() => {
-    if (!userData) {
+    if (!userData && session) {
       getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));
     }
   }, [userData]);
