@@ -1,0 +1,56 @@
+@import "../../styles/app.scss";
+
+.padding_narrow{
+    padding: .5rem 2rem;
+    font-size: .8em;
+}
+
+.padding_default{
+    padding: 1rem 2rem;
+}
+
+.margin{
+    margin: 1rem 0rem 2rem 0rem;
+}
+
+.nav_container {
+  font-size: 1.2rem;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 0.2rem;
+
+  ul {
+    display: flex;
+
+    li {
+      width: fit-content;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+
+      &:hover {
+        background-color: $m-orange;
+        box-shadow: none;
+        border-radius: 0.2rem;
+
+        a {
+          color: white;
+        }
+      }
+
+      &:hover + .link {
+        color: white;
+      }
+
+      .link {
+        margin: 0.5rem 0rem;
+
+        &:visited {
+          color: $m-black;
+        }
+      }
+    }
+  }
+}

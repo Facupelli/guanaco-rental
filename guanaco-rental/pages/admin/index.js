@@ -11,6 +11,7 @@ import { setUserId } from "../../redux/features/user/userSlice";
 
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
+import AdminNav from "../../components/AdminNav/AdminNav";
 
 import s from "../../styles/AdminPage.module.scss";
 
@@ -83,7 +84,7 @@ export default function AdminPage() {
   }, [userData, session]);
 
   return (
-    <div>
+    <div className={s.grey_bg}>
       <Head>
         <title>Guanaco Admin</title>
         <link rel="icon" href="/logo-favicon.ico" />
@@ -91,44 +92,7 @@ export default function AdminPage() {
       <Nav />
       <main className={s.main}>
         <h1>Panel de Administrador</h1>
-        <nav>
-          <ul>
-            <Link href="/admin/orders">
-              <li>
-                <a className={s.link}>Pedidos</a>
-              </li>
-            </Link>
-            <Link href="/admin/users">
-              <li>
-                <a className={s.link}>Usuarios</a>
-              </li>
-            </Link>
-            {session?.user.role === "ADMIN" && (
-              <>
-                <Link href="/admin/equipment">
-                  <li>
-                    <a className={s.link}>Equipos</a>
-                  </li>
-                </Link>
-                <Link href="/admin/rents">
-                  <li>
-                    <a className={s.link}>Rentas</a>
-                  </li>
-                </Link>
-                <Link href="/admin/coupons">
-                  <li>
-                    <a className={s.link}>Cupones</a>
-                  </li>
-                </Link>
-                <Link href="/admin/fixedDiscounts">
-                  <li>
-                    <a className={s.link}>Descuentos Fijos</a>
-                  </li>
-                </Link>
-              </>
-            )}
-          </ul>
-        </nav>
+        <AdminNav role={session?.user.role} />
         <section>
           <Calendar
             className={s.calendar}
