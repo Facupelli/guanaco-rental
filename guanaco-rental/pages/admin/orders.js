@@ -1,9 +1,12 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useFetchAllOrders } from "../../hooks/useFetchAllOrders";
 import { useSession } from "next-auth/react";
+import { getUniqueUser } from "../../utils/fetch_users";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserId } from "../../redux/features/user/userSlice";
 
 import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
@@ -13,7 +16,15 @@ import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 import s from "../../styles/AdminOrdersPage.module.scss";
 
 export default function AdminOrdersPage({}) {
+  const dispatch = useDispatch()
   const { data: session } = useSession();
+  const userData = useSelector((state) => state.user.data);
+
+  useEffect(() => {
+    if (!userData && session) {
+      getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));
+    }
+  }, [userData, session, dispatch]);
 
   //pagination
   const [skip, setSkip] = useState(0);

@@ -126,6 +126,7 @@ async function getUniqueUser(req, res, next) {
         dniNumber: true,
         customerApproved: true,
         petitionSent: true,
+        addressProvince: true,
       },
     });
 
