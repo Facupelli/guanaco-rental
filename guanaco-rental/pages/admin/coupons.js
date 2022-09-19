@@ -3,15 +3,16 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useState } from "react";
 import { useFetchCoupons } from "../../utils/coupons";
+import { useSession } from "next-auth/react";
 
 import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import MessageModal from "../../components/MessageModal/MessageModal";
 import AdminCouponCard from "../../components/AdminCouponCard/AdminCouponCard";
 import CreateCoupon from "../../components/AdminCreateCoupon/CreateCoupon";
+import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/AdminCouponsPage.module.scss";
-import { useSession } from "next-auth/react";
 
 export default function AdminCoupons({}) {
   const [showCouponModal, setShowCouponModal] = useState(false);
@@ -41,6 +42,9 @@ export default function AdminCoupons({}) {
         </MessageModal>
       )}
       <AdminMain title="Cupones">
+        <div className={s.select_location_wrapper}>
+          <SelectLoaction adminPanel />
+        </div>
         <div className={s.add_coupon_btn_wrapper}>
           <button type="button" onClick={() => setShowCouponModal(true)}>
             Agregar cupón

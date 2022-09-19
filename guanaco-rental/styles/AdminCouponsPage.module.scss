@@ -4,6 +4,11 @@
   background-color: $bg-grey;
   min-height: 100vh;
 
+  .select_location_wrapper {
+    margin-top: 1rem;
+    width: 25%;
+  }
+
   .add_coupon_btn_wrapper {
     margin-top: 2rem;
 
@@ -36,6 +41,10 @@
 
 @media (max-width: 768px) {
   .grey_bg {
+    .add_coupon_btn_wrapper {
+      width: 50%;
+    }
+
     .flex_50_50 {
       flex-wrap: wrap;
       > section {
@@ -47,6 +56,10 @@
 
 @media (max-width: 480px) {
   .grey_bg {
+    .add_coupon_btn_wrapper {
+      width: 100%;
+    }
+
     .flex_50_50 {
       flex-wrap: wrap;
       > section {

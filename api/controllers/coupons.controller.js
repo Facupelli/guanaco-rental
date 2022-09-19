@@ -21,8 +21,12 @@ async function postCoupon(req, res, next) {
 }
 
 async function getCoupons(req, res, next) {
+  const { location } = req.query;
   try {
     const coupons = await prisma.coupon.findMany({
+      where: {
+        location: location === "all" || !location ? undefined : location,
+      },
       include: { orders: true },
     });
 

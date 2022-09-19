@@ -42,8 +42,13 @@ async function putFixedDiscount(req, res, next) {
 }
 
 async function getFixedDiscounts(req, res, next) {
+  const { location } = req.query;
+
   try {
     const fixedDiscounts = await prisma.fixedDiscount.findMany({
+      where: {
+        location: location === "all" || !location ? undefined : location,
+      },
       include: { orders: true },
     });
 

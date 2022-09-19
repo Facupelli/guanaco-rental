@@ -5,6 +5,11 @@
   min-height: 100vh;
   margin-bottom: 3rem;
 
+  .select_location_wrapper {
+    margin-top: 1rem;
+    width: 25%;
+  }
+
   .add_discount_btn_wrapper {
     margin-top: 2rem;
 
@@ -18,7 +23,21 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+  }
+}
 
-    
+@media (max-width: 768px) {
+  .grey_bg {
+    .add_coupon_btn_wrapper {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .grey_bg {
+    .add_coupon_btn_wrapper {
+      width: 100%;
+    }
   }
 }

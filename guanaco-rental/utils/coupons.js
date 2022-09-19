@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-export const fetchCoupons = () => {
+export const fetchCoupons = (location) => {
   return fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/coupons`
-      : "http://localhost:3001/coupons"
+      ? `https://guanaco-rental-production.up.railway.app/coupons?location=${location}`
+      : `http://localhost:3001/coupons?location=${location}`
   ).then((res) => res.json());
 };
 
@@ -13,17 +14,19 @@ export const useFetchCoupons = () => {
   const [coupons, setCoupons] = useState({});
   const [loading, setLoading] = useState(true);
 
+  const location = useSelector((state) => state.location.city);
+
   const getCoupons = () => {
     setLoading(true);
-    fetchCoupons()
-      .catch((e) => console.log(e))
+    fetchCoupons(location)
       .then((coupons) => setCoupons(coupons))
+      .catch((e) => console.log(e))
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     getCoupons();
-  }, []);
+  }, [location]);
 
   return { coupons, loading, getCoupons };
 };
@@ -34,8 +37,8 @@ export const fetchCoupon = (couponName) => {
       ? `https://guanaco-rental-production.up.railway.app/coupons/${couponName}`
       : `http://localhost:3001/coupons/${couponName}`
   )
-    .catch((e) => console.log(e))
-    .then((res) => res.json());
+    .then((res) => res.json())
+    .catch((e) => console.log(e));
 };
 
 export const handleApplyCoupon = (couponName, setCouponApplied) => {

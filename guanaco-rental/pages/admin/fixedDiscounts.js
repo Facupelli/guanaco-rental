@@ -10,6 +10,7 @@ import AdminMain from "../../components/AdminMain/AdminMain";
 import MessageModal from "../../components/MessageModal/MessageModal";
 import CreateDiscount from "../../components/AdminCreateDiscount/AdminCreateDiscount";
 import AdminDiscountCard from "../../components/AdminDiscountCard/AdminDiscountCard";
+import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/AdminFixedDiscountsPage.module.scss";
 
@@ -17,8 +18,8 @@ export default function AdminFixedDiscounts({}) {
   const [showModal, setShowModal] = useState(false);
   const { fixedDiscounts, getFixedDiscounts, loading } =
     useFetchFixedDiscounts();
-  
-  const {data:session} = useSession()
+
+  const { data: session } = useSession();
 
   return (
     <div className={s.grey_bg}>
@@ -39,6 +40,9 @@ export default function AdminFixedDiscounts({}) {
       )}
 
       <AdminMain title="Descuentos Fijos">
+        <div className={s.select_location_wrapper}>
+          <SelectLoaction adminPanel />
+        </div>
         <div className={s.add_discount_btn_wrapper}>
           <button
             // disabled={true}
@@ -50,8 +54,9 @@ export default function AdminFixedDiscounts({}) {
         </div>
         <section>
           {loading && <p>Cargando...</p>}
+          {fixedDiscounts.length === 0 && <p>No hay descuentos.</p>}
           {!loading &&
-            fixedDiscounts.length > 0 &&
+            fixedDiscounts?.length > 0 &&
             fixedDiscounts.map((discount) => (
               <AdminDiscountCard
                 key={discount.id}
