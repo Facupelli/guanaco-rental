@@ -7,7 +7,7 @@ import {
 
 import s from "./SelectLoaction.module.scss";
 
-export default function SelectLoaction() {
+export default function SelectLoaction({ adminPanel }) {
   const dispatch = useDispatch();
   const [city, setCity] = useState("");
 
@@ -18,13 +18,14 @@ export default function SelectLoaction() {
       dispatch(setLocation(city));
       dispatch(setShowModal(false));
     }
-  }, [city, dispatch]);
+  }, [location, city, dispatch]);
 
   return (
     <div className={s.container}>
       <label>Ciudad:</label>
       <select defaultValue={location} onChange={(e) => setCity(e.target.value)}>
         <option value="">seleccionar</option>
+        {adminPanel && <option value="all">TODAS</option>}
         <option value="San Juan">SAN JUAN</option>
         <option value="Mendoza">MENDOZA</option>
       </select>

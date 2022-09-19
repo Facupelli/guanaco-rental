@@ -5,9 +5,10 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { useFetchAllOrders } from "../../hooks/useFetchAllOrders";
 import { useSession } from "next-auth/react";
 
-import AdminMain from "../../components/AdminMain/AdminMain";
 import Nav from "../../components/Nav/Nav";
+import AdminMain from "../../components/AdminMain/AdminMain";
 import OrderCard from "../../components/OrderCard/OrderCard";
+import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/AdminOrdersPage.module.scss";
 
@@ -28,6 +29,12 @@ export default function AdminOrdersPage({}) {
       </Head>
       <Nav />
       <AdminMain title="Pedidos">
+        {session.user.role === "ADMIN" && (
+          <div className={s.select_location_wrapper}>
+            <SelectLoaction adminPanel />
+          </div>
+        )}
+
         <div className={s.table_titles}>
           <p>N°</p>
           <p>NOMBRE</p>

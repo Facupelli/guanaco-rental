@@ -2,24 +2,27 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { fetchAllOrders } from "../utils/orders";
 import { useSession } from "next-auth/react";
+import { useSelector } from "react-redux";
 
 export const useFetchAllOrders = (skip) => {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const [totalOrders, setTotalOrders] = useState(0);
 
+  const location = useSelector((state) => state.location.city);
+
   const { data: session } = useSession();
 
   useEffect(() => {
     setLoading(true);
-    fetchAllOrders(skip, session?.user.token)
+    fetchAllOrders(location, skip, session?.user.token)
       .then((res) => {
         setOrders(res.orders);
         setTotalOrders(res.count);
       })
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
-  }, [skip, fetchAllOrders]);
+  }, [location, skip, fetchAllOrders]);
 
   const refetchOrders = () => {
     setLoading(true);

@@ -1,11 +1,11 @@
 import { getWorkingTotalDays } from "./dates_functions";
 import s from "../components/OrderCard/OrderCard.module.scss";
 
-export const fetchAllOrders = (skip, token) => {
+export const fetchAllOrders = (location, skip, token) => {
   return fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/order?skip=${skip}`
-      : `http://localhost:3001/order?skip=${skip}`,
+      ? `https://guanaco-rental-production.up.railway.app/order?location=${location}&skip=${skip}`
+      : `http://localhost:3001/order?location=${location}&skip=${skip}`,
     { headers: { authorization: `${token}` } }
   ).then((res) => res.json());
 };

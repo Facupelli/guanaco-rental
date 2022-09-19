@@ -217,6 +217,7 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
           {order.coupon && (
             <p className={s.coupon_name}>cupón: {order.coupon.name}</p>
           )}
+          <p className={s.coupon_name}>{order.location === "Mendoza" ? "MDZ" : "SJ"}</p>
         </div>
       </div>
     </>

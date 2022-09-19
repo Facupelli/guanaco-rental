@@ -189,7 +189,7 @@ async function putOrder(req, res, next) {
 
 async function getOrders(req, res, next) {
   try {
-    const { skip } = req.query;
+    const { skip, location } = req.query;
 
     if (!skip) {
       const allOrders = await prisma.order.findMany({
@@ -205,6 +205,9 @@ async function getOrders(req, res, next) {
     }
 
     const orders = await prisma.order.findMany({
+      where: {
+        location: location === "all" ? undefined : location,
+      },
       include: {
         _count: {},
         user: true,
@@ -218,6 +221,8 @@ async function getOrders(req, res, next) {
       skip: Number(skip),
       take: 10,
     });
+
+    console.log(location);
 
     const count = await prisma.order.count({
       select: {

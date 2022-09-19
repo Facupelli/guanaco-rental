@@ -100,6 +100,7 @@ model Order {
   couponId                String?
   fixedDiscount           FixedDiscount?      @relation(fields: [fixedDiscountId], references: [id])
   fixedDiscountId         String?
+  location                String              @default("San Juan")
   createdAt               DateTime            @default(now())
 }
 
