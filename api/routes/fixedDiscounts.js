@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/", authorization, postFixedDiscount);
 router.put("/", authorization, putFixedDiscount);
-router.get("/", authorization, getFixedDiscounts);
+router.get("/", getFixedDiscounts);
 
 module.exports = router;

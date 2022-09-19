@@ -21,20 +21,20 @@ import MessageModal from "../../components/MessageModal/MessageModal";
 import NavButton from "../../components/Nav/NavButton/NavButton";
 
 import s from "../../styles/BookPage.module.scss";
+import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 export default function Home({ showNewClientModal }) {
   const dispatch = useDispatch();
 
-  const [showModal, setShowModal] = useState(showNewClientModal);
   const [showCart, setShowCart] = useState(false);
+  const [showModal, setShowModal] = useState(showNewClientModal);
+  const showLocationModal = useSelector((state) => state.location.showModal);
 
   const [datePickup, setDatePickup] = useState(false);
   const { dateRange, setDateRange } = useDateRange();
 
   const userData = useSelector((state) => state.user.data);
   const { data: session } = useSession();
-
-  console.log("SESSION", session);
 
   useEffect(() => {
     if (!userData && session) {
@@ -91,6 +91,12 @@ export default function Home({ showNewClientModal }) {
           />
         </li>
       </Nav>
+
+      {showLocationModal && (
+        <MessageModal>
+          <SelectLoaction />
+        </MessageModal>
+      )}
 
       {showModal && (
         <MessageModal btnFunc={() => setShowModal(false)}>

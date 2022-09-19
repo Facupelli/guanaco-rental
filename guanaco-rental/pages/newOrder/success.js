@@ -34,7 +34,9 @@ export default function NewOrderSuccess({ order }) {
               <p className={s.bold}>Fecha de alquiler:</p>
               <p>
                 {new Date(order.booking.dates[0]).toLocaleDateString()} {"->"}{" "}
-                {new Date(order.booking.dates[order.booking.dates.length - 1]).toLocaleDateString()}
+                {new Date(
+                  order.booking.dates[order.booking.dates.length - 1]
+                ).toLocaleDateString()}
               </p>
             </div>
             <div className={s.flex_60}>
@@ -47,6 +49,12 @@ export default function NewOrderSuccess({ order }) {
             </div>
           </article>
         )}
+        <div>
+          <p>
+            Recordá que el retiro de los equipos es a las{" "}
+            {order.booking.pickupHour}hs y la devolución es a las 09:00hs
+          </p>
+        </div>
         <div className={s.link_wrapper}>
           <Link href="/book">
             <a>TERMINADO</a>

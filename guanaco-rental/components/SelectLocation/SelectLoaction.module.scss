@@ -1,0 +1,21 @@
+@import "../../styles/app.scss";
+
+.container {
+  font-family: "Panton";
+
+  h3 {
+    margin-bottom: 2rem;
+  }
+
+  > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 1rem;
+
+    select {
+      @include m-select;
+      width: 100%;
+    }
+  }
+}

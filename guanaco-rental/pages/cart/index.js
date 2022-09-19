@@ -26,9 +26,9 @@ import CartPageList from "../../components/CartPageList/CartPageList";
 import AddCoupon from "../../components/AddCoupon/AddCoupon";
 import NavButton from "../../components/Nav/NavButton/NavButton";
 import CartSubTotal from "../../components/CartPageList/CartSubTotal/CartSubTotal";
+import Loader from "../../components/Loaders/Loader/Loader";
 
 import s from "../../styles/CartPage.module.scss";
-import Loader from "../../components/Loaders/Loader/Loader";
 
 export default function CartPage() {
   const dispatch = useDispatch();

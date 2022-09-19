@@ -1,4 +1,3 @@
-
 export const checkForDiscounts = (
   totalCartPrice,
   date,
@@ -6,7 +5,6 @@ export const checkForDiscounts = (
   fixedDiscounts
 ) => {
   return fixedDiscounts.map((discount) => {
-    console.log(date?.length - 1 > discount.minDates, date.length)
     if (
       (discount.minPrice ? totalCartPrice > discount.minPrice : true) &&
       (discount.minDates ? date?.length - 1 > discount.minDates : true) &&

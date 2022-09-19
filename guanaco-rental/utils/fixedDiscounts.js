@@ -8,7 +8,9 @@ export const fetchFixedDiscounts = (token) => {
       ? `https://guanaco-rental-production.up.railway.app/fixedDiscounts`
       : "http://localhost:3001/fixedDiscounts",
     { headers: { authorization: `${token}` } }
-  ).then((res) => res.json());
+  )
+    .then((res) => res.json())
+    .catch((e) => console.log(e));
 };
 
 export const useFetchFixedDiscounts = () => {
@@ -19,8 +21,8 @@ export const useFetchFixedDiscounts = () => {
 
   const getFixedDiscounts = () => {
     fetchFixedDiscounts(session?.user.token)
-      .catch((e) => console.e.log(e))
       .then((discounts) => setFixedDiscounts(discounts))
+      .catch((e) => console.log(e))
       .finally(() => setLoading(false));
   };
 
