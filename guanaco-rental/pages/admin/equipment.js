@@ -4,16 +4,20 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useSession } from "next-auth/react";
+import { useSelector } from "react-redux";
 
 import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
 import EquipmentSearchBar from "../../components/Bookeable/EquipmentSearchBar/EquipmentSearchBar";
+import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/AdminEquipmentPage.module.scss";
 
 export default function AdminEquipment({ equipment }) {
   const { data: session } = useSession;
+
+  const location = useSelector((state) => state.location.city);
 
   const [equipmentList, setEquipmentList] = useState([]);
   const [category, setCategory] = useState("all");
@@ -26,13 +30,13 @@ export default function AdminEquipment({ equipment }) {
     try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/equipment?category=${category}&search=${debouncedSearch}`
-          : `http://localhost:3001/equipment?category=${category}&search=${debouncedSearch}`
+          ? `https://guanaco-rental-production.up.railway.app/equipment?location=${location}&category=${category}&search=${debouncedSearch}`
+          : `http://localhost:3001/equipment?location=${location}&category=${category}&search=${debouncedSearch}`
       );
       const data = await response.json();
       setEquipmentList(data);
     } catch (e) {}
-  }, [category, debouncedSearch]);
+  }, [location, category, debouncedSearch]);
 
   useEffect(() => {
     if (category === "all") {
@@ -60,6 +64,7 @@ export default function AdminEquipment({ equipment }) {
           <EquipmentSearchBar
             onInputChange={(e) => setSearchInput(e.target.value)}
           />
+          <SelectLoaction />
           <div className={s.flex_baseline}>
             <p>
               Total: <span className={s.bold}>{equipment.length}</span>

@@ -68,6 +68,12 @@ enum Owner{
   SUB
 }
 
+enum Location{
+  SAN_JUAN
+  MENDOZA
+}
+
+
 model Equipment {
   id                      String              @default(cuid()) @id
   name                    String
@@ -81,7 +87,7 @@ model Equipment {
   categoryId              String
   orders                  Order[]
   owner                   Owner               @default(FEDERICO)
-  location                String              @default("San Juan")
+  location                Location            @default(SAN_JUAN)
   bookings                BookOnEquipment[]
   available               Boolean             @default(true)
 }
@@ -100,7 +106,7 @@ model Order {
   couponId                String?
   fixedDiscount           FixedDiscount?      @relation(fields: [fixedDiscountId], references: [id])
   fixedDiscountId         String?
-  location                String              @default("San Juan")
+  location                Location            @default(SAN_JUAN)
   createdAt               DateTime            @default(now())
 }
 
@@ -130,14 +136,17 @@ model Coupon {
   expirationDate          DateTime?
   maxOrders               Int?
   orders                  Order[]
+  location                Location            @default(SAN_JUAN)
+
 }
 
 model FixedDiscount {
-    id                      String                @default(cuid()) @id
-    name                    String
-    minPrice                Int?
-    minDates                Int?
-    minUserOrders           Int?
-    discount                Int
-    orders                  Order[]
+  id                      String                @default(cuid()) @id
+  name                    String
+  minPrice                Int?
+  minDates                Int?
+  minUserOrders           Int?
+  discount                Int
+  orders                  Order[]
+  location                Location            @default(SAN_JUAN)
 }

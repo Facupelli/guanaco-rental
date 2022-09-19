@@ -6,7 +6,13 @@ import s from "./PDF.module.scss";
 export default function PDF({ pickupDay, returnDay, order, equipmentRows }) {
   const [instance, updateInstance] = usePDF({
     document: (
-      <RemitoPDF pickupDay={pickupDay} returnDay={returnDay} order={order} equipmentRows={equipmentRows} />
+      <RemitoPDF
+        location={order.location === "MENDOZA" ? "MDZ" : "SJ"}
+        pickupDay={pickupDay}
+        returnDay={returnDay}
+        order={order}
+        equipmentRows={equipmentRows}
+      />
     ),
   });
 

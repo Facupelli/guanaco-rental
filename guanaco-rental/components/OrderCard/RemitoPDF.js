@@ -180,11 +180,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RemitoPDF = ({ pickupDay, returnDay, order, equipmentRows }) => (
+export const RemitoPDF = ({ location, pickupDay, returnDay, order, equipmentRows }) => (
   <Document>
     <Page size="A4" style={styles.page} wrap>
       <View style={styles.number}>
-        <Text>REMITO N° SJ-{order.number}</Text>
+        <Text>REMITO N° {location}-{order.number}</Text>
       </View>
       <View style={styles.pageMargin} fixed></View>
       <View style={styles.imageWrapper}>
