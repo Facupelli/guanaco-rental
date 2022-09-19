@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { formatPrice } from "../../utils/price";
 import s from "./AdminDiscountCard.module.scss";
 
-export default function AdminDiscountCard({ discount, getFixedDiscounts }) {
+export default function AdminDiscountCard({ discount, getFixedDiscounts, token }) {
   const {
     register,
     handleSubmit,
@@ -36,6 +36,7 @@ export default function AdminDiscountCard({ discount, getFixedDiscounts }) {
           headers: {
             "Content-type": "application/json",
             Accept: "application/json",
+            authorization: `${token}`
           },
         }
       );

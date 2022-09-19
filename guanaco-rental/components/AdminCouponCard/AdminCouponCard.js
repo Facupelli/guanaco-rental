@@ -4,7 +4,7 @@ import { handleDeleteCoupon } from "../../utils/coupons";
 
 import s from "./AdminCouponCard.module.scss";
 
-export default function AdminCouponCard({ coupon, danger, getCoupons }) {
+export default function AdminCouponCard({ coupon, danger, getCoupons, token }) {
   return (
     <div className={`${s.card_container} ${danger ? s.danger_border : ""}`}>
       <div>
@@ -12,7 +12,7 @@ export default function AdminCouponCard({ coupon, danger, getCoupons }) {
         <button
           type="button"
           aria-label="delete-coupon"
-          onClick={() => handleDeleteCoupon(coupon.id, getCoupons)}
+          onClick={() => handleDeleteCoupon(coupon.id, getCoupons, token)}
         >
           <FontAwesomeIcon icon={faTrash} className={s.trash_icon} />
         </button>

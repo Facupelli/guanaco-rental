@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import s from "./GearAdminCard.module.scss";
 
-export default function GearAdminCard({ gear, getEquipment }) {
+export default function GearAdminCard({ gear, getEquipment, token }) {
   const {
     register,
     handleSubmit,
@@ -27,6 +27,7 @@ export default function GearAdminCard({ gear, getEquipment }) {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
+          authorization: `${token}`,
         },
       }
     )

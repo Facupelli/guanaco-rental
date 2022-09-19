@@ -19,7 +19,7 @@ import s from "./OrderCard.module.scss";
 
 const PDF = dynamic(() => import("./PDF/PDF"));
 
-export default function OrderCard({ order, userRole, refetchOrders }) {
+export default function OrderCard({ order, userRole, refetchOrders, token }) {
   const [showEquipment, setShowEquipment] = useState(false);
   const [generatePDF, setGeneratePDF] = useState(false);
 
@@ -92,7 +92,7 @@ export default function OrderCard({ order, userRole, refetchOrders }) {
                 type="button"
                 className={s.cancel_order}
                 onClick={() =>
-                  handleDeleteOrder(order.bookingId, refetchOrders)
+                  handleDeleteOrder(order.bookingId, refetchOrders, token)
                 }
               >
                 CANCELAR ORDEN
@@ -114,6 +114,7 @@ export default function OrderCard({ order, userRole, refetchOrders }) {
             order={order}
             loading={loading}
             refetchOrders={refetchOrders}
+            token={token}
           />
         </MessageModal>
       )}
@@ -138,7 +139,7 @@ export default function OrderCard({ order, userRole, refetchOrders }) {
                 type="checkbox"
                 defaultChecked={order.delivered}
                 onClick={() =>
-                  handleDeliveredChange(order.id, true, refetchOrders)
+                  handleDeliveredChange(order.id, true, refetchOrders, token)
                 }
               />
             </div>
@@ -177,6 +178,7 @@ export default function OrderCard({ order, userRole, refetchOrders }) {
                     order={order}
                     key={gear.id}
                     refetchOrders={refetchOrders}
+                    token={token}
                   />
                 ))}
             </div>
@@ -228,6 +230,7 @@ const AddGearModalChildren = ({
   order,
   loading,
   refetchOrders,
+  token,
 }) => {
   return (
     <>
@@ -274,7 +277,8 @@ const AddGearModalChildren = ({
                         order,
                         gear,
                         "add",
-                        addGearInputs
+                        addGearInputs,
+                        token
                       ).then(() => refetchOrders());
                     }
                   }}

@@ -34,6 +34,8 @@ export default function Home({ showNewClientModal }) {
   const userData = useSelector((state) => state.user.data);
   const { data: session } = useSession();
 
+  console.log("SESSION", session);
+
   useEffect(() => {
     if (!userData && session) {
       getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));

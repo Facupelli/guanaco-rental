@@ -1,7 +1,11 @@
 import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { formatPrice, getEachTotalEarnings, getOwnerEarningsByOrder } from "../../utils/price";
+import {
+  formatPrice,
+  getEachTotalEarnings,
+  getOwnerEarningsByOrder,
+} from "../../utils/price";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import Nav from "../../components/Nav/Nav";
@@ -17,7 +21,7 @@ export default function AdminRents({ totalPrice, orders }) {
 
   const [selectedDate, setSelectedDate] = useState();
 
-  const today = useMemo(() => new Date(), []);  
+  const today = useMemo(() => new Date(), []);
 
   const totalFromOrders = useCallback(
     ({ finished, date }) => {
@@ -263,7 +267,8 @@ export async function getServerSideProps(ctx) {
   const orders = await fetch(
     process.env.NODE_ENV === "production"
       ? `https://guanaco-rental-production.up.railway.app/order`
-      : `http://localhost:3001/order`
+      : `http://localhost:3001/order`,
+    { headers: { authorization: `${session?.user.token}` } }
   )
     .then((response) => response.json())
     .catch((e) => console.log("fecth error:", e));
@@ -271,7 +276,8 @@ export async function getServerSideProps(ctx) {
   const totalPrice = await fetch(
     process.env.NODE_ENV === "production"
       ? `https://guanaco-rental-production.up.railway.app/rents`
-      : `http://localhost:3001/rents`
+      : `http://localhost:3001/rents`,
+    { headers: { authorization: `${session?.user.token}` } }
   )
     .then((res) => res.json())
     .catch((e) => console.log("fecth error:", e));

@@ -5,11 +5,12 @@ const {
   getUniqueUser,
   putUser,
 } = require("../controllers/users.controller");
+const { authorization } = require("../utils/middlewares/authorization");
 const router = express.Router();
 
 router.post("/", postUser);
 router.put("/", putUser);
-router.get("/", getUsers);
+router.get("/", authorization, getUsers);
 router.get("/:email", getUniqueUser);
 
 module.exports = router;

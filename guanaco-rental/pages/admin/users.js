@@ -2,6 +2,8 @@ import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useCallback, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+
 import AdminMain from "../../components/AdminMain/AdminMain";
 import ClientCard from "../../components/ClientCard/ClientCard";
 import ClientPetitionCard from "../../components/ClientPetitionCard/ClientPetitionCard";
@@ -23,12 +25,15 @@ export default function AdminUsersPage({ clients, newCLients }) {
   const [newClientUsers, setNewClientUsers] = useState(newCLients);
   const [clientUsers, setClientUsers] = useState(clients);
 
+  const { data: session } = useSession;
+
   const getNewClientUsers = async () => {
     setLoading(true);
     const users = await fetch(
       process.env.NODE_ENV === "production"
         ? `https://guanaco-rental-production.up.railway.app/users?newCLients=${true}`
-        : `http://localhost:3001/users?newClients=${true}`
+        : `http://localhost:3001/users?newClients=${true}`,
+      { headers: { authorization: `${session?.user.token}` } }
     )
       .then((response) => response.json())
       .then((res) => {
@@ -45,7 +50,8 @@ export default function AdminUsersPage({ clients, newCLients }) {
     const users = await fetch(
       process.env.NODE_ENV === "production"
         ? `https://guanaco-rental-production.up.railway.app/users?clients=${true}&search=${search}`
-        : `http://localhost:3001/users?clients=${true}&search=${search}`
+        : `http://localhost:3001/users?clients=${true}&search=${search}`,
+      { headers: { authorization: `${session?.user.token}` } }
     )
       .then((response) => response.json())
       .then((res) => {
@@ -155,12 +161,12 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-
   if (session?.user.role === "ADMIN" || session?.user.role === "EMPLOYEE") {
     const newCLients = await fetch(
       process.env.NODE_ENV === "production"
         ? `https://guanaco-rental-production.up.railway.app/users?newClients=${true}`
-        : `http://localhost:3001/users?newClients=${true}`
+        : `http://localhost:3001/users?newClients=${true}`,
+      { headers: { authorization: `${session?.user.token}` } }
     )
       .then((response) => response.json())
       .catch((e) => console.log("fecth error:", e));
@@ -168,7 +174,8 @@ export async function getServerSideProps(ctx) {
     const clients = await fetch(
       process.env.NODE_ENV === "production"
         ? `https://guanaco-rental-production.up.railway.app/users?clients=${true}`
-        : `http://localhost:3001/users?clients=${true}`
+        : `http://localhost:3001/users?clients=${true}`,
+      { headers: { authorization: `${session?.user.token}` } }
     )
       .then((response) => response.json())
       .catch((e) => console.log("fecth error:", e));

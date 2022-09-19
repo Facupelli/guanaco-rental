@@ -30,17 +30,12 @@ async function login(req, res, next) {
       process.env.JWT_SECRET
     );
 
-    return res
-      .cookie("api_token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      })
-      .status(200)
-      .json({
-        message: "Logged in successfully",
-        role: user.role,
-        petitionSent: user.petitionSent,
-      });
+    return res.status(200).json({
+      message: "Logged in successfully",
+      role: user.role,
+      petitionSent: user.petitionSent,
+      token,
+    });
   } catch (e) {
     next(e);
   }

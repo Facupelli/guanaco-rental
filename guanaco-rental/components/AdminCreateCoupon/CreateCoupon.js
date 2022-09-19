@@ -3,7 +3,11 @@ import { useForm } from "react-hook-form";
 
 import s from "./CreateCoupon.module.scss";
 
-export default function CreateCoupon({ getCoupons, setShowCouponModal }) {
+export default function CreateCoupon({
+  getCoupons,
+  setShowCouponModal,
+  token,
+}) {
   const {
     register,
     handleSubmit,
@@ -27,6 +31,7 @@ export default function CreateCoupon({ getCoupons, setShowCouponModal }) {
           headers: {
             "Content-type": "application/json",
             Accept: "application/json",
+            authorization: `${token}`,
           },
         }
       );

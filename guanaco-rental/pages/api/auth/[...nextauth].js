@@ -16,7 +16,6 @@ export const authOptions = {
   ],
   callbacks: {
     async session({ session }) {
-
       const data = JSON.stringify({
         email: session.user.email,
         name: session.user.name,
@@ -24,8 +23,8 @@ export const authOptions = {
 
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/log`
-          : "http://localhost:3001/log",
+          ? `https://guanaco-rental-production.up.railway.app/login`
+          : "http://localhost:3001/login",
         {
           method: "POST",
           body: data,
@@ -39,6 +38,7 @@ export const authOptions = {
 
       session.user.role = userLogged.role;
       session.user.petitionSent = userLogged.petitionSent;
+      session.user.token = userLogged.token;
 
       if (userLogged.message === "Logged in successfully") return session;
     },

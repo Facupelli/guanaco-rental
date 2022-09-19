@@ -3,6 +3,7 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
+import { useSession } from "next-auth/react";
 
 import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
@@ -12,6 +13,8 @@ import EquipmentSearchBar from "../../components/Bookeable/EquipmentSearchBar/Eq
 import s from "../../styles/AdminEquipmentPage.module.scss";
 
 export default function AdminEquipment({ equipment }) {
+  const { data: session } = useSession;
+
   const [equipmentList, setEquipmentList] = useState([]);
   const [category, setCategory] = useState("all");
 
@@ -90,6 +93,7 @@ export default function AdminEquipment({ equipment }) {
                 key={gear.id}
                 gear={gear}
                 getEquipment={getEquipment}
+                token={session?.user.token}
               />
             ))}
         </div>
@@ -104,7 +108,6 @@ export async function getServerSideProps(ctx) {
     ctx.res,
     authOptions
   );
-
 
   if (!session || session?.user.role !== "ADMIN") {
     return {

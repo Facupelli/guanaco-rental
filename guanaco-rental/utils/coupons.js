@@ -62,7 +62,7 @@ export const handleApplyCoupon = (couponName, setCouponApplied) => {
     });
 };
 
-export const handleDeleteCoupon = async (couponId, getCoupons) => {
+export const handleDeleteCoupon = async (couponId, getCoupons, token) => {
   try {
     const response = await fetch(
       process.env.NODE_ENV === "production"
@@ -70,6 +70,7 @@ export const handleDeleteCoupon = async (couponId, getCoupons) => {
         : `http://localhost:3001/coupons/${couponId}`,
       {
         method: "DELETE",
+        headers: { authorization: `${token}` },
       }
     );
     const deletedCoupon = await response.json();

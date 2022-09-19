@@ -20,8 +20,6 @@ export default function AdminOrdersPage({}) {
   const { orders, totalOrders, loading, refetchOrders } =
     useFetchAllOrders(skip);
 
-    console.log("LOADING", loading)
-
   return (
     <div className={s.grey_bg}>
       <Head>
@@ -51,6 +49,7 @@ export default function AdminOrdersPage({}) {
                 order={order}
                 userRole={session?.user.role}
                 refetchOrders={refetchOrders}
+                token={session?.user.token}
               />
             ))
           ) : (

@@ -3,6 +3,7 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useFetchFixedDiscounts } from "../../utils/fixedDiscounts";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
@@ -16,6 +17,8 @@ export default function AdminFixedDiscounts({}) {
   const [showModal, setShowModal] = useState(false);
   const { fixedDiscounts, getFixedDiscounts, loading } =
     useFetchFixedDiscounts();
+  
+  const {data:session} = useSession()
 
   return (
     <div className={s.grey_bg}>
@@ -30,6 +33,7 @@ export default function AdminFixedDiscounts({}) {
           <CreateDiscount
             getFixedDiscounts={getFixedDiscounts}
             setShowModal={setShowModal}
+            token={session?.user.token}
           />
         </MessageModal>
       )}
@@ -53,6 +57,7 @@ export default function AdminFixedDiscounts({}) {
                 key={discount.id}
                 discount={discount}
                 getFixedDiscounts={getFixedDiscounts}
+                token={session?.user.token}
               />
             ))}
         </section>

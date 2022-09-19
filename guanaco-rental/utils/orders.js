@@ -1,11 +1,12 @@
 import { getWorkingTotalDays } from "./dates_functions";
 import s from "../components/OrderCard/OrderCard.module.scss";
 
-export const fetchAllOrders = (skip) => {
+export const fetchAllOrders = (skip, token) => {
   return fetch(
     process.env.NODE_ENV === "production"
       ? `https://guanaco-rental-production.up.railway.app/order?skip=${skip}`
-      : `http://localhost:3001/order?skip=${skip}`
+      : `http://localhost:3001/order?skip=${skip}`,
+    { headers: { authorization: `${token}` } }
   ).then((res) => res.json());
 };
 
@@ -35,13 +36,14 @@ export const generatePdfRows = (order) => {
   }
 };
 
-export const handleDeleteOrder = async (id, refetchOrders) => {
+export const handleDeleteOrder = async (id, refetchOrders, token) => {
   const order = await fetch(
     process.env.NODE_ENV === "production"
       ? `https://guanaco-rental-production.up.railway.app/order/${id}`
       : `http://localhost:3001/order/${id}`,
     {
       method: "DELETE",
+      headers: { authorization: `${token}` },
     }
   )
     .then((response) => response.json())
@@ -56,7 +58,8 @@ export const updateGearFromOrder = async (
   order,
   gear,
   operation,
-  addGearInputs
+  addGearInputs,
+  token
 ) => {
   const newTotalPrice = () => {
     const workingDays = getWorkingTotalDays(
@@ -97,6 +100,7 @@ export const updateGearFromOrder = async (
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
+          authorization: `${token}`,
         },
       }
     );
@@ -108,7 +112,8 @@ export const updateGearFromOrder = async (
 export const handleDeliveredChange = async (
   orderId,
   delivered,
-  refetchOrders
+  refetchOrders,
+  token
 ) => {
   const data = JSON.stringify({
     orderId,
@@ -126,6 +131,7 @@ export const handleDeliveredChange = async (
         headers: {
           "Content-type": "application/json",
           Accept: "application/json",
+          authorization: `${token}`,
         },
       }
     );

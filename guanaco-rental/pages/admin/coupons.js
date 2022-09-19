@@ -11,11 +11,14 @@ import AdminCouponCard from "../../components/AdminCouponCard/AdminCouponCard";
 import CreateCoupon from "../../components/AdminCreateCoupon/CreateCoupon";
 
 import s from "../../styles/AdminCouponsPage.module.scss";
+import { useSession } from "next-auth/react";
 
 export default function AdminCoupons({}) {
   const [showCouponModal, setShowCouponModal] = useState(false);
 
   const { coupons, getCoupons, loading } = useFetchCoupons();
+
+  const { data: session } = useSession();
 
   return (
     <div className={s.grey_bg}>
@@ -33,6 +36,7 @@ export default function AdminCoupons({}) {
           <CreateCoupon
             getCoupons={getCoupons}
             setShowCouponModal={setShowCouponModal}
+            token={session?.user.token}
           />
         </MessageModal>
       )}
@@ -55,6 +59,7 @@ export default function AdminCoupons({}) {
                     coupon={coupon}
                     danger
                     getCoupons={getCoupons}
+                    token={session?.user.token}
                   />
                 ))}
             </div>
@@ -70,6 +75,7 @@ export default function AdminCoupons({}) {
                     key={coupon.id}
                     coupon={coupon}
                     getCoupons={getCoupons}
+                    token={session?.user.token}
                   />
                 ))}
             </div>
