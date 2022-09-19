@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function getBookingsByDate(req, res, next) {
-  const { date } = req.query;
+  const { date, location } = req.query;
 
   try {
     if (date) {
@@ -10,6 +10,9 @@ async function getBookingsByDate(req, res, next) {
         where: {
           dates: {
             has: date,
+          },
+          order: {
+            location: location === "all" || !location ? undefined : location,
           },
         },
         include: {
@@ -19,16 +22,21 @@ async function getBookingsByDate(req, res, next) {
               totalPrice: true,
               number: true,
               user: { select: { fullName: true } },
+              location: true,
             },
           },
         },
-
-        //   include: { order: { include: { equipments: true } } },
       });
 
       res.json(bookings);
     } else {
-      const bookings = await prisma.book.findMany();
+      const bookings = await prisma.book.findMany({
+        where: {
+          order: {
+            location: location === "all" || !location ? undefined : location,
+          },
+        },
+      });
 
       res.json(bookings);
     }

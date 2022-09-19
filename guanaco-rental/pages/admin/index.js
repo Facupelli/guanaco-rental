@@ -5,6 +5,9 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { useEffect, useState } from "react";
 import { formatPrice } from "../../utils/price";
 import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUniqueUser } from "../../utils/fetch_users";
+import { setUserId } from "../../redux/features/user/userSlice";
 
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
@@ -12,7 +15,22 @@ import Calendar from "react-calendar";
 import s from "../../styles/AdminPage.module.scss";
 
 export default function AdminPage() {
+  const dispatch = useDispatch();
   const { data: session } = useSession();
+
+  const userData = useSelector((state) => state.user.data);
+
+  useEffect(() => {
+    if (!userData && session) {
+      getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));
+    }
+  }, [userData, session, dispatch]);
+
+  const employeeLocation = useSelector(
+    (state) => state.user.data.addressProvince
+  );
+
+  console.log(employeeLocation);
 
   const [bookings, setBookings] = useState([]);
   const [dayBookings, setDayBookings] = useState([]);
@@ -24,8 +42,12 @@ export default function AdminPage() {
     try {
       const dayBooks = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/book?date=${localDate}`
-          : `http://localhost:3001/book?date=${localDate}`
+          ? `https://guanaco-rental-production.up.railway.app/book?date=${localDate}&location=${
+              session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
+            }`
+          : `http://localhost:3001/book?date=${localDate}&location=${
+              session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
+            }`
       );
       const bookings = await dayBooks.json();
       setDayBookings(bookings);
@@ -39,8 +61,12 @@ export default function AdminPage() {
     try {
       const books = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/book`
-          : `http://localhost:3001/book`
+          ? `https://guanaco-rental-production.up.railway.app/book?location=${
+              session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
+            }`
+          : `http://localhost:3001/book?location=${
+              session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
+            }`
       );
       const bookings = await books.json();
       const dates = bookings.map((book) => book.dates).flat();
@@ -51,8 +77,10 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    getBookings();
-  }, []);
+    if (userData && session) {
+      getBookings();
+    }
+  }, [userData, session]);
 
   return (
     <div>
@@ -104,9 +132,6 @@ export default function AdminPage() {
         <section>
           <Calendar
             className={s.calendar}
-            // onChange={setDateRange}
-            // value={dateRange}
-            // selectRange={true}
             onClickDay={showDayBookings}
             locale="es-ES"
             minDate={new Date()}
@@ -154,6 +179,7 @@ export default function AdminPage() {
                       ))}
                     </div>
                   </div>
+                  <p>{book.order.location === "MENDOZA" ? "MDZ" : "SJ"}</p>
                 </div>
               ))
             )}
