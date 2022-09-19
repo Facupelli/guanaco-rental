@@ -90,7 +90,7 @@ export default function AdminRents({ session }) {
       setTotalFinished(totalFromOrders({ finished: true }));
       setTotalPending(totalFromOrders({ finished: false }));
     }
-  }, [totalFromOrders]);
+  }, [totalFromOrders, orders]);
 
   useEffect(() => {
     if (selectedDate) {

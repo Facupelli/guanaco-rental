@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { formatPrice } from "../../utils/price";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,7 +58,7 @@ export default function AdminPage() {
     setLoading(false);
   };
 
-  const getBookings = async () => {
+  const getBookings = useCallback(async () => {
     try {
       const books = await fetch(
         process.env.NODE_ENV === "production"
@@ -75,13 +75,13 @@ export default function AdminPage() {
     } catch (e) {
       console.log(e);
     }
-  };
+  }, [session?.user.role, employeeLocation]);
 
   useEffect(() => {
     if (userData && session) {
       getBookings();
     }
-  }, [userData, session]);
+  }, [userData, session, getBookings]);
 
   return (
     <div className={s.grey_bg}>

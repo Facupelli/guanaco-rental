@@ -63,7 +63,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
     return users;
   };
 
-  const getClientUsersCallack = useCallback(getClientUsers, [search]);
+  const getClientUsersCallack = useCallback(getClientUsers, [search, session?.user.token]);
 
   useEffect(() => {
     getClientUsersCallack();

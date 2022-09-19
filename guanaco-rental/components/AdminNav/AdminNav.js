@@ -2,7 +2,6 @@ import Link from "next/link";
 import s from "./AdminNav.module.scss";
 
 export default function AdminNav({ narrow, role }) {
-  console.log("NARROW", narrow, "ROLE", role);
 
   return (
     <nav className={`${s.nav_container} ${narrow ? s.margin : ""}`}>
