@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setLocation,
   setShowModal,
@@ -11,6 +11,8 @@ export default function SelectLoaction() {
   const dispatch = useDispatch();
   const [city, setCity] = useState("");
 
+  const location = useSelector((state) => state.location.city);
+
   useEffect(() => {
     if (city) {
       dispatch(setLocation(city));
@@ -20,15 +22,12 @@ export default function SelectLoaction() {
 
   return (
     <div className={s.container}>
-      <h3>EN DONDE QUIERES ALQUILAR LOS EQUIPOS</h3>
-      <div>
-        <label>CIUDAD:</label>
-        <select onChange={(e) => setCity(e.target.value)}>
-          <option value="">seleccionar</option>
-          <option value="san-juan">SAN JUAN</option>
-          <option value="mendoza">MENDOZA</option>
-        </select>
-      </div>
+      <label>Ciudad:</label>
+      <select defaultValue={location} onChange={(e) => setCity(e.target.value)}>
+        <option value="">seleccionar</option>
+        <option value="San Juan">SAN JUAN</option>
+        <option value="Mendoza">MENDOZA</option>
+      </select>
     </div>
   );
 }

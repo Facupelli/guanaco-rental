@@ -40,6 +40,7 @@ export default function CartPage() {
   const cart = useSelector((state) => state.cart.items);
   const date = useSelector((state) => state.date.date_range);
   const pickupHour = useSelector((state) => state.date.pickup_hour);
+  const location = useSelector((state) => state.location.city);
 
   useEffect(() => {
     if (!userData && session) {
@@ -104,6 +105,7 @@ export default function CartPage() {
       totalPrice: freeOrder ? 0 : totalCartDefinitive.total,
       userId: userData.id,
       couponId: couponApplied?.success ? couponApplied.coupon.id : undefined,
+      location,
     });
 
     const newOrder = await fetch(

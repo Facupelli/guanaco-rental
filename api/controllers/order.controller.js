@@ -50,6 +50,7 @@ async function postOrder(req, res, next) {
       equipments: { connect: equipmentsIds },
       totalPrice: data.totalPrice,
       booking: { connect: { id: book.id } },
+      location: data.location,
     };
 
     if (data.couponId) {

@@ -23,15 +23,15 @@ export const { getEquipmet, setEquipment } = equipmentSlice.actions;
 
 export default equipmentSlice.reducer;
 
-export function fetchEquipment(category, order, search) {
+export function fetchEquipment(location, category, order, search) {
   return async (dispatch) => {
     dispatch(getEquipmet());
 
     try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/equipment?category=${category}&order=${order}&search=${search}`
-          : `http://localhost:3001/equipment?category=${category}&order=${order}&search=${search}`
+          ? `https://guanaco-rental-production.up.railway.app/equipment?location=${location}&category=${category}&order=${order}&search=${search}`
+          : `http://localhost:3001/equipment?location=${location}&category=${category}&order=${order}&search=${search}`
       );
       const data = await response.json();
 

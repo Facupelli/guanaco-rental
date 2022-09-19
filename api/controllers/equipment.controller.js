@@ -2,28 +2,39 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function getEquipment(req, res, next) {
-  const { category, order, search, available } = req.query;
+  const { location, category, order, search, available } = req.query;
+
+  console.log(location);
 
   try {
     if (search && search !== "undefined") {
       const equipmentBySearch = await prisma.equipment.findMany({
         where: {
-          available: true,
-          OR: [
+          AND: [
             {
-              name: {
-                search: search,
-              },
+              available: true,
             },
             {
-              brand: {
-                search: search,
-              },
+              location,
             },
             {
-              model: {
-                search: search,
-              },
+              OR: [
+                {
+                  name: {
+                    search: search,
+                  },
+                },
+                {
+                  brand: {
+                    search: search,
+                  },
+                },
+                {
+                  model: {
+                    search: search,
+                  },
+                },
+              ],
             },
           ],
         },
@@ -38,7 +49,16 @@ async function getEquipment(req, res, next) {
 
   try {
     const pipeline = {
-      where: { available: true },
+      where: {
+        AND: [
+          {
+            available: true,
+          },
+          {
+            location,
+          },
+        ],
+      },
       include: { bookings: { include: { book: true } } },
       orderBy: { bookings: { _count: "desc" } },
     };

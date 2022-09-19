@@ -93,7 +93,8 @@ export default function Home({ showNewClientModal }) {
       </Nav>
 
       {showLocationModal && (
-        <MessageModal>
+        <MessageModal btnFunc={() => {}} >
+          <h3 className={s.location_modal_title}>DONDE QUIERES ALQUILAR LOS EQUIPOS</h3>
           <SelectLoaction />
         </MessageModal>
       )}

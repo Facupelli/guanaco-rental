@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchEquipment } from "../../redux/features/equipment/equipmentSlice";
 import { useDebounce } from "../../hooks/useDebounce";
 
@@ -23,9 +23,13 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
 
   const debouncedSearch = useDebounce(filters.search, 500);
 
+  const location = useSelector((state) => state.location.city);
+
   useEffect(() => {
-    dispatch(fetchEquipment(filters.category, filters.order, debouncedSearch));
-  }, [filters.category, filters.order, debouncedSearch, dispatch]);
+    dispatch(
+      fetchEquipment(location, filters.category, filters.order, debouncedSearch)
+    );
+  }, [location, filters.category, filters.order, debouncedSearch, dispatch]);
 
   return (
     <section className={s.container}>
