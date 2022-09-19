@@ -7,14 +7,18 @@ import {
   getOwnerEarningsByOrder,
 } from "../../utils/price";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useFetchRents } from "../../utils/rents";
 
 import Nav from "../../components/Nav/Nav";
 import AdminMain from "../../components/AdminMain/AdminMain";
 import RentsCard from "../../components/RentsCard/RentsCard";
+import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/AdminRentsPage.module.scss";
 
-export default function AdminRents({ totalPrice, orders }) {
+export default function AdminRents({ session }) {
+  const { orders, totalPrice, loading } = useFetchRents();
+
   const [totalFinished, setTotalFinished] = useState({});
   const [totalPending, setTotalPending] = useState({});
   const [totalCustom, setTotalCustom] = useState({});
@@ -82,8 +86,10 @@ export default function AdminRents({ totalPrice, orders }) {
   );
 
   useEffect(() => {
-    setTotalFinished(totalFromOrders({ finished: true }));
-    setTotalPending(totalFromOrders({ finished: false }));
+    if (orders && orders.length > 0) {
+      setTotalFinished(totalFromOrders({ finished: true }));
+      setTotalPending(totalFromOrders({ finished: false }));
+    }
   }, [totalFromOrders]);
 
   useEffect(() => {
@@ -100,24 +106,34 @@ export default function AdminRents({ totalPrice, orders }) {
       </Head>
       <Nav />
       <AdminMain title="Rentas">
+        <div className={s.select_location_wrapper}>
+          <SelectLoaction adminPanel />
+        </div>
         <section className={s.section}>
           <div className={s.flex}>
             <RentsCard>
               <h3>TODAS</h3>
               <p>
-                <span className={s.bold}>Total:</span> {formatPrice(totalPrice)}
+                <span className={s.bold}>Total:</span>
+                {loading ? "..." : formatPrice(totalPrice)}
               </p>
               <p>
-                <span className={s.bold}>Federico:</span>{" "}
-                {formatPrice(getEachTotalEarnings(orders).federicoEarnings)}
+                <span className={s.bold}>Federico:</span>
+                {loading
+                  ? "..."
+                  : formatPrice(getEachTotalEarnings(orders).federicoEarnings)}
               </p>
               <p>
-                <span className={s.bold}>Oscar:</span>{" "}
-                {formatPrice(getEachTotalEarnings(orders).oscarEarnings)}
+                <span className={s.bold}>Oscar:</span>
+                {loading
+                  ? "..."
+                  : formatPrice(getEachTotalEarnings(orders).oscarEarnings)}
               </p>
               <p>
-                <span className={s.bold}>Subalquiler:</span>{" "}
-                {formatPrice(getEachTotalEarnings(orders).subEarnings)}
+                <span className={s.bold}>Subalquiler:</span>
+                {loading
+                  ? "..."
+                  : formatPrice(getEachTotalEarnings(orders).subEarnings)}
               </p>
             </RentsCard>
 
@@ -264,29 +280,9 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const orders = await fetch(
-    process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/order`
-      : `http://localhost:3001/order`,
-    { headers: { authorization: `${session?.user.token}` } }
-  )
-    .then((response) => response.json())
-    .catch((e) => console.log("fecth error:", e));
-
-  const totalPrice = await fetch(
-    process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/rents`
-      : `http://localhost:3001/rents`,
-    { headers: { authorization: `${session?.user.token}` } }
-  )
-    .then((res) => res.json())
-    .catch((e) => console.log("fecth error:", e));
-
   return {
     props: {
       session,
-      totalPrice: totalPrice._sum.totalPrice,
-      orders,
     },
   };
 }

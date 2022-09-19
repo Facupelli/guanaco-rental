@@ -193,6 +193,9 @@ async function getOrders(req, res, next) {
 
     if (!skip) {
       const allOrders = await prisma.order.findMany({
+        where: {
+          location: location === "all" || !location ? undefined : location,
+        },
         include: {
           booking: true,
           equipments: { include: { bookings: true } },
