@@ -43,6 +43,10 @@ Font.register({
   ],
 });
 
+const MyDocument = Document;
+const MyPage = Page;
+
+
 const styles = StyleSheet.create({
   page: {
     fontSize: 12,
@@ -181,8 +185,8 @@ const styles = StyleSheet.create({
 });
 
 export const RemitoPDF = ({ location, pickupDay, returnDay, order, equipmentRows }) => (
-  <Document>
-    <Page size="A4" style={styles.page} wrap>
+  <MyDocument>
+    <MyPage size="A4" style={styles.page} wrap>
       <View style={styles.number}>
         <Text>REMITO N° {location}-{order.number}</Text>
       </View>
@@ -300,6 +304,6 @@ export const RemitoPDF = ({ location, pickupDay, returnDay, order, equipmentRows
         <Text>Telefonos de contacto: 2644162059 - 2644627267</Text>
         <Text>www.guanacorental.com hola@guanacorental.com</Text>
       </View>
-    </Page>
-  </Document>
+    </MyPage>
+  </MyDocument>
 );
