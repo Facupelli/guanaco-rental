@@ -23,8 +23,13 @@ export default function SelectLoaction({ adminPanel }) {
   return (
     <div className={s.container}>
       <label>Ciudad:</label>
-      <select defaultValue={location} onChange={(e) => setCity(e.target.value)}>
-        <option disabled value="">seleccionar</option>
+      <select
+        onChange={(e) => setCity(e.target.value)}
+        value={location}
+      >
+        <option disabled value="">
+          seleccionar
+        </option>
         {adminPanel && <option value="all">TODAS</option>}
         <option value="SAN_JUAN">SAN JUAN</option>
         <option value="MENDOZA">MENDOZA</option>
