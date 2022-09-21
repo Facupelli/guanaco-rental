@@ -29,7 +29,7 @@ export function fetchEquipment(location, category, order, search) {
 
     try {
       const response = await fetch(
-        rocess.env.NODE_ENV === "production"
+        process.env.NODE_ENV === "production"
           ? `http://191.101.232.21:3001/equipment?location=${location}&category=${category}&order=${order}&search=${search}`
           : `http://localhost:3001/equipment?location=${location}&category=${category}&order=${order}&search=${search}`
       );
