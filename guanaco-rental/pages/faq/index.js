@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Nav from "../../components/Nav/Nav";
+import NavLink from "../../components/Nav/NavLink/NavLink";
 import s from "../../styles/FaqPage.module.scss";
 
 export default function FaqPage() {
@@ -9,7 +10,14 @@ export default function FaqPage() {
         <title>Guanaco FAQ</title>
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
-      <Nav route="faq" />
+      <Nav>
+        <li>
+          <NavLink href="/faq" name="FAQ" />
+        </li>
+        <li>
+          <NavLink href="/community" name="COMUNIDAD" />
+        </li>
+      </Nav>
       <main className={s.main}>
         <h1>FAQ</h1>
         <ul className={s.index}>

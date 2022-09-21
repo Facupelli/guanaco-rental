@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Footer from "../../components/Home/Footer/Footer";
 import Nav from "../../components/Nav/Nav";
+import NavLink from "../../components/Nav/NavLink/NavLink";
 
 import s from "../../styles/CommunityPage.module.scss";
 
@@ -12,7 +13,14 @@ export default function CommunityPage() {
         <title>Comunidad</title>
         <link rel="icon" href="/logo-favicon.ico" />
       </Head>
-      <Nav route="community" />
+      <Nav>
+        <li>
+          <NavLink href="/faq" name="FAQ" />
+        </li>
+        <li>
+          <NavLink href="/community" name="COMUNIDAD" />
+        </li>
+      </Nav>
       <main className={s.main}>
         <div className={s.bg_image_wrapper}>
           <Image
