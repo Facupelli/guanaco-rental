@@ -23,7 +23,7 @@ export default function CreateCoupon({
       setNewCouponLoading(true);
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/coupons`
+          ? `https://www.guanacorental.shop/rentalapi/coupons`
           : "http://localhost:3001/coupons",
         {
           method: "POST",

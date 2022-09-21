@@ -28,7 +28,7 @@ export default function AdminDiscountCard({ discount, getFixedDiscounts, token }
     try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/fixedDiscounts`
+          ? `https://www.guanacorental.shop/rentalapi/fixedDiscounts`
           : "http://localhost:3001/fixedDiscounts",
         {
           method: "PUT",

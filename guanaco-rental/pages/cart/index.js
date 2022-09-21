@@ -110,7 +110,7 @@ export default function CartPage() {
 
     const newOrder = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/order`
+        ? `https://www.guanacorental.shop/rentalapi/order`
         : "http://localhost:3001/order",
       {
         method: "POST",

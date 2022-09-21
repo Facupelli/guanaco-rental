@@ -31,7 +31,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
     setLoading(true);
     const users = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/users?newCLients=${true}`
+        ? `https://www.guanacorental.shop/rentalapi/users?newCLients=${true}`
         : `http://localhost:3001/users?newClients=${true}`,
       { headers: { authorization: `${session?.user.token}` } }
     )
@@ -49,7 +49,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
     setLoading(true);
     const users = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/users?clients=${true}&search=${search}`
+        ? `https://www.guanacorental.shop/rentalapi/users?clients=${true}&search=${search}`
         : `http://localhost:3001/users?clients=${true}&search=${search}`,
       { headers: { authorization: `${session?.user.token}` } }
     )
@@ -76,7 +76,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
         <link rel="icon" href="/logo-favicon.ico" />
         <link
           rel="preconnect"
-          href="https://guanaco-rental-production.up.railway.app"
+          href="https://www.guanacorental.shop/rentalapi"
         />
       </Head>
       <Nav />
@@ -164,7 +164,7 @@ export async function getServerSideProps(ctx) {
   if (session?.user.role === "ADMIN" || session?.user.role === "EMPLOYEE") {
     const newCLients = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/users?newClients=${true}`
+        ? `https://www.guanacorental.shop/rentalapi/users?newClients=${true}`
         : `http://localhost:3001/users?newClients=${true}`,
       { headers: { authorization: `${session?.user.token}` } }
     )
@@ -173,7 +173,7 @@ export async function getServerSideProps(ctx) {
 
     const clients = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/users?clients=${true}`
+        ? `https://www.guanacorental.shop/rentalapi/users?clients=${true}`
         : `http://localhost:3001/users?clients=${true}`,
       { headers: { authorization: `${session?.user.token}` } }
     )

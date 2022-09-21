@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const fetchOrders = (location, token) => {
   return fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/order?location=${location}`
+      ? `https://www.guanacorental.shop/rentalapi/order?location=${location}`
       : `http://localhost:3001/order?location=${location}`,
     { headers: { authorization: `${token}` } }
   )
@@ -16,7 +16,7 @@ const fetchOrders = (location, token) => {
 const fetchTotalPrice = (location, token) => {
   return fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/rents?location=${location}`
+      ? `https://www.guanacorental.shop/rentalapi/rents?location=${location}`
       : `http://localhost:3001/rents?location=${location}`,
     { headers: { authorization: `${token}` } }
   )

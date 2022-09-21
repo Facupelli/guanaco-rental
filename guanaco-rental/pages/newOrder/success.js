@@ -17,7 +17,7 @@ export default function NewOrderSuccess({ order }) {
         <link rel="icon" href="/logo-favicon.ico" />
         <link
           rel="preconnect"
-          href="https://guanaco-rental-production.up.railway.app"
+          href="https://www.guanacorental.shop/rentalapi"
         />
       </Head>
       <Nav />
@@ -70,7 +70,7 @@ export async function getServerSideProps(context) {
 
   const order = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/order/${id}`
+      ? `https://www.guanacorental.shop/rentalapi/order/${id}`
       : `http://localhost:3001/order/${id}`
   )
     .then((response) => response.json())

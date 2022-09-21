@@ -53,7 +53,7 @@ export default function Home({ showNewClientModal }) {
         <link rel="icon" href="/logo-favicon.ico" />
         <link
           rel="preconnect"
-          href="https://guanaco-rental-production.up.railway.app"
+          href="https://www.guanacorental.shop/rentalapi"
         />
         <link
           rel="dns-prefetch"

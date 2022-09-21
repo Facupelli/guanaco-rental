@@ -30,7 +30,7 @@ export default function AdminEquipment({ equipment }) {
     try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/equipment?location=${location}&category=${category}&search=${debouncedSearch}`
+          ? `https://www.guanacorental.shop/rentalapi/equipment?location=${location}&category=${category}&search=${debouncedSearch}`
           : `http://localhost:3001/equipment?location=${location}&category=${category}&search=${debouncedSearch}`
       );
       const data = await response.json();
@@ -124,7 +124,7 @@ export async function getServerSideProps(ctx) {
 
   const equipment = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/equipment`
+      ? `https://www.guanacorental.shop/rentalapi/equipment`
       : `http://localhost:3001/equipment`
   )
     .then((response) => response.json())

@@ -4,7 +4,7 @@ import s from "../components/OrderCard/OrderCard.module.scss";
 export const fetchAllOrders = (location, skip, token) => {
   return fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/order?location=${location}&skip=${skip}`
+      ? `https://www.guanacorental.shop/rentalapi/order?location=${location}&skip=${skip}`
       : `http://localhost:3001/order?location=${location}&skip=${skip}`,
     { headers: { authorization: `${token}` } }
   ).then((res) => res.json());
@@ -39,7 +39,7 @@ export const generatePdfRows = (order) => {
 export const handleDeleteOrder = async (id, refetchOrders, token) => {
   const order = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/order/${id}`
+      ? `https://www.guanacorental.shop/rentalapi/order/${id}`
       : `http://localhost:3001/order/${id}`,
     {
       method: "DELETE",
@@ -92,7 +92,7 @@ export const updateGearFromOrder = async (
   try {
     const updatedOrder = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/order`
+        ? `https://www.guanacorental.shop/rentalapi/order`
         : "http://localhost:3001/order",
       {
         method: "PUT",
@@ -123,7 +123,7 @@ export const handleDeliveredChange = async (
   try {
     const updatedOrder = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/order`
+        ? `https://www.guanacorental.shop/rentalapi/order`
         : "http://localhost:3001/order",
       {
         method: "PUT",

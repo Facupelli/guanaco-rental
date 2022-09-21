@@ -83,7 +83,7 @@ export default function CompleteProfileModal({ user }) {
 
     const newCustomerPetition = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/users`
+        ? `https://www.guanacorental.shop/rentalapi/users`
         : "http://localhost:3001/users",
       {
         method: "POST",

@@ -3,7 +3,7 @@ export const getOrCreateUser = async (user) => {
 
   const upsertUser = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/users`
+      ? `https://www.guanacorental.shop/rentalapi/users`
       : "http://localhost:3001/users",
     {
       method: "POST",
@@ -23,7 +23,7 @@ export const getOrCreateUser = async (user) => {
 export const getUniqueUser = async (email) => {
   const user = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/users/${email}`
+      ? `https://www.guanacorental.shop/rentalapi/users/${email}`
       : `http://localhost:3001/users/${email}`
   )
     .then((response) => response.json())

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export const fetchCoupons = (location) => {
   return fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/coupons?location=${location}`
+      ? `https://www.guanacorental.shop/rentalapi/coupons?location=${location}`
       : `http://localhost:3001/coupons?location=${location}`
   ).then((res) => res.json());
 };
@@ -34,7 +34,7 @@ export const useFetchCoupons = () => {
 export const fetchCoupon = (couponName) => {
   return fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/coupons/${couponName}`
+      ? `https://www.guanacorental.shop/rentalapi/coupons/${couponName}`
       : `http://localhost:3001/coupons/${couponName}`
   )
     .then((res) => res.json())
@@ -69,7 +69,7 @@ export const handleDeleteCoupon = async (couponId, getCoupons, token) => {
   try {
     const response = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/coupons/${couponId}`
+        ? `https://www.guanacorental.shop/rentalapi/coupons/${couponId}`
         : `http://localhost:3001/coupons/${couponId}`,
       {
         method: "DELETE",

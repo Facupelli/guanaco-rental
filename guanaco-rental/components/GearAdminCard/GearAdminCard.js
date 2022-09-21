@@ -19,7 +19,7 @@ export default function GearAdminCard({ gear, getEquipment, token }) {
 
     const updatedGear = await fetch(
       process.env.NODE_ENV === "production"
-        ? `https://guanaco-rental-production.up.railway.app/equipment`
+        ? `https://www.guanacorental.shop/rentalapi/equipment`
         : "http://localhost:3001/equipment",
       {
         method: "PUT",

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 export const fetchFixedDiscounts = (location, token) => {
   return fetch(
     process.env.NODE_ENV === "production"
-      ? `https://guanaco-rental-production.up.railway.app/fixedDiscounts?location=${location}`
+      ? `https://www.guanacorental.shop/rentalapi/fixedDiscounts?location=${location}`
       : `http://localhost:3001/fixedDiscounts?location=${location}`,
     { headers: { authorization: `${token}` } }
   )

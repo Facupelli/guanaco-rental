@@ -41,7 +41,7 @@ export default function AdminPage() {
     try {
       const dayBooks = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/book?date=${localDate}&location=${
+          ? `https://www.guanacorental.shop/rentalapi/book?date=${localDate}&location=${
               session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
             }`
           : `http://localhost:3001/book?date=${localDate}&location=${
@@ -60,7 +60,7 @@ export default function AdminPage() {
     try {
       const books = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/book?location=${
+          ? `https://www.guanacorental.shop/rentalapi/book?location=${
               session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
             }`
           : `http://localhost:3001/book?location=${
