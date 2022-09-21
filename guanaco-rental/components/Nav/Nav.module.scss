@@ -64,6 +64,7 @@
         font-family: "Panton";
         font-size: 1em;
         cursor: pointer;
+        font-weight: 300;
 
         &:hover {
           color: $m-orange;
@@ -148,6 +149,19 @@
       margin: 0;
 
       transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+      li {
+        .link_icon_google {
+          display: flex;
+          flex-direction: column;
+
+          font-size: 1em;
+
+          > p:first-child {
+            font-size: 1em;
+          }
+        }
+      }
     }
   }
 }

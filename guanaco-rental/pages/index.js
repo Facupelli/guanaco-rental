@@ -48,7 +48,7 @@ export default function Home() {
         }}
       />
 
-      <Nav>
+      <Nav route="home">
         <li>
           <NavLink href="/faq" name="FAQ" />
         </li>

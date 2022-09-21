@@ -77,7 +77,8 @@ export default function Nav({ setShowCart, cartPage, route, children }) {
 
           {children}
 
-          {(session?.user.role === "ADMIN" || session?.user.role === "EMPLOYEE") && (
+          {(session?.user.role === "ADMIN" ||
+            session?.user.role === "EMPLOYEE") && (
             <li>
               <Link href="/admin">
                 <a>ADMIN</a>

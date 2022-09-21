@@ -1,7 +1,7 @@
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Head from "next/head";
@@ -17,7 +17,7 @@ const CompleteProfileModal = dynamic(() =>
   import("../../components/CompleteProfileModal/CompleteProfileModal")
 );
 
-export default function NewClientPage({ user, loginModal }) {
+export default function NewClientPage({ loginModal }) {
   const [showModal, setShowModal] = useState(true);
   const [showLoginModal, setShowLoginModal] = useState(loginModal);
 
@@ -69,7 +69,7 @@ export default function NewClientPage({ user, loginModal }) {
       )}
       <Nav />
       <main className={s.main}>
-        <CompleteProfileModal user={user} />
+        <CompleteProfileModal />
       </main>
     </div>
   );
@@ -91,6 +91,6 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
-    props: { user: session.user },
+    props: { session },
   };
 }

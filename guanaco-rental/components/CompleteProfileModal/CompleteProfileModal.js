@@ -4,13 +4,14 @@ import { supabase } from "../../lib/supabase";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./validationSchema";
+import { useSession } from "next-auth/react";
 
 import MessageModal from "../MessageModal/MessageModal";
 import LoadingModal from "../LoadingModal/LoadingModal";
 
 import s from "./CompleteProfileModal.module.scss";
 
-export default function CompleteProfileModal({ user }) {
+export default function CompleteProfileModal() {
   const {
     register,
     handleSubmit,
@@ -20,7 +21,7 @@ export default function CompleteProfileModal({ user }) {
     resolver: yupResolver(schema),
   });
 
-  console.log(user)
+  const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -55,7 +56,6 @@ export default function CompleteProfileModal({ user }) {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    console.log("Assd");
 
     const dniFront = data.dniFront[0];
     const dniBack = data.dniBack[0];
@@ -136,7 +136,7 @@ export default function CompleteProfileModal({ user }) {
                 required
                 type="text"
                 id="fullName"
-                defaultValue={user.name}
+                defaultValue={session?.user.name}
                 {...register("fullName")}
               />
               {errors.fullName?.message}

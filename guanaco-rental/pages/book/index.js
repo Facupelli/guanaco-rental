@@ -157,7 +157,7 @@ export const getServerSideProps = async (ctx) => {
     };
   }
 
-  if (session?.user.petitionSent === "DENIED") {
+  if (session?.user.petitionSent === "DENIED" || !session?.user.petitionSent) {
     return {
       props: {
         showNewClientModal: true,

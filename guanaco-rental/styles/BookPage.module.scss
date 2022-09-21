@@ -25,6 +25,14 @@
 
   a,
   button {
+    font-size: 0.9em;
+  }
+
+  button {
     @include m-button;
+  }
+
+  a {
+    @include m-button-orange;
   }
 }
