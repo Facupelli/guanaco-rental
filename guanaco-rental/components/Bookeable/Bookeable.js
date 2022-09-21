@@ -26,9 +26,16 @@ export default function Bookeable({ dateRange, setDatePickup, setShowCart }) {
   const location = useSelector((state) => state.location.city);
 
   useEffect(() => {
-    dispatch(
-      fetchEquipment(location, filters.category, filters.order, debouncedSearch)
-    );
+    if (location) {
+      dispatch(
+        fetchEquipment(
+          location,
+          filters.category,
+          filters.order,
+          debouncedSearch
+        )
+      );
+    }
   }, [location, filters.category, filters.order, debouncedSearch, dispatch]);
 
   return (
