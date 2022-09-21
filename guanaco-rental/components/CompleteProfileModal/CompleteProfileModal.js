@@ -30,8 +30,6 @@ export default function CompleteProfileModal() {
   const [dniFront, setDniFront] = useState();
   const [dniBack, setDniBack] = useState("");
 
-  console.log(dniFront)
-
   const openWidget = (setImagePublicId) => {
     // create the widget
     if (typeof window !== "undefined") {
@@ -46,7 +44,6 @@ export default function CompleteProfileModal() {
             result.event === "success" &&
             result.info.resource_type === "image"
           ) {
-            console.log("RESULT", result.info);
             setImagePublicId(result.info.secure_url);
           }
         }
