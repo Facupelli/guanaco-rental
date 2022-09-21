@@ -63,11 +63,16 @@ export default function AdminUsersPage({ clients, newCLients }) {
     return users;
   };
 
-  const getClientUsersCallack = useCallback(getClientUsers, [search, session?.user.token]);
+  const getClientUsersCallack = useCallback(getClientUsers, [
+    search,
+    session?.user.token,
+  ]);
 
   useEffect(() => {
-    getClientUsersCallack();
-  }, [search, getClientUsersCallack]);
+    if (session?.user.token) {
+      getClientUsersCallack();
+    }
+  }, [search, getClientUsersCallack, session?.user.token]);
 
   return (
     <div className={s.bg_grey}>

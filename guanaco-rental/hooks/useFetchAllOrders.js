@@ -17,19 +17,21 @@ export const useFetchAllOrders = (skip) => {
   const location = useSelector((state) => state.location.city);
 
   useEffect(() => {
-    setLoading(true);
-    fetchAllOrders(
-      session.user.role === "EMPLOYEE" ? employeeLocation : location,
-      skip,
-      session?.user.token
-    )
-      .then((res) => {
-        setOrders(res.orders);
-        setTotalOrders(res.count);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
-  }, [location, skip, fetchAllOrders]);
+    if (session) {
+      setLoading(true);
+      fetchAllOrders(
+        session.user.role === "EMPLOYEE" ? employeeLocation : location,
+        skip,
+        session?.user.token
+      )
+        .then((res) => {
+          setOrders(res.orders);
+          setTotalOrders(res.count);
+        })
+        .catch((e) => console.log(e))
+        .finally(() => setLoading(false));
+    }
+  }, [location, skip, fetchAllOrders, session?.user.token]);
 
   const refetchOrders = () => {
     setLoading(true);

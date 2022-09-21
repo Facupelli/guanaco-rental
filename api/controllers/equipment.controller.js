@@ -13,7 +13,7 @@ async function getEquipment(req, res, next) {
               available: true,
             },
             {
-              location,
+              location: location,
             },
             {
               OR: [
