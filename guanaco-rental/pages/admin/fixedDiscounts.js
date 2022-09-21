@@ -54,7 +54,7 @@ export default function AdminFixedDiscounts({}) {
         </div>
         <section>
           {loading && <p>Cargando...</p>}
-          {fixedDiscounts.length === 0 && <p>No hay descuentos.</p>}
+          {fixedDiscounts?.length === 0 && <p>No hay descuentos.</p>}
           {!loading &&
             fixedDiscounts?.length > 0 &&
             fixedDiscounts.map((discount) => (
