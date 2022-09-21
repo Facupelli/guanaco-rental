@@ -33,7 +33,11 @@ export const useFetchAllOrders = (skip) => {
 
   const refetchOrders = () => {
     setLoading(true);
-    fetchAllOrders(skip, session?.user.token)
+    fetchAllOrders(
+      session.user.role === "EMPLOYEE" ? employeeLocation : location,
+      skip,
+      session?.user.token
+    )
       .then((res) => setOrders(res.orders))
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
