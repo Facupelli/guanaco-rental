@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["images.unsplash.com", "static.wixstatic.com"],
+    domains: ["images.unsplash.com", "static.wixstatic.com", "res.cloudinary.com"],
   },
 };
 const withBundleAnalyzer = require("@next/bundle-analyzer")({

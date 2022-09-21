@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "../../lib/supabase";
+// import { supabase } from "../../lib/supabase";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./validationSchema";
@@ -15,7 +15,6 @@ export default function CompleteProfileModal() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -28,58 +27,60 @@ export default function CompleteProfileModal() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  // const [dniFront, setDniFront] = useState();
-  // const [dniBack, setDniBack] = useState("");
+  const [dniFront, setDniFront] = useState();
+  const [dniBack, setDniBack] = useState("");
 
-  // const openWidget = (setImagePublicId) => {
-  //   // create the widget
-  //   if (typeof window !== "undefined") {
-  //     const widget = window.cloudinary.createUploadWidget(
-  //       {
-  //         cloudName: "dzjz8pe0y",
-  //         uploadPreset: "zrp6p2qt",
-  //         sources: ["local", "url", "camera", "dropbox", "goole_drive"],
-  //       },
-  //       (error, result) => {
-  //         if (
-  //           result.event === "success" &&
-  //           result.info.resource_type === "image"
-  //         ) {
-  //           console.log("RESULT", result.info);
-  //           setImagePublicId(result.info.secure_url);
-  //         }
-  //       }
-  //     );
-  //     widget.open(); // open up the widget after creation
-  //   }
-  // };
+  console.log(dniFront)
+
+  const openWidget = (setImagePublicId) => {
+    // create the widget
+    if (typeof window !== "undefined") {
+      const widget = window.cloudinary.createUploadWidget(
+        {
+          cloudName: "dzjz8pe0y",
+          uploadPreset: "zrp6p2qt",
+          sources: ["local", "url", "camera", "dropbox", "goole_drive"],
+        },
+        (error, result) => {
+          if (
+            result.event === "success" &&
+            result.info.resource_type === "image"
+          ) {
+            console.log("RESULT", result.info);
+            setImagePublicId(result.info.secure_url);
+          }
+        }
+      );
+      widget.open(); // open up the widget after creation
+    }
+  };
 
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const dniFront = data.dniFront[0];
-    const dniBack = data.dniBack[0];
+    // const dniFront = data.dniFront[0];
+    // const dniBack = data.dniBack[0];
 
     const userData = JSON.stringify({
       ...data,
-      email: user.email,
+      email: session?.user.email,
       customerApproved: false,
       petitionSent: "PENDING",
-      dniFront: dniFront?.name,
-      dniBack: dniBack?.name,
+      dniFront: dniFront,
+      dniBack: dniBack,
     });
 
-    try {
-      await supabase.storage
-        .from("users-dni")
-        .upload(`${dniFront.name}`, dniFront);
+    // try {
+    //   await supabase.storage
+    //     .from("users-dni")
+    //     .upload(`${dniFront.name}`, dniFront);
 
-      await supabase.storage
-        .from("users-dni")
-        .upload(`${dniBack.name}`, dniBack);
-    } catch (e) {
-      console.log(e);
-    }
+    //   await supabase.storage
+    //     .from("users-dni")
+    //     .upload(`${dniBack.name}`, dniBack);
+    // } catch (e) {
+    //   console.log(e);
+    // }
 
     const newCustomerPetition = await fetch(
       process.env.NODE_ENV === "production"
@@ -212,26 +213,26 @@ export default function CompleteProfileModal() {
             <div className={s.dni_files_wrapper}>
               <div>
                 <label htmlFor="dniFront">Foto de tu DNI (anverso):</label>
-                {/* <button
+                <button
                   type="button"
                   id="dniFront"
                   onClick={() => openWidget(setDniFront)}
                 >
-                  subir archivo
-                </button> */}
-                <input type="file" {...register("dniFront")} id="dniFront" />
+                  {dniFront ? "arhivo cargado" : "subir archivo"}
+                </button>
+                {/* <input type="file" {...register("dniFront")} id="dniFront" /> */}
               </div>
 
               <div>
                 <label htmlFor="dniBack">Foto de tu DNI (dorso):</label>
-                {/* <button
+                <button
                   type="button"
                   id="dniBack"
                   onClick={() => openWidget(setDniBack)}
                 >
-                  subir archivo
-                </button> */}
-                <input type="file" {...register("dniBack")} id="dniBack" />
+                  {dniBack ? "archivo cargado" : "subir archivo"}
+                </button>
+                {/* <input type="file" {...register("dniBack")} id="dniBack" /> */}
               </div>
             </div>
 

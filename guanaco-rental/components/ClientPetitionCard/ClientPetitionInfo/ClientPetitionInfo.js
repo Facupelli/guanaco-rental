@@ -1,6 +1,6 @@
-import { supabase } from "../../../lib/supabase";
+// import { supabase } from "../../../lib/supabase";
 import Image from "next/image";
-import { useDownloadBlob } from "../../../hooks/useDownloadBlob";
+// import { useDownloadBlob } from "../../../hooks/useDownloadBlob";
 import { useState } from "react";
 
 import MessageModal from "../../MessageModal/MessageModal";
@@ -13,7 +13,9 @@ export default function ClientPetitionInfo({
   getNewClientUsers,
   getClientUsers,
 }) {
-  const { blob, setBlob, downloadDni } = useDownloadBlob();
+  // const { blob, setBlob, downloadDni } = useDownloadBlob();
+
+  const [dniUrl, setDniUrl] = useState("")
 
   const onClickApprove = async (approved) => {
     const data = JSON.stringify({
@@ -36,7 +38,6 @@ export default function ClientPetitionInfo({
       }
     )
       .then((response) => {
-        console.log("UpdatedUser", response.json());
         setNewClientInfo({});
         getNewClientUsers();
         getClientUsers();
@@ -46,13 +47,13 @@ export default function ClientPetitionInfo({
 
   return (
     <>
-      {blob && (
-        <MessageModal showButton btnFunc={() => setBlob("")}>
+      {dniUrl && (
+        <MessageModal showButton btnFunc={() => setDniUrl("")}>
           <Image
-            src={blob}
-            alt={blob}
-            width={400}
-            height={200}
+            src={dniUrl}
+            alt={dniUrl}
+            width={500}
+            height={500}
             objectFit="contain"
             layout="responsive"
           />
@@ -97,7 +98,7 @@ export default function ClientPetitionInfo({
           </a> */}
             <button
               type="button"
-              onClick={() => downloadDni(user.dni.dniFront)}
+              onClick={() => setDniUrl(user.dni.dniFront)}
             >
               ver foto
             </button>
@@ -110,7 +111,7 @@ export default function ClientPetitionInfo({
           >
             dni reverso
           </a> */}
-            <button type="button" onClick={() => downloadDni(user.dni.dniBack)}>
+            <button type="button" onClick={() => setDniUrl(user.dni.dniBack)}>
               ver foto
             </button>
           </li>

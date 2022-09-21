@@ -1,9 +1,10 @@
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useEffect, useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NextScript } from "next/document";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
@@ -26,11 +27,11 @@ export default function NewClientPage({ loginModal }) {
       <Head>
         <title>Alta de Cliente</title>
         <link rel="icon" href="/logo-favicon.ico" />
-        {/* <NextScript />
+        <NextScript />
         <script
           src="https://upload-widget.cloudinary.com/global/all.js"
           type="text/javascript"
-        ></script> */}
+        ></script>
       </Head>
       {showLoginModal && (
         <LoadingModal btnFunc={() => setShowLoginModal(false)}>
