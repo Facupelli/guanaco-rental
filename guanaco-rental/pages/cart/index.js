@@ -92,7 +92,10 @@ export default function CartPage() {
     }
     if (!userData.customerApproved) {
       //alta de cliente no aprobada
-      setShowModal(true);
+      setShowModal((prev) => ({
+        ...prev,
+        modal: true,
+      }));
       return;
     }
 
