@@ -107,31 +107,42 @@
 }
 
 @media (max-width: 480px) {
-  .main {
-    nav {
-      ul {
-        flex-wrap: wrap;
-        justify-content: space-around;
-        gap: 1rem;
+  .grey_bg {
+    .main {
+      nav {
+        ul {
+          flex-wrap: wrap;
+          justify-content: space-around;
+          gap: 1rem;
 
-        li {
-          width: 100%;
-          padding: 0.5rem;
+          li {
+            width: 100%;
+            padding: 0.5rem;
+          }
         }
       }
-    }
 
-    section {
-      grid-template-columns: 100%;
-      row-gap: 1rem;
+      section {
+        grid-template-columns: 100%;
+        row-gap: 1rem;
 
-      .calendar {
-        width: 100%;
-      }
-
-      .info_wrapper {
-        > div {
+        .calendar {
           width: 100%;
+        }
+
+        .info_wrapper {
+          > div {
+            width: 100%;
+
+            >div{
+              flex-wrap: wrap;
+            }
+
+            .location{
+              margin-top: .5rem;
+              font-weight: 600;
+            }
+          }
         }
       }
     }

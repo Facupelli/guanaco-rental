@@ -31,8 +31,6 @@ export default function AdminPage() {
     (state) => state.user.data.addressProvince
   );
 
-  console.log(employeeLocation);
-
   const [bookings, setBookings] = useState([]);
   const [dayBookings, setDayBookings] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -143,7 +141,7 @@ export default function AdminPage() {
                       ))}
                     </div>
                   </div>
-                  <p>{book.order.location === "MENDOZA" ? "MDZ" : "SJ"}</p>
+                  <p className={s.location}>{book.order.location === "MENDOZA" ? "MDZ" : "SJ"}</p>
                 </div>
               ))
             )}

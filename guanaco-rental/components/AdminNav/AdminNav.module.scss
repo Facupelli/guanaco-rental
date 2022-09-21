@@ -54,3 +54,12 @@
     }
   }
 }
+
+
+@media (max-width: 768px) {
+  .nav_container{
+    ul{
+      flex-wrap: wrap;
+    }
+  }
+}
