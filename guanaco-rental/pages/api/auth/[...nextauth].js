@@ -23,7 +23,7 @@ export const authOptions = {
 
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://guanaco-rental-production.up.railway.app/login`
+          ? `https://www.guanacorental.shop/rentalapi/login`
           : "http://localhost:3001/login",
         {
           method: "POST",
