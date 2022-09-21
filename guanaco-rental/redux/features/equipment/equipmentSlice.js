@@ -29,7 +29,9 @@ export function fetchEquipment(location, category, order, search) {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/equipment?location=${location}&category=${category}&order=${order}&search=${search}`
+        rocess.env.NODE_ENV === "production"
+          ? `http://191.101.232.21:3001/equipment?location=${location}&category=${category}&order=${order}&search=${search}`
+          : `http://localhost:3001/equipment?location=${location}&category=${category}&order=${order}&search=${search}`
       );
       const data = await response.json();
 
