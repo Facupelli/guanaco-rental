@@ -82,7 +82,7 @@ export default function Home({ showNewClientModal }) {
         }}
       />
 
-      <Nav setShowCart={setShowCart}>
+      <Nav setShowCart={setShowCart} route="book">
         <li>
           <NavButton
             name="CARRITO"
