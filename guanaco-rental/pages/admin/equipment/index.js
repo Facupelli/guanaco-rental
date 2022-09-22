@@ -1,18 +1,19 @@
 import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]";
+import { authOptions } from "../../api/auth/[...nextauth]";
 import { useCallback, useEffect, useState } from "react";
-import { useDebounce } from "../../hooks/useDebounce";
+import { useDebounce } from "../../../hooks/useDebounce";
 import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 
-import Nav from "../../components/Nav/Nav";
-import AdminMain from "../../components/AdminMain/AdminMain";
-import GearAdminCard from "../../components/GearAdminCard/GearAdminCard";
-import EquipmentSearchBar from "../../components/Bookeable/EquipmentSearchBar/EquipmentSearchBar";
-import SelectLoaction from "../../components/SelectLocation/SelectLocation";
+import Nav from "../../../components/Nav/Nav";
+import AdminMain from "../../../components/AdminMain/AdminMain";
+import GearAdminCard from "../../../components/GearAdminCard/GearAdminCard";
+import EquipmentSearchBar from "../../../components/Bookeable/EquipmentSearchBar/EquipmentSearchBar";
+import SelectLoaction from "../../../components/SelectLocation/SelectLocation";
+import NavLink from "../../../components/Nav/NavLink/NavLink";
 
-import s from "../../styles/AdminEquipmentPage.module.scss";
+import s from "../../../styles/AdminEquipmentPage.module.scss";
 
 export default function AdminEquipment({ equipment }) {
   const { data: session } = useSession;
@@ -89,6 +90,7 @@ export default function AdminEquipment({ equipment }) {
               </select>
             </div>
           </div>
+          <NavLink name="AGREGAR" href="/admin/equipment/add" />
         </div>
         <div>
           {equipmentList &&

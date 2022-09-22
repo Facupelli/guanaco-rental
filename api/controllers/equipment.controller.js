@@ -109,4 +109,33 @@ async function putEquipment(req, res, next) {
   }
 }
 
-module.exports = { getEquipment, putEquipment };
+async function postEquipment(req, res, next) {
+  const data = req.body;
+
+  try {
+    if (data) {
+      const postGear = await prisma.equipment.create({
+        data: {
+          name: data.name,
+          brand: data.brand,
+          model: data.model,
+          image: data.image,
+          stock: Number(data.stock),
+          price: Number(data.price),
+          accessories: data.accessories,
+          category: { connect: { id: data.category } },
+          owner: data.owner,
+          location: data.location,
+        },
+      });
+
+      res.json({ message: "success", postGear });
+    } else {
+      console.log("error postOrder:", e);
+    }
+  } catch (e) {
+    next(e);
+  }
+}
+
+module.exports = { getEquipment, putEquipment, postEquipment };

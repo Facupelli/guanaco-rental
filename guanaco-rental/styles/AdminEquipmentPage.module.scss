@@ -6,11 +6,17 @@
   min-height: 100vh;
 
   .flex {
-    margin: 1rem 0rem;
+    margin: 1rem 0rem 2rem 0rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 4rem;
+
+    a{
+      @include m-button;
+      font-size: .8em;
+      padding: .4rem .6rem;
+    }
 
     .flex_baseline{
       display: flex;

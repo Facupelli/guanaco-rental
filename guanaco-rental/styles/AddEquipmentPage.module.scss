@@ -1,0 +1,35 @@
+@import "../styles/app.scss";
+
+.grey_bg {
+  background-color: $bg-grey;
+  padding-bottom: 4rem;
+  min-height: 100vh;
+
+  .form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 60%;
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.2rem;
+
+      input {
+        @include input;
+        background-color: white;
+      }
+
+      select {
+        @include m-select;
+      }
+    }
+
+    button {
+      margin-top: 1rem;
+      @include m-button;
+    }
+  }
+}
