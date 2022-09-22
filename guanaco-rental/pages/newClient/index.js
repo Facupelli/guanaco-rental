@@ -38,7 +38,7 @@ export default function NewClientPage({ loginModal }) {
           <div className={s.sesion_btns_wrapper}>
             <button
               className={s.link_icon_google}
-              onClick={() => signIn("google")}
+              onClick={async() => await signIn("google")}
             >
               <p>ENTRAR CON</p>
               <p className={s.justify_between}>

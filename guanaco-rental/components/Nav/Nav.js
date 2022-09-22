@@ -98,7 +98,7 @@ export default function Nav({ setShowCart, cartPage, route, children }) {
               <li>
                 <button
                   className={s.link_icon_google}
-                  onClick={() => signIn("google")}
+                  onClick={async () => await signIn("google")}
                 >
                   <p>ENTRAR CON</p>
                   <p className={s.justify_between}>
