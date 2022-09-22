@@ -35,8 +35,8 @@ export default function CompleteProfileModal() {
     if (typeof window !== "undefined") {
       const widget = window.cloudinary.createUploadWidget(
         {
-          cloudName: "dzjz8pe0y",
-          uploadPreset: "zrp6p2qt",
+          cloudName: process.env.CL_CLOUD_NAME,
+          uploadPreset: process.env.CL_UPLOAD_PRESET,
           sources: ["local", "url", "camera", "dropbox", "goole_drive"],
         },
         (error, result) => {

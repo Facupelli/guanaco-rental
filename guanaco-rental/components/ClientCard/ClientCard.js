@@ -2,14 +2,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useState } from "react";
-import { useDownloadBlob } from "../../hooks/useDownloadBlob";
+// import { useDownloadBlob } from "../../hooks/useDownloadBlob";
 
 import s from "./ClientCard.module.scss";
 
 export default function ClientCard({ user }) {
   const [expand, setExpand] = useState();
+  const [dniUrl, setDniUrl] = useState();
 
-  const { blob, setBlob, downloadDni } = useDownloadBlob();
+  // const { blob, setBlob, downloadDni } = useDownloadBlob();
 
   return (
     <div className={`${expand ? s.grid : ""}`}>
@@ -67,7 +68,7 @@ export default function ClientCard({ user }) {
                 </a> */}
                 <button
                   type="button"
-                  onClick={() => downloadDni(user.dni.dniFront)}
+                  onClick={() => setDniUrl(user.dni.dniFront)}
                 >
                   ver foto
                 </button>
@@ -85,7 +86,7 @@ export default function ClientCard({ user }) {
                 </a> */}
                 <button
                   type="button"
-                  onClick={() => downloadDni(user.dni.dniBack)}
+                  onClick={() => setDniUrl(user.dni.dniBack)}
                 >
                   ver foto
                 </button>
@@ -154,14 +155,14 @@ export default function ClientCard({ user }) {
           </ul>
         )}
       </div>
-      {blob && (
+      {dniUrl && (
         <div className={s.image_wrapper}>
           <Image
-            src={blob}
-            alt={blob}
+            src={dniUrl}
+            alt={dniUrl}
             width={400}
-            height={200}
-            objectFit="cover"
+            height={400}
+            objectFit="contain"
             layout="responsive"
           />
         </div>
