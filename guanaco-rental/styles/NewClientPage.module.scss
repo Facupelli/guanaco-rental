@@ -25,3 +25,10 @@
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
+
+
+@media (max-width: 480px) {
+  .sesion_btns_wrapper{
+    flex-wrap: wrap;
+  }
+}
