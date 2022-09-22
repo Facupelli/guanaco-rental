@@ -33,15 +33,16 @@ export default function EquipmentList({
               />
             ))}
           </div>
-          <div className={s.btn_wrapper}>
-            <button
-              type="button"
-              onClick={() => setQtyToShow((prev) => prev + 10)}
-              disabled={isBtnDisabled()}
-            >
-              mostrar más
-            </button>
-          </div>
+          {!isBtnDisabled() && (
+            <div className={s.btn_wrapper}>
+              <button
+                type="button"
+                onClick={() => setQtyToShow((prev) => prev + 10)}
+              >
+                mostrar más
+              </button>
+            </div>
+          )}
         </>
       ) : (
         <p>No se encontraron equipos.</p>
