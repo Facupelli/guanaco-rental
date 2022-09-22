@@ -22,7 +22,7 @@ export default function SelectLoaction({ adminPanel }) {
 
   return (
     <div className={s.container}>
-      <label>Ciudad:</label>
+      <label>Sucursal:</label>
       <select
         onChange={(e) => setCity(e.target.value)}
         value={location}
