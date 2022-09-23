@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import s from "./GearAdminCard.module.scss";
 
@@ -6,12 +8,28 @@ export default function GearAdminCard({ gear, getEquipment, token }) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
+  const handleDeleteGear = async () => {
+    const response = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://www.guanacorental.shop/rentalapi/equipment/${gear.id}`
+        : `http://localhost:3001/equipment/${gear.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `${token}`,
+        },
+      }
+    );
+    const equipment = await response.json();
+    if (equipment.message === "success") {
+      getEquipment();
+    }
+  };
+
   const onSubmit = async (data) => {
-    console.log(data, gear.id);
     const gearData = JSON.stringify({
       ...data,
       id: gear.id,
@@ -32,7 +50,6 @@ export default function GearAdminCard({ gear, getEquipment, token }) {
       }
     )
       .then((response) => {
-        console.log("UpdatedGear", response.json());
         getEquipment();
       })
       .catch((e) => console.log("updateGear error:", e));
@@ -47,14 +64,18 @@ export default function GearAdminCard({ gear, getEquipment, token }) {
           layout="fill"
         />
       </div>
-      <div className={s.flex_grow_2}>
-        <div className={`${s.flex_wrapper} ${s.bold}`}>
-          <input type="text" defaultValue={gear.name} {...register("name")} />
-          <input type="text" defaultValue={gear.brand} {...register("brand")} />
-        </div>
-        <input type="text" defaultValue={gear.model} {...register("model")} />
-      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={s.flex_grow_2}>
+          <div className={`${s.flex_wrapper} ${s.bold}`}>
+            <input type="text" defaultValue={gear.name} {...register("name")} />
+            <input
+              type="text"
+              defaultValue={gear.brand}
+              {...register("brand")}
+            />
+          </div>
+          <input type="text" defaultValue={gear.model} {...register("model")} />
+        </div>
         <div className={`${s.flex_wrapper} `}>
           <label>Disponible:</label>
           <input
@@ -80,13 +101,13 @@ export default function GearAdminCard({ gear, getEquipment, token }) {
             {...register("price")}
           />
         </div>
-        {/* <div className={`${s.flex_wrapper} `}>
+        <div className={`${s.flex_wrapper} `}>
           <label>Sucursal:</label>
           <select defaultValue={gear.location} {...register("location")}>
-            <option value="San Juan">San Juan</option>
-            <option value="Mendoza">Mendoza</option>
+            <option value="SAN_JUAN">San Juan</option>
+            <option value="MENDOZA">Mendoza</option>
           </select>
-        </div> */}
+        </div>
         <div className={s.flex_wrapper}>
           <label>de:</label>
           <select defaultValue={gear.owner} {...register("owner")}>
@@ -97,6 +118,13 @@ export default function GearAdminCard({ gear, getEquipment, token }) {
           </select>
         </div>
         <button>ACTUALIZAR</button>
+        <button
+          type="button"
+          className={s.delete_btn}
+          onClick={handleDeleteGear}
+        >
+          <FontAwesomeIcon icon={faTrash} aria-label="delete-btn" />
+        </button>
       </form>
     </div>
   );

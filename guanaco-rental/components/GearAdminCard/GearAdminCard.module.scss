@@ -2,7 +2,6 @@
 
 .admin_gear_container {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
   margin: 1rem 0rem;
@@ -13,8 +12,8 @@
 
   .image_wrapper {
     background-color: $s-gray;
-    height: 50px;
-    width: 50px;
+    min-height: 50px;
+    min-width: 50px;
     position: relative;
   }
 
@@ -22,30 +21,29 @@
     font-weight: 600;
   }
 
-  .flex_grow_2 {
-    flex-grow: 2;
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
-
-    input {
-      @include input;
-      padding: 0.2rem 0.4rem;
-      width: 100%;
-    }
-  }
-
-  .flex_wrapper {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
   form {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     gap: 1rem;
+
+    .flex_grow_2 {
+      // flex-grow: 2;
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.5rem;
+
+      input {
+        @include input;
+        padding: 0.2rem 0.4rem;
+        width: 100%;
+      }
+    }
+
+    .flex_wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
     .stock_input {
       width: 30px;
@@ -72,6 +70,20 @@
       @include m-button-orange;
       padding: 0.2rem;
       font-size: 0.7em;
+    }
+
+    .delete_btn {
+      @include m-button-danger;
+      padding: 0.2rem;
+      font-size: 0.7em;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .admin_gear_container {
+    form {
+      flex-wrap: wrap;
     }
   }
 }

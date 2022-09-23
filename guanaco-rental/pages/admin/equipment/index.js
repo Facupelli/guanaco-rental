@@ -16,7 +16,7 @@ import NavLink from "../../../components/Nav/NavLink/NavLink";
 import s from "../../../styles/AdminEquipmentPage.module.scss";
 
 export default function AdminEquipment({ equipment }) {
-  const { data: session } = useSession;
+  const { data: session } = useSession();
 
   const location = useSelector((state) => state.location.city);
 

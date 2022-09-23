@@ -4,37 +4,39 @@ const prisma = new PrismaClient();
 async function getEquipment(req, res, next) {
   const { location, category, order, search, available } = req.query;
 
+  const wherePipeline = [{ available: true }];
+
+  if (location) {
+    wherePipeline.push({ location });
+  }
+
+  if (search) {
+    wherePipeline.push({
+      OR: [
+        {
+          name: {
+            search: search,
+          },
+        },
+        {
+          brand: {
+            search: search,
+          },
+        },
+        {
+          model: {
+            search: search,
+          },
+        },
+      ],
+    });
+  }
+
   try {
     if (search && search !== "undefined") {
       const equipmentBySearch = await prisma.equipment.findMany({
         where: {
-          AND: [
-            {
-              available: true,
-            },
-            {
-              location: location,
-            },
-            {
-              OR: [
-                {
-                  name: {
-                    search: search,
-                  },
-                },
-                {
-                  brand: {
-                    search: search,
-                  },
-                },
-                {
-                  model: {
-                    search: search,
-                  },
-                },
-              ],
-            },
-          ],
+          AND: wherePipeline,
         },
         include: { bookings: { include: { book: true } } },
       });
@@ -48,14 +50,7 @@ async function getEquipment(req, res, next) {
   try {
     const pipeline = {
       where: {
-        AND: [
-          {
-            available: true,
-          },
-          {
-            location,
-          },
-        ],
+        AND: wherePipeline,
       },
       include: { bookings: { include: { book: true } } },
       orderBy: { bookings: { _count: "desc" } },
@@ -138,4 +133,21 @@ async function postEquipment(req, res, next) {
   }
 }
 
-module.exports = { getEquipment, putEquipment, postEquipment };
+async function deleteEquipment(req, res, next) {
+  const id = req.params;
+  try {
+    if (id) {
+      const deletedEquipment = await prisma.equipment.delete({
+        where: id,
+      });
+
+      res.json({ message: "success", deletedEquipment });
+    } else {
+      res.json({ message: "missing id" });
+    }
+  } catch (e) {
+    next(e);
+  }
+}
+
+module.exports = { getEquipment, putEquipment, postEquipment, deleteEquipment };
