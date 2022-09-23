@@ -1,9 +1,17 @@
 .list_container {
   margin-bottom: 2rem;
-  
+
   .table_titles {
     display: grid;
     grid-template-columns: 70% 15% 15%;
     margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 920px) {
+  .list_container {
+    .table_titles {
+      display: none;
+    }
   }
 }
