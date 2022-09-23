@@ -4,7 +4,11 @@ const prisma = new PrismaClient();
 async function getEquipment(req, res, next) {
   const { location, category, order, search, available } = req.query;
 
-  const wherePipeline = [{ available: true }];
+  const wherePipeline = [];
+
+  if (!available) {
+    wherePipeline.push({ available: true });
+  }
 
   if (location) {
     wherePipeline.push({ location });

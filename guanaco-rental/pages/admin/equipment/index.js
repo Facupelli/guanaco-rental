@@ -31,8 +31,8 @@ export default function AdminEquipment({ equipment }) {
     try {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://www.guanacorental.shop/rentalapi/equipment?location=${location}&category=${category}&search=${debouncedSearch}`
-          : `http://localhost:3001/equipment?location=${location}&category=${category}&search=${debouncedSearch}`
+          ? `https://www.guanacorental.shop/rentalapi/equipment?location=${location}&category=${category}&search=${debouncedSearch}&available=all`
+          : `http://localhost:3001/equipment?location=${location}&category=${category}&search=${debouncedSearch}&available=all`
       );
       const data = await response.json();
       setEquipmentList(data);
