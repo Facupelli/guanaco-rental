@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import s from "./ClientCard.module.scss";
 
-export default function ClientCard({ user }) {
+export default function ClientCard({ user, admin }) {
   const [expand, setExpand] = useState();
   const [dniUrl, setDniUrl] = useState();
 
@@ -28,6 +28,11 @@ export default function ClientCard({ user }) {
             </p>
             <p>{user.addressProvince}</p>
             <p>Pedidos: {user.orders.length}</p>
+            {admin && (
+              <p>
+                <strong>{user.role}</strong>
+              </p>
+            )}
             <p className={s.alta}>
               ALTA: {new Date(user.customerApprovedAt).toLocaleDateString()}
             </p>

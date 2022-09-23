@@ -70,7 +70,7 @@ async function putUser(req, res, next) {
 }
 
 async function getUsers(req, res, next) {
-  const { newClients, clients, search } = req.query;
+  const { newClients, clients, search, admins } = req.query;
 
   try {
     let users;
@@ -93,17 +93,26 @@ async function getUsers(req, res, next) {
                 },
               },
               { customerApproved: true },
+              { role: "USER" },
             ],
           },
           include: { orders: true },
         });
       } else {
         users = await prisma.user.findMany({
-          where: { customerApproved: true },
+          where: { AND: [{ customerApproved: true }, { role: "USER" }] },
           include: { orders: true },
           orderBy: { customerApprovedAt: "desc" },
         });
       }
+    }
+
+    if (admins) {
+      users = await prisma.user.findMany({
+        where: { OR: [{ role: "ADMIN" }, { role: "EMPLOYEE" }] },
+        orderBy: { updatedAt: "desc" },
+        include: { orders: true },
+      });
     }
 
     res.json(users);

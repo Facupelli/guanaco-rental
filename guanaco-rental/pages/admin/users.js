@@ -12,11 +12,12 @@ import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminUsersPage.module.scss";
 
-export default function AdminUsersPage({ clients, newCLients }) {
+export default function AdminUsersPage({ clients, newCLients, admins }) {
   const [search, setSearch] = useState("");
 
   const [showNewClients, setShowNewClients] = useState(true);
   const [showClients, setShowClients] = useState(false);
+  const [showAdmins, setShowAdmins] = useState(false);
 
   const [newClientInfo, setNewClientInfo] = useState({});
 
@@ -24,6 +25,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
 
   const [newClientUsers, setNewClientUsers] = useState(newCLients);
   const [clientUsers, setClientUsers] = useState(clients);
+  const [adminUsers, setAdminUsers] = useState(admins);
 
   const { data: session } = useSession;
 
@@ -92,6 +94,7 @@ export default function AdminUsersPage({ clients, newCLients }) {
               onClick={() => {
                 setShowNewClients(true);
                 setShowClients(false);
+                setShowAdmins(false);
               }}
             >
               <div
@@ -107,12 +110,26 @@ export default function AdminUsersPage({ clients, newCLients }) {
               onClick={() => {
                 setShowClients(true);
                 setShowNewClients(false);
+                setShowAdmins(false);
               }}
             >
               <div
                 className={`${s.nav_li} ${showClients ? s.nav_li_active : ""}`}
               >
                 <p>Lista de Clientes</p>
+              </div>
+            </li>
+            <li
+              onClick={() => {
+                setShowAdmins(true);
+                setShowNewClients(false);
+                setShowClients(false);
+              }}
+            >
+              <div
+                className={`${s.nav_li} ${showAdmins ? s.nav_li_active : ""}`}
+              >
+                <p>Administradores</p>
               </div>
             </li>
           </ul>
@@ -154,6 +171,21 @@ export default function AdminUsersPage({ clients, newCLients }) {
               ))}
           </section>
         )}
+
+        {showAdmins && (
+          <section className={s.client_list_wrapper}>
+            <input
+              type="search"
+              placeholder="Buscar por nombre"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
+            {adminUsers.length > 0 &&
+              adminUsers.map((user) => (
+                <ClientCard user={user} key={user.id} admin />
+              ))}
+          </section>
+        )}
       </AdminMain>
     </div>
   );
@@ -185,10 +217,20 @@ export async function getServerSideProps(ctx) {
       .then((response) => response.json())
       .catch((e) => console.log("fecth error:", e));
 
+    const admins = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://www.guanacorental.shop/rentalapi/users?admins=${true}`
+        : `http://localhost:3001/users?admins=${true}`,
+      { headers: { authorization: `${session?.user.token}` } }
+    )
+      .then((response) => response.json())
+      .catch((e) => console.log("fecth error:", e));
+
     return {
       props: {
         newCLients,
         clients,
+        admins,
         session,
       },
     };
