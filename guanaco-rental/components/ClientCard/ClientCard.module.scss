@@ -33,6 +33,10 @@
     .alta {
       margin-left: auto;
     }
+
+    strong {
+      font-weight: 600;
+    }
   }
 
   ul {
@@ -72,13 +76,11 @@
   border-radius: 0.2rem;
 }
 
-
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 70% 70%;
     // column-gap: 5%;
   }
-  
 }
 
 @media (max-width: 480px) {
@@ -86,14 +88,17 @@
     grid-template-columns: 100%;
     // column-gap: 5%;
   }
-  
-  .card_container{
-    .user_summary{
+
+  .card_container {
+    .user_summary {
       flex-wrap: wrap;
 
-      .bold{
+      .bold {
         font-weight: 500;
       }
+    }
+    .alta {
+      font-size: 0.9em;
     }
   }
 }

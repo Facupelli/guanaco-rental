@@ -17,7 +17,9 @@ export default function ClientCard({ user }) {
       <div className={`${s.card_container} ${expand ? s.box_active : s.box}`}>
         {!expand && (
           <div className={s.user_summary} onClick={() => setExpand(true)}>
-            <p className={s.bold}>{user.fullName}</p>
+            <p className={s.bold}>
+              <strong>{user.fullName}</strong>
+            </p>
             <p>
               <span className={s.bold}>tel:</span> {user.phone}
             </p>
@@ -38,7 +40,7 @@ export default function ClientCard({ user }) {
                 type="button"
                 onClick={() => {
                   setExpand(false);
-                  setBlob("");
+                  setDniUrl("");
                 }}
               >
                 <FontAwesomeIcon icon={faXmark} height={20} />
