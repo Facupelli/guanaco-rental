@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { areAllItemsAvailable } = require("../utils/isItemAvailable");
 const { sendMail } = require("../utils/mailer");
 const { sendWsMessage } = require("../utils/whatsapp");
 const prisma = new PrismaClient();
@@ -6,12 +7,42 @@ const prisma = new PrismaClient();
 async function postOrder(req, res, next) {
   const data = req.body;
 
-  const newCart = data.cart.map((item) => {
-    if (!item.quantity) {
-      return { ...item, quantity: 1 };
+  let newCart;
+  try {
+    //get most recent bookings for cart
+    const updatedCart = await prisma.$transaction(
+      data.cart.map((cartItem) =>
+        prisma.equipment.findUnique({
+          where: { id: cartItem.id },
+          include: { bookings: { include: { book: true } } },
+        })
+      )
+    );
+
+    newCart = data.cart.map((item) => {
+      if (!item.quantity) {
+        return { ...updatedCart.find((el) => el.id === item.id), quantity: 1 };
+      }
+      return {
+        ...updatedCart.find((el) => el.id === item.id),
+        quantity: item.quantity,
+      };
+    });
+
+    //check availability for dates
+    if (!areAllItemsAvailable(newCart, data.dates)) {
+      res.json({
+        message: "some equipment is booked for that date, refresh page",
+      });
+      return;
     }
-    return item;
-  });
+  } catch (e) {
+    res.json({
+      message: "error when checking bookings for equipment",
+      error: e,
+    });
+    return;
+  }
 
   let book;
 
@@ -68,62 +99,62 @@ async function postOrder(req, res, next) {
   }
 
   // SEND EMAIL TO ADMINS & WS MESSAGE TO USER
-  try {
-    const orderData = await prisma.order.findUnique({
-      where: { id: newOrder.id },
-      include: {
-        user: { select: { fullName: true, phone: true, email: true } },
-        booking: true,
-        equipments: {
-          select: { name: true, brand: true, model: true, bookings: true },
-        },
-      },
-    });
+  // try {
+  //   const orderData = await prisma.order.findUnique({
+  //     where: { id: newOrder.id },
+  //     include: {
+  //       user: { select: { fullName: true, phone: true, email: true } },
+  //       booking: true,
+  //       equipments: {
+  //         select: { name: true, brand: true, model: true, bookings: true },
+  //       },
+  //     },
+  //   });
 
-    // const mailData = {
-    //   user: orderData.user.fullName,
-    //   phone: orderData.user.phone,
-    //   email: orderData.user.email,
-    //   dates: orderData.booking.dates.join(", "),
-    //   equipment: orderData.equipments.map(
-    //     (gear) =>
-    //       `${gear.name} ${gear.brand} ${gear.model} x${
-    //         gear.bookings.filter(
-    //           (book) => book.bookId === orderData.booking.id
-    //         )[0].quantity
-    //       }`
-    //   ),
-    //   totalPrice: orderData.totalPrice,
-    // };
+  // const mailData = {
+  //   user: orderData.user.fullName,
+  //   phone: orderData.user.phone,
+  //   email: orderData.user.email,
+  //   dates: orderData.booking.dates.join(", "),
+  //   equipment: orderData.equipments.map(
+  //     (gear) =>
+  //       `${gear.name} ${gear.brand} ${gear.model} x${
+  //         gear.bookings.filter(
+  //           (book) => book.bookId === orderData.booking.id
+  //         )[0].quantity
+  //       }`
+  //   ),
+  //   totalPrice: orderData.totalPrice,
+  // };
 
-    // const mailSent = await sendMail(mailData);
-    // console.log("MAIL", mailSent);
+  // const mailSent = await sendMail(mailData);
+  // console.log("MAIL", mailSent);
 
-    // const msgData = {
-    //   phone: orderData.user.phone,
-    //   fullName: orderData.user.fullName,
-    //   pickupHour: orderData.booking.pickupHour,
-    //   pickupDay: new Date(orderData.booking.dates[0]).toLocaleDateString(),
-    //   returnDay: new Date(
-    //     orderData.booking.dates[orderData.booking.dates.length - 1]
-    //   ).toLocaleDateString(),
-    //   equipmentList: orderData.equipments
-    //     .map(
-    //       (gear) =>
-    //         `x${
-    //           gear.bookings.filter(
-    //             (book) => book.bookId === orderData.booking.id
-    //           )[0].quantity
-    //         } ${gear.name} ${gear.brand} ${gear.model}`
-    //     )
-    //     .join("-  "),
-    // };
+  // const msgData = {
+  //   phone: orderData.user.phone,
+  //   fullName: orderData.user.fullName,
+  //   pickupHour: orderData.booking.pickupHour,
+  //   pickupDay: new Date(orderData.booking.dates[0]).toLocaleDateString(),
+  //   returnDay: new Date(
+  //     orderData.booking.dates[orderData.booking.dates.length - 1]
+  //   ).toLocaleDateString(),
+  //   equipmentList: orderData.equipments
+  //     .map(
+  //       (gear) =>
+  //         `x${
+  //           gear.bookings.filter(
+  //             (book) => book.bookId === orderData.booking.id
+  //           )[0].quantity
+  //         } ${gear.name} ${gear.brand} ${gear.model}`
+  //     )
+  //     .join("-  "),
+  // };
 
-    // const sentWsMessage = await sendWsMessage(msgData);
-    // console.log(sentWsMessage);
-  } catch (e) {
-    next(e);
-  }
+  // const sentWsMessage = await sendWsMessage(msgData);
+  // console.log(sentWsMessage);
+  // } catch (e) {
+  //   next(e);
+  // }
 }
 
 async function putOrder(req, res, next) {
