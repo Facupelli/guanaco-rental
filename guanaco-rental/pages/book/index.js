@@ -54,7 +54,7 @@ export default function Home({ showNewModal }) {
     if (localCart) {
       dispatch(setCart(JSON.parse(localCart)));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const localLocation = localStorage.getItem("location");
@@ -63,7 +63,7 @@ export default function Home({ showNewModal }) {
     } else {
       dispatch(setShowModal(true));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={s.container}>
