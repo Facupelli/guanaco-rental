@@ -145,6 +145,9 @@ async function postOrder(req, res, next) {
     const mailSentToGuanaco = await sendMail(mailData);
     const mailSentToClient = await sendMail(clientData, true);
 
+    console.log(mailSentToGuanaco)
+    console.log(mailSentToClient)
+
     // const msgData = {
     //   phone: orderData.user.phone,
     //   fullName: orderData.user.fullName,
