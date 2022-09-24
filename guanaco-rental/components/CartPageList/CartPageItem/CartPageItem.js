@@ -12,6 +12,15 @@ export default function CartPageItem({ item, dates }) {
 
   const handleRemoveFromCart = () => {
     dispatch(removeFromCart(item.id));
+
+    //localstorage
+    const localCart = localStorage.getItem("cart");
+    if (localCart) {
+      const updatedCart = JSON.parse(localCart).filter(
+        (localItem) => localItem.id !== item.id
+      );
+      localStorage.setItem("cart", JSON.stringify([...updatedCart]));
+    }
   };
 
   const availability = isAvailable(dates, item);

@@ -31,6 +31,14 @@ export default function EquipmentCard({ gear, setShowCart }) {
       return;
     }
     dispatch(addToCart(gear));
+
+    //localStorage
+    const localCart = localStorage.getItem("cart");
+    if (localCart) {
+      localStorage.setItem("cart", JSON.stringify([...JSON.parse(localCart), gear]));
+    }else{
+      localStorage.setItem("cart", JSON.stringify([gear]));
+    }
   };
 
   return (

@@ -5,7 +5,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetDate } from "../../redux/features/pickupDate/pickupDateSlice";
-import { cleanCart } from "../../redux/features/cart/cartSlice";
+import { cleanCart, setCart } from "../../redux/features/cart/cartSlice";
 import { setUserId } from "../../redux/features/user/userSlice";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
@@ -47,6 +47,13 @@ export default function CartPage() {
       getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));
     }
   }, [userData, session, dispatch]);
+
+  useEffect(() => {
+    const localCart = localStorage.getItem("cart")
+    if(localCart){
+      dispatch(setCart(JSON.parse(localCart)))
+    }
+  },[])
 
   const [freeOrder, setFreeOrder] = useState(false);
 
@@ -136,6 +143,7 @@ export default function CartPage() {
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
       dispatch(resetDate());
       dispatch(cleanCart());
+      localStorage.removeItem("cart")
       return;
     }
   };

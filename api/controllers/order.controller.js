@@ -122,6 +122,7 @@ async function postOrder(req, res, next) {
 
     const mailData = {
       number: orderData.number,
+      location: orderData.location,
       user: orderData.user.fullName,
       phone: orderData.user.phone,
       email: orderData.user.email,

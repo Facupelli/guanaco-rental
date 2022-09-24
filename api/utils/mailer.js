@@ -74,6 +74,7 @@ async function sendMail(data, client) {
         template: "orderSuccessTemplate",
         context: {
           number: `${data.number}`,
+          location: `${data.location}`,
           name: `${data.user}`,
           phone: `${data.phone}`,
           email: `${data.email}`,

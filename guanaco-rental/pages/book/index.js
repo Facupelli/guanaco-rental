@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUniqueUser } from "../../utils/fetch_users";
 import { setUserId } from "../../redux/features/user/userSlice";
 import { useSession } from "next-auth/react";
+import { setCart } from "../../redux/features/cart/cartSlice";
 
 //COMPONENTS
 import Bookeable from "../../components/Bookeable/Bookeable";
@@ -19,9 +20,9 @@ import CalendarComponent from "../../components/Bookeable/EquipmentFilters/Calen
 import Footer from "../../components/Home/Footer/Footer";
 import MessageModal from "../../components/MessageModal/MessageModal";
 import NavButton from "../../components/Nav/NavButton/NavButton";
+import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/BookPage.module.scss";
-import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 export default function Home({ showNewClientModal }) {
   const dispatch = useDispatch();
@@ -41,6 +42,13 @@ export default function Home({ showNewClientModal }) {
       getUniqueUser(session.user.email).then((res) => dispatch(setUserId(res)));
     }
   }, [userData, session, dispatch]);
+
+  useEffect(() => {
+    const localCart = localStorage.getItem("cart")
+    if(localCart){
+      dispatch(setCart(JSON.parse(localCart)))
+    }
+  },[])
 
   return (
     <div className={s.container}>

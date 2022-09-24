@@ -11,6 +11,15 @@ export default function CartItem({ item }) {
 
   const handleRemoveFromCart = () => {
     dispatch(removeFromCart(item.id));
+
+    //localstorage
+    const localCart = localStorage.getItem("cart");
+    if (localCart) {
+      const updatedCart = JSON.parse(localCart).filter(
+        (localItem) => localItem.id !== item.id
+      );
+      localStorage.setItem("cart", JSON.stringify([...updatedCart]));
+    }
   };
 
   return (
