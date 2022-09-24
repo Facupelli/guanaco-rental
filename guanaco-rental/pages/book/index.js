@@ -48,7 +48,12 @@ export default function Home({ showNewClientModal }) {
         <title>Guanaco Rental</title>
         <meta
           name="description"
-          content="Guanaco rental web, alquiler de equipos para cine y fotografía. San Juan, Argentina."
+          content="Guanaco Rental, alquiler de equipos para cine y fotografía. San Juan, Argentina."
+        />
+        <meta property="og:title" content="Guanaco Rental" />
+        <meta
+          property="og:description"
+          content="Aquiler de equipos para cine y fotografía."
         />
         <link rel="icon" href="/logo-favicon.ico" />
         <link
@@ -93,8 +98,10 @@ export default function Home({ showNewClientModal }) {
       </Nav>
 
       {showLocationModal && (
-        <MessageModal btnFunc={() => {}} >
-          <h3 className={s.location_modal_title}>DONDE QUIERES ALQUILAR LOS EQUIPOS</h3>
+        <MessageModal btnFunc={() => {}}>
+          <h3 className={s.location_modal_title}>
+            DONDE QUIERES ALQUILAR LOS EQUIPOS
+          </h3>
           <SelectLoaction />
         </MessageModal>
       )}

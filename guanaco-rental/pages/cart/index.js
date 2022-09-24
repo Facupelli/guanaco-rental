@@ -178,9 +178,9 @@ export default function CartPage() {
       )}
       {showModal.loading && (
         <LoadingModal>
-          <p className={s.processing_flex}>
+          <div className={s.processing_flex}>
             Procesando <Loader />
-          </p>
+          </div>
         </LoadingModal>
       )}
       {showModal.error && (

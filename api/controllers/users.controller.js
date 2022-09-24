@@ -109,7 +109,7 @@ async function getUsers(req, res, next) {
 
     if (admins) {
       users = await prisma.user.findMany({
-        where: { OR: [{ role: "ADMIN" }, { role: "EMPLOYEE" }] },
+        where: { OR: [{ role: "ADMIN" }, { role: "EMPLOYEE" }] }, 
         orderBy: { updatedAt: "desc" },
         include: { orders: true },
       });

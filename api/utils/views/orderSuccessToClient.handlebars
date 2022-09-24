@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Pedido Recibido</title>
+    <style>
+      .flex{ display: flex; }
+      .mr-4{margin-right: 4px;}
+    </style>
+  </head>
+  <body>
+    <h3>Pedido Recibido:</h3>
+    <p class="mr-4">Hola {{fullName}}! recibimos tu pedido.</p>
+    <p>Recordá que el retiro de los equipos es el día <strong>{{pickupDay}}</strong> a las <strong>{{pickupHour}}hs</strong></p>
+    <p>La devolución de los mismos es el dia <strong>{{returnDay}}</strong> a las <strong>09:00hs</strong></p>
+    <p>El total a abonar es: <strong>${{totalPrice}}</strong></p>
+    <div class="flex">
+      <p class="mr-4"><b>Equipos:</b> </p>
+      <ul class="equipment-list">
+        {{#each equipment}}
+          <li>{{./this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </body>
+</html>

@@ -99,62 +99,77 @@ async function postOrder(req, res, next) {
   }
 
   // SEND EMAIL TO ADMINS & WS MESSAGE TO USER
-  // try {
-  //   const orderData = await prisma.order.findUnique({
-  //     where: { id: newOrder.id },
-  //     include: {
-  //       user: { select: { fullName: true, phone: true, email: true } },
-  //       booking: true,
-  //       equipments: {
-  //         select: { name: true, brand: true, model: true, bookings: true },
-  //       },
-  //     },
-  //   });
+  try {
+    const orderData = await prisma.order.findUnique({
+      where: { id: newOrder.id },
+      include: {
+        user: { select: { fullName: true, phone: true, email: true } },
+        booking: true,
+        equipments: {
+          select: { name: true, brand: true, model: true, bookings: true },
+        },
+      },
+    });
 
-  // const mailData = {
-  //   user: orderData.user.fullName,
-  //   phone: orderData.user.phone,
-  //   email: orderData.user.email,
-  //   dates: orderData.booking.dates.join(", "),
-  //   equipment: orderData.equipments.map(
-  //     (gear) =>
-  //       `${gear.name} ${gear.brand} ${gear.model} x${
-  //         gear.bookings.filter(
-  //           (book) => book.bookId === orderData.booking.id
-  //         )[0].quantity
-  //       }`
-  //   ),
-  //   totalPrice: orderData.totalPrice,
-  // };
+    const equipment = orderData.equipments.map(
+      (gear) =>
+        `${gear.name} ${gear.brand} ${gear.model} x${
+          gear.bookings.filter(
+            (book) => book.bookId === orderData.booking.id
+          )[0].quantity
+        }`
+    );
 
-  // const mailSent = await sendMail(mailData);
-  // console.log("MAIL", mailSent);
+    const mailData = {
+      number: orderData.number,
+      user: orderData.user.fullName,
+      phone: orderData.user.phone,
+      email: orderData.user.email,
+      dates: orderData.booking.dates.join(", "),
+      equipment,
+      totalPrice: orderData.totalPrice,
+    };
 
-  // const msgData = {
-  //   phone: orderData.user.phone,
-  //   fullName: orderData.user.fullName,
-  //   pickupHour: orderData.booking.pickupHour,
-  //   pickupDay: new Date(orderData.booking.dates[0]).toLocaleDateString(),
-  //   returnDay: new Date(
-  //     orderData.booking.dates[orderData.booking.dates.length - 1]
-  //   ).toLocaleDateString(),
-  //   equipmentList: orderData.equipments
-  //     .map(
-  //       (gear) =>
-  //         `x${
-  //           gear.bookings.filter(
-  //             (book) => book.bookId === orderData.booking.id
-  //           )[0].quantity
-  //         } ${gear.name} ${gear.brand} ${gear.model}`
-  //     )
-  //     .join("-  "),
-  // };
+    const clientData = {
+      email: orderData.user.email,
+      fullName: orderData.user.fullName,
+      pickupHour: orderData.booking.pickupHour,
+      pickupDay: new Date(orderData.booking.dates[0]).toLocaleDateString(),
+      returnDay: new Date(
+        orderData.booking.dates[orderData.booking.dates.length - 1]
+      ).toLocaleDateString(),
+      equipment,
+      totalPrice: orderData.totalPrice,
+    };
 
-  // const sentWsMessage = await sendWsMessage(msgData);
-  // console.log(sentWsMessage);
-  // } catch (e) {
-  //   next(e);
-  // }
+    const mailSentToGuanaco = await sendMail(mailData);
+    const mailSentToClient = await sendMail(clientData, true);
+
+    // const msgData = {
+    //   phone: orderData.user.phone,
+    //   fullName: orderData.user.fullName,
+    //   pickupHour: orderData.booking.pickupHour,
+    //   pickupDay: new Date(orderData.booking.dates[0]).toLocaleDateString(),
+    //   returnDay: new Date(
+    //     orderData.booking.dates[orderData.booking.dates.length - 1]
+    //   ).toLocaleDateString(),
+    //   equipmentList: orderData.equipments
+    //     .map(
+    //       (gear) =>
+    //         `x${
+    //           gear.bookings.filter(
+    //             (book) => book.bookId === orderData.booking.id
+    //           )[0].quantity
+    //         } ${gear.name} ${gear.brand} ${gear.model}`
+    //     )
+    //     .join("-  "),
+    // };
+
+    // const sentWsMessage = await sendWsMessage(msgData);
+    // console.log(sentWsMessage);
+  } catch (e) {
+    next(e);
+  }
 }
 
 async function putOrder(req, res, next) {
