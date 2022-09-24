@@ -49,11 +49,11 @@ export default function CartPage() {
   }, [userData, session, dispatch]);
 
   useEffect(() => {
-    const localCart = localStorage.getItem("cart")
-    if(localCart){
-      dispatch(setCart(JSON.parse(localCart)))
+    const localCart = localStorage.getItem("cart");
+    if (localCart) {
+      dispatch(setCart(JSON.parse(localCart)));
     }
-  },[])
+  }, []);
 
   const [freeOrder, setFreeOrder] = useState(false);
 
@@ -143,7 +143,7 @@ export default function CartPage() {
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
       dispatch(resetDate());
       dispatch(cleanCart());
-      localStorage.removeItem("cart")
+      localStorage.removeItem("cart");
       return;
     }
   };
@@ -279,6 +279,10 @@ export default function CartPage() {
               setCouponApplied={setCouponApplied}
               couponApplied={couponApplied}
             />
+            <div className={s.guanaco_branch}>
+              <p>Sucursal:</p>
+              <p><strong>{location === "MENDOZA" ? "Mendoza" : "San Juan"}</strong></p>
+            </div>
             <div className={`${s.total_price_wrapper} ${s.margin_1}`}>
               <p>Total:</p>
               <p className={s.p_bold}>

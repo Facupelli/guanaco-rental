@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { cleanCart } from "../../redux/features/cart/cartSlice";
 import {
   setLocation,
   setShowModal,
@@ -17,6 +18,14 @@ export default function SelectLoaction({ adminPanel }) {
     if (city) {
       dispatch(setLocation(city));
       dispatch(setShowModal(false));
+
+      //locastorage
+      const localLocation = localStorage.getItem("location")
+      if(localLocation &&  localLocation !== city){
+        dispatch(cleanCart())
+        localStorage.removeItem("cart")
+      }
+      localStorage.setItem("location", city)
     }
   }, [location, city, dispatch]);
 

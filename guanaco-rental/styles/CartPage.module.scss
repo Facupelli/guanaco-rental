@@ -80,8 +80,19 @@
       flex-direction: column;
       row-gap: 0.2rem;
 
-      .margin_1 {
+      .guanaco_branch{
         margin-top: 1rem;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+
+        strong{
+          font-weight: 600;
+        }
+      }
+
+      .margin_1 {
+        margin-top: .5rem;
         font-size: 1.2em;
       }
 

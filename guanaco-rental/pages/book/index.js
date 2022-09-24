@@ -2,15 +2,20 @@ import Head from "next/head";
 import Script from "next/script";
 import Link from "next/link";
 import { unstable_getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useEffect, useState } from "react";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { useDateRange } from "../../hooks/useDateRange";
 import { useDispatch, useSelector } from "react-redux";
 import { getUniqueUser } from "../../utils/fetch_users";
+import { useDateRange } from "../../hooks/useDateRange";
+
 import { setUserId } from "../../redux/features/user/userSlice";
-import { useSession } from "next-auth/react";
 import { setCart } from "../../redux/features/cart/cartSlice";
+import {
+  setLocation,
+  setShowModal,
+} from "../../redux/features/location/locationSlice";
 
 //COMPONENTS
 import Bookeable from "../../components/Bookeable/Bookeable";
@@ -24,11 +29,12 @@ import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/BookPage.module.scss";
 
-export default function Home({ showNewClientModal }) {
+export default function Home({ showNewModal }) {
   const dispatch = useDispatch();
 
   const [showCart, setShowCart] = useState(false);
-  const [showModal, setShowModal] = useState(showNewClientModal);
+  const [showNewClientModal, setShowNewClientModal] =
+    useState(showNewModal);
   const showLocationModal = useSelector((state) => state.location.showModal);
 
   const [datePickup, setDatePickup] = useState(false);
@@ -44,11 +50,20 @@ export default function Home({ showNewClientModal }) {
   }, [userData, session, dispatch]);
 
   useEffect(() => {
-    const localCart = localStorage.getItem("cart")
-    if(localCart){
-      dispatch(setCart(JSON.parse(localCart)))
+    const localCart = localStorage.getItem("cart");
+    if (localCart) {
+      dispatch(setCart(JSON.parse(localCart)));
     }
-  },[])
+  }, []);
+
+  useEffect(() => {
+    const localLocation = localStorage.getItem("location");
+    if (localLocation) {
+      dispatch(setLocation(localLocation));
+    } else {
+      dispatch(setShowModal(true));
+    }
+  }, []);
 
   return (
     <div className={s.container}>
@@ -114,8 +129,8 @@ export default function Home({ showNewClientModal }) {
         </MessageModal>
       )}
 
-      {showModal && (
-        <MessageModal btnFunc={() => setShowModal(false)}>
+      {showNewClientModal && (
+        <MessageModal btnFunc={() => setShowNewClientModal(false)}>
           <p className={s.bold}>IMPORTANTE</p>
           <p>
             Para poder alquilar equipos es necesario llenar el formulario de
@@ -126,7 +141,7 @@ export default function Home({ showNewClientModal }) {
             <Link href="/newClient">
               <a>IR AL ALTA</a>
             </Link>
-            <button type="button" onClick={() => setShowModal(false)}>
+            <button type="button" onClick={() => setShowNewClientModal(false)}>
               CERRAR
             </button>
           </div>
@@ -175,7 +190,7 @@ export const getServerSideProps = async (ctx) => {
   if (session?.user.petitionSent === "DENIED" || !session?.user.petitionSent) {
     return {
       props: {
-        showNewClientModal: true,
+        showNewModal: true,
       },
     };
   }
