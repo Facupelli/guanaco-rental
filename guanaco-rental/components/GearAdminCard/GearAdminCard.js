@@ -2,14 +2,19 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import s from "./GearAdminCard.module.scss";
+import { useState } from "react";
 
-export default function GearAdminCard({ gear, getEquipment, token }) {
+import s from "./GearAdminCard.module.scss";
+import MessageModal from "../MessageModal/MessageModal";
+
+export default function GearAdminCard({ gear, getEquipment, token, role }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const [showBookings, setShowBookings] = useState(false);
 
   const handleDeleteGear = async () => {
     const response = await fetch(
@@ -56,36 +61,62 @@ export default function GearAdminCard({ gear, getEquipment, token }) {
   };
 
   return (
-    <div className={s.admin_gear_container}>
-      <div className={s.image_wrapper}>
-        <Image
-          src={`/equipmentPics/${gear.image}`}
-          alt={gear.name}
-          layout="fill"
-        />
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={s.flex_grow_2}>
-          <div className={`${s.flex_wrapper} ${s.bold}`}>
-            <input type="text" defaultValue={gear.name} {...register("name")} />
-            <input
-              type="text"
-              defaultValue={gear.brand}
-              {...register("brand")}
-            />
-          </div>
-          <input type="text" defaultValue={gear.model} {...register("model")} />
-        </div>
-        <div className={`${s.flex_wrapper} `}>
-          <label>Disponible:</label>
-          <input
-            type="checkbox"
-            defaultValue={gear.available}
-            defaultChecked={gear.available}
-            {...register("available")}
+    <>
+      {showBookings && (
+        <MessageModal btnFunc={() => setShowBookings(false)}>
+          {gear.bookings.map((book) => (
+            <div key={book.bookId} className={s.flex}>
+              {book.book.dates.map(date => new Date(date).toLocaleDateString()).join(" - ")}
+              <p>
+                <strong>x{book.quantity}</strong>
+              </p>
+            </div>
+          ))}
+        </MessageModal>
+      )}
+      <div className={s.admin_gear_container}>
+        <div className={s.image_wrapper} onClick={() => setShowBookings(true)}>
+          <Image
+            src={`/equipmentPics/${gear.image}`}
+            alt={gear.name}
+            layout="fill"
           />
         </div>
-        {/* <div className={`${s.flex_wrapper} `}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={s.flex_grow_2}>
+            <div className={`${s.flex_wrapper} ${s.bold}`}>
+              <input
+                type="text"
+                defaultValue={gear.name}
+                {...register("name")}
+                disabled={role === "EMPLOYEE" ? true : false}
+              />
+              <input
+                type="text"
+                defaultValue={gear.brand}
+                {...register("brand")}
+                disabled={role === "EMPLOYEE" ? true : false}
+              />
+            </div>
+            <input
+              type="text"
+              defaultValue={gear.model}
+              {...register("model")}
+              disabled={role === "EMPLOYEE" ? true : false}
+            />
+          </div>
+          {role === "ADMIN" && (
+            <div className={`${s.flex_wrapper} `}>
+              <label>Disponible:</label>
+              <input
+                type="checkbox"
+                defaultValue={gear.available}
+                defaultChecked={gear.available}
+                {...register("available")}
+              />
+            </div>
+          )}
+          {/* <div className={`${s.flex_wrapper} `}>
           <label>IMAGE:</label>
           <input
             defaultValue={gear.image}
@@ -93,48 +124,62 @@ export default function GearAdminCard({ gear, getEquipment, token }) {
             {...register("image")}
           />
         </div> */}
-        <div className={`${s.flex_wrapper} `}>
-          <label>Stock:</label>
-          <input
-            defaultValue={gear.stock}
-            className={s.stock_input}
-            {...register("stock")}
-          />
-        </div>
-        <div className={`${s.flex_wrapper} `}>
-          <label>Precio:</label>
-          <input
-            defaultValue={gear.price}
-            className={s.price_input}
-            {...register("price")}
-          />
-        </div>
-        <div className={`${s.flex_wrapper} `}>
-          <label>Sucursal:</label>
-          <select defaultValue={gear.location} {...register("location")}>
-            <option value="SAN_JUAN">San Juan</option>
-            <option value="MENDOZA">Mendoza</option>
-          </select>
-        </div>
-        <div className={s.flex_wrapper}>
-          <label>de:</label>
-          <select defaultValue={gear.owner} {...register("owner")}>
-            <option value="FEDERICO">Federico</option>
-            <option value="OSCAR">Oscar</option>
-            <option value="BOTH">Ambos</option>
-            <option value="SUB">Subalquilado</option>
-          </select>
-        </div>
-        <button>ACTUALIZAR</button>
-        <button
-          type="button"
-          className={s.delete_btn}
-          onClick={handleDeleteGear}
-        >
-          <FontAwesomeIcon icon={faTrash} aria-label="delete-btn" />
-        </button>
-      </form>
-    </div>
+          <div className={`${s.flex_wrapper} `}>
+            <label>Stock:</label>
+            <input
+              defaultValue={gear.stock}
+              className={s.stock_input}
+              {...register("stock")}
+              disabled={role === "EMPLOYEE" ? true : false}
+            />
+          </div>
+          <div className={`${s.flex_wrapper} `}>
+            <label>Precio:</label>
+            <input
+              defaultValue={gear.price}
+              className={s.price_input}
+              {...register("price")}
+              disabled={role === "EMPLOYEE" ? true : false}
+            />
+          </div>
+          <div className={`${s.flex_wrapper} `}>
+            <label>Sucursal:</label>
+            <select
+              defaultValue={gear.location}
+              {...register("location")}
+              disabled={role === "EMPLOYEE" ? true : false}
+            >
+              <option value="SAN_JUAN">San Juan</option>
+              <option value="MENDOZA">Mendoza</option>
+            </select>
+          </div>
+          {role === "EMPLOYEE" && (
+            <button type="button" onClick={() => setShowBookings(true)}>VER RESERVAS</button>
+          )}
+          {role === "ADMIN" && (
+            <>
+              <div className={s.flex_wrapper}>
+                <label>de:</label>
+                <select defaultValue={gear.owner} {...register("owner")}>
+                  <option value="FEDERICO">Federico</option>
+                  <option value="OSCAR">Oscar</option>
+                  <option value="BOTH">Ambos</option>
+                  <option value="SUB">Subalquilado</option>
+                </select>
+              </div>
+              <button>ACTUALIZAR</button>
+              <button
+                type="button"
+                className={s.delete_btn}
+                onClick={handleDeleteGear}
+              >
+                <FontAwesomeIcon icon={faTrash} aria-label="delete-btn" />
+              </button>
+            </>
+          )}
+        </form>
+      </div>
+    </>
   );
 }
 

@@ -65,7 +65,11 @@ export default function AdminEquipment({ equipment }) {
           <EquipmentSearchBar
             onInputChange={(e) => setSearchInput(e.target.value)}
           />
-          <SelectLoaction />
+          {session.user.role === "ADMIN" && (
+            <div className={s.select_location_wrapper}>
+              <SelectLoaction adminPanel />
+            </div>
+          )}
           <div className={s.flex_baseline}>
             <p>
               Total: <span className={s.bold}>{equipmentList.length}</span>
@@ -101,6 +105,7 @@ export default function AdminEquipment({ equipment }) {
                 gear={gear}
                 getEquipment={getEquipment}
                 token={session?.user.token}
+                role={session?.user.role}
               />
             ))}
         </div>
@@ -116,7 +121,10 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
-  if (!session || session?.user.role !== "ADMIN") {
+  if (
+    !session ||
+    (session?.user.role !== "ADMIN" && session?.user.role !== "EMPLOYEE")
+  ) {
     return {
       redirect: {
         destination: "/",

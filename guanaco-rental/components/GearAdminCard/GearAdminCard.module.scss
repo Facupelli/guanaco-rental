@@ -1,5 +1,15 @@
 @import "../../styles/app.scss";
 
+.flex{
+  display: flex;
+  gap: 1rem;
+  padding: .2rem 0;
+
+  strong{
+    font-weight: 600;
+  }
+}
+
 .admin_gear_container {
   display: flex;
   align-items: center;
