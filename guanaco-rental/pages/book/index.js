@@ -35,7 +35,9 @@ export default function Home({ showNewModal }) {
   const [showCart, setShowCart] = useState(false);
   const [showNewClientModal, setShowNewClientModal] =
     useState(showNewModal);
+
   const showLocationModal = useSelector((state) => state.location.showModal);
+  const location = useSelector((state) => state.location.city);
 
   const [datePickup, setDatePickup] = useState(false);
   const { dateRange, setDateRange } = useDateRange();
@@ -62,6 +64,12 @@ export default function Home({ showNewModal }) {
       dispatch(setLocation(localLocation));
     } else {
       dispatch(setShowModal(true));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if(session.user.role === "ADMIN" && location === "all"){
+      dispatch(setLocation("SAN_JUAN"))
     }
   }, [dispatch]);
 
@@ -123,7 +131,7 @@ export default function Home({ showNewModal }) {
       {showLocationModal && (
         <MessageModal btnFunc={() => {}}>
           <h3 className={s.location_modal_title}>
-            DONDE QUIERES ALQUILAR LOS EQUIPOS
+            ¿DONDE QUERÉS ALQUILAR?
           </h3>
           <SelectLoaction />
         </MessageModal>
@@ -142,7 +150,7 @@ export default function Home({ showNewModal }) {
               <a>IR AL ALTA</a>
             </Link>
             <button type="button" onClick={() => setShowNewClientModal(false)}>
-              CERRAR
+              YA TENGO UNA CUENTA / SOLO QUIERO VER
             </button>
           </div>
         </MessageModal>

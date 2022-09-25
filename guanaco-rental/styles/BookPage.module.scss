@@ -3,6 +3,7 @@
 .location_modal_title {
   font-family: "Panton";
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .main {
@@ -21,11 +22,14 @@
   margin-top: 2rem;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 2rem;
 
   a,
   button {
     font-size: 0.9em;
+    flex-grow: 1;
+    text-align: center
   }
 
   button {
@@ -34,5 +38,16 @@
 
   a {
     @include m-button-orange;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal_links {
+    gap: 1rem;
+  
+    a,
+    button {
+      width: 100%;
+    }
   }
 }
