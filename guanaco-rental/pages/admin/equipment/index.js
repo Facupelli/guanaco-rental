@@ -68,7 +68,7 @@ export default function AdminEquipment({ equipment }) {
           <SelectLoaction />
           <div className={s.flex_baseline}>
             <p>
-              Total: <span className={s.bold}>{equipment.length}</span>
+              Total: <span className={s.bold}>{equipmentList.length}</span>
             </p>
             <div>
               <select

@@ -85,14 +85,14 @@ export default function GearAdminCard({ gear, getEquipment, token }) {
             {...register("available")}
           />
         </div>
-        <div className={`${s.flex_wrapper} `}>
+        {/* <div className={`${s.flex_wrapper} `}>
           <label>IMAGE:</label>
           <input
             defaultValue={gear.image}
             className={s.price_input}
             {...register("image")}
           />
-        </div>
+        </div> */}
         <div className={`${s.flex_wrapper} `}>
           <label>Stock:</label>
           <input
