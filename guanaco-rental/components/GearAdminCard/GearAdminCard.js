@@ -64,6 +64,7 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
     <>
       {showBookings && (
         <MessageModal btnFunc={() => setShowBookings(false)}>
+          <p>Reservas:</p>
           {gear.bookings.map((book) => (
             <div key={book.bookId} className={s.flex}>
               {book.book.dates.map(date => new Date(date).toLocaleDateString()).join(" - ")}
