@@ -68,10 +68,10 @@ export default function Home({ showNewModal }) {
   }, [dispatch]);
 
   useEffect(() => {
-    if(session.user.role === "ADMIN" && location === "all"){
+    if(session?.user.role === "ADMIN" && location === "all"){
       dispatch(setLocation("SAN_JUAN"))
     }
-  }, [dispatch]);
+  }, [dispatch, session?.user.role, location]);
 
   return (
     <div className={s.container}>
