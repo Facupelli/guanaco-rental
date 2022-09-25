@@ -45,8 +45,8 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
         try {
           const response = await fetch(
             process.env.NODE_ENV === "production"
-              ? `https://www.guanacorental.shop/rentalapi/equipment?search=${debouncedGearInput}`
-              : `http://localhost:3001/equipment?search=${debouncedGearInput}`
+              ? `https://www.guanacorental.shop/rentalapi/equipment?location=${order.location}&search=${debouncedGearInput}`
+              : `http://localhost:3001/equipment?location=${order.location}&search=${debouncedGearInput}`
           );
           const equipment = await response.json();
           setEquipments(equipment);
