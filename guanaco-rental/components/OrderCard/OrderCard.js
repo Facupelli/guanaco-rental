@@ -57,7 +57,7 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
       };
       getEquipmentBySearch();
     }
-  }, [debouncedGearInput]);
+  }, [debouncedGearInput, order.location]);
 
   const pickupDay = new Date(order.booking.dates[0]).toLocaleDateString();
   const returnDay = new Date(order.booking.dates.at(-1)).toLocaleDateString();
