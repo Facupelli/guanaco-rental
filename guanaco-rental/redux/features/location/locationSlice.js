@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   showModal: false,
-  city: "",
+  city: "SAN_JUAN",
 };
 
 export const locationSlice = createSlice({

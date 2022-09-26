@@ -35,7 +35,7 @@ export default function Home({ showNewModal }) {
   const [showCart, setShowCart] = useState(false);
   const [showNewClientModal, setShowNewClientModal] = useState(showNewModal);
 
-  const cart = useSelector(state => state.cart.items)
+  const cart = useSelector((state) => state.cart.items);
   const showLocationModal = useSelector((state) => state.location.showModal);
   const location = useSelector((state) => state.location.city);
 
@@ -60,17 +60,20 @@ export default function Home({ showNewModal }) {
     }
   }, [dispatch, cart?.length]);
 
-  useEffect(() => {
-    const localLocation = localStorage.getItem("location");
-    if (localLocation) {
-      dispatch(setLocation(localLocation));
-    } else {
-      dispatch(setShowModal(true));
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const localLocation = localStorage.getItem("location");
+  //   if (localLocation) {
+  //     dispatch(setLocation(localLocation));
+  //   } else {
+  //     dispatch(setShowModal(true));
+  //   }
+  // }, [dispatch]);
 
   useEffect(() => {
-    if (session?.user.role === "ADMIN" && location === "all") {
+    if (
+      (session?.user.role === "ADMIN" || session?.user.role === "EMPLOYEE") &&
+      location === "all"
+    ) {
       dispatch(setLocation("SAN_JUAN"));
     }
   }, [dispatch, session?.user.role, location]);
