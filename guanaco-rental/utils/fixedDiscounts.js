@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 
 export const fetchFixedDiscounts = (location, token) => {
+  console.log(location)
   return fetch(
     process.env.NODE_ENV === "production"
       ? `https://www.guanacorental.shop/rentalapi/fixedDiscounts?location=${location}`

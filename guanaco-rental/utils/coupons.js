@@ -31,23 +31,23 @@ export const useFetchCoupons = () => {
   return { coupons, loading, getCoupons };
 };
 
-export const fetchCoupon = (couponName) => {
+export const fetchCoupon = (couponName, location) => {
   return fetch(
     process.env.NODE_ENV === "production"
-      ? `https://www.guanacorental.shop/rentalapi/coupons/${couponName}`
-      : `http://localhost:3001/coupons/${couponName}`
+      ? `https://www.guanacorental.shop/rentalapi/coupons/${couponName}?location=${location}`
+      : `http://localhost:3001/coupons/${couponName}?location=${location}`
   )
     .then((res) => res.json())
     .catch((e) => console.log(e));
 };
 
-export const handleApplyCoupon = (couponName, setCouponApplied) => {
+export const handleApplyCoupon = (couponName, setCouponApplied, location) => {
   setCouponApplied((prev) => ({ ...prev, error: "", loading: true }));
 
-  fetchCoupon(couponName)
+  fetchCoupon(couponName, location)
     .catch((e) => console.log("apply coupon error:", e))
     .then((coupon) => {
-      if (coupon.message === "success") {
+      if (coupon?.message === "success") {
         setCouponApplied((prev) => ({
           ...prev,
           success: true,
@@ -58,7 +58,7 @@ export const handleApplyCoupon = (couponName, setCouponApplied) => {
         setCouponApplied((prev) => ({
           success: false,
           coupon: {},
-          error: coupon.message,
+          error: coupon?.message,
           loading: false,
         }));
       }

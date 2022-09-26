@@ -3,7 +3,7 @@ import { handleApplyCoupon } from "../../utils/coupons";
 import Loader from "../Loaders/Loader/Loader";
 import s from "./AddCoupon.module.scss";
 
-export default function AddCoupon({ setCouponApplied, couponApplied }) {
+export default function AddCoupon({ setCouponApplied, couponApplied, location }) {
   const [couponName, setCoupon] = useState("");
 
   return (
@@ -18,12 +18,12 @@ export default function AddCoupon({ setCouponApplied, couponApplied }) {
           />
           <button
             type="button"
-            onClick={() => handleApplyCoupon(couponName, setCouponApplied)}
+            onClick={() => handleApplyCoupon(couponName, setCouponApplied, location)}
           >
             {couponApplied.loading ? (
-              <p className={s.flex}>
+              <div className={s.flex}>
                 CARGANDO <Loader small />
-              </p>
+              </div>
             ) : (
               "APLICAR"
             )}

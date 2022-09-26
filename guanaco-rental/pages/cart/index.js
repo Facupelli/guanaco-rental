@@ -280,6 +280,7 @@ export default function CartPage() {
             <AddCoupon
               setCouponApplied={setCouponApplied}
               couponApplied={couponApplied}
+              location={location}
             />
             <div className={s.guanaco_branch}>
               <p>Sucursal:</p>

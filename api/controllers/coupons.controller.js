@@ -53,11 +53,16 @@ async function getCoupons(req, res, next) {
 }
 
 async function getCouponByName(req, res, next) {
-  const name = req.params;
+  const { name } = req.params;
+  const { location } = req.query;
+
   try {
     if (name) {
-      const coupon = await prisma.coupon.findUnique({
-        where: name,
+      const coupon = await prisma.coupon.findFirst({
+        where: {
+          location: location === "all" || !location ? undefined : location,
+          name,
+        },
         include: { orders: true },
       });
 
