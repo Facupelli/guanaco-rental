@@ -67,7 +67,9 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
           <p>Reservas:</p>
           {gear.bookings.map((book) => (
             <div key={book.bookId} className={s.flex}>
-              {book.book.dates.map(date => new Date(date).toLocaleDateString()).join(" - ")}
+              {book.book.dates
+                .map((date) => new Date(date).toLocaleDateString())
+                .join(" - ")}
               <p>
                 <strong>x{book.quantity}</strong>
               </p>
@@ -117,14 +119,14 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
               />
             </div>
           )}
-          {/* <div className={`${s.flex_wrapper} `}>
-          <label>IMAGE:</label>
-          <input
-            defaultValue={gear.image}
-            className={s.price_input}
-            {...register("image")}
-          />
-        </div> */}
+          <div className={`${s.flex_wrapper} `}>
+            <label>IMAGE:</label>
+            <input
+              defaultValue={gear.image}
+              className={s.price_input}
+              {...register("image")}
+            />
+          </div>
           <div className={`${s.flex_wrapper} `}>
             <label>Stock:</label>
             <input
@@ -155,7 +157,9 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
             </select>
           </div>
           {role === "EMPLOYEE" && (
-            <button type="button" onClick={() => setShowBookings(true)}>VER RESERVAS</button>
+            <button type="button" onClick={() => setShowBookings(true)}>
+              VER RESERVAS
+            </button>
           )}
           {role === "ADMIN" && (
             <>
