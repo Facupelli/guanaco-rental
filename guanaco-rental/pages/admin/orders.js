@@ -16,7 +16,7 @@ import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 import s from "../../styles/AdminOrdersPage.module.scss";
 
 export default function AdminOrdersPage({}) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { data: session } = useSession();
   const userData = useSelector((state) => state.user.data);
 
@@ -40,11 +40,9 @@ export default function AdminOrdersPage({}) {
       </Head>
       <Nav />
       <AdminMain title="Pedidos">
-        {session.user.role === "ADMIN" && (
-          <div className={s.select_location_wrapper}>
-            <SelectLoaction adminPanel />
-          </div>
-        )}
+        <div className={s.select_location_wrapper}>
+          <SelectLoaction adminPanel={session?.user.role === "ADMIN"} />
+        </div>
 
         <div className={s.table_titles}>
           <p>N°</p>

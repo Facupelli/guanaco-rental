@@ -65,11 +65,9 @@ export default function AdminEquipment({ equipment }) {
           <EquipmentSearchBar
             onInputChange={(e) => setSearchInput(e.target.value)}
           />
-          {session.user.role === "ADMIN" && (
-            <div className={s.select_location_wrapper}>
-              <SelectLoaction adminPanel />
-            </div>
-          )}
+          <div className={s.select_location_wrapper}>
+            <SelectLoaction adminPanel={session?.user.role === "ADMIN"} />
+          </div>
           <div className={s.flex_baseline}>
             <p>
               Total: <span className={s.bold}>{equipmentList.length}</span>

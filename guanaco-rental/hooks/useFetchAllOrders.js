@@ -11,19 +11,12 @@ export const useFetchAllOrders = (skip) => {
 
   const { data: session } = useSession();
 
-  const employeeLocation = useSelector(
-    (state) => state.user.data.addressProvince
-  );
   const location = useSelector((state) => state.location.city);
 
   useEffect(() => {
     if (session) {
       setLoading(true);
-      fetchAllOrders(
-        session.user.role === "EMPLOYEE" ? employeeLocation : location,
-        skip,
-        session?.user.token
-      )
+      fetchAllOrders(location, skip, session?.user.token)
         .then((res) => {
           setOrders(res.orders);
           setTotalOrders(res.count);
@@ -35,11 +28,7 @@ export const useFetchAllOrders = (skip) => {
 
   const refetchOrders = () => {
     setLoading(true);
-    fetchAllOrders(
-      session.user.role === "EMPLOYEE" ? employeeLocation : location,
-      skip,
-      session?.user.token
-    )
+    fetchAllOrders(location, skip, session?.user.token)
       .then((res) => setOrders(res.orders))
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
