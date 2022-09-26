@@ -33,9 +33,9 @@ export default function Home({ showNewModal }) {
   const dispatch = useDispatch();
 
   const [showCart, setShowCart] = useState(false);
-  const [showNewClientModal, setShowNewClientModal] =
-    useState(showNewModal);
+  const [showNewClientModal, setShowNewClientModal] = useState(showNewModal);
 
+  const cart = useSelector(state => state.cart.items)
   const showLocationModal = useSelector((state) => state.location.showModal);
   const location = useSelector((state) => state.location.city);
 
@@ -52,9 +52,11 @@ export default function Home({ showNewModal }) {
   }, [userData, session, dispatch]);
 
   useEffect(() => {
-    const localCart = localStorage.getItem("cart");
-    if (localCart) {
-      dispatch(setCart(JSON.parse(localCart)));
+    if (cart?.length === 0) {
+      const localCart = localStorage.getItem("cart");
+      if (localCart) {
+        dispatch(setCart(JSON.parse(localCart)));
+      }
     }
   }, [dispatch]);
 
@@ -68,8 +70,8 @@ export default function Home({ showNewModal }) {
   }, [dispatch]);
 
   useEffect(() => {
-    if(session?.user.role === "ADMIN" && location === "all"){
-      dispatch(setLocation("SAN_JUAN"))
+    if (session?.user.role === "ADMIN" && location === "all") {
+      dispatch(setLocation("SAN_JUAN"));
     }
   }, [dispatch, session?.user.role, location]);
 
@@ -130,9 +132,7 @@ export default function Home({ showNewModal }) {
 
       {showLocationModal && (
         <MessageModal btnFunc={() => {}}>
-          <h3 className={s.location_modal_title}>
-            ¿DONDE QUERÉS ALQUILAR?
-          </h3>
+          <h3 className={s.location_modal_title}>¿DONDE QUERÉS ALQUILAR?</h3>
           <SelectLoaction />
         </MessageModal>
       )}

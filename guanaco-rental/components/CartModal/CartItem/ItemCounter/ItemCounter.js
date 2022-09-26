@@ -11,7 +11,6 @@ export default function ItemCounter({ itemId, stock, quantity = 1 }) {
 
   const handleAddQty = () => {
     if (quantity < stock) {
-      console.log("AGREGANDO")
       dispatch(addQuantity(itemId));
     }
   };

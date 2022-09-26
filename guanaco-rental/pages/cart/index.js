@@ -49,9 +49,11 @@ export default function CartPage() {
   }, [userData, session, dispatch]);
 
   useEffect(() => {
-    const localCart = localStorage.getItem("cart");
-    if (localCart) {
-      dispatch(setCart(JSON.parse(localCart)));
+    if (cart?.length === 0) {
+      const localCart = localStorage.getItem("cart");
+      if (localCart) {
+        dispatch(setCart(JSON.parse(localCart)));
+      }
     }
   }, [dispatch]);
 
@@ -281,7 +283,11 @@ export default function CartPage() {
             />
             <div className={s.guanaco_branch}>
               <p>Sucursal:</p>
-              <p><strong>{location === "MENDOZA" ? "Mendoza" : "San Juan"}</strong></p>
+              <p>
+                <strong>
+                  {location === "MENDOZA" ? "Mendoza" : "San Juan"}
+                </strong>
+              </p>
             </div>
             <div className={`${s.total_price_wrapper} ${s.margin_1}`}>
               <p>Total:</p>
