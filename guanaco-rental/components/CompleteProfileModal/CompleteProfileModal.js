@@ -39,6 +39,7 @@ export default function CompleteProfileModal() {
           cloudName: process.env.NEXT_PUBLIC_CL_CLOUD_NAME,
           uploadPreset: process.env.NEXT_PUBLIC_CL_UPLOAD_PRESET,
           sources: ["local", "url", "camera", "dropbox", "goole_drive"],
+          maxFileSize: 1048576,
         },
         (error, result) => {
           if (
@@ -319,7 +320,7 @@ export default function CompleteProfileModal() {
           </fieldset>
 
           <fieldset className={s.bank_info_wrapper}>
-            <legend>DATOS DE CUENTA BANCARIA</legend>
+            <legend>DATOS DE CUENTA BANCARIA / MERCADOPAGO</legend>
             <div>
               <label htmlFor="bank">Banco:</label>
               <input type="text" id="bank" {...register("bank")} />
@@ -327,7 +328,7 @@ export default function CompleteProfileModal() {
               <label htmlFor="alias">Alias:</label>
               <input type="text" id="alias" {...register("alias")} />
               {errors.alias?.message}
-              <label htmlFor="cbu">CBU:</label>
+              <label htmlFor="cbu">CBU/CVU:</label>
               <input type="text" id="cbu" {...register("cbu")} />
               {errors.cbu?.message}
             </div>
