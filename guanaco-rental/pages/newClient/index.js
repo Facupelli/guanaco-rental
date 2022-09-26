@@ -6,6 +6,7 @@ import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 
 import Nav from "../../components/Nav/Nav";
 import MessageModal from "../../components/MessageModal/MessageModal";
@@ -26,19 +27,19 @@ export default function NewClientPage({ loginModal }) {
       <Head>
         <title>Alta de Cliente</title>
         <link rel="icon" href="/logo-favicon.ico" />
-        <script
-          src="https://upload-widget.cloudinary.com/global/all.js"
-          type="text/javascript"
-          async
-        ></script>
       </Head>
+      <Script
+        src="https://upload-widget.cloudinary.com/global/all.js"
+        type="text/javascript"
+        async
+      ></Script>
       {showLoginModal && (
         <LoadingModal btnFunc={() => setShowLoginModal(false)}>
           <p>Para poder enviar tu alta de cliente debes iniciar sesión.</p>
           <div className={s.sesion_btns_wrapper}>
             <button
               className={s.link_icon_google}
-              onClick={async() => await signIn("google")}
+              onClick={async () => await signIn("google")}
             >
               <p>ENTRAR CON</p>
               <p className={s.justify_between}>

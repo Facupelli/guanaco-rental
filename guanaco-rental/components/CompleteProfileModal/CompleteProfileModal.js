@@ -28,6 +28,7 @@ export default function CompleteProfileModal() {
   const [message, setMessage] = useState("");
 
   const [dniFront, setDniFront] = useState();
+
   const [dniBack, setDniBack] = useState("");
 
   const openWidget = (setImagePublicId) => {
@@ -35,8 +36,8 @@ export default function CompleteProfileModal() {
     if (typeof window !== "undefined") {
       const widget = window.cloudinary.createUploadWidget(
         {
-          cloudName: process.env.CL_CLOUD_NAME,
-          uploadPreset: process.env.CL_UPLOAD_PRESET,
+          cloudName: process.env.NEXT_PUBLIC_CL_CLOUD_NAME,
+          uploadPreset: process.env.NEXT_PUBLIC_CL_UPLOAD_PRESET,
           sources: ["local", "url", "camera", "dropbox", "goole_drive"],
         },
         (error, result) => {
@@ -217,7 +218,6 @@ export default function CompleteProfileModal() {
                 >
                   {dniFront ? "arhivo cargado" : "subir archivo"}
                 </button>
-                {/* <input type="file" {...register("dniFront")} id="dniFront" /> */}
               </div>
 
               <div>
@@ -229,7 +229,6 @@ export default function CompleteProfileModal() {
                 >
                   {dniBack ? "archivo cargado" : "subir archivo"}
                 </button>
-                {/* <input type="file" {...register("dniBack")} id="dniBack" /> */}
               </div>
             </div>
 
