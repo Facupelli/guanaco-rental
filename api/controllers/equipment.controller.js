@@ -96,7 +96,7 @@ async function putEquipment(req, res, next) {
           stock: Number(data.stock),
           price: Number(data.price),
           location: data.location,
-          image: data.image,
+          // image: data.image,
         },
       });
 
