@@ -13,4 +13,5 @@ export default configureStore({
     user: userReducer,
     location: locationReducer,
   },
+  devTools: process.env.NODE_ENV !== 'production',
 });
