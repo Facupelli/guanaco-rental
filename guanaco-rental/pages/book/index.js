@@ -58,7 +58,7 @@ export default function Home({ showNewModal }) {
         dispatch(setCart(JSON.parse(localCart)));
       }
     }
-  }, [dispatch]);
+  }, [dispatch, cart?.length]);
 
   useEffect(() => {
     const localLocation = localStorage.getItem("location");

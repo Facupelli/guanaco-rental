@@ -55,7 +55,7 @@ export default function CartPage() {
         dispatch(setCart(JSON.parse(localCart)));
       }
     }
-  }, [dispatch]);
+  }, [dispatch, cart?.length]);
 
   const [freeOrder, setFreeOrder] = useState(false);
 
