@@ -59,6 +59,11 @@ export default function CreateCoupon({
       <input type="date" id="expirationDate" {...register("expirationDate")} />
       <label htmlFor="maxOrders">Máximo número de pedidos:</label>
       <input type="text" id="maxOrders" {...register("maxOrders")} />
+      <label htmlFor="location">Sucursal:</label>
+      <select id="location" {...register("location")}>
+        <option value="SAN_JUAN">San Juan</option>
+        <option value="MENDOZA">Mendoza</option>
+      </select>
       <button type="submit">{newCouponLoading ? "CARGANDO" : "CREAR"}</button>
     </form>
   );

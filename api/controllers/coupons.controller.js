@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function postCoupon(req, res, next) {
-  const { name, discount, expirationDate, maxOrders } = req.body;
+  const { name, discount, expirationDate, maxOrders, location } = req.body;
 
   try {
     const coupon = await prisma.coupon.create({
@@ -11,6 +11,7 @@ async function postCoupon(req, res, next) {
         discount: Number(discount),
         expirationDate: new Date(expirationDate),
         maxOrders: Number(maxOrders),
+        location,
       },
     });
 
