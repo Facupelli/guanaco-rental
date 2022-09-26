@@ -3,6 +3,7 @@
 .bg_grey {
   background-color: $bg-grey;
   min-height: 100vh;
+  padding-bottom: 3rem;
 }
 
 .nav {
@@ -54,5 +55,16 @@
 @media (max-width: 768px) {
   .petitions_grid{
     grid-template-columns: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav{
+    flex-wrap: wrap;
+    row-gap: 0rem;
+
+    .nav_li{
+      flex-grow: 1;
+    }
   }
 }

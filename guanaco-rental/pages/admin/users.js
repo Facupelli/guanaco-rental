@@ -27,7 +27,7 @@ export default function AdminUsersPage({ clients, newCLients, admins }) {
   const [clientUsers, setClientUsers] = useState(clients);
   const [adminUsers, setAdminUsers] = useState(admins);
 
-  const { data: session } = useSession;
+  const { data: session } = useSession();
 
   const getNewClientUsers = async () => {
     setLoading(true);

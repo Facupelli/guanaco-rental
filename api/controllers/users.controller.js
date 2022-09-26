@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { sendMail } = require("../utils/mailer");
 const prisma = new PrismaClient();
 
 async function postUser(req, res, next) {
@@ -63,6 +64,15 @@ async function putUser(req, res, next) {
       },
     });
 
+    const mailData = {
+      email: updatedUser.email,
+      fullName: updatedUser.fullName,
+    };
+
+    const sendConfirmationMail = await sendMail(mailData, {
+      clientConfirmation: true,
+    });
+
     res.json({ message: "success", updatedUser });
   } catch (e) {
     next(e);
@@ -109,7 +119,7 @@ async function getUsers(req, res, next) {
 
     if (admins) {
       users = await prisma.user.findMany({
-        where: { OR: [{ role: "ADMIN" }, { role: "EMPLOYEE" }] }, 
+        where: { OR: [{ role: "ADMIN" }, { role: "EMPLOYEE" }] },
         orderBy: { updatedAt: "desc" },
         include: { orders: true },
       });
