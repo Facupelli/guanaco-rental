@@ -44,7 +44,7 @@ async function sendMail(mailOptions) {
         partialsDir: path.resolve("./api/utils/views/"),
         defaultLayout: false,
       },
-      viewPath: path.resolve("./utils/views/"),
+      viewPath: path.resolve("./api/utils/views/"),
     };
 
     transport.use("compile", hbs(handlebarOptions));
