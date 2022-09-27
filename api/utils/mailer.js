@@ -3,7 +3,7 @@ const path = require("path");
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 
-async function sendMail(data, client) {
+async function sendMail(mailOptions) {
   const CLIENT_EMAIL = process.env.CLIENT_MAIL;
   const CLIENT_ID = process.env.MAIL_CLIENT_ID;
   const CLIENT_SECRET = process.env.MAIL_CLIENT_SECRET;
@@ -44,55 +44,10 @@ async function sendMail(data, client) {
         partialsDir: path.resolve("./api/utils/views/"),
         defaultLayout: false,
       },
-      viewPath: path.resolve("./api/utils/views/"),
+      viewPath: path.resolve("./utils/views/"),
     };
 
     transport.use("compile", hbs(handlebarOptions));
-
-    let mailOptions;
-
-    if (client) {
-      mailOptions = {
-        from: `Guanaco Rental <${CLIENT_EMAIL}>`,
-        to: `${data.email}`,
-        subject: `PEDIDO RECIBIDO`,
-        template: "orderSuccessToClient",
-        context: {
-          fullName: `${data.fullName}`,
-          pickupHour: `${data.pickupHour}`,
-          pickupDay: `${data.pickupDay}`,
-          returnDay: `${data.returnDay}`,
-          totalPrice: `${data.totalPrice}`,
-          equipment: data.equipment,
-        },
-      };
-    } else if (client?.clientConfirmation) {
-      mailOptions = {
-        from: `Guanaco Rental <${CLIENT_EMAIL}>`,
-        to: `${data.email}`,
-        subject: `ALTA DE CLIENTE`,
-        template: "clientApproved",
-        context: {
-          fullName: `${data.fullName}`,
-        },
-      };
-    } else {
-      mailOptions = {
-        from: `Guanaco Rental <${CLIENT_EMAIL}>`,
-        to: "hola@guanacorental.com",
-        subject: `NUEVO PEDIDO`,
-        template: "orderSuccessTemplate",
-        context: {
-          number: `${data.number}`,
-          location: `${data.location}`,
-          name: `${data.user}`,
-          phone: `${data.phone}`,
-          email: `${data.email}`,
-          dates: `${data.dates}`,
-          equipment: data.equipment,
-        },
-      };
-    }
 
     const result = await transport.sendMail(mailOptions);
     return result;

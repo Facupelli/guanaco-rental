@@ -100,6 +100,8 @@ async function postOrder(req, res, next) {
 
   // SEND EMAIL TO ADMINS & WS MESSAGE TO USER
   try {
+    const CLIENT_EMAIL = process.env.CLIENT_MAIL;
+
     const orderData = await prisma.order.findUnique({
       where: { id: newOrder.id },
       include: {
@@ -120,31 +122,46 @@ async function postOrder(req, res, next) {
         }`
     );
 
-    const mailData = {
-      number: orderData.number,
-      location: orderData.location,
-      user: orderData.user.fullName,
-      phone: orderData.user.phone,
-      email: orderData.user.email,
-      dates: orderData.booking.dates.join(", "),
-      equipment,
-      totalPrice: orderData.totalPrice,
+    const mailToClient = {
+      from: `Guanaco Rental <${CLIENT_EMAIL}>`,
+      to: `${orderData.user.email}`,
+      subject: `PEDIDO RECIBIDO`,
+      template: "orderSuccessToClient",
+      context: {
+        fullName: `${orderData.user.fullName}`,
+        pickupHour: `${orderData.booking.pickupHour}`,
+        pickupDay: `${new Date(orderData.booking.dates[0]).toLocaleDateString(
+          "es-AR"
+        )}`,
+        returnDay: `${new Date(
+          orderData.booking.dates[orderData.booking.dates.length - 1]
+        ).toLocaleDateString("es-AR")}`,
+        totalPrice: `${orderData.totalPrice}`,
+        equipment,
+      },
     };
 
-    const clientData = {
-      email: orderData.user.email,
-      fullName: orderData.user.fullName,
-      pickupHour: orderData.booking.pickupHour,
-      pickupDay: new Date(orderData.booking.dates[0]).toLocaleDateString(),
-      returnDay: new Date(
-        orderData.booking.dates[orderData.booking.dates.length - 1]
-      ).toLocaleDateString(),
-      equipment,
-      totalPrice: orderData.totalPrice,
+    const mailToGuanaco = {
+      from: `Guanaco Rental <${CLIENT_EMAIL}>`,
+      to: "hola@guanacorental.com",
+      subject: `NUEVO PEDIDO`,
+      template: "orderSuccessTemplate",
+      context: {
+        number: `${orderData.number}`,
+        location: `${orderData.location}`,
+        name: `${orderData.user.fullName}`,
+        phone: `${orderData.user.phone}`,
+        email: `${orderData.user.email}`,
+        dates: `${orderData.booking.dates
+          .map((date) => new Date(date).toLocaleDateString("es-AR"))
+          .join(", ")}`,
+        totalPrice: orderData.totalPrice,
+        equipment,
+      },
     };
 
-    const mailSentToGuanaco = await sendMail(mailData);
-    const mailSentToClient = await sendMail(clientData, true);
+    const mailSentToGuanaco = await sendMail(mailToGuanaco);
+    const mailSentToClient = await sendMail(mailToClient);
 
     // const msgData = {
     //   phone: orderData.user.phone,

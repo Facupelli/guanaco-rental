@@ -64,14 +64,19 @@ async function putUser(req, res, next) {
       },
     });
 
-    const mailData = {
-      email: updatedUser.email,
-      fullName: updatedUser.fullName,
+    const CLIENT_EMAIL = process.env.CLIENT_MAIL;
+
+    const mailOptions = {
+      from: `Guanaco Rental <${CLIENT_EMAIL}>`,
+      to: `${updatedUser.email}`,
+      subject: `ALTA DE CLIENTE`,
+      template: "clientApproved",
+      context: {
+        fullName: `${updatedUser.fullName}`,
+      },
     };
 
-    const sendConfirmationMail = await sendMail(mailData, {
-      clientConfirmation: true,
-    });
+    const sendConfirmationMail = await sendMail(mailOptions);
 
     res.json({ message: "success", updatedUser });
   } catch (e) {
