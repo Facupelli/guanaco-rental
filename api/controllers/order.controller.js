@@ -52,7 +52,7 @@ async function postOrder(req, res, next) {
       data: {
         dates: data.dates,
         pickupHour: data.pickupHour,
-        pickupDay: data.dates[0],
+        pickupDay: new Date(data.dates[0]),
       },
     });
 
