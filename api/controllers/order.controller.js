@@ -332,7 +332,28 @@ async function deleteOrderById(req, res, next) {
     if (id) {
       const deletedOrder = await prisma.book.delete({
         where: id,
+        include: {
+          order: {
+            select: { user: { select: { fullName: true, email: true } } },
+          },
+        },
       });
+
+      const CLIENT_EMAIL = process.env.CLIENT_MAIL;
+
+      console.log(deletedOrder);
+
+      const mailToClient = {
+        from: `Guanaco Rental <${CLIENT_EMAIL}>`,
+        to: `${deletedOrder.order.user.email}`,
+        subject: `PEDIDO CANCELADO`,
+        template: "orderDeletedToClient",
+        context: {
+          fullName: `${deletedOrder.order.user.fullName}`,
+        },
+      };
+
+      const sendMailToClient = sendMail(mailToClient);
 
       res.json({ message: "success", deletedOrder });
     }
