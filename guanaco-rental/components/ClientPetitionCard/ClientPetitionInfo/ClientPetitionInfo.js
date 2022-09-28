@@ -15,7 +15,7 @@ export default function ClientPetitionInfo({
 }) {
   // const { blob, setBlob, downloadDni } = useDownloadBlob();
 
-  const [dniUrl, setDniUrl] = useState("")
+  const [dniUrl, setDniUrl] = useState("");
 
   const onClickApprove = async (approved) => {
     const data = JSON.stringify({
@@ -61,33 +61,17 @@ export default function ClientPetitionInfo({
       )}
       <div className={s.data_wrapper}>
         <ul>
-          <li>Nombre Completo:</li>
-          <li>DNI:</li>
-          <li>DNI foto anverso:</li>
-          <li>DNI foto dorso:</li>
-          <li>Celular:</li>
-          <li>Fecha Nacimiento:</li>
-          <li>Domicilio:</li>
-          <li>Localidad:</li>
-          <li>Provincia:</li>
-          <li>Ocupacion:</li>
-          <li>Estudiante:</li>
-          <li>Empleado:</li>
-          <li>Empresa:</li>
-          <li>CUIT:</li>
-          <li>Razon Social:</li>
-          <li>CONTACTOS</li>
-          <li>contacto 1:</li>
-          <li>contacto 2:</li>
-          <li>contacto 3:</li>
-          <li>CUENTA BANCARIA</li>
-          <li>Banco:</li>
-          <li>Alias:</li>
-          <li>CBU:</li>
-        </ul>
-        <ul>
+          <li>
+            <strong>Nombre Completo:</strong>
+          </li>
           <li>{user.fullName}</li>
+          <li>
+            <strong>DNI:</strong>
+          </li>
           <li>{user.dniNumber}</li>
+          <li>
+            <strong>DNI foto anverso:</strong>
+          </li>
           <li>
             {/* <a
             href={`${user.dni.dniFront}`}
@@ -96,12 +80,12 @@ export default function ClientPetitionInfo({
           >
             dni frente
           </a> */}
-            <button
-              type="button"
-              onClick={() => setDniUrl(user.dni.dniFront)}
-            >
+            <button type="button" onClick={() => setDniUrl(user.dni.dniFront)}>
               ver foto
             </button>
+          </li>
+          <li>
+            <strong>DNI foto dorso:</strong>
           </li>
           <li>
             {/* <a
@@ -115,22 +99,62 @@ export default function ClientPetitionInfo({
               ver foto
             </button>
           </li>
+          <li>
+            <strong>Celular:</strong>
+          </li>
           <li>{user.phone}</li>
+          <li>
+            <strong>Fecha Nacimiento:</strong>
+          </li>
           <li>{new Date(user.birthDate).toLocaleDateString()}</li>
+          <li>
+            <strong>Domicilio:</strong>
+          </li>
           <li>{user.address}</li>
+          <li>
+            <strong>Localidad:</strong>
+          </li>
           <li>{user.addressLocation}</li>
+          <li>
+            <strong>Provincia:</strong>
+          </li>
           <li>{user.addressProvince}</li>
+          <li>
+            <strong>Ocupacion:</strong>
+          </li>
           <li>{user.occupation}</li>
+          <li>
+            <strong>Estudiante:</strong>
+          </li>
           <li>{user.student ? "SI" : "NO"}</li>
+          <li>
+            <strong>Empleado:</strong>
+          </li>
           <li>{user.employee ? "SI" : "NO"}</li>
+          <li>
+            <strong>Empresa:</strong>
+          </li>
           <li>{user.company ? user.company : "-"}</li>
+          <li>
+            <strong>CUIT:</strong>
+          </li>
           <li>{user.cuit}</li>
+          <li>
+            <strong>Razon Social:</strong>
+          </li>
           <li>{user.bussinessName ? user.bussinessName : "-"}</li>
+          <li>CONTACTOS</li>
           <li>--------------</li>
+          <li>
+            <strong>contacto 1</strong>:
+          </li>
           <li>
             {user.contacts.contact1} {"("}
             {user.contacts.bond1}
             {")"}
+          </li>
+          <li>
+            <strong>contacto 2</strong>:
           </li>
           <li>
             {user.contacts.contact2} {"("}
@@ -138,13 +162,26 @@ export default function ClientPetitionInfo({
             {")"}
           </li>
           <li>
+            <strong>contacto 3</strong>:
+          </li>
+          <li>
             {user.contacts.contact3} {"("}
             {user.contacts.bond3}
             {")"}
           </li>
+          <li>CUENTA BANCARIA</li>
           <li>--------------</li>
+          <li>
+            <strong>Banco:</strong>
+          </li>
           <li>{user.bank}</li>
+          <li>
+            <strong>Alias:</strong>
+          </li>
           <li>{user.alias}</li>
+          <li>
+            <strong>CBU:</strong>
+          </li>
           <li>{user.cbu}</li>
         </ul>
         <div className={s.btns_wrapper}>

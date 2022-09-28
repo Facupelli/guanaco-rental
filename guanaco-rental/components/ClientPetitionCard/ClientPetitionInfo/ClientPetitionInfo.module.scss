@@ -1,8 +1,6 @@
 @import "../../../styles/app.scss";
 
 .data_wrapper {
-  display: grid;
-  grid-template-columns: 50% 50%;
   margin-bottom: 2rem;
   border: 1px solid $s-gray;
   border-radius: 0.2rem;
@@ -12,12 +10,19 @@
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 
   ul {
+    display: grid;
+    grid-template-columns: 50% 50%;
+
     li {
       padding-bottom: 0.3rem;
-      >button{
+      > button {
         @include m-button-orange;
-        padding: .3rem;
-        font-size: .7em;
+        padding: 0.3rem;
+        font-size: 0.7em;
+      }
+
+      strong {
+        font-weight: 500;
       }
     }
   }
@@ -35,6 +40,22 @@
 
     .m_button {
       @include m-button;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .data_wrapper {
+    ul {
+      grid-template-columns: 100%;
+
+      li {
+        padding-bottom: 0.2rem;
+
+        &:nth-child(even) {
+          margin-bottom: 0.5rem;
+        }
+      }
     }
   }
 }
