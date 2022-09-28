@@ -50,9 +50,9 @@ export default function EquipmentFilters({
           />
         </label>
         <div className={s.mobile_filters} ref={filtersRef}>
-          {/* <div className={s.select_location_wrapper}>
+          <div className={s.select_location_wrapper}>
             <SelectLoaction />
-          </div> */}
+          </div>
           <div className={s.flex_column}>
             {/* <label>Filtrar por:</label> */}
             <button type="button" onClick={() => setDatePickup(true)}>

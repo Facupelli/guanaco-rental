@@ -16,6 +16,7 @@ import {
   setLocation,
   setShowModal,
 } from "../../redux/features/location/locationSlice";
+import { setPickupHour } from "../../redux/features/pickupDate/pickupDateSlice";
 
 //COMPONENTS
 import Bookeable from "../../components/Bookeable/Bookeable";
@@ -60,14 +61,14 @@ export default function Home({ showNewModal }) {
     }
   }, [dispatch, cart?.length]);
 
-  // useEffect(() => {
-  //   const localLocation = localStorage.getItem("location");
-  //   if (localLocation) {
-  //     dispatch(setLocation(localLocation));
-  //   } else {
-  //     dispatch(setShowModal(true));
-  //   }
-  // }, [dispatch]);
+  useEffect(() => {
+    const localLocation = localStorage.getItem("location");
+    if (localLocation) {
+      dispatch(setLocation(localLocation));
+    } else {
+      dispatch(setShowModal(true));
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     if (
@@ -77,6 +78,14 @@ export default function Home({ showNewModal }) {
       dispatch(setLocation("SAN_JUAN"));
     }
   }, [dispatch, session?.user.role, location]);
+
+  useEffect(() => {
+    if (location === "SAN_JUAN") {
+      dispatch(setPickupHour("09:00hs"));
+    } else {
+      dispatch(setPickupHour("08:30hs"));
+    }
+  }, [location, dispatch]);
 
   return (
     <div className={s.container}>

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   date_range: [],
-  pickup_hour: "09:00",
+  pickup_hour: "",
 };
 
 export const pickupDateSlice = createSlice({

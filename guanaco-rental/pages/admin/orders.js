@@ -28,9 +28,12 @@ export default function AdminOrdersPage({}) {
 
   //pagination
   const [skip, setSkip] = useState(0);
+  const [sortBy, setSortBy] = useState("");
 
-  const { orders, totalOrders, loading, refetchOrders } =
-    useFetchAllOrders(skip);
+  const { orders, totalOrders, loading, refetchOrders } = useFetchAllOrders(
+    skip,
+    sortBy
+  );
 
   return (
     <div className={s.grey_bg}>
@@ -42,6 +45,13 @@ export default function AdminOrdersPage({}) {
       <AdminMain title="Pedidos">
         <div className={s.select_location_wrapper}>
           <SelectLoaction adminPanel={session?.user.role === "ADMIN"} />
+          <div className={s.sortBy_wrapper}>
+            <label>Ordenar por:</label>
+            <select onChange={(e) => setSortBy(e.target.value)}>
+              <option value="desc">Últimos pedidos creados</option>
+              <option value="booking">Próximos pedidos a entregar</option>
+            </select>
+          </div>
         </div>
 
         <div className={s.table_titles}>

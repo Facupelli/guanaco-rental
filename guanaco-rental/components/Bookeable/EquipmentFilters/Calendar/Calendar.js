@@ -17,7 +17,8 @@ export default function CalendarComponent({
   const calendarRef = useRef(null);
   const dispatch = useDispatch();
 
-  const pickupHour = useSelector(state => state.date.pickup_hour)
+  const location = useSelector((state) => state.location.city);
+  const pickupHour = useSelector((state) => state.date.pickup_hour);
 
   useOnClickOutside(
     calendarRef,
@@ -34,7 +35,11 @@ export default function CalendarComponent({
 
   useEffect(() => {
     if (dateRange && new Date(dateRange[0]).getDay() !== 5) {
-      dispatch(setPickupHour("09:00"));
+      if (location === "SAN_JUAN") {
+        dispatch(setPickupHour("09:00"));
+      } else {
+        dispatch(setPickupHour("08:30"));
+      }
     }
   }, [dateRange, dispatch]);
 
@@ -87,7 +92,11 @@ export default function CalendarComponent({
               !dateRange || (dateRange && new Date(dateRange[0]).getDay() !== 5)
             }
           >
-            <option value="09:00">09:00</option>
+            {location === "SAN_JUAN" ? (
+              <option value="09:00">09:00</option>
+            ) : (
+              <option value="09:00">08:30</option>
+            )}
             <option value="20:00">20:00</option>
           </select>
           <span>hs</span>

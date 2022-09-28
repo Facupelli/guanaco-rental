@@ -4,7 +4,10 @@ import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetDate } from "../../redux/features/pickupDate/pickupDateSlice";
+import {
+  resetDate,
+  setPickupHour,
+} from "../../redux/features/pickupDate/pickupDateSlice";
 import { cleanCart, setCart } from "../../redux/features/cart/cartSlice";
 import { setUserId } from "../../redux/features/user/userSlice";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -56,6 +59,16 @@ export default function CartPage() {
       }
     }
   }, [dispatch, cart?.length]);
+
+  useEffect(() => {
+    if (!pickupHour) {
+      if (location === "SAN_JUAN") {
+        dispatch(setPickupHour("09:00hs"));
+      } else {
+        dispatch(setPickupHour("08:30hs"));
+      }
+    }
+  }, [location, dispatch]);
 
   const [freeOrder, setFreeOrder] = useState(false);
 

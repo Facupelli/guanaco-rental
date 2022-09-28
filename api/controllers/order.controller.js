@@ -52,6 +52,7 @@ async function postOrder(req, res, next) {
       data: {
         dates: data.dates,
         pickupHour: data.pickupHour,
+        pickupDay: data.dates[0],
       },
     });
 
@@ -253,7 +254,7 @@ async function putOrder(req, res, next) {
 
 async function getOrders(req, res, next) {
   try {
-    const { skip, location } = req.query;
+    const { skip, location, order } = req.query;
 
     if (!skip) {
       const allOrders = await prisma.order.findMany({
@@ -271,10 +272,25 @@ async function getOrders(req, res, next) {
       return;
     }
 
+    let orderByPipeline = {};
+    let wherePipeline = {
+      location: location === "all" || !location ? undefined : location,
+    };
+
+    if (order === "desc" || !order) {
+      orderByPipeline.createdAt = "desc";
+    }
+    if (order === "booking") {
+      orderByPipeline.booking = {
+        pickupDay: "asc",
+      };
+      wherePipeline.booking = {
+        pickupDay: { gte: new Date() },
+      };
+    }
+
     const orders = await prisma.order.findMany({
-      where: {
-        location: location === "all" || !location ? undefined : location,
-      },
+      where: wherePipeline,
       include: {
         _count: {},
         user: true,
@@ -282,9 +298,7 @@ async function getOrders(req, res, next) {
         booking: true,
         coupon: { select: { name: true } },
       },
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy: orderByPipeline,
       skip: Number(skip),
       take: 10,
     });
@@ -340,8 +354,6 @@ async function deleteOrderById(req, res, next) {
       });
 
       const CLIENT_EMAIL = process.env.CLIENT_MAIL;
-
-      console.log(deletedOrder);
 
       const mailToClient = {
         from: `Guanaco Rental <${CLIENT_EMAIL}>`,

@@ -34,6 +34,7 @@ model User {
   orders                  Order[]
   dniNumber               String?
   dni                     Json?
+  thumbPic                String?
   birthDate               DateTime?
   address                 String?
   addressLocation         String?
@@ -108,12 +109,14 @@ model Order {
   fixedDiscount           FixedDiscount?      @relation(fields: [fixedDiscountId], references: [id])
   fixedDiscountId         String?
   location                Location            @default(SAN_JUAN)
+  message                 String?
   createdAt               DateTime            @default(now())
 }
 
 model Book {
   id                      String                @default(cuid()) @id
   dates                   String[]
+  pickupDay               DateTime?
   pickupHour              String                @default("09:00")
   equipments              BookOnEquipment[]
   order                   Order?
