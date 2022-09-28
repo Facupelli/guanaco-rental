@@ -41,7 +41,7 @@ export default function CalendarComponent({
         dispatch(setPickupHour("08:30"));
       }
     }
-  }, [dateRange, dispatch]);
+  }, [dateRange, location, dispatch]);
 
   const gearBookingDisabled = ({ date }) => {
     if (daysTaken.find((day) => new Date(day).getTime() === date.getTime())) {

@@ -68,7 +68,7 @@ export default function CartPage() {
         dispatch(setPickupHour("08:30hs"));
       }
     }
-  }, [location, dispatch]);
+  }, [location, dispatch, pickupHour]);
 
   const [freeOrder, setFreeOrder] = useState(false);
 
