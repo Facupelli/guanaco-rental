@@ -156,6 +156,8 @@ export default function CartPage() {
         console.log("ERROR POST ORDER", e);
       });
 
+    console.log("NEWORDER", newOrder);
+
     if (newOrder && newOrder.message === "success") {
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
       dispatch(resetDate());
