@@ -19,8 +19,6 @@ async function postOrder(req, res, next) {
       )
     );
 
-    console.log("UPDATEDCART", updatedCart);
-
     newCart = data.cart.map((item) => {
       if (!item.quantity) {
         return { ...updatedCart.find((el) => el.id === item.id), quantity: 1 };
@@ -31,8 +29,6 @@ async function postOrder(req, res, next) {
       };
     });
 
-    console.log("NEWCART", newCart);
-
     //check availability for dates
     if (!areAllItemsAvailable(newCart, data.dates)) {
       res.json({
@@ -41,8 +37,6 @@ async function postOrder(req, res, next) {
       });
       return;
     }
-
-    console.log("ULTIMO");
   } catch (e) {
     res.json({
       message: "error when checking bookings for equipment",

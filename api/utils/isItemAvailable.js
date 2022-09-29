@@ -1,4 +1,6 @@
 const isAvailable = (dates, item) => {
+  const newBookReturnDay = dates[dates.length - 1];
+
   const filtered = item.bookings.filter((bookModel) => {
     const bookedDates = bookModel.book.dates.slice(
       0,
