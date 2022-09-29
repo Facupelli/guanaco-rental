@@ -147,12 +147,14 @@ export default function CartPage() {
       }
     )
       .then((response) => response.json())
-      .catch((e) =>
+      .catch((e) => {
         setShowModal((prev) => ({
           ...prev,
           eror: "error, vuelve a intentarlo",
-        }))
-      );
+          loading: false,
+        }));
+        console.log("ERROR POST ORDER", e);
+      });
 
     if (newOrder && newOrder.message === "success") {
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
@@ -264,6 +266,7 @@ export default function CartPage() {
                 date.length > 0 &&
                 cart.length > 0 &&
                 totalCartPrice > 0 &&
+                location &&
                 areAllItemsAvailable(cart, date)
                   ? false
                   : true
