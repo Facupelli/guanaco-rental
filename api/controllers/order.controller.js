@@ -32,6 +32,7 @@ async function postOrder(req, res, next) {
     //check availability for dates
     if (!areAllItemsAvailable(newCart, data.dates)) {
       res.json({
+        error: true,
         message: "some equipment is booked for that date, refresh page",
       });
       return;

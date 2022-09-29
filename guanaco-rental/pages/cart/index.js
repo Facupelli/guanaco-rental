@@ -153,10 +153,15 @@ export default function CartPage() {
           eror: "error, vuelve a intentarlo",
           loading: false,
         }));
-        console.log("ERROR POST ORDER", e);
       });
 
-    console.log("NEWORDER", newOrder);
+    if (newOrder.error) {
+      setShowModal((prev) => ({
+        ...prev,
+        eror: `error: ${newOrder.message}`,
+        loading: false,
+      }));
+    }
 
     if (newOrder && newOrder.message === "success") {
       router.push(`/newOrder/success?id=${newOrder.newOrder.id}`);
