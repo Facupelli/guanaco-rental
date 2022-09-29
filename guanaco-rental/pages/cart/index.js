@@ -4,13 +4,18 @@ import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+
 import {
   resetDate,
   setPickupHour,
 } from "../../redux/features/pickupDate/pickupDateSlice";
 import { cleanCart, setCart } from "../../redux/features/cart/cartSlice";
 import { setUserId } from "../../redux/features/user/userSlice";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  setLocation,
+  setShowModal,
+} from "../../redux/features/location/locationSlice";
 
 import { useSumCartItems } from "../../hooks/useSumCartItems";
 import { useCartTotal } from "../../hooks/useCartTotal";
@@ -70,9 +75,18 @@ export default function CartPage() {
     }
   }, [location, dispatch, pickupHour]);
 
+  useEffect(() => {
+    const localLocation = localStorage.getItem("location");
+    if (localLocation) {
+      dispatch(setLocation(localLocation));
+    } else {
+      dispatch(setShowModal(true));
+    }
+  }, [dispatch]);
+
   const [freeOrder, setFreeOrder] = useState(false);
 
-  const [showModal, setShowModal] = useState({
+  const [showMessageModal, setShowMessageModal] = useState({
     modal: false,
     loading: false,
     error: "",
@@ -114,14 +128,14 @@ export default function CartPage() {
     }
     if (!userData.customerApproved) {
       //alta de cliente no aprobada
-      setShowModal((prev) => ({
+      setShowMessageModal((prev) => ({
         ...prev,
         modal: true,
       }));
       return;
     }
 
-    setShowModal((prev) => ({ ...prev, loading: true }));
+    setShowMessageModal((prev) => ({ ...prev, loading: true }));
 
     const data = JSON.stringify({
       cart,
@@ -148,7 +162,7 @@ export default function CartPage() {
     )
       .then((response) => response.json())
       .catch((e) => {
-        setShowModal((prev) => ({
+        setShowMessageModal((prev) => ({
           ...prev,
           error: "error, vuelve a intentarlo",
           loading: false,
@@ -156,7 +170,7 @@ export default function CartPage() {
       });
 
     if (newOrder.error) {
-      setShowModal((prev) => ({
+      setShowMessageModal((prev) => ({
         ...prev,
         error: `error: ${newOrder.message}`,
         loading: false,
@@ -194,11 +208,11 @@ export default function CartPage() {
           setDatePickup={setDatePickup}
         />
       )}
-      {showModal.modal && (
+      {showMessageModal.modal && (
         <MessageModal
           showButton
           btnFunc={() =>
-            setShowModal((prev) => ({
+            setShowMessageModal((prev) => ({
               ...prev,
               modal: false,
             }))
@@ -208,24 +222,24 @@ export default function CartPage() {
           hasta 48hs.
         </MessageModal>
       )}
-      {showModal.loading && (
+      {showMessageModal.loading && (
         <LoadingModal>
           <div className={s.processing_flex}>
             Procesando <Loader />
           </div>
         </LoadingModal>
       )}
-      {showModal.error && (
+      {showMessageModal.error && (
         <MessageModal
           showButton
           btnFunc={() =>
-            setShowModal((prev) => ({
+            setShowMessageModal((prev) => ({
               ...prev,
               error: "",
             }))
           }
         >
-          <p>{showModal.error}</p>
+          <p>{showMessageModal.error}</p>
         </MessageModal>
       )}
       <main className={s.main}>
