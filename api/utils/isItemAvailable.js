@@ -4,7 +4,16 @@ const isAvailable = (dates, item) => {
       0,
       bookModel.book.dates.length - 1
     );
-    return bookedDates.filter((date) => dates.indexOf(date) >= 0).length > 0;
+    const bookedPickupDay = bookedDates[0];
+    return (
+      bookedDates.filter((date) => {
+        if (bookedPickupDay === newBookReturnDay) {
+          return false;
+        } else {
+          return dates.indexOf(date) >= 0;
+        }
+      }).length > 0
+    );
   });
 
   if (filtered.length > 0) {

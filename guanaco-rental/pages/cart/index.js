@@ -150,7 +150,7 @@ export default function CartPage() {
       .catch((e) => {
         setShowModal((prev) => ({
           ...prev,
-          eror: "error, vuelve a intentarlo",
+          error: "error, vuelve a intentarlo",
           loading: false,
         }));
       });
@@ -158,7 +158,7 @@ export default function CartPage() {
     if (newOrder.error) {
       setShowModal((prev) => ({
         ...prev,
-        eror: `error: ${newOrder.message}`,
+        error: `error: ${newOrder.message}`,
         loading: false,
       }));
     }
@@ -221,7 +221,7 @@ export default function CartPage() {
           btnFunc={() =>
             setShowModal((prev) => ({
               ...prev,
-              eror: "",
+              error: "",
             }))
           }
         >
