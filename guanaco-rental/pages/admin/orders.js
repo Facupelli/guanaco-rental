@@ -48,8 +48,8 @@ export default function AdminOrdersPage({}) {
           <div className={s.sortBy_wrapper}>
             <label>Ordenar por:</label>
             <select onChange={(e) => setSortBy(e.target.value)}>
-              <option value="desc">Últimos pedidos creados</option>
               <option value="booking">Próximos pedidos a entregar</option>
+              <option value="desc">Últimos pedidos creados</option>
             </select>
           </div>
         </div>
