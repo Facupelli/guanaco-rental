@@ -107,7 +107,7 @@ export default function Home({ showNewModal }) {
         />
         <link
           rel="dns-prefetch"
-          href="https://www.googletagmanager.com/gtag/"
+          href="https://www.googletagmanager.com/gtag"
         />
       </Head>
 
