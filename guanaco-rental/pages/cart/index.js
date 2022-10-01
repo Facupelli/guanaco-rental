@@ -72,11 +72,13 @@ export default function CartPage() {
   }, [location, dispatch, pickupHour]);
 
   useEffect(() => {
-    const localLocation = localStorage.getItem("location");
-    if (localLocation) {
-      dispatch(setLocation(localLocation));
-    } else {
-      dispatch(setShowModal(true));
+    if (!location) {
+      const localLocation = localStorage.getItem("location");
+      if (localLocation) {
+        dispatch(setLocation(localLocation));
+      } else {
+        dispatch(setShowModal(true));
+      }
     }
   }, [dispatch]);
 
@@ -165,7 +167,7 @@ export default function CartPage() {
         }));
       });
 
-    if (newOrder.error) {
+    if (newOrder?.error) {
       setShowMessageModal((prev) => ({
         ...prev,
         error: `error: ${newOrder.message}`,
