@@ -37,6 +37,15 @@ export const getOwnerEarningsByOrder = (order) => {
     }
   }
 
+  if (order.coupon) {
+    const discount = order.coupon.discount / 100;
+    return {
+      totalFederico: totalFederico * discount,
+      totalOscar: totalOscar * discount,
+      totalSub: totalSub * discount,
+    };
+  }
+
   return {
     totalFederico,
     totalOscar,
@@ -46,8 +55,6 @@ export const getOwnerEarningsByOrder = (order) => {
 
 export const getEachTotalEarnings = (orders) => {
   const eachEarnings = orders.map((order) => getOwnerEarningsByOrder(order));
-
-  console.log("EACH EARNINGS BY ORDER", eachEarnings);
 
   const federicoEarnings = eachEarnings.reduce((curr, acc) => {
     return curr + acc.totalFederico;
