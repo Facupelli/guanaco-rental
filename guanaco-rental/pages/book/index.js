@@ -79,14 +79,6 @@ export default function Home({ showNewModal }) {
     }
   }, [dispatch, session?.user.role, location]);
 
-  useEffect(() => {
-    if (location === "SAN_JUAN") {
-      dispatch(setPickupHour("09:00hs"));
-    } else {
-      dispatch(setPickupHour("08:30hs"));
-    }
-  }, [location, dispatch]);
-
   return (
     <div className={s.container}>
       <Head>
@@ -105,10 +97,7 @@ export default function Home({ showNewModal }) {
           rel="preconnect"
           href="https://www.guanacorental.shop/rentalapi"
         />
-        <link
-          rel="dns-prefetch"
-          href="https://www.googletagmanager.com/gtag"
-        />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com/gtag" />
       </Head>
 
       <Script

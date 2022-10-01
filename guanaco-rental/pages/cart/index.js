@@ -67,11 +67,7 @@ export default function CartPage() {
 
   useEffect(() => {
     if (!pickupHour) {
-      if (location === "SAN_JUAN") {
-        dispatch(setPickupHour("09:00hs"));
-      } else {
-        dispatch(setPickupHour("08:30hs"));
-      }
+      dispatch(setPickupHour("09:00hs"));
     }
   }, [location, dispatch, pickupHour]);
 

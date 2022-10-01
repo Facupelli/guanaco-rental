@@ -35,11 +35,7 @@ export default function CalendarComponent({
 
   useEffect(() => {
     if (dateRange && new Date(dateRange[0]).getDay() !== 5) {
-      if (location === "SAN_JUAN") {
-        dispatch(setPickupHour("09:00"));
-      } else {
-        dispatch(setPickupHour("08:30"));
-      }
+      dispatch(setPickupHour("09:00"));
     }
   }, [dateRange, location, dispatch]);
 
@@ -92,12 +88,12 @@ export default function CalendarComponent({
               !dateRange || (dateRange && new Date(dateRange[0]).getDay() !== 5)
             }
           >
+            <option value="09:00">09:00</option>
             {location === "SAN_JUAN" ? (
-              <option value="09:00">09:00</option>
+              <option value="20:00">20:00</option>
             ) : (
-              <option value="09:00">08:30</option>
+              <option value="20:30">20:30</option>
             )}
-            <option value="20:00">20:00</option>
           </select>
           <span>hs</span>
         </div>

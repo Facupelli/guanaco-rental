@@ -52,7 +52,8 @@ export default function NewOrderSuccess({ order }) {
         <div>
           <p>
             Recordá que el retiro de los equipos es a las{" "}
-            {order.booking.pickupHour}hs y la devolución es a las 09:00hs
+            {order.booking.pickupHour}hs y la devolución es a las{" "}
+            {order.location === "SAN_JUAN" ? "09:00hs" : "08:30"}hs
           </p>
         </div>
         <div className={s.link_wrapper}>
