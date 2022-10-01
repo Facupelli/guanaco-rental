@@ -80,7 +80,7 @@ export default function CartPage() {
         dispatch(setShowModal(true));
       }
     }
-  }, [dispatch]);
+  }, [dispatch, location]);
 
   const [freeOrder, setFreeOrder] = useState(false);
 
