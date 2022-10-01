@@ -47,6 +47,8 @@ export const getOwnerEarningsByOrder = (order) => {
 export const getEachTotalEarnings = (orders) => {
   const eachEarnings = orders.map((order) => getOwnerEarningsByOrder(order));
 
+  console.log("EACH EARNINGS BY ORDER", eachEarnings);
+
   const federicoEarnings = eachEarnings.reduce((curr, acc) => {
     return curr + acc.totalFederico;
   }, 0);
