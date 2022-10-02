@@ -101,7 +101,6 @@ model Order {
   userId                  String
   equipments              Equipment[]
   totalPrice              Int
-  orderEarnings           OrderEarnings?
   booking                 Book                @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   bookingId               String              @unique
   delivered               Boolean             @default(false)
@@ -111,6 +110,7 @@ model Order {
   fixedDiscountId         String?
   location                Location            @default(SAN_JUAN)
   message                 String?
+  orderEarnings           OrderEarnings?
   createdAt               DateTime            @default(now())
 }
 
