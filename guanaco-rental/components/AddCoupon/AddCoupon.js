@@ -3,11 +3,19 @@ import { handleApplyCoupon } from "../../utils/coupons";
 import Loader from "../Loaders/Loader/Loader";
 import s from "./AddCoupon.module.scss";
 
-export default function AddCoupon({ setCouponApplied, couponApplied, location }) {
+export default function AddCoupon({
+  setCouponApplied,
+  couponApplied,
+  location,
+}) {
   const [couponName, setCoupon] = useState("");
 
   return (
-    <div className={s.coupon}>
+    <div
+      className={`${s.coupon} ${couponApplied.success ? s.green_box : ""} ${
+        couponApplied.error ? s.danger_box : ""
+      }`}
+    >
       <details>
         <summary>Ingresar un cupón de descuento</summary>
         <div>
@@ -18,7 +26,9 @@ export default function AddCoupon({ setCouponApplied, couponApplied, location })
           />
           <button
             type="button"
-            onClick={() => handleApplyCoupon(couponName, setCouponApplied, location)}
+            onClick={() =>
+              handleApplyCoupon(couponName, setCouponApplied, location)
+            }
           >
             {couponApplied.loading ? (
               <div className={s.flex}>
@@ -29,7 +39,10 @@ export default function AddCoupon({ setCouponApplied, couponApplied, location })
             )}
           </button>
         </div>
-        {couponApplied.error && <p>{couponApplied.error}</p>}
+        {couponApplied.success && <p className={s.green}>cupón aplicado</p>}
+        {couponApplied.error && (
+          <p className={s.danger}>{couponApplied.error}</p>
+        )}
       </details>
     </div>
   );
