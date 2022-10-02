@@ -289,7 +289,7 @@ async function getOrders(req, res, next) {
           booking: true,
           equipments: { include: { bookings: true } },
           coupon: { select: { name: true, discount: true } },
-          orderEarnings: true,
+          // orderEarnings: true,
         },
       });
       res.json(allOrders);
