@@ -1,11 +1,7 @@
 import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import {
-  formatPrice,
-  getEachTotalEarnings,
-  getOwnerEarningsByOrder,
-} from "../../utils/price";
+import { formatPrice, getEachEarnings } from "../../utils/price";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useFetchRents } from "../../utils/rents";
 
@@ -27,7 +23,7 @@ export default function AdminRents({ session }) {
 
   const today = useMemo(() => new Date(), []);
 
-  const totalFromOrders = useCallback(
+  const getFilteredOrders = useCallback(
     ({ finished, date }) => {
       const todayTime = today.getTime();
       const filterDateTime = new Date(date).getTime();
@@ -54,49 +50,29 @@ export default function AdminRents({ session }) {
           );
         });
       }
-
-      const total = filteredOrders.reduce((curr, acc) => {
-        return curr + acc.totalPrice;
-      }, 0);
-
-      const eachEarnings = filteredOrders.map((order) =>
-        getOwnerEarningsByOrder(order)
-      );
-
-      const federico = eachEarnings.reduce((curr, acc) => {
-        return curr + acc.totalFederico;
-      }, 0);
-
-      const oscar = eachEarnings.reduce((curr, acc) => {
-        return curr + acc.totalOscar;
-      }, 0);
-
-      const sub = eachEarnings.reduce((curr, acc) => {
-        return curr + acc.totalSub;
-      }, 0);
-
-      return {
-        total,
-        federico,
-        oscar,
-        sub,
-      };
+      return filteredOrders;
     },
-    [orders, today]
+    [today, orders]
   );
 
   useEffect(() => {
-    if (orders && orders.length > 0) {
-      setTotalFinished(totalFromOrders({ finished: true }));
-      setTotalPending(totalFromOrders({ finished: false }));
+    if (orders?.length > 0) {
+      const finishedOrders = getFilteredOrders({ finished: true });
+      setTotalFinished(getEachEarnings(finishedOrders));
+      const pendingOrders = getFilteredOrders({ finished: false });
+      setTotalPending(getEachEarnings(pendingOrders));
     }
-  }, [totalFromOrders, orders]);
+  }, [getFilteredOrders, orders?.length]);
 
   useEffect(() => {
-    if (selectedDate) {
-      setTotalCustom(totalFromOrders({ finished: false, date: selectedDate }));
+    if (selectedDate && orders?.length > 0) {
+      const customOrders = getFilteredOrders({
+        finished: false,
+        date: selectedDate,
+      });
+      setTotalCustom(getEachEarnings(customOrders));
     }
-  }, [selectedDate, totalFromOrders]);
+  }, [selectedDate, getFilteredOrders, orders?.length]);
 
   return (
     <div className={s.grey_bg}>
@@ -121,56 +97,32 @@ export default function AdminRents({ session }) {
                 <span className={s.bold}>Federico:</span>
                 {loading
                   ? "..."
-                  : formatPrice(getEachTotalEarnings(orders).federicoEarnings)}
+                  : formatPrice(getEachEarnings(orders).federico)}
               </p>
               <p>
                 <span className={s.bold}>Oscar:</span>
-                {loading
-                  ? "..."
-                  : formatPrice(getEachTotalEarnings(orders).oscarEarnings)}
+                {loading ? "..." : formatPrice(getEachEarnings(orders).oscar)}
               </p>
               <p>
                 <span className={s.bold}>Subalquiler:</span>
-                {loading
-                  ? "..."
-                  : formatPrice(getEachTotalEarnings(orders).subEarnings)}
+                {loading ? "..." : formatPrice(getEachEarnings(orders).sub)}
               </p>
             </RentsCard>
 
             <RentsCard>
               <h3>FINALIZADAS</h3>
-              <p>
-                Total: {totalFinished.total && formatPrice(totalFinished.total)}
-              </p>
-              <p>
-                Federico:{" "}
-                {totalFinished.federico && formatPrice(totalFinished.federico)}
-              </p>
-              <p>
-                Oscar: {totalFinished.oscar && formatPrice(totalFinished.oscar)}
-              </p>
-              <p>
-                Subalquiler:{" "}
-                {totalFinished.oscar && formatPrice(totalFinished.sub)}
-              </p>
+              <p>Total: {formatPrice(totalFinished.total)}</p>
+              <p>Federico: {formatPrice(totalFinished.federico)}</p>
+              <p>Oscar: {formatPrice(totalFinished.oscar)}</p>
+              <p>Subalquiler: {formatPrice(totalFinished.sub)}</p>
             </RentsCard>
 
             <RentsCard>
               <h3>PENDIENTES</h3>
-              <p>
-                TOTAL: {totalPending.total && formatPrice(totalPending.total)}
-              </p>
-              <p>
-                Federico:{" "}
-                {totalPending.federico && formatPrice(totalPending.federico)}
-              </p>
-              <p>
-                Oscar: {totalPending.oscar && formatPrice(totalPending.oscar)}
-              </p>
-              <p>
-                Subalquiler:{" "}
-                {totalPending.oscar && formatPrice(totalPending.sub)}
-              </p>
+              <p>TOTAL: {formatPrice(totalPending.total)}</p>
+              <p>Federico: {formatPrice(totalPending.federico)}</p>
+              <p>Oscar: {formatPrice(totalPending.oscar)}</p>
+              <p>Subalquiler: {formatPrice(totalPending.sub)}</p>
             </RentsCard>
           </div>
 

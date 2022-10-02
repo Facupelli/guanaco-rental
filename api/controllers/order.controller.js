@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const { areAllItemsAvailable } = require("../utils/isItemAvailable");
 const { sendMail } = require("../utils/mailer");
+const { getOwnerEarningsByOrder } = require("../utils/orderEarnings");
 const { sendWsMessage } = require("../utils/whatsapp");
 const prisma = new PrismaClient();
 
@@ -92,11 +93,32 @@ async function postOrder(req, res, next) {
 
     newOrder = await prisma.order.create({
       data: newData,
+      include: {
+        booking: true,
+        equipments: { include: { bookings: true } },
+        coupon: { select: { name: true, discount: true } },
+      },
+    });
+  } catch (e) {
+    const bookDeleted = await prisma.book.delete({ where: { id: book.id } });
+    next(e);
+  }
+
+  // CREATE ORDER EARNINGS AND CONNECT
+  try {
+    const eachEarnings = getOwnerEarningsByOrder(newOrder);
+
+    const orderEarnings = await prisma.orderEarnings.create({
+      data: {
+        order: { connect: { id: newOrder.id } },
+        federico: eachEarnings.totalFederico ?? 0,
+        oscar: eachEarnings.totalOscar ?? 0,
+        sub: eachEarnings.totalSub ?? 0,
+      },
     });
 
     res.json({ message: "success", newOrder });
   } catch (e) {
-    const bookDeleted = await prisma.book.delete({ where: { id: book.id } });
     next(e);
   }
 
@@ -267,7 +289,7 @@ async function getOrders(req, res, next) {
           booking: true,
           equipments: { include: { bookings: true } },
           coupon: { select: { name: true, discount: true } },
-          // user: true,
+          orderEarnings: true,
         },
       });
       res.json(allOrders);
