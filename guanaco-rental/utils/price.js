@@ -14,15 +14,15 @@ export const getEachEarnings = (orders) => {
   }, 0);
 
   const federico = orders.reduce((curr, acc) => {
-    return curr + (acc.orderEarnings.federico ?? 0);
+    return curr + (acc.orderEarnings?.federico ?? 0);
   }, 0);
 
   const oscar = orders.reduce((curr, acc) => {
-    return curr + (acc.orderEarnings.oscar ?? 0);
+    return curr + (acc.orderEarnings?.oscar ?? 0);
   }, 0);
 
   const sub = orders.reduce((curr, acc) => {
-    return curr + (acc.orderEarnings.sub ?? 0);
+    return curr + (acc.orderEarnings?.sub ?? 0);
   }, 0);
 
   return {
