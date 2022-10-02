@@ -59,8 +59,8 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
     }
   }, [debouncedGearInput, order.location]);
 
-  const pickupDay = new Date(order.booking.dates[0]).toLocaleDateString();
-  const returnDay = new Date(order.booking.dates.at(-1)).toLocaleDateString();
+  const pickupDay = new Date(order.booking.dates[0]).toLocaleDateString("es-AR");
+  const returnDay = new Date(order.booking.dates.at(-1)).toLocaleDateString("es-AR");
 
   const equipmentRows = generatePdfRows(order);
 
@@ -127,7 +127,7 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
           <p>{order.user.fullName}</p>
           <p>{order.user.phone}</p>
           <p className={s.mobile_none}>{order.user.dniNumber}</p>
-          <p>{new Date(order.createdAt).toLocaleDateString()}</p>
+          <p>{new Date(order.createdAt).toLocaleDateString("es-AR")}</p>
           <div className={s.flex_b_100}>
             <div className={s.flex}>
               <p>retiro: {pickupDay}</p>

@@ -34,7 +34,7 @@ export default function ClientCard({ user, admin }) {
               </p>
             )}
             <p className={s.alta}>
-              ALTA: {new Date(user.customerApprovedAt).toLocaleDateString()}
+              ALTA: {new Date(user.customerApprovedAt).toLocaleDateString("es-AR")}
             </p>
           </div>
         )}
