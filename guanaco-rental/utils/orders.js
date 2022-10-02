@@ -39,7 +39,7 @@ export const generatePdfRows = (order) => {
 export const handleDeleteOrder = async (id, orderId, refetchOrders, token) => {
   const order = await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://www.guanacorental.shop/rentalapi/order/${id}`
+      ? `https://www.guanacorental.shop/rentalapi/order/${id}-${orderId}`
       : `http://localhost:3001/order/${id}-${orderId}`,
     {
       method: "DELETE",
