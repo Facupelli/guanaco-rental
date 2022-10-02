@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical, faAdd } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { formatPrice, getOwnerEarningsByOrder } from "../../utils/price";
+import { formatPrice, getEachEarnings } from "../../utils/price";
 import {
   generatePdfRows,
   getOrderStatus,
@@ -73,17 +73,15 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
               <>
                 <div>
                   <p>Federico:</p>
-                  <p className={s.bold}>
-                    {formatPrice(earnings?.totalFederico)}
-                  </p>
+                  <p className={s.bold}>{formatPrice(earnings?.federico)}</p>
                 </div>
                 <div>
                   <p>Oscar:</p>
-                  <p className={s.bold}>{formatPrice(earnings?.totalOscar)}</p>
+                  <p className={s.bold}>{formatPrice(earnings?.oscar)}</p>
                 </div>
                 <div>
                   <p>Subalquiler:</p>
-                  <p className={s.bold}>{formatPrice(earnings?.totalSub)}</p>
+                  <p className={s.bold}>{formatPrice(earnings?.sub)}</p>
                 </div>
               </>
             )}
@@ -92,7 +90,12 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
                 type="button"
                 className={s.cancel_order}
                 onClick={() =>
-                  handleDeleteOrder(order.bookingId, refetchOrders, token)
+                  handleDeleteOrder(
+                    order.bookingId,
+                    order.id,
+                    refetchOrders,
+                    token
+                  )
                 }
               >
                 CANCELAR ORDEN
@@ -159,7 +162,7 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
             className={`${s.elipsis_menu_btn}`}
             aria-label="menu-btn"
             onClick={() => {
-              setEarnings(getOwnerEarningsByOrder(order));
+              setEarnings(getEachEarnings([order]));
               setShowDeleteModal(true);
             }}
           >
@@ -217,7 +220,9 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
           {order.coupon && (
             <p className={s.coupon_name}>cupón: {order.coupon.name}</p>
           )}
-          <p className={s.location}>{order.location === "MENDOZA" ? "MDZ" : "SJ"}</p>
+          <p className={s.location}>
+            {order.location === "MENDOZA" ? "MDZ" : "SJ"}
+          </p>
         </div>
       </div>
     </>

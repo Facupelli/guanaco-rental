@@ -321,6 +321,7 @@ async function getOrders(req, res, next) {
         equipments: { include: { bookings: true } },
         booking: true,
         coupon: { select: { name: true } },
+        orderEarnings: true,
       },
       orderBy: orderByPipeline,
       skip: Number(skip),
@@ -364,12 +365,21 @@ async function getOrderById(req, res, next) {
 }
 
 async function deleteOrderById(req, res, next) {
-  const id = req.params;
+  const { id } = req.params;
+
+  const bookId = id.split("-")[0];
+  const orderId = id.split("-")[1];
 
   try {
     if (id) {
+      const deletedOrderEarnings = await prisma.orderEarnings.delete({
+        where: {
+          orderId: orderId,
+        },
+      });
+
       const deletedOrder = await prisma.book.delete({
-        where: id,
+        where: { id: bookId },
         include: {
           order: {
             select: { user: { select: { fullName: true, email: true } } },
