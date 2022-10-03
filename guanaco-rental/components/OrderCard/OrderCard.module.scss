@@ -97,6 +97,10 @@
     justify-items: flex-start;
     align-items: flex-start;
 
+    strong {
+      font-weight: 500;
+    }
+
     .flex {
       display: flex;
       align-items: baseline;
