@@ -85,7 +85,9 @@ async function putUser(req, res, next) {
 }
 
 async function getUsers(req, res, next) {
-  const { newClients, clients, search, admins } = req.query;
+  const { newClients, clients, skip, search, admins } = req.query;
+
+  console.log(search);
 
   try {
     let users;
@@ -113,12 +115,26 @@ async function getUsers(req, res, next) {
           },
           include: { orders: true },
         });
+        res.json({ users });
+        return;
       } else {
         users = await prisma.user.findMany({
           where: { AND: [{ customerApproved: true }, { role: "USER" }] },
           include: { orders: true },
           orderBy: { customerApprovedAt: "desc" },
+          skip: Number(skip),
+          take: 10,
         });
+
+        const count = await prisma.user.count({
+          where: { AND: [{ customerApproved: true }, { role: "USER" }] },
+          select: {
+            _all: true,
+          },
+        });
+
+        res.json({ users, totalUsers: count._all });
+        return;
       }
     }
 

@@ -1,0 +1,12 @@
+@import "../../styles/app.scss";
+
+.pagination_btns_wrapper {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    button {
+      @include m-button;
+    }
+  }

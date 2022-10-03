@@ -14,6 +14,7 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/AdminOrdersPage.module.scss";
+import PaginationArrows from "../../components/Pagination/PaginationArrows";
 
 export default function AdminOrdersPage({}) {
   const dispatch = useDispatch();
@@ -82,30 +83,7 @@ export default function AdminOrdersPage({}) {
             <p className={s.no_orders_p}>No tienes ningun pedido :(</p>
           )}
         </div>
-        <div className={s.pagination_btn_wrapper}>
-          <button
-            type="button"
-            onClick={() => {
-              if (skip >= 10) {
-                setSkip((prev) => prev - 10);
-              }
-            }}
-            disabled={skip === 0}
-          >
-            {"<-"}
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              if (skip + 10 < totalOrders) {
-                setSkip((prev) => prev + 10);
-              }
-            }}
-            disabled={skip + 10 >= totalOrders}
-          >
-            {"->"}
-          </button>
-        </div>
+        <PaginationArrows skip={skip} setSkip={setSkip} totalCount={totalOrders} />
       </AdminMain>
     </div>
   );

@@ -11,9 +11,11 @@ import ClientPetitionInfo from "../../components/ClientPetitionCard/ClientPetiti
 import Nav from "../../components/Nav/Nav";
 
 import s from "../../styles/AdminUsersPage.module.scss";
+import PaginationArrows from "../../components/Pagination/PaginationArrows";
+import { useFetchClients, useFetchNewClients } from "../../hooks/useFetchUsers";
 
-export default function AdminUsersPage({ clients, newCLients, admins }) {
-  const [search, setSearch] = useState("");
+export default function AdminUsersPage({ clients, newClients, admins }) {
+  const { data: session } = useSession();
 
   const [showNewClients, setShowNewClients] = useState(true);
   const [showClients, setShowClients] = useState(false);
@@ -21,60 +23,17 @@ export default function AdminUsersPage({ clients, newCLients, admins }) {
 
   const [newClientInfo, setNewClientInfo] = useState({});
 
-  const [loading, setLoading] = useState(false);
-
-  const [newClientUsers, setNewClientUsers] = useState(newCLients);
-  const [clientUsers, setClientUsers] = useState(clients);
   const [adminUsers, setAdminUsers] = useState(admins);
 
-  const { data: session } = useSession();
+  const [skip, setSkip] = useState(0);
 
-  const getNewClientUsers = async () => {
-    setLoading(true);
-    const users = await fetch(
-      process.env.NODE_ENV === "production"
-        ? `https://www.guanacorental.shop/rentalapi/users?newCLients=${true}`
-        : `http://localhost:3001/users?newClients=${true}`,
-      { headers: { authorization: `${session?.user.token}` } }
-    )
-      .then((response) => response.json())
-      .then((res) => {
-        setNewClientUsers(res);
-        setLoading(false);
-      })
-      .catch((e) => console.log("fecth error:", e));
+  const { clientUsers, totalUsers, clientsLoading, search, setSearch } =
+    useFetchClients(clients, skip, session?.user.token);
 
-    return users;
-  };
-
-  const getClientUsers = async () => {
-    setLoading(true);
-    const users = await fetch(
-      process.env.NODE_ENV === "production"
-        ? `https://www.guanacorental.shop/rentalapi/users?clients=${true}&search=${search}`
-        : `http://localhost:3001/users?clients=${true}&search=${search}`,
-      { headers: { authorization: `${session?.user.token}` } }
-    )
-      .then((response) => response.json())
-      .then((res) => {
-        setClientUsers(res);
-        setLoading(false);
-      })
-      .catch((e) => console.log("fecth error:", e));
-
-    return users;
-  };
-
-  const getClientUsersCallack = useCallback(getClientUsers, [
-    search,
-    session?.user.token,
-  ]);
-
-  useEffect(() => {
-    if (session?.user.token) {
-      getClientUsersCallack();
-    }
-  }, [search, getClientUsersCallack, session?.user.token]);
+  const { newClientUsers, newClientsLoading } = useFetchNewClients(
+    newClients,
+    session?.user.token
+  );
 
   return (
     <div className={s.bg_grey}>
@@ -165,10 +124,17 @@ export default function AdminUsersPage({ clients, newCLients, admins }) {
               onChange={(e) => setSearch(e.target.value)}
             />
 
-            {clientUsers.length > 0 &&
+            {clientUsers?.length > 0 &&
               clientUsers.map((user) => (
                 <ClientCard user={user} key={user.id} />
               ))}
+            {!search && (
+              <PaginationArrows
+                skip={skip}
+                setSkip={setSkip}
+                totalCount={totalUsers}
+              />
+            )}
           </section>
         )}
 
@@ -199,23 +165,23 @@ export async function getServerSideProps(ctx) {
   );
 
   if (session?.user.role === "ADMIN" || session?.user.role === "EMPLOYEE") {
-    const newCLients = await fetch(
-      process.env.NODE_ENV === "production"
-        ? `https://www.guanacorental.shop/rentalapi/users?newClients=${true}`
-        : `http://localhost:3001/users?newClients=${true}`,
-      { headers: { authorization: `${session?.user.token}` } }
-    )
-      .then((response) => response.json())
-      .catch((e) => console.log("fecth error:", e));
+    // const newClients = await fetch(
+    //   process.env.NODE_ENV === "production"
+    //     ? `https://www.guanacorental.shop/rentalapi/users?newClients=${true}`
+    //     : `http://localhost:3001/users?newClients=${true}`,
+    //   { headers: { authorization: `${session?.user.token}` } }
+    // )
+    //   .then((response) => response.json())
+    //   .catch((e) => console.log("fecth error:", e));
 
-    const clients = await fetch(
-      process.env.NODE_ENV === "production"
-        ? `https://www.guanacorental.shop/rentalapi/users?clients=${true}`
-        : `http://localhost:3001/users?clients=${true}`,
-      { headers: { authorization: `${session?.user.token}` } }
-    )
-      .then((response) => response.json())
-      .catch((e) => console.log("fecth error:", e));
+    // const clients = await fetch(
+    //   process.env.NODE_ENV === "production"
+    //     ? `https://www.guanacorental.shop/rentalapi/users?clients=${true}`
+    //     : `http://localhost:3001/users?clients=${true}`,
+    //   { headers: { authorization: `${session?.user.token}` } }
+    // )
+    //   .then((response) => response.json())
+    //   .catch((e) => console.log("fecth error:", e));
 
     const admins = await fetch(
       process.env.NODE_ENV === "production"
@@ -228,8 +194,8 @@ export async function getServerSideProps(ctx) {
 
     return {
       props: {
-        newCLients,
-        clients,
+        // newClients,
+        // clients,
         admins,
         session,
       },

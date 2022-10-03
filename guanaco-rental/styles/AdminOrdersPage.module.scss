@@ -39,17 +39,6 @@
     font-weight: 600;
     margin-top: 2rem;
   }
-
-  .pagination_btn_wrapper {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-
-    button {
-      @include m-button;
-    }
-  }
 }
 
 @media (max-width: 480px) {
