@@ -28,7 +28,7 @@ export default function AdminOrdersPage({}) {
 
   //pagination
   const [skip, setSkip] = useState(0);
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState("booking");
 
   const { orders, totalOrders, loading, refetchOrders } = useFetchAllOrders(
     skip,
