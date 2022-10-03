@@ -329,9 +329,7 @@ async function getOrders(req, res, next) {
     });
 
     const count = await prisma.order.count({
-      where: {
-        location: location === "all" || !location ? undefined : location,
-      },
+      where: wherePipeline,
       select: {
         _all: true,
       },
