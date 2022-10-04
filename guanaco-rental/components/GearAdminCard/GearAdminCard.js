@@ -60,18 +60,30 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
       .catch((e) => console.log("updateGear error:", e));
   };
 
+  // console.log(
+  //   gear.bookings.filter(
+  //     (book) =>
+  //       new Date().getTime() >
+  //       new Date(book.book.dates[(book.book.dates, length - 1)])
+  //   )
+  // );
+
+  const getGearNextBooks = () => {
+    return gear.bookings.filter(
+      (book) =>
+        new Date().getTime() <=
+        new Date(book.book.dates[book.book.dates.length - 1])
+    );
+  };
+
   return (
     <>
       {showBookings && (
         <MessageModal btnFunc={() => setShowBookings(false)}>
           <p>Reservas:</p>
-          {gear.bookings.map((book) => (
+          {getGearNextBooks().map((book) => (
             <div key={book.bookId} className={s.flex}>
               {book.book.dates
-                .filter(
-                  (date) => new Date().getTime() <= new Date(date).getTime()
-                )
-                .sort((a, b) => new Date(a).getTime() > new Date(b).getTime())
                 .map((date) => new Date(date).toLocaleDateString())
                 .join(" - ")}
               <p>
