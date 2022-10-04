@@ -1,7 +1,7 @@
 export const getNewClientUsers = async (token) => {
   return await fetch(
     process.env.NODE_ENV === "production"
-      ? `https://www.guanacorental.shop/rentalapi/users?newCLients=${true}`
+      ? `https://www.guanacorental.shop/rentalapi/users?newClients=${true}`
       : `http://localhost:3001/users?newClients=${true}`,
     { headers: { authorization: `${token}` } }
   ).then((response) => response.json());

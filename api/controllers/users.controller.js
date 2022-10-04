@@ -87,8 +87,6 @@ async function putUser(req, res, next) {
 async function getUsers(req, res, next) {
   const { newClients, clients, skip, search, admins } = req.query;
 
-  console.log(search);
-
   try {
     let users;
 
