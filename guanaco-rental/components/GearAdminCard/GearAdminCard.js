@@ -68,6 +68,10 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
           {gear.bookings.map((book) => (
             <div key={book.bookId} className={s.flex}>
               {book.book.dates
+                .filter(
+                  (date) => new Date().getTime() <= new Date(date).getTime()
+                )
+                .sort((a, b) => new Date(a).getTime() > new Date(b).getTime())
                 .map((date) => new Date(date).toLocaleDateString())
                 .join(" - ")}
               <p>
