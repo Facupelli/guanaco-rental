@@ -8,6 +8,14 @@ export const useFetchClients = (clients, skip, token) => {
 
   const [search, setSearch] = useState("");
 
+  const refetchClients = () => {
+    setClientsLoading(true);
+    getClientUsers(search, skip, token)
+      .then((res) => setClientUsers(res))
+      .catch((e) => console.log("fetch error:", e))
+      .finally(() => setClientsLoading(false));
+  };
+
   useEffect(() => {
     if (token) {
       setClientsLoading(true);
@@ -24,12 +32,21 @@ export const useFetchClients = (clients, skip, token) => {
     clientsLoading,
     search,
     setSearch,
+    refetchClients
   };
 };
 
 export const useFetchNewClients = (newClients, token) => {
   const [newClientUsers, setNewClientUsers] = useState([]);
   const [newClientsLoading, setNewClientsLoading] = useState(false);
+
+  const refetchNewClients = () => {
+    setNewClientsLoading(true);
+    getNewClientUsers(token)
+      .then((res) => setNewClientUsers(res))
+      .catch((e) => console.log("fetch error:", e))
+      .finally(() => setNewClientsLoading(false));
+  };
 
   useEffect(() => {
     setNewClientsLoading(true);
@@ -39,5 +56,5 @@ export const useFetchNewClients = (newClients, token) => {
       .finally(() => setNewClientsLoading(false));
   }, [token]);
 
-  return { newClientUsers, newClientsLoading };
+  return { newClientUsers, newClientsLoading, refetchNewClients };
 };

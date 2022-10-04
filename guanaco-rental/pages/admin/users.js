@@ -27,13 +27,17 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
 
   const [skip, setSkip] = useState(0);
 
-  const { clientUsers, totalUsers, clientsLoading, search, setSearch } =
-    useFetchClients(clients, skip, session?.user.token);
+  const {
+    clientUsers,
+    totalUsers,
+    clientsLoading,
+    search,
+    setSearch,
+    refetchClients,
+  } = useFetchClients(clients, skip, session?.user.token);
 
-  const { newClientUsers, newClientsLoading } = useFetchNewClients(
-    newClients,
-    session?.user.token
-  );
+  const { newClientUsers, newClientsLoading, refetchNewClients } =
+    useFetchNewClients(newClients, session?.user.token);
 
   return (
     <div className={s.bg_grey}>
@@ -109,9 +113,9 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
             {newClientInfo.fullName && (
               <ClientPetitionInfo
                 user={newClientInfo}
-                getNewClientUsers={getNewClientUsers}
                 setNewClientInfo={setNewClientInfo}
-                getClientUsers={getClientUsers}
+                refetchNewClients={refetchNewClients}
+                refetchClients={refetchClients}
               />
             )}
           </section>

@@ -10,8 +10,8 @@ import s from "./ClientPetitionInfo.module.scss";
 export default function ClientPetitionInfo({
   user,
   setNewClientInfo,
-  getNewClientUsers,
-  getClientUsers,
+  refetchNewClients,
+  refetchClients,
 }) {
   // const { blob, setBlob, downloadDni } = useDownloadBlob();
 
@@ -39,8 +39,9 @@ export default function ClientPetitionInfo({
     )
       .then((response) => {
         setNewClientInfo({});
-        getNewClientUsers();
-        getClientUsers();
+        //traer usuarios
+        refetchNewClients();
+        refetchClients();
       })
       .catch((e) => console.log("update user error:", e));
   };
