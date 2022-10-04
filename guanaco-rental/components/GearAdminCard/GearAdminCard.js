@@ -60,14 +60,6 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
       .catch((e) => console.log("updateGear error:", e));
   };
 
-  // console.log(
-  //   gear.bookings.filter(
-  //     (book) =>
-  //       new Date().getTime() >
-  //       new Date(book.book.dates[(book.book.dates, length - 1)])
-  //   )
-  // );
-
   const getGearNextBooks = () => {
     return gear.bookings
       .filter(
@@ -75,10 +67,15 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
           new Date().getTime() <=
           new Date(book.book.dates[book.book.dates.length - 1])
       )
-      .sort(
-        (a, b) =>
-          new Date(a.book.dates[0]).getTime() < new Date(b.book.dates[0])
-      );
+      .sort((a, b) => {
+        if (new Date(a.book.dates[0]).getTime() < new Date(b.book.dates[0])) {
+          return -1;
+        }
+        if (new Date(a.book.dates[0]).getTime() > new Date(b.book.dates[0])) {
+          return 1;
+        }
+        return 0;
+      });
   };
 
   return (
