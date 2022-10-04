@@ -82,7 +82,7 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
     <>
       {showBookings && (
         <MessageModal btnFunc={() => setShowBookings(false)}>
-          <p>Próximas Reservas:</p>
+          <p className={s.font_w_6}><strong >Próximas Reservas:</strong></p>
           {getGearNextBooks().map((book) => (
             <div key={book.bookId} className={s.flex}>
               {book.book.dates

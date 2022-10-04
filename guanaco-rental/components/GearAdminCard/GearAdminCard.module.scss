@@ -1,11 +1,19 @@
 @import "../../styles/app.scss";
 
-.flex{
+.font_w_6 {
+  margin-bottom: .5rem;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+.flex {
   display: flex;
   gap: 1rem;
-  padding: .2rem 0;
+  padding: 0.2rem 0;
 
-  strong{
+  strong {
     font-weight: 600;
   }
 }
