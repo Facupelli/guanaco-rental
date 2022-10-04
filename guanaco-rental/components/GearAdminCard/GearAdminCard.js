@@ -69,11 +69,16 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
   // );
 
   const getGearNextBooks = () => {
-    return gear.bookings.filter(
-      (book) =>
-        new Date().getTime() <=
-        new Date(book.book.dates[book.book.dates.length - 1])
-    );
+    return gear.bookings
+      .filter(
+        (book) =>
+          new Date().getTime() <=
+          new Date(book.book.dates[book.book.dates.length - 1])
+      )
+      .sort(
+        (a, b) =>
+          new Date(a.book.dates[0]).getTime() < new Date(b.book.dates[0])
+      );
   };
 
   return (
