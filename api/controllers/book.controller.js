@@ -11,9 +11,9 @@ async function getBookingsByDate(req, res, next) {
           dates: {
             has: date,
           },
-          order: {
-            location: location === "all" || !location ? undefined : location,
-          },
+          // order: {
+          //   location: location === "all" || !location ? undefined : location,
+          // },
         },
         include: {
           order: {
