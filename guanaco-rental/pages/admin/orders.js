@@ -48,7 +48,12 @@ export default function AdminOrdersPage({}) {
           <SelectLoaction adminPanel={session?.user.role === "ADMIN"} />
           <div className={s.sortBy_wrapper}>
             <label>Ordenar por:</label>
-            <select onChange={(e) => setSortBy(e.target.value)}>
+            <select
+              onChange={(e) => {
+                setSortBy(e.target.value);
+                setSkip(0);
+              }}
+            >
               <option value="booking">Próximos pedidos a entregar</option>
               <option value="desc">Últimos pedidos creados</option>
             </select>
@@ -83,7 +88,11 @@ export default function AdminOrdersPage({}) {
             <p className={s.no_orders_p}>No tienes ningun pedido :(</p>
           )}
         </div>
-        <PaginationArrows skip={skip} setSkip={setSkip} totalCount={totalOrders} />
+        <PaginationArrows
+          skip={skip}
+          setSkip={setSkip}
+          totalCount={totalOrders}
+        />
       </AdminMain>
     </div>
   );
