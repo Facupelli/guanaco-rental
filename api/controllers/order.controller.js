@@ -54,7 +54,7 @@ async function postOrder(req, res, next) {
       data: {
         dates: data.dates,
         pickupHour: data.pickupHour,
-        pickupDay: new Date(`${data.dates[0]} 03:00:00`),
+        pickupDay: new Date(`${data.dates[0]} 00:00:01`),
       },
     });
 
@@ -300,6 +300,10 @@ async function getOrders(req, res, next) {
     let wherePipeline = {
       location: location === "all" || !location ? undefined : location,
     };
+
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
 
     if (order === "desc" || !order) {
       orderByPipeline.createdAt = "desc";
