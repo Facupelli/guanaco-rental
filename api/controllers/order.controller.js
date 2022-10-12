@@ -302,8 +302,8 @@ async function getOrders(req, res, next) {
     };
 
     const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() - 1);
 
     if (order === "desc" || !order) {
       orderByPipeline.createdAt = "desc";
