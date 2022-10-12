@@ -305,8 +305,6 @@ async function getOrders(req, res, next) {
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    console.log(yesterday);
-
     if (order === "desc" || !order) {
       orderByPipeline.createdAt = "desc";
     }
@@ -315,7 +313,7 @@ async function getOrders(req, res, next) {
         pickupDay: "asc",
       };
       wherePipeline.booking = {
-        pickupDay: { gte: new Date() },
+        pickupDay: { gte: yesterday },
       };
     }
 
