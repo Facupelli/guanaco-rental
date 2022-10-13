@@ -1,29 +1,29 @@
 @import "../../styles/app.scss";
 
 .modal_container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 15;
-    box-shadow: 0 0 0 100vmax rgba(46, 46, 46, 0.288);
-    border-radius: 0.2rem;
-    padding: 2rem;
-    min-width: 400px;
-    background-color: white;
-  
-    .modal_btn {
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-      button {
-        @include m-button;
-      }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+  box-shadow: 0 0 0 100vmax rgba(46, 46, 46, 0.288);
+  border-radius: 0.2rem;
+  padding: 2rem;
+  min-width: 400px;
+  background-color: white;
+  max-width: 1000px;
+
+  .modal_btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    button {
+      @include m-button;
     }
   }
-  @media (max-width: 500px) {
-    .modal_container {
-      min-width: 200px;
-    }
+}
+@media (max-width: 500px) {
+  .modal_container {
+    min-width: 200px;
   }
-  
+}
