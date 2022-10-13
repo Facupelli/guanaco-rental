@@ -374,11 +374,18 @@ async function deleteOrderById(req, res, next) {
 
   try {
     if (id) {
-      const deletedOrderEarnings = await prisma.orderEarnings.delete({
+      const orderEarnings = await prisma.orderEarnings.findMany({
         where: {
-          orderId: orderId,
+          orderId,
         },
       });
+      if (orderEarnings) {
+        const deletedOrderEarnings = await prisma.orderEarnings.delete({
+          where: {
+            orderId: orderId,
+          },
+        });
+      }
 
       const deletedOrder = await prisma.book.delete({
         where: { id: bookId },
