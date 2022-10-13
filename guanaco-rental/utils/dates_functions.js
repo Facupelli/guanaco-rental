@@ -103,7 +103,7 @@ export const getWorkingTotalDays = (dates, pickupHour) => {
       } else if (
         new Date(day).getTime() === new Date(bookedDates[0]).getTime() &&
         newDay === 5 &&
-        pickupHour === "20:00"
+        (pickupHour === "20:00" || pickupHour === "20:30")
       ) {
         weekDay += 0;
       }
