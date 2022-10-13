@@ -379,6 +379,7 @@ async function deleteOrderById(req, res, next) {
           orderId,
         },
       });
+      console.log("EARNINGS", orderEarnings);
       if (orderEarnings) {
         const deletedOrderEarnings = await prisma.orderEarnings.delete({
           where: {
