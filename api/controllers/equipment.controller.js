@@ -87,7 +87,7 @@ async function putEquipment(req, res, next) {
   try {
     if (data.id) {
       const updatedGear = await prisma.equipment.update({
-        // where: { id: data.id },
+        where: { id: data.id },
         data: {
           name: data.name,
           brand: data.brand,
