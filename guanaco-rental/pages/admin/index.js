@@ -68,7 +68,14 @@ export default function AdminPage() {
             }`
       );
       const bookings = await books.json();
-      const dates = bookings.map((book) => book.dates).flat();
+
+      const dates = bookings
+        .map((book) => ({
+          pickup: book.dates[0],
+          return: book.dates[book.dates.length - 1],
+        }))
+        .flat();
+      console.log("DATES", dates);
       setBookings(dates);
     } catch (e) {
       console.log(e);
@@ -100,10 +107,25 @@ export default function AdminPage() {
             tileClassName={({ date, view }) => {
               if (
                 bookings.find(
-                  (day) => new Date(day).getTime() === date.getTime()
+                  (day) => new Date(day.pickup).getTime() === date.getTime()
+                ) &&
+                bookings.find(
+                  (day) => new Date(day.return).getTime() === date.getTime()
                 )
               ) {
-                return s.booked_tile;
+                return s.booked_pickup_return;
+              } else if (
+                bookings.find(
+                  (day) => new Date(day.pickup).getTime() === date.getTime()
+                )
+              ) {
+                return s.booked_pickup;
+              } else if (
+                bookings.find(
+                  (day) => new Date(day.return).getTime() === date.getTime()
+                )
+              ) {
+                return s.booked_return;
               } else {
                 if (new Date().getTime() <= date.getTime()) {
                   return s.free_tile;
@@ -141,7 +163,9 @@ export default function AdminPage() {
                       ))}
                     </div>
                   </div>
-                  <p className={s.location}>{book.order.location === "MENDOZA" ? "MDZ" : "SJ"}</p>
+                  <p className={s.location}>
+                    {book.order.location === "MENDOZA" ? "MDZ" : "SJ"}
+                  </p>
                 </div>
               ))
             )}

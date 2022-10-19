@@ -30,8 +30,20 @@
           color: #dfdfdf;
         }
 
-        .booked_tile {
-          border-bottom: 3px solid $m-orange;
+        .booked_pickup_return {
+          border-bottom: 3px solid;
+          border-image: linear-gradient(to right, $m-success 50%, $m-danger 50%)
+            2;
+          padding: 1.2rem;
+        }
+
+        .booked_pickup {
+          border-bottom: 3px solid $m-success;
+          padding: 1.2rem;
+        }
+
+        .booked_return {
+          border-bottom: 3px solid $m-danger;
           padding: 1.2rem;
         }
 
@@ -135,12 +147,12 @@
           > div {
             width: 100%;
 
-            >div{
+            > div {
               flex-wrap: wrap;
             }
 
-            .location{
-              margin-top: .5rem;
+            .location {
+              margin-top: 0.5rem;
               font-weight: 600;
             }
           }
