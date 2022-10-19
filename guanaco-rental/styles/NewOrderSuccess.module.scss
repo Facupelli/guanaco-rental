@@ -35,6 +35,12 @@
     }
   }
 
+  > div p {
+    &:first-child {
+      margin-bottom: 0.5rem;
+    }
+  }
+
   .link_wrapper {
     margin-top: 2rem;
 

@@ -53,7 +53,11 @@ export default function NewOrderSuccess({ order }) {
           <p>
             Recordá que el retiro de los equipos es a las{" "}
             {order.booking.pickupHour}hs y la devolución es a las{" "}
-            {order.location === "SAN_JUAN" ? "09:00hs" : "08:30"}hs
+            {order.location === "SAN_JUAN" ? "09:00" : "08:30"}hs
+          </p>
+          <p>
+            Preferimos medios de pagos electrónicos (MercadoPago /
+            Transferencia).
           </p>
         </div>
         <div className={s.link_wrapper}>
