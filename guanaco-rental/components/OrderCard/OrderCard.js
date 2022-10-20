@@ -225,13 +225,14 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
               equipmentRows={equipmentRows}
             />
           )}
-          {order.coupon && (
-            <p className={s.coupon_name}>cupón: {order.coupon.name}</p>
-          )}
           <p className={s.location}>
             {order.location === "MENDOZA" ? "MDZ" : "SJ"}
           </p>
+          {order.coupon && (
+            <p className={s.coupon_name}>cupón: {order.coupon.name}</p>
+          )}
         </div>
+        <div className={s.message_wrapper}>{order.message}</div>
       </div>
     </>
   );
