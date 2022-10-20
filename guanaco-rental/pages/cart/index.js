@@ -42,6 +42,8 @@ export default function CartPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const [messageInput, setMessageInput] = useState("");
+
   const { data: session } = useSession();
 
   const userData = useSelector((state) => state.user.data);
@@ -143,6 +145,7 @@ export default function CartPage() {
       userId: userData.id,
       couponId: couponApplied?.success ? couponApplied.coupon.id : undefined,
       location,
+      message: messageInput,
     });
 
     const newOrder = await fetch(
@@ -317,6 +320,12 @@ export default function CartPage() {
               couponApplied={couponApplied}
               location={location}
             />
+            <div className={s.message_text}>
+              <textarea
+                onChange={(e) => setMessageInput(e.target.value)}
+                placeholder="Algo más que nos quieras decir?"
+              />
+            </div>
             <div className={s.guanaco_branch}>
               <p>Sucursal:</p>
               <p>

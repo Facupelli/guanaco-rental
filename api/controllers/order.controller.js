@@ -85,6 +85,7 @@ async function postOrder(req, res, next) {
       totalPrice: data.totalPrice,
       booking: { connect: { id: book.id } },
       location: data.location,
+      message: data.message,
     };
 
     if (data.couponId) {
