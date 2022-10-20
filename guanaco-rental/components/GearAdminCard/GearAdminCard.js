@@ -82,7 +82,9 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
     <>
       {showBookings && (
         <MessageModal btnFunc={() => setShowBookings(false)}>
-          <p className={s.font_w_6}><strong >Próximas Reservas:</strong></p>
+          <p className={s.font_w_6}>
+            <strong>Próximas Reservas:</strong>
+          </p>
           {getGearNextBooks().map((book) => (
             <div key={book.bookId} className={s.flex}>
               {book.book.dates
@@ -126,27 +128,8 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
               disabled={role === "EMPLOYEE" ? true : false}
             />
           </div>
-          {role === "ADMIN" && (
-            <div className={`${s.flex_wrapper} `}>
-              <label>Disponible:</label>
-              <input
-                type="checkbox"
-                defaultValue={gear.available}
-                defaultChecked={gear.available}
-                {...register("available")}
-              />
-            </div>
-          )}
-          {/* <div className={`${s.flex_wrapper} `}>
-            <label>IMAGE:</label>
-            <input
-              defaultValue={gear.image}
-              className={s.price_input}
-              {...register("image")}
-            />
-          </div> */}
-          <div className={`${s.flex_wrapper} `}>
-            <label>Stock:</label>
+          <div className={`${s.flex_wrapper_column} `}>
+            <label>stock:</label>
             <input
               defaultValue={gear.stock}
               className={s.stock_input}
@@ -154,8 +137,8 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
               disabled={role === "EMPLOYEE" ? true : false}
             />
           </div>
-          <div className={`${s.flex_wrapper} `}>
-            <label>Precio:</label>
+          <div className={`${s.flex_wrapper_column} `}>
+            <label>precio:</label>
             <input
               defaultValue={gear.price}
               className={s.price_input}
@@ -163,8 +146,8 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
               disabled={role === "EMPLOYEE" ? true : false}
             />
           </div>
-          <div className={`${s.flex_wrapper} `}>
-            <label>Sucursal:</label>
+          <div className={`${s.flex_wrapper_column} `}>
+            <label>sucursal:</label>
             <select
               defaultValue={gear.location}
               {...register("location")}
@@ -174,6 +157,15 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
               <option value="MENDOZA">Mendoza</option>
             </select>
           </div>
+          <div className={`${s.flex_wrapper_column} ${s.flex_grow_3}`}>
+            <label>imagen:</label>
+            <input
+              defaultValue={gear.image}
+              className={s.price_input}
+              {...register("image")}
+              disabled={role === "EMPLOYEE" ? true : false}
+            />
+          </div>
           {role === "EMPLOYEE" && (
             <button type="button" onClick={() => setShowBookings(true)}>
               VER RESERVAS
@@ -181,14 +173,23 @@ export default function GearAdminCard({ gear, getEquipment, token, role }) {
           )}
           {role === "ADMIN" && (
             <>
-              <div className={s.flex_wrapper}>
-                <label>de:</label>
+              <div className={s.flex_wrapper_column}>
+                <label>equipo de:</label>
                 <select defaultValue={gear.owner} {...register("owner")}>
                   <option value="FEDERICO">Federico</option>
                   <option value="OSCAR">Oscar</option>
                   <option value="BOTH">Ambos</option>
                   <option value="SUB">Subalquilado</option>
                 </select>
+              </div>
+              <div className={`${s.flex_wrapper} `}>
+                {/* <label>disp:</label> */}
+                <input
+                  type="checkbox"
+                  defaultValue={gear.available}
+                  defaultChecked={gear.available}
+                  {...register("available")}
+                />
               </div>
               <button>ACTUALIZAR</button>
               <button
