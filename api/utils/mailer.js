@@ -16,10 +16,10 @@ async function sendMail(mailOptions) {
 
     const handlebarOptions = {
       viewEngine: {
-        partialsDir: path.resolve("./api/utils/views/"),
+        partialsDir: path.resolve("./utils/views/"),
         defaultLayout: false,
       },
-      viewPath: path.resolve("./api/utils/views/"),
+      viewPath: path.resolve("./utils/views/"),
     };
 
     transport.use("compile", hbs(handlebarOptions));
