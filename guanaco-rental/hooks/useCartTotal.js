@@ -48,6 +48,7 @@ export const useCartTotal = (
         } else {
           setTotalCartDefinitive({
             total: totalCartPrice,
+            subTotal: totalCartPrice,
           });
         }
       }
@@ -56,6 +57,7 @@ export const useCartTotal = (
 
     setTotalCartDefinitive({
       total: totalCartPrice,
+      subTotal: totalCartPrice,
     });
   }, [totalCartPrice, date, couponApplied.success, cart.length]);
 

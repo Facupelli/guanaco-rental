@@ -137,8 +137,6 @@ export default function CartPage() {
 
     setShowMessageModal((prev) => ({ ...prev, loading: true }));
 
-    console.log("DEFINITIVE TOTAL CART", totalCartDefinitive);
-
     const data = JSON.stringify({
       cart,
       dates: date,
