@@ -1,5 +1,31 @@
 @import "../../styles/app.scss";
 
+.discount_modal_wrapper {
+  strong {
+    font-weight: 600;
+  }
+
+  .input_wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    input {
+      @include input;
+      flex-grow: 2;
+    }
+  }
+
+  .apply_discount_btn_wrapper {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      @include m-button;
+    }
+  }
+}
+
 .menu_modal_wrapper {
   display: flex;
   flex-direction: column;
@@ -11,8 +37,14 @@
     width: 100%;
 
     p:first-child {
-      flex-basis: 25%;
+      flex-basis: 50%;
     }
+  }
+
+  .border_top {
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid $m-gray;
   }
 
   .cancel_btn_wrapper {
@@ -121,6 +153,10 @@
       @include m-button-orange;
       padding: 0.4rem;
       font-size: 0.7em;
+    }
+
+    .total_price {
+      cursor: pointer;
     }
 
     .elipsis_menu_btn {

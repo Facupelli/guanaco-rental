@@ -75,7 +75,6 @@ export default function AdminPage() {
           return: book.dates[book.dates.length - 1],
         }))
         .flat();
-      console.log("DATES", dates);
       setBookings(dates);
     } catch (e) {
       console.log(e);

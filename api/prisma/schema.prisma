@@ -8,8 +8,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // url      = env("DATABASE_URL")
-  url=env("LOCAL_DATABASE_URL")
+  url      = env("DATABASE_URL")
+  // url=env("LOCAL_DATABASE_URL")
 }
 
 enum Role{
@@ -101,11 +101,14 @@ model Order {
   userId                  String
   equipments              Equipment[]
   totalPrice              Int
+  originalTotalPrice      Int?
   booking                 Book                @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   bookingId               String              @unique
   delivered               Boolean             @default(false)
   coupon                  Coupon?             @relation(fields: [couponId], references: [id])
   couponId                String?
+  adminDiscount           Boolean             @default(false)
+  adminDiscountValue      Int?                 
   fixedDiscount           FixedDiscount?      @relation(fields: [fixedDiscountId], references: [id])
   fixedDiscountId         String?
   location                Location            @default(SAN_JUAN)
@@ -116,9 +119,9 @@ model Order {
 
 model OrderEarnings {
   id              String              @default(cuid()) @id
-  federico        Int
-  oscar           Int
-  sub             Int
+  federico        Float
+  oscar           Float
+  sub             Float
   order           Order               @relation(fields: [orderId], references: [id])
   orderId         String              @unique
 }

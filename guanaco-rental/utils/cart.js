@@ -12,9 +12,9 @@ export const checkForDiscounts = (
         ? userOrders?.length > discount.minUserOrders
         : true)
     ) {
-      return discount.discount;
+      return { discountId: discount.id, discountValue: discount.discount };
     } else {
-      return 0;
+      return { discountValue: 0 };
     }
   });
 };
@@ -22,11 +22,23 @@ export const checkForDiscounts = (
 export const applyDiscount = (totalCartPrice, discounts) => {
   let discountSelected;
   if (discounts) {
-    discountSelected = Math.max(...discounts);
+    discountSelected = discounts.reduce((acc, curr) => {
+      if (acc.discountValue > curr.discountValue) {
+        return acc;
+      } else {
+        return curr;
+      }
+    });
   }
 
-  if (discountSelected && discountSelected > 0) {
-    return totalCartPrice - totalCartPrice * (discountSelected / 100);
+  if (discountSelected && discountSelected.discountValue > 0) {
+    return {
+      discountId: discountSelected.discountId,
+      discountValue: discountSelected.discountValue,
+      total:
+        totalCartPrice -
+        totalCartPrice * (discountSelected.discountValue / 100),
+    };
   } else {
     return totalCartPrice;
   }

@@ -14,6 +14,8 @@ export const useCartTotal = (
   const { fixedDiscounts } = useFetchFixedDiscounts();
   const [totalCartDefinitive, setTotalCartDefinitive] = useState({});
 
+  let discountApplied;
+
   useEffect(() => {
     if (couponApplied.success) {
       const total =
@@ -30,12 +32,18 @@ export const useCartTotal = (
           userOrders,
           fixedDiscounts
         );
-        if (Math.max(...discounts) > 0) {
-          const total = applyDiscount(totalCartPrice, discounts);
+
+        const discountValues = discounts.map(
+          (discount) => discount.discountValue
+        );
+
+        if (Math.max(...discountValues) > 0) {
+          discountApplied = applyDiscount(totalCartPrice, discounts);
           setTotalCartDefinitive({
             subTotal: totalCartPrice,
-            discount: Math.max(...discounts),
-            total,
+            discountValue: discountApplied.discountValue,
+            discountId: discountApplied.discountId,
+            total: discountApplied.total,
           });
         } else {
           setTotalCartDefinitive({
@@ -49,7 +57,7 @@ export const useCartTotal = (
     setTotalCartDefinitive({
       total: totalCartPrice,
     });
-  }, [totalCartPrice, couponApplied.success, cart.length]);
+  }, [totalCartPrice, date, couponApplied.success, cart.length]);
 
   return { totalCartDefinitive };
 };

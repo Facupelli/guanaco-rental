@@ -83,6 +83,7 @@ async function postOrder(req, res, next) {
       user: { connect: { id: data.userId } },
       equipments: { connect: equipmentsIds },
       totalPrice: data.totalPrice,
+      originalTotalPrice: data.originalTotalPrice,
       booking: { connect: { id: book.id } },
       location: data.location,
       message: data.message,
@@ -90,6 +91,10 @@ async function postOrder(req, res, next) {
 
     if (data.couponId) {
       newData.coupon = { connect: { id: data.couponId } };
+    }
+
+    if (data.discountApplied) {
+      newData.fixedDiscount = { connect: { id: data.discountApplied } };
     }
 
     newOrder = await prisma.order.create({
@@ -185,11 +190,11 @@ async function postOrder(req, res, next) {
       },
     };
 
-    const mailSentToGuanaco = await sendMail(mailToGuanaco);
-    const mailSentToClient = await sendMail(mailToClient);
+    // const mailSentToGuanaco = await sendMail(mailToGuanaco);
+    // const mailSentToClient = await sendMail(mailToClient);
 
-    console.log(mailSentToGuanaco);
-    console.log(mailSentToClient);
+    // console.log(mailSentToGuanaco);
+    // console.log(mailSentToClient);
 
     // const msgData = {
     //   phone: orderData.user.phone,
@@ -227,6 +232,56 @@ async function putOrder(req, res, next) {
         where: { id: data.orderId },
         data: { delivered: data.delivered },
       });
+      res.json({ message: "success" });
+      return;
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  if (data.newOrderDiscount) {
+    const orderToUpdate = await prisma.order.findUnique({
+      where: { id: data.orderId },
+      select: { totalPrice: true },
+    });
+
+    const orderEarningsToUpdate = await prisma.orderEarnings.findUnique({
+      where: { orderId: data.orderId },
+      select: { federico: true, oscar: true, sub: true },
+    });
+
+    const newTotalPrice =
+      orderToUpdate.totalPrice -
+      orderToUpdate.totalPrice * (Number(data.newOrderDiscount) / 100);
+    try {
+      const order = await prisma.order.update({
+        where: { id: data.orderId },
+        data: {
+          totalPrice: newTotalPrice,
+          adminDiscount: true,
+          adminDiscountValue: Number(data.newOrderDiscount),
+        },
+      });
+
+      const newFederico =
+        orderEarningsToUpdate.federico -
+        (orderEarningsToUpdate.federico * (data.newOrderDiscount / 100) || 0);
+      const newOscar =
+        orderEarningsToUpdate.oscar -
+        (orderEarningsToUpdate.oscar * (data.newOrderDiscount / 100) || 0);
+      const newSub =
+        orderEarningsToUpdate.sub -
+        (orderEarningsToUpdate.newSub * (data.newOrderDiscount / 100) || 0);
+
+      const updatedOrderEarnings = await prisma.orderEarnings.update({
+        where: { orderId: data.orderId },
+        data: {
+          federico: newFederico,
+          oscar: newOscar,
+          sub: newSub,
+        },
+      });
+
       res.json({ message: "success" });
       return;
     } catch (e) {
@@ -294,6 +349,7 @@ async function getOrders(req, res, next) {
           equipments: { include: { bookings: true } },
           coupon: { select: { name: true, discount: true } },
           orderEarnings: true,
+          fixedDiscount: true,
         },
       });
       res.json(allOrders);
@@ -330,6 +386,7 @@ async function getOrders(req, res, next) {
         booking: true,
         coupon: { select: { name: true } },
         orderEarnings: true,
+        fixedDiscount: true,
       },
       orderBy: orderByPipeline,
       skip: Number(skip),

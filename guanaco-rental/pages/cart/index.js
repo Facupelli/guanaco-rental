@@ -142,6 +142,8 @@ export default function CartPage() {
       dates: date,
       pickupHour,
       totalPrice: freeOrder ? 0 : totalCartDefinitive.total,
+      originalTotalPrice: totalCartDefinitive.subTotal,
+      discountApplied: totalCartDefinitive.discountId,
       userId: userData.id,
       couponId: couponApplied?.success ? couponApplied.coupon.id : undefined,
       location,

@@ -25,6 +25,9 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAddEquipmentModal, setShowAddEquipmentModal] = useState(false);
+  const [showDiscountModal, setShowDiscountModal] = useState(false);
+
+  const [discountValue, setDiscountValue] = useState();
 
   const [addGearInputs, setAddGearInputs] = useState({
     search: "",
@@ -68,8 +71,64 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
 
   const equipmentRows = generatePdfRows(order);
 
+  const handleApplyDiscount = async () => {
+    const response = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://www.guanacorental.shop/rentalapi/order`
+        : "http://localhost:3001/order",
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          orderId: order.id,
+          newOrderDiscount: discountValue,
+        }),
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          authorization: `${token}`,
+        },
+      }
+    );
+    const updatedOrder = await response.json();
+    if (updatedOrder.message === "success") {
+      setShowDiscountModal(false);
+      refetchOrders();
+    }
+  };
+
   return (
     <>
+      {showDiscountModal && (
+        <MessageModal btnFunc={() => setShowDiscountModal(false)}>
+          {userRole === "ADMIN" && (
+            <div className={s.discount_modal_wrapper}>
+              <p>
+                Pedido N° <strong>{order.number}</strong>
+              </p>
+              <p>
+                Total <strong>{formatPrice(order.totalPrice)}</strong>
+              </p>
+              <div className={s.input_wrapper}>
+                <label htmlFor="admin-discount">Aplicar descuento (%):</label>
+                <input
+                  type="text"
+                  id="admin-discount"
+                  onChange={(e) => setDiscountValue(e.target.value)}
+                />
+              </div>
+              <div className={s.apply_discount_btn_wrapper}>
+                <button
+                  type="button"
+                  onClick={handleApplyDiscount}
+                  disabled={!discountValue}
+                >
+                  APLICAR
+                </button>
+              </div>
+            </div>
+          )}
+        </MessageModal>
+      )}
       {showDeleteModal && (
         <MessageModal btnFunc={() => setShowDeleteModal(false)}>
           <div className={s.menu_modal_wrapper}>
@@ -86,6 +145,28 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
                 <div>
                   <p>Subalquiler:</p>
                   <p className={s.bold}>{formatPrice(earnings?.sub)}</p>
+                </div>
+                <div className={s.border_top}>
+                  <p>Total original:</p>
+                  <p className={s.bold}>
+                    {formatPrice(order.originalTotalPrice)}
+                  </p>
+                </div>
+                <div>
+                  <p>Total:</p>
+                  <p className={s.bold}>{formatPrice(order.totalPrice)}</p>
+                </div>
+                <div>
+                  <p>Descuento admin:</p>
+                  <p className={s.bold}>{order.adminDiscountValue || "--"} %</p>
+                </div>
+                <div>
+                  <p>Descuento fijo:</p>
+                  <p className={s.bold}>
+                    {order.fixedDiscount
+                      ? `${order.fixedDiscount?.name} ${order.fixedDiscount?.discount} %`
+                      : "-- %"}
+                  </p>
                 </div>
               </>
             )}
@@ -165,7 +246,12 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
           >
             Ver Equipos
           </button>
-          <p>{formatPrice(order.totalPrice)}</p>
+          <p
+            className={s.total_price}
+            onClick={() => setShowDiscountModal(true)}
+          >
+            {formatPrice(order.totalPrice)}
+          </p>
           <button
             className={`${s.elipsis_menu_btn}`}
             aria-label="menu-btn"
