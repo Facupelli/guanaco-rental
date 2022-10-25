@@ -79,6 +79,8 @@ async function postOrder(req, res, next) {
   try {
     const equipmentsIds = data.cart.map((item) => ({ id: item.id }));
 
+    console.log("ORIGINAL PRICE", data.originalTotalPrice);
+
     const newData = {
       user: { connect: { id: data.userId } },
       equipments: { connect: equipmentsIds },
