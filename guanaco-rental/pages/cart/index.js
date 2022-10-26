@@ -12,14 +12,14 @@ import {
 } from "../../redux/features/pickupDate/pickupDateSlice";
 import { cleanCart, setCart } from "../../redux/features/cart/cartSlice";
 import { setUserId } from "../../redux/features/user/userSlice";
-import {
-  setLocation,
-  setShowModal,
-} from "../../redux/features/location/locationSlice";
 
 import { useSumCartItems } from "../../hooks/useSumCartItems";
-import { useCartTotal } from "../../hooks/useCartTotal";
+import { useApplyDiscountsToCart } from "../../hooks/useApplyDiscountsToCart";
 import { useDateRange } from "../../hooks/useDateRange";
+import {
+  useLoadCartFromLocalStorage,
+  useLoadLocationFromLocalStorage,
+} from "../../hooks/useLocalStorage";
 
 import { formatPrice } from "../../utils/price";
 import { areAllItemsAvailable } from "../../utils/dates_functions";
@@ -37,21 +37,15 @@ import CartSubTotal from "../../components/CartPageList/CartSubTotal/CartSubTota
 import Loader from "../../components/Loaders/Loader/Loader";
 
 import s from "../../styles/CartPage.module.scss";
-import {
-  useLoadCartFromLocalStorage,
-  useLoadLocationFromLocalStorage,
-} from "../../hooks/useLocalStorage";
 
 export default function CartPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const { data: session } = useSession();
+
   useLoadCartFromLocalStorage();
   useLoadLocationFromLocalStorage();
-
-  const [messageInput, setMessageInput] = useState("");
-
-  const { data: session } = useSession();
 
   const userData = useSelector((state) => state.user.data);
   const cart = useSelector((state) => state.cart.items);
@@ -71,6 +65,8 @@ export default function CartPage() {
     }
   }, [location, dispatch, pickupHour]);
 
+  const [messageInput, setMessageInput] = useState("");
+
   const [freeOrder, setFreeOrder] = useState(false);
 
   const [showMessageModal, setShowMessageModal] = useState({
@@ -89,9 +85,9 @@ export default function CartPage() {
   const [datePickup, setDatePickup] = useState(false);
   const { dateRange, setDateRange } = useDateRange();
 
-  const { totalCartPrice } = useSumCartItems();
+  const totalCartPrice = useSumCartItems();
 
-  const { totalCartDefinitive } = useCartTotal(
+  const totalCartDefinitive = useApplyDiscountsToCart(
     totalCartPrice,
     date,
     userData.orders,

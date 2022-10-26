@@ -8,15 +8,16 @@ import { useEffect, useState } from "react";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getUniqueUser } from "../../utils/fetch_users";
-import { useDateRange } from "../../hooks/useDateRange";
 
 import { setUserId } from "../../redux/features/user/userSlice";
-import { setCart } from "../../redux/features/cart/cartSlice";
+import { setLocation } from "../../redux/features/location/locationSlice";
+
+//HOOKS
+import { useDateRange } from "../../hooks/useDateRange";
 import {
-  setLocation,
-  setShowModal,
-} from "../../redux/features/location/locationSlice";
-import { setPickupHour } from "../../redux/features/pickupDate/pickupDateSlice";
+  useLoadCartFromLocalStorage,
+  useLoadLocationFromLocalStorage,
+} from "../../hooks/useLocalStorage";
 
 //COMPONENTS
 import Bookeable from "../../components/Bookeable/Bookeable";
@@ -29,10 +30,6 @@ import NavButton from "../../components/Nav/NavButton/NavButton";
 import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/BookPage.module.scss";
-import {
-  useLoadCartFromLocalStorage,
-  useLoadLocationFromLocalStorage,
-} from "../../hooks/useLocalStorage";
 
 export default function Home({ showNewModal }) {
   const dispatch = useDispatch();
@@ -40,7 +37,6 @@ export default function Home({ showNewModal }) {
   const [showCart, setShowCart] = useState(false);
   const [showNewClientModal, setShowNewClientModal] = useState(showNewModal);
 
-  const cart = useSelector((state) => state.cart.items);
   const showLocationModal = useSelector((state) => state.location.showModal);
   const location = useSelector((state) => state.location.city);
 

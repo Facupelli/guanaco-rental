@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getWorkingTotalDays } from "../utils/dates_functions";
 
-export const getCartTotalPrice = (couponApplied, cart, date) => {
+export const getCartTotalPrice = (cart, date) => {
   const workingDays = getWorkingTotalDays(date.date_range, date.pickup_hour);
 
   const totalPrice = cart.reduce((curr, acc) => {
@@ -14,18 +13,17 @@ export const getCartTotalPrice = (couponApplied, cart, date) => {
   return cartTotal;
 };
 
-export const useSumCartItems = (couponApplied) => {
+export const useSumCartItems = () => {
   const cart = useSelector((state) => state.cart.items);
   const date = useSelector((state) => state.date);
 
-  const [totalCartPrice, setTotalCartPrice] = useState({});
+  // const [totalCartPrice, setTotalCartPrice] = useState({});
 
-  useEffect(() => {
-    if (date.date_range && cart.length > 0) {
-      const total = getCartTotalPrice(couponApplied, cart, date);
-      setTotalCartPrice(total);
-    }
-  }, [date.date_range, date.pickup_hour, cart, couponApplied?.success]);
+  let total;
+  if (date.date_range && cart.length > 0) {
+    total = getCartTotalPrice(cart, date);
+    // setTotalCartPrice(total);
+  }
 
-  return { totalCartPrice };
+  return total;
 };
