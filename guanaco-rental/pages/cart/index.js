@@ -37,10 +37,17 @@ import CartSubTotal from "../../components/CartPageList/CartSubTotal/CartSubTota
 import Loader from "../../components/Loaders/Loader/Loader";
 
 import s from "../../styles/CartPage.module.scss";
+import {
+  useLoadCartFromLocalStorage,
+  useLoadLocationFromLocalStorage,
+} from "../../hooks/useLocalStorage";
 
 export default function CartPage() {
   const dispatch = useDispatch();
   const router = useRouter();
+
+  useLoadCartFromLocalStorage();
+  useLoadLocationFromLocalStorage();
 
   const [messageInput, setMessageInput] = useState("");
 
@@ -59,30 +66,10 @@ export default function CartPage() {
   }, [userData, session, dispatch]);
 
   useEffect(() => {
-    if (cart?.length === 0) {
-      const localCart = localStorage.getItem("cart");
-      if (localCart) {
-        dispatch(setCart(JSON.parse(localCart)));
-      }
-    }
-  }, [dispatch, cart?.length]);
-
-  useEffect(() => {
     if (!pickupHour) {
       dispatch(setPickupHour("09:00hs"));
     }
   }, [location, dispatch, pickupHour]);
-
-  useEffect(() => {
-    if (!location) {
-      const localLocation = localStorage.getItem("location");
-      if (localLocation) {
-        dispatch(setLocation(localLocation));
-      } else {
-        dispatch(setShowModal(true));
-      }
-    }
-  }, [dispatch, location]);
 
   const [freeOrder, setFreeOrder] = useState(false);
 

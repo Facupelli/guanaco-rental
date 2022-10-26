@@ -29,6 +29,10 @@ import NavButton from "../../components/Nav/NavButton/NavButton";
 import SelectLoaction from "../../components/SelectLocation/SelectLocation";
 
 import s from "../../styles/BookPage.module.scss";
+import {
+  useLoadCartFromLocalStorage,
+  useLoadLocationFromLocalStorage,
+} from "../../hooks/useLocalStorage";
 
 export default function Home({ showNewModal }) {
   const dispatch = useDispatch();
@@ -52,23 +56,8 @@ export default function Home({ showNewModal }) {
     }
   }, [userData, session, dispatch]);
 
-  useEffect(() => {
-    if (cart?.length === 0) {
-      const localCart = localStorage.getItem("cart");
-      if (localCart) {
-        dispatch(setCart(JSON.parse(localCart)));
-      }
-    }
-  }, [dispatch, cart?.length]);
-
-  useEffect(() => {
-    const localLocation = localStorage.getItem("location");
-    if (localLocation) {
-      dispatch(setLocation(localLocation));
-    } else {
-      dispatch(setShowModal(true));
-    }
-  }, [dispatch]);
+  useLoadCartFromLocalStorage();
+  useLoadLocationFromLocalStorage();
 
   useEffect(() => {
     if (

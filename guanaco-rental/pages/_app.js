@@ -1,6 +1,10 @@
 import { SessionProvider } from "next-auth/react";
 import { Provider } from "react-redux";
 import store from "../redux/store";
+import {
+  useLoadCartFromLocalStorage,
+  // useLoadLocationFromLocalStorage,
+} from "../hooks/useLocalStorage.js";
 
 //gloabl app
 import "../styles/globals.css";
@@ -10,9 +14,12 @@ import "../styles/fonts.css";
 import "../styles/reactcalendar.css";
 
 //icons
-import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
-config.autoAddCss = false
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { useEffect } from "react";
+config.autoAddCss = false;
+
+let didInit = false;
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
