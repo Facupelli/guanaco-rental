@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
+//REDUX
 import {
   resetDate,
   setPickupHour,
@@ -13,6 +14,7 @@ import {
 import { cleanCart, setCart } from "../../redux/features/cart/cartSlice";
 import { setUserId } from "../../redux/features/user/userSlice";
 
+//HOOKS
 import { useSumCartItems } from "../../hooks/useSumCartItems";
 import { useApplyDiscountsToCart } from "../../hooks/useApplyDiscountsToCart";
 import { useDateRange } from "../../hooks/useDateRange";
@@ -21,6 +23,7 @@ import {
   useLoadLocationFromLocalStorage,
 } from "../../hooks/useLocalStorage";
 
+//UTILS
 import { formatPrice } from "../../utils/price";
 import { areAllItemsAvailable } from "../../utils/dates_functions";
 import { getUniqueUser } from "../../utils/fetch_users";

@@ -9,6 +9,7 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getUniqueUser } from "../../utils/fetch_users";
 
+//REDUX
 import { setUserId } from "../../redux/features/user/userSlice";
 import { setLocation } from "../../redux/features/location/locationSlice";
 
