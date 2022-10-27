@@ -46,7 +46,6 @@ Font.register({
 const MyDocument = Document;
 const MyPage = Page;
 
-
 const styles = StyleSheet.create({
   page: {
     fontSize: 12,
@@ -184,11 +183,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RemitoPDF = ({ location, pickupDay, returnDay, order, equipmentRows }) => (
+export const RemitoPDF = ({
+  location,
+  pickupDay,
+  returnDay,
+  order,
+  equipmentRows,
+}) => (
   <MyDocument>
     <MyPage size="A4" style={styles.page} wrap>
       <View style={styles.number}>
-        <Text>REMITO N° {location}-{order.number}</Text>
+        <Text>
+          REMITO N° {location}-{order.number}
+        </Text>
       </View>
       <View style={styles.pageMargin} fixed></View>
       <View style={styles.imageWrapper}>
@@ -209,7 +216,7 @@ export const RemitoPDF = ({ location, pickupDay, returnDay, order, equipmentRows
         <View style={styles.flex}>
           <Text style={styles.flexItem}>
             CANTIDAD DE JORNADAS:{" "}
-            <Text style={styles.bold}>{order.booking.dates.length}</Text>
+            <Text style={styles.bold}>{order.booking.dates.length - 1}</Text>
           </Text>
           <Text style={styles.flexItem}>
             PRECIO ACORDADO:{" "}
