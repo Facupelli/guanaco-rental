@@ -15,7 +15,7 @@ import ClientPetitionCard from "../../../components/ClientPetitionCard/ClientPet
 import ClientPetitionInfo from "../../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
 import Nav from "../../../components/Nav/Nav";
 import PaginationArrows from "../../../components/Pagination/PaginationArrows";
-import UserRow from "../../../components/UserRow/UserRow";
+import UserTable from "../../../components/UserTable/UserTable";
 
 import s from "../../../styles/AdminUsersPage.module.scss";
 
@@ -135,23 +135,7 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
 
             {clientUsers?.length > 0 && (
               <div className={s.table_wrapper}>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Alta</th>
-                      <th>Nombre</th>
-                      <th>Tel</th>
-                      <th>DNI</th>
-                      <th>Provincia</th>
-                      <th>Pedidos</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {clientUsers.map((user) => (
-                      <UserRow key={user.id} user={user} />
-                    ))}
-                  </tbody>
-                </table>
+                <UserTable users={clientUsers} />
               </div>
             )}
 
@@ -173,10 +157,11 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
               onChange={(e) => setSearch(e.target.value)}
             />
 
-            {adminUsers.length > 0 &&
-              adminUsers.map((user) => (
-                <ClientCard user={user} key={user.id} admin />
-              ))}
+            {adminUsers.length > 0 && (
+              <div className={s.table_wrapper}>
+                <UserTable users={adminUsers} />{" "}
+              </div>
+            )}
           </section>
         )}
       </AdminMain>
