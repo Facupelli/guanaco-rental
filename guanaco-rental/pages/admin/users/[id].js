@@ -136,7 +136,11 @@ export default function UserProfile({ user }) {
             </div>
             <div className={s.user_info_orders_card}>
               <h3>Pedidos</h3>
-              <p>{user.orders.map((order) => order.number).join(", ")}</p>
+              {user.orders.length === 0 ? (
+                `${user.fullName} no ha hecho ningun pedido.`
+              ) : (
+                <p>{user.orders.map((order) => order.number).join(", ")}</p>
+              )}
             </div>
           </>
         )}

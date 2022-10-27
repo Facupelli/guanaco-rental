@@ -3,7 +3,6 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 
 import {
   useFetchClients,
@@ -16,12 +15,11 @@ import ClientPetitionCard from "../../../components/ClientPetitionCard/ClientPet
 import ClientPetitionInfo from "../../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
 import Nav from "../../../components/Nav/Nav";
 import PaginationArrows from "../../../components/Pagination/PaginationArrows";
+import UserRow from "../../../components/UserRow/UserRow";
 
 import s from "../../../styles/AdminUsersPage.module.scss";
 
 export default function AdminUsersPage({ clients, newClients, admins }) {
-  const router = useRouter();
-
   const { data: session } = useSession();
 
   const [showNewClients, setShowNewClients] = useState(false);
@@ -45,10 +43,6 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
 
   const { newClientUsers, newClientsLoading, refetchNewClients } =
     useFetchNewClients(newClients, session?.user.token);
-
-  const handleClickUser = (userId) => {
-    router.push(`/admin/users/${userId}`);
-  };
 
   return (
     <div className={s.bg_grey}>
@@ -154,22 +148,7 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
                   </thead>
                   <tbody>
                     {clientUsers.map((user) => (
-                      <tr
-                        key={user.id}
-                        onClick={() => handleClickUser(user.id)}
-                      >
-                        <td>
-                          {new Date(user.customerApprovedAt).toLocaleDateString(
-                            "es-AR",
-                            { year: "numeric", day: "numeric", month: "short" }
-                          )}
-                        </td>
-                        <td>{user.fullName}</td>
-                        <td>{user.phone}</td>
-                        <td>{user.dniNumber}</td>
-                        <td>{user.addressProvince}</td>
-                        <td>{user.orders?.length}</td>
-                      </tr>
+                      <UserRow key={user.id} user={user} />
                     ))}
                   </tbody>
                 </table>

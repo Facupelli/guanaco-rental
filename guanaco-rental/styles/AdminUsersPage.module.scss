@@ -73,21 +73,6 @@
 
       tbody {
         font-size: 14px;
-
-        tr {
-          border-bottom: 1px solid $s-gray;
-          cursor: pointer;
-
-          &:hover {
-            background-color: #f5f4f4;
-          }
-
-          td {
-            padding: 0.5rem 0;
-            white-space: nowrap;
-            overflow: hidden;
-          }
-        }
       }
     }
   }
