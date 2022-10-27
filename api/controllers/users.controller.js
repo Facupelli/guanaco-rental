@@ -154,21 +154,38 @@ async function getUniqueUser(req, res, next) {
   const { email } = req.params;
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { email },
-      select: {
-        id: true,
-        fullName: true,
-        orders: true,
-        phone: true,
-        dniNumber: true,
-        customerApproved: true,
-        petitionSent: true,
-        addressProvince: true,
-      },
-    });
+    if (email.includes("@")) {
+      const user = await prisma.user.findUnique({
+        where: { email },
+        select: {
+          id: true,
+          fullName: true,
+          orders: true,
+          phone: true,
+          dniNumber: true,
+          customerApproved: true,
+          petitionSent: true,
+          addressProvince: true,
+        },
+      });
 
-    res.json({ user });
+      res.json({ user });
+      return;
+    }
+
+    if (!email.includes("@")) {
+      const user = await prisma.user.findUnique({
+        where: { id: email },
+        include: {
+          orders: true,
+        },
+      });
+
+      res.json({ user });
+      return;
+    }
+
+    res.json({ message: "missing id or email" });
   } catch (e) {
     next(e);
   }

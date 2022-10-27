@@ -1,24 +1,31 @@
 import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]";
-import { useCallback, useEffect, useState } from "react";
+import { authOptions } from "../../api/auth/[...nextauth]";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-import AdminMain from "../../components/AdminMain/AdminMain";
-import ClientCard from "../../components/ClientCard/ClientCard";
-import ClientPetitionCard from "../../components/ClientPetitionCard/ClientPetitionCard";
-import ClientPetitionInfo from "../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
-import Nav from "../../components/Nav/Nav";
+import {
+  useFetchClients,
+  useFetchNewClients,
+} from "../../../hooks/useFetchUsers";
 
-import s from "../../styles/AdminUsersPage.module.scss";
-import PaginationArrows from "../../components/Pagination/PaginationArrows";
-import { useFetchClients, useFetchNewClients } from "../../hooks/useFetchUsers";
+import AdminMain from "../../../components/AdminMain/AdminMain";
+import ClientCard from "../../../components/ClientCard/ClientCard";
+import ClientPetitionCard from "../../../components/ClientPetitionCard/ClientPetitionCard";
+import ClientPetitionInfo from "../../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
+import Nav from "../../../components/Nav/Nav";
+import PaginationArrows from "../../../components/Pagination/PaginationArrows";
+
+import s from "../../../styles/AdminUsersPage.module.scss";
 
 export default function AdminUsersPage({ clients, newClients, admins }) {
+  const router = useRouter();
+
   const { data: session } = useSession();
 
-  const [showNewClients, setShowNewClients] = useState(true);
-  const [showClients, setShowClients] = useState(false);
+  const [showNewClients, setShowNewClients] = useState(false);
+  const [showClients, setShowClients] = useState(true);
   const [showAdmins, setShowAdmins] = useState(false);
 
   const [newClientInfo, setNewClientInfo] = useState({});
@@ -38,6 +45,10 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
 
   const { newClientUsers, newClientsLoading, refetchNewClients } =
     useFetchNewClients(newClients, session?.user.token);
+
+  const handleClickUser = (userId) => {
+    router.push(`/admin/users/${userId}`);
+  };
 
   return (
     <div className={s.bg_grey}>
@@ -128,10 +139,40 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
               onChange={(e) => setSearch(e.target.value)}
             />
 
-            {clientUsers?.length > 0 &&
-              clientUsers.map((user) => (
-                <ClientCard user={user} key={user.id} />
-              ))}
+            {clientUsers?.length > 0 && (
+              <div className={s.table_wrapper}>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Alta</th>
+                      <th>Nombre</th>
+                      <th>Tel</th>
+                      <th>DNI</th>
+                      <th>Provincia</th>
+                      <th>Pedidos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {clientUsers.map((user) => (
+                      <tr onClick={() => handleClickUser(user.id)}>
+                        <td>
+                          {new Date(user.customerApprovedAt).toLocaleDateString(
+                            "es-AR",
+                            { year: "numeric", day: "numeric", month: "short" }
+                          )}
+                        </td>
+                        <td>{user.fullName}</td>
+                        <td>{user.phone}</td>
+                        <td>{user.dniNumber}</td>
+                        <td>{user.addressProvince}</td>
+                        <td>{user.orders?.length}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
             {!search && (
               <PaginationArrows
                 skip={skip}

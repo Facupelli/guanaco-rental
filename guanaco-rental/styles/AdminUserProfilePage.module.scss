@@ -1,0 +1,106 @@
+@import "../styles/app.scss";
+
+.bg_grey {
+  background-color: $bg-grey;
+  min-height: 100vh;
+  padding-bottom: 3rem;
+
+  .image_wrapper {
+    margin: 1rem 0rem;
+    border-radius: 0.2rem;
+  }
+
+  main {
+    @include app_width;
+    padding-top: calc(3rem + 70px);
+
+    .user_info_card,
+    .user_info_job_card,
+    .user_info_bank_card,
+    .user_info_orders_card {
+      margin-top: 1rem;
+      background-color: white;
+      padding: 1rem 2rem 1rem 2rem;
+      border-radius: 0.2rem;
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+
+      h3 {
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+
+      ul {
+        display: flex;
+
+        > div {
+          padding-right: 2rem;
+          padding-left: 2rem;
+          border-right: 1px solid $s-gray;
+
+          &:first-child {
+            padding-left: 0;
+          }
+
+          &:last-child {
+            border-right: none;
+          }
+
+          li:first-child {
+            color: $m-gray;
+            font-size: 12px;
+            margin-bottom: 0.2rem;
+          }
+        }
+      }
+    }
+
+    .user_info_card {
+      .fullName_wrapper {
+        p {
+          font-size: 24px;
+          font-weight: 600;
+        }
+
+        .btns_wrapper {
+          margin-top: 0.5rem;
+          display: flex;
+          gap: 0.5rem;
+          button {
+            @include m-button;
+            padding: 0.2rem;
+            font-size: 12px;
+            font-weight: 300;
+          }
+        }
+      }
+
+      ul {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .bg_grey {
+    main {
+      .user_info_card,
+      .user_info_job_card,
+      .user_info_bank_card,
+      .user_info_orders_card {
+        padding: 0.8rem;
+
+        ul {
+          flex-wrap: wrap;
+          row-gap: 0.5rem;
+
+          > div {
+            padding-right: 1rem;
+            padding-left: 0rem;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
