@@ -154,7 +154,10 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
                   </thead>
                   <tbody>
                     {clientUsers.map((user) => (
-                      <tr onClick={() => handleClickUser(user.id)}>
+                      <tr
+                        key={user.id}
+                        onClick={() => handleClickUser(user.id)}
+                      >
                         <td>
                           {new Date(user.customerApprovedAt).toLocaleDateString(
                             "es-AR",
