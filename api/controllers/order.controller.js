@@ -306,6 +306,7 @@ async function putOrder(req, res, next) {
         data: {
           equipments: { connect: { id: data.equipmentId } },
           totalPrice: { increment: data.newPrice },
+          originalTotalPrice: { increment: data.newPrice },
         },
         include: {
           booking: true,
@@ -331,6 +332,7 @@ async function putOrder(req, res, next) {
         data: {
           equipments: { disconnect: { id: data.equipmentId } },
           totalPrice: { decrement: data.newPrice },
+          originalTotalPrice: { decrement: data.newPrice },
         },
         include: {
           booking: true,
