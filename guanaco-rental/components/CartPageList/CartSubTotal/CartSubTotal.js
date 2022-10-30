@@ -29,7 +29,7 @@ export default function CartSubTotal({ totalCartPrice }) {
           <p>Si tienes un cupón los descuentos NO son acumulativos.</p>
         </MessageModal>
       )}
-      {totalCartPrice?.discountId && (
+      {totalCartPrice?.discountValue && (
         <>
           <div className={`${s.flex} ${s.font_small}`}>
             <p>Sub Total:</p>

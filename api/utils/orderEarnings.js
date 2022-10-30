@@ -63,12 +63,21 @@ const getOwnerEarningsByOrder = (order) => {
     }
   }
 
+  if (order.fixedDiscount) {
+    const discount = order.fixedDiscount.discount / 100;
+    return {
+      totalFederico: totalFederico - totalFederico * discount,
+      totalOscar: totalOscar - totalOscar * discount,
+      totalSub: totalSub - totalSub * discount,
+    };
+  }
+
   if (order.coupon) {
     const discount = order.coupon.discount / 100;
     return {
-      totalFederico: totalFederico * discount,
-      totalOscar: totalOscar * discount,
-      totalSub: totalSub * discount,
+      totalFederico: totalFederico - totalFederico * discount,
+      totalOscar: totalOscar - totalOscar * discount,
+      totalSub: totalSub - totalSub * discount,
     };
   }
 

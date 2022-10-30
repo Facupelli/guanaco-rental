@@ -101,6 +101,7 @@ async function postOrder(req, res, next) {
       data: newData,
       include: {
         booking: true,
+        fixedDiscount: true,
         equipments: { include: { bookings: true } },
         coupon: { select: { name: true, discount: true } },
       },
@@ -192,7 +193,6 @@ async function postOrder(req, res, next) {
 
     const mailSentToGuanaco = await sendMail(mailToGuanaco);
     const mailSentToClient = await sendMail(mailToClient);
-
     console.log(mailSentToGuanaco);
     console.log(mailSentToClient);
 
@@ -215,7 +215,6 @@ async function postOrder(req, res, next) {
     //     )
     //     .join("-  "),
     // };
-
     // const sentWsMessage = await sendWsMessage(msgData);
     // console.log(sentWsMessage);
   } catch (e) {
@@ -294,19 +293,36 @@ async function putOrder(req, res, next) {
     let updatedBook;
 
     if (data.operation === "add") {
+      updatedBook = await prisma.bookOnEquipment.create({
+        data: {
+          book: { connect: { id: data.bookingId } },
+          equipment: { connect: { id: data.equipmentId } },
+          quantity: Number(data.quantity),
+        },
+      });
+
       updatedOrder = await prisma.order.update({
         where: { id: data.orderId },
         data: {
           equipments: { connect: { id: data.equipmentId } },
           totalPrice: { increment: data.newPrice },
         },
+        include: {
+          booking: true,
+          fixedDiscount: true,
+          equipments: { include: { bookings: true } },
+          coupon: { select: { name: true, discount: true } },
+        },
       });
 
-      updatedBook = await prisma.bookOnEquipment.create({
+      const eachEarnings = getOwnerEarningsByOrder(updatedOrder);
+
+      const orderEarnings = await prisma.orderEarnings.update({
+        where: { orderId: updatedOrder.id },
         data: {
-          book: { connect: { id: data.bookingId } },
-          equipment: { connect: { id: data.equipmentId } },
-          quantity: Number(data.quantity),
+          federico: eachEarnings.totalFederico ?? 0,
+          oscar: eachEarnings.totalOscar ?? 0,
+          sub: eachEarnings.totalSub ?? 0,
         },
       });
     } else {
@@ -316,6 +332,12 @@ async function putOrder(req, res, next) {
           equipments: { disconnect: { id: data.equipmentId } },
           totalPrice: { decrement: data.newPrice },
         },
+        include: {
+          booking: true,
+          fixedDiscount: true,
+          equipments: { include: { bookings: true } },
+          coupon: { select: { name: true, discount: true } },
+        },
       });
 
       updatedBook = await prisma.bookOnEquipment.delete({
@@ -324,6 +346,17 @@ async function putOrder(req, res, next) {
             equipmentId: data.equipmentId,
             bookId: data.bookingId,
           },
+        },
+      });
+
+      const eachEarnings = getOwnerEarningsByOrder(updatedOrder);
+
+      const orderEarnings = await prisma.orderEarnings.update({
+        where: { orderId: updatedOrder.id },
+        data: {
+          federico: eachEarnings.totalFederico ?? 0,
+          oscar: eachEarnings.totalOscar ?? 0,
+          sub: eachEarnings.totalSub ?? 0,
         },
       });
     }

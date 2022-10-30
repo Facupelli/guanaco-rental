@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical, faAdd } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { formatPrice, getEachEarnings } from "../../utils/price";
+import { formatPrice } from "../../utils/price";
+
 import {
   generatePdfRows,
   getOrderStatus,
@@ -10,6 +11,7 @@ import {
   handleDeliveredChange,
   updateGearFromOrder,
 } from "../../utils/orders";
+
 import { useDebounce } from "../../hooks/useDebounce";
 
 import Gear from "./Gear/Gear";
@@ -38,8 +40,6 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
 
   const [equipments, setEquipments] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const [earnings, setEarnings] = useState({});
 
   useEffect(() => {
     if (debouncedGearInput) {
@@ -135,18 +135,6 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
             {userRole === "ADMIN" && (
               <>
                 <div>
-                  <p>Federico:</p>
-                  <p className={s.bold}>{formatPrice(earnings?.federico)}</p>
-                </div>
-                <div>
-                  <p>Oscar:</p>
-                  <p className={s.bold}>{formatPrice(earnings?.oscar)}</p>
-                </div>
-                <div>
-                  <p>Subalquiler:</p>
-                  <p className={s.bold}>{formatPrice(earnings?.sub)}</p>
-                </div>
-                <div className={s.border_top}>
                   <p>Total original:</p>
                   <p className={s.bold}>
                     {formatPrice(order.originalTotalPrice)}
@@ -166,6 +154,24 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
                     {order.fixedDiscount
                       ? `${order.fixedDiscount?.name} ${order.fixedDiscount?.discount} %`
                       : "-- %"}
+                  </p>
+                </div>
+                <div className={s.border_top}>
+                  <p>Federico:</p>
+                  <p className={s.bold}>
+                    {formatPrice(order.orderEarnings.federico)}
+                  </p>
+                </div>
+                <div>
+                  <p>Oscar:</p>
+                  <p className={s.bold}>
+                    {formatPrice(order.orderEarnings.oscar)}
+                  </p>
+                </div>
+                <div>
+                  <p>Subalquiler:</p>
+                  <p className={s.bold}>
+                    {formatPrice(order.orderEarnings.sub)}
                   </p>
                 </div>
               </>
@@ -255,10 +261,7 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
           <button
             className={`${s.elipsis_menu_btn}`}
             aria-label="menu-btn"
-            onClick={() => {
-              setEarnings(getEachEarnings([order]));
-              setShowDeleteModal(true);
-            }}
+            onClick={() => setShowDeleteModal(true)}
           >
             <FontAwesomeIcon icon={faEllipsisVertical} />
           </button>

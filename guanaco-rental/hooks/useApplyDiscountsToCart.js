@@ -14,7 +14,11 @@ export const useApplyDiscountsToCart = (
   if (couponApplied.success) {
     const total =
       totalCartPrice - totalCartPrice * (couponApplied.coupon.discount / 100);
-    totalCartPriceWithDiscounts = { total };
+    totalCartPriceWithDiscounts = {
+      subTotal: totalCartPrice,
+      total,
+      discountValue: couponApplied.coupon.discount,
+    };
     return totalCartPriceWithDiscounts;
   }
 

@@ -14,6 +14,7 @@ export const getEachEarnings = (orders) => {
   }, 0);
 
   const federico = orders.reduce((curr, acc) => {
+    console.log("curr", acc.orderEarnings);
     return curr + (acc.orderEarnings?.federico ?? 0);
   }, 0);
 

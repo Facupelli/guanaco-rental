@@ -9,6 +9,8 @@ import s from "./Gear.module.scss";
 export default function Gear({ gear, order, editable, refetchOrders, token }) {
   const [showModal, setShowModal] = useState(false);
 
+  console.log("GEAR", gear);
+
   return (
     <>
       {showModal && (
@@ -32,7 +34,7 @@ export default function Gear({ gear, order, editable, refetchOrders, token }) {
           x
           {
             gear.bookings.filter((book) => book.bookId === order.booking.id)[0]
-              .quantity
+              ?.quantity
           }
         </p>
         {editable && !order.delivered && (
