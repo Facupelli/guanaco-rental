@@ -72,7 +72,7 @@ export default function AdminPage() {
     } catch (e) {
       console.log(e);
     }
-  }, [session?.user.role]);
+  });
 
   useEffect(() => {
     if (userData && session) {
