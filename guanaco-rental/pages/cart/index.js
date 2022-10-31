@@ -215,7 +215,9 @@ export default function CartPage() {
             }))
           }
         >
-          Tu alta de cliente fue rechazada.
+          Hemos suspendido tu cuenta y está sometida a revisión por
+          incumplimiento de nuestras normas. Comunícate vía WhatsApp para saber
+          más.
         </MessageModal>
       )}
       {showMessageModal.modal && (
