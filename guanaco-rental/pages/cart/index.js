@@ -74,6 +74,7 @@ export default function CartPage() {
 
   const [showMessageModal, setShowMessageModal] = useState({
     modal: false,
+    modalDenied: false,
     loading: false,
     error: "",
   });
@@ -110,6 +111,13 @@ export default function CartPage() {
     if (!userData.phone && !userData.dniNumber) {
       //completa alta de cliente
       router.push("/newClient");
+      return;
+    }
+    if (userData.petitionSent === "DENIED") {
+      setShowMessageModal((prev) => ({
+        ...prev,
+        modalDenied: true,
+      }));
       return;
     }
     if (!userData.customerApproved) {
@@ -196,6 +204,19 @@ export default function CartPage() {
           setDateRange={setDateRange}
           setDatePickup={setDatePickup}
         />
+      )}
+      {showMessageModal.modalDenied && (
+        <MessageModal
+          showButton
+          btnFunc={() =>
+            setShowMessageModal((prev) => ({
+              ...prev,
+              modalDenied: false,
+            }))
+          }
+        >
+          Tu alta de cliente fue rechazada.
+        </MessageModal>
       )}
       {showMessageModal.modal && (
         <MessageModal

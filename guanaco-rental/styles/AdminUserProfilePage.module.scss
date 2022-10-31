@@ -78,6 +78,18 @@
         margin-top: 1rem;
       }
     }
+
+    .danger_div {
+      border: 1px solid $m-danger;
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      button {
+        @include m-button-danger;
+      }
+    }
   }
 }
 

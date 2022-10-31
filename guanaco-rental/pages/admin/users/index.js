@@ -70,7 +70,7 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
                   showNewClients ? s.nav_li_active : ""
                 }`}
               >
-                <p>Peticiones Alta de Cliente:</p>
+                <p>Alta de Cliente:</p>
                 <p>{newClientUsers.length}</p>
               </div>
             </li>

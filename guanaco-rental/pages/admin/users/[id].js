@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 import Nav from "../../../components/Nav/Nav";
@@ -10,8 +11,53 @@ import MessageModal from "../../../components/MessageModal/MessageModal";
 
 import s from "../../../styles/AdminUserProfilePage.module.scss";
 
-export default function UserProfile({ user }) {
+export default function UserProfile({ userData }) {
+  const [user, setUser] = useState(userData);
+
+  const { data: session } = useSession();
+
   const [dniUrl, setDniUrl] = useState();
+
+  const reFetchUser = async () => {
+    const userData = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://www.guanacorental.shop/rentalapi/users/${user.id}`
+        : `http://localhost:3001/users/${user.id}`,
+      { headers: { authorization: `${session?.user.token}` } }
+    )
+      .then((response) => response.json())
+      .catch((e) => console.log("fecth error:", e));
+
+    return userData;
+  };
+
+  const handleClickBanUser = async () => {
+    const response = await fetch(
+      process.env.NODE_ENV === "production"
+        ? `https://www.guanacorental.shop/rentalapi/users`
+        : "http://localhost:3001/users",
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          userId: user.id,
+          operation: "BAN",
+          customerApproved: false,
+          petitionSent: "DENIED",
+        }),
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+          authorization: `${session?.user.token}`,
+        },
+      }
+    );
+    const newFixedDiscount = await response.json();
+
+    if (newFixedDiscount.message === "success") {
+      const updatedUser = await reFetchUser();
+      setUser(updatedUser.user);
+    }
+  };
 
   return (
     <div className={s.bg_grey}>
@@ -142,6 +188,16 @@ export default function UserProfile({ user }) {
                 <p>{user.orders.map((order) => order.number).join(", ")}</p>
               )}
             </div>
+            <div className={`${s.user_info_orders_card} ${s.danger_div}`}>
+              <h3>Banear Usuario</h3>
+              <p>El usuario no podrá realizar pedidos por la app.</p>
+              <button
+                onClick={handleClickBanUser}
+                disabled={user.petitionSent === "DENIED"}
+              >
+                {user.petitionSent === "DENIED" ? "usuario baneado" : "banear"}
+              </button>
+            </div>
           </>
         )}
       </main>
@@ -170,7 +226,7 @@ export async function getServerSideProps(ctx) {
 
     return {
       props: {
-        user: userData.user,
+        userData: userData.user,
         session,
       },
     };
