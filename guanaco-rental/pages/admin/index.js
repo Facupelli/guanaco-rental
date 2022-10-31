@@ -57,12 +57,8 @@ export default function AdminPage() {
     try {
       const books = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://www.guanacorental.shop/rentalapi/book?location=${
-              session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
-            }`
-          : `http://localhost:3001/book?location=${
-              session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
-            }`
+          ? `https://www.guanacorental.shop/rentalapi/book?location=${"all"}`
+          : `http://localhost:3001/book?location=${"all"}`
       );
       const bookings = await books.json();
 
