@@ -188,16 +188,20 @@ export default function UserProfile({ userData }) {
                 <p>{user.orders.map((order) => order.number).join(", ")}</p>
               )}
             </div>
-            <div className={`${s.user_info_orders_card} ${s.danger_div}`}>
-              <h3>Banear Usuario</h3>
-              <p>El usuario no podrá realizar pedidos por la app.</p>
-              <button
-                onClick={handleClickBanUser}
-                disabled={user.petitionSent === "DENIED"}
-              >
-                {user.petitionSent === "DENIED" ? "usuario baneado" : "banear"}
-              </button>
-            </div>
+            {session?.user.token === "ADMIN" && (
+              <div className={`${s.user_info_orders_card} ${s.danger_div}`}>
+                <h3>Banear Usuario</h3>
+                <p>El usuario no podrá realizar pedidos por la app.</p>
+                <button
+                  onClick={handleClickBanUser}
+                  disabled={user.petitionSent === "DENIED"}
+                >
+                  {user.petitionSent === "DENIED"
+                    ? "usuario baneado"
+                    : "banear"}
+                </button>
+              </div>
+            )}
           </>
         )}
       </main>
