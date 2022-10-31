@@ -11,7 +11,8 @@ import { setUserId } from "../../redux/features/user/userSlice";
 
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
-import AdminNav from "../../components/AdminNav/AdminNav";
+import AdminMain from "../../components/AdminMain/AdminMain";
+import OrderCard from "../../components/OrderCard/OrderCard";
 
 import s from "../../styles/AdminPage.module.scss";
 
@@ -95,81 +96,90 @@ export default function AdminPage() {
       </Head>
       <Nav />
       <main className={s.main}>
-        <h1>Panel de Administrador</h1>
-        <AdminNav role={session?.user.role} />
-        <section>
-          <Calendar
-            className={s.calendar}
-            onClickDay={showDayBookings}
-            locale="es-ES"
-            minDate={new Date()}
-            tileClassName={({ date, view }) => {
-              if (
-                bookings.find(
-                  (day) => new Date(day.pickup).getTime() === date.getTime()
-                ) &&
-                bookings.find(
-                  (day) => new Date(day.return).getTime() === date.getTime()
-                )
-              ) {
-                return s.booked_pickup_return;
-              } else if (
-                bookings.find(
-                  (day) => new Date(day.pickup).getTime() === date.getTime()
-                )
-              ) {
-                return s.booked_pickup;
-              } else if (
-                bookings.find(
-                  (day) => new Date(day.return).getTime() === date.getTime()
-                )
-              ) {
-                return s.booked_return;
-              } else {
-                if (new Date().getTime() <= date.getTime()) {
-                  return s.free_tile;
+        <AdminMain title="Calendario">
+          <section>
+            <Calendar
+              className={s.calendar}
+              onClickDay={showDayBookings}
+              locale="es-ES"
+              minDate={new Date()}
+              tileClassName={({ date, view }) => {
+                if (
+                  bookings.find(
+                    (day) => new Date(day.pickup).getTime() === date.getTime()
+                  ) &&
+                  bookings.find(
+                    (day) => new Date(day.return).getTime() === date.getTime()
+                  )
+                ) {
+                  return s.booked_pickup_return;
+                } else if (
+                  bookings.find(
+                    (day) => new Date(day.pickup).getTime() === date.getTime()
+                  )
+                ) {
+                  return s.booked_pickup;
+                } else if (
+                  bookings.find(
+                    (day) => new Date(day.return).getTime() === date.getTime()
+                  )
+                ) {
+                  return s.booked_return;
+                } else {
+                  if (new Date().getTime() <= date.getTime()) {
+                    return s.free_tile;
+                  }
                 }
-              }
-            }}
-          />
-          <div className={s.info_wrapper}>
-            {loading ? (
-              <p>Cargando...</p>
-            ) : (
-              dayBookings.length > 0 &&
-              dayBookings.map((book) => (
-                <div key={book.id}>
-                  <p className={s.bold}>{book.order.user.fullName}</p>
-                  <div>
-                    <p className={s.flex_10}>
-                      <span className={s.bold}>N°</span> {book.order.number}
-                    </p>
-                    <p className={s.flex_20}>
-                      <span className={s.bold}>Total:</span>{" "}
-                      {formatPrice(book.order.totalPrice)}
-                    </p>
-                    <div className={s.flex_10}>
-                      <p className={s.bold}>Fechas:</p>
-                      <p>{new Date(book.dates[0]).toLocaleDateString()}</p>
-                      <p>{new Date(book.dates.at(-1)).toLocaleDateString()}</p>
-                    </div>
-                    <div className={s.flex_50}>
-                      <p className={s.bold}>Equipos:</p>
-                      {book.order.equipments.map((gear) => (
-                        <p key={gear.id}>
-                          {gear.name} {gear.brand} {gear.model}
+              }}
+            />
+            <div className={s.info_wrapper}>
+              {loading ? (
+                <p>Cargando...</p>
+              ) : (
+                dayBookings.length > 0 &&
+                dayBookings.map((book) => (
+                  // <OrderCard
+                  //   order={book.order}
+                  //   key={book.order.id}
+                  //   userRole={session?.user.role}
+                  //   // refetchOrders={refetchOrders}
+                  //   token={session?.user.token}
+                  // />
+                  <div key={book.id}>
+                    <p className={s.bold}>{book.order.user.fullName}</p>
+                    <div>
+                      <p className={s.flex_10}>
+                        <span className={s.bold}>N°</span> {book.order.number}
+                      </p>
+                      <p className={s.flex_20}>
+                        <span className={s.bold}>Total:</span>{" "}
+                        {formatPrice(book.order.totalPrice)}
+                      </p>
+                      <div className={s.flex_10}>
+                        <p className={s.bold}>Fechas:</p>
+                        <p>{new Date(book.dates[0]).toLocaleDateString()}</p>
+                        <p>
+                          {new Date(book.dates.at(-1)).toLocaleDateString()}
                         </p>
-                      ))}
+                      </div>
+                      <div className={s.flex_50}>
+                        <p className={s.bold}>Equipos:</p>
+                        {book.order.equipments.map((gear) => (
+                          <p key={gear.id}>
+                            {gear.name} {gear.brand} {gear.model}
+                          </p>
+                        ))}
+                      </div>
                     </div>
+                    <p className={s.location}>
+                      {book.order.location === "MENDOZA" ? "MDZ" : "SJ"}
+                    </p>
                   </div>
-                  <p className={s.location}>
-                    {book.order.location === "MENDOZA" ? "MDZ" : "SJ"}
-                  </p>
-                </div>
-              ))
-            )}
-          </div>
-        </section>
+                ))
+              )}
+            </div>
+          </section>
+        </AdminMain>
       </main>
     </div>
   );

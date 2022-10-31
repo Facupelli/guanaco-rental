@@ -84,7 +84,7 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
               <div
                 className={`${s.nav_li} ${showClients ? s.nav_li_active : ""}`}
               >
-                <p>Lista de Clientes</p>
+                <p>Clientes</p>
               </div>
             </li>
             <li

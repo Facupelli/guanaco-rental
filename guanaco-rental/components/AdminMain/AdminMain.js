@@ -10,12 +10,21 @@ export default function AdminMain({ title, children }) {
 
   return (
     <main className={s.main}>
-      <AdminNav narrow role={session?.user.role} />
-      <div className={s.title_wrapper}>
+      {/* <div className={s.title_wrapper}>
         <ArrowBackBtn />
         <h1>{title}</h1>
+      </div> */}
+      <div className={s.flex}>
+        <AdminNav narrow role={session?.user.role} />
+        <div className={s.admin_max_width}>
+          <div className={s.flex_col}>
+            <h1>
+              {">"} {title}
+            </h1>
+            <div className={s.children_wrapper}>{children}</div>
+          </div>
+        </div>
       </div>
-      {children}
     </main>
   );
 }

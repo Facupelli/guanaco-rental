@@ -17,12 +17,13 @@ async function getBookingsByDate(req, res, next) {
         },
         include: {
           order: {
-            select: {
-              equipments: true,
-              totalPrice: true,
-              number: true,
-              user: { select: { fullName: true } },
-              location: true,
+            include: {
+              booking: true,
+              equipments: { include: { bookings: true } },
+              coupon: { select: { name: true, discount: true } },
+              orderEarnings: true,
+              fixedDiscount: true,
+              user: true,
             },
           },
         },
