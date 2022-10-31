@@ -42,12 +42,8 @@ export default function AdminPage() {
     try {
       const dayBooks = await fetch(
         process.env.NODE_ENV === "production"
-          ? `https://www.guanacorental.shop/rentalapi/book?date=${localDate}&location=${
-              session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
-            }`
-          : `http://localhost:3001/book?date=${localDate}&location=${
-              session?.user.role === "EMPLOYEE" ? employeeLocation : "all"
-            }`
+          ? `https://www.guanacorental.shop/rentalapi/book?date=${localDate}&location=${"all"}`
+          : `http://localhost:3001/book?date=${localDate}&location=${"all"}`
       );
       const bookings = await dayBooks.json();
       setDayBookings(bookings);
