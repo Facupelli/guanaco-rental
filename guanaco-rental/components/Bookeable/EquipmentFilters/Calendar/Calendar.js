@@ -48,7 +48,9 @@ export default function CalendarComponent({
   };
 
   const weekendDisabled = ({ date }) => {
-    if (date.getDay() === 6 || date.getDay() === 0) {
+    if (new Date().toDateString() === date.toDateString()) {
+      return true;
+    } else if (date.getDay() === 6 || date.getDay() === 0) {
       return true;
     }
     return false;
