@@ -11,9 +11,6 @@
   }
 
   main {
-    @include app_width;
-    padding-top: calc(3rem + 70px);
-
     .user_info_card,
     .user_info_job_card,
     .user_info_bank_card,

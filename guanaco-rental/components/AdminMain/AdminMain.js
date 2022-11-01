@@ -1,11 +1,12 @@
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 import AdminNav from "../AdminNav/AdminNav";
 import ArrowBackBtn from "../ArrowBackBtn/ArrowBackBtn";
 
 import s from "./AdminMain.module.scss";
 
-export default function AdminMain({ title, children }) {
+export default function AdminMain({ title, subtitle, link, children }) {
   const { data: session } = useSession();
 
   return (
@@ -18,9 +19,25 @@ export default function AdminMain({ title, children }) {
         <AdminNav narrow role={session?.user.role} />
         <div className={s.admin_max_width}>
           <div className={s.flex_col}>
-            <h1>
-              {">"} {title}
-            </h1>
+            <div className={s.flex}>
+              {!subtitle && (
+                <h1>
+                  {">"} {title}
+                </h1>
+              )}
+              {subtitle && (
+                <>
+                  <Link href={`/admin/${link}`}>
+                    <a className={`${subtitle ? s.active : ""}`}>
+                      {">"} {title}
+                    </a>
+                  </Link>
+                  <h1>
+                    {">"} {subtitle}
+                  </h1>
+                </>
+              )}
+            </div>
             <div className={s.children_wrapper}>{children}</div>
           </div>
         </div>

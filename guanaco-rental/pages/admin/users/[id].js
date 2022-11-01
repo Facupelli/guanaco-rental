@@ -10,6 +10,7 @@ import ArrowBackBtn from "../../../components/ArrowBackBtn/ArrowBackBtn";
 import MessageModal from "../../../components/MessageModal/MessageModal";
 
 import s from "../../../styles/AdminUserProfilePage.module.scss";
+import AdminMain from "../../../components/AdminMain/AdminMain";
 
 export default function UserProfile({ userData }) {
   const [user, setUser] = useState(userData);
@@ -84,8 +85,8 @@ export default function UserProfile({ userData }) {
           </div>
         </MessageModal>
       )}
-      <main>
-        <ArrowBackBtn />
+      <AdminMain title="Usuarios" subtitle="Detalles Usuario" link="/users">
+        {/* <ArrowBackBtn /> */}
         {user && (
           <>
             <div className={s.user_info_card}>
@@ -204,7 +205,7 @@ export default function UserProfile({ userData }) {
             )}
           </>
         )}
-      </main>
+      </AdminMain>
     </div>
   );
 }
