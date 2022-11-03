@@ -63,7 +63,7 @@ export default function UserProfile({ orderData }) {
   // getEquipment();
   useEffect(() => {
     getEquipment();
-  }, [debouncedGearInput, order.location]);
+  }, [debouncedGearInput, order.location, getEquipment]);
 
   const refetchOrders = async () => {
     const orderData = await fetch(

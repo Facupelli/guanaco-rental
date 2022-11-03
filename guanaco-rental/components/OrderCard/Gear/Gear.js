@@ -40,6 +40,7 @@ export default function Gear({
             height={40}
             width={40}
             objectFit="cover"
+            alt={gear.image}
           />
         </div>
         <p className={s.flex_grow_2}>
