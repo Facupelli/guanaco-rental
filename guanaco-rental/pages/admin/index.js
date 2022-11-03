@@ -2,6 +2,7 @@ import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUniqueUser } from "../../utils/fetch_users";

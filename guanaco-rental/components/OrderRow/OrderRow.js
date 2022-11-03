@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -8,9 +9,9 @@ import {
 } from "../../utils/orders";
 import { formatPrice } from "../../utils/price";
 
-import PDF from "../OrderCard/PDF/PDF";
-
 import s from "./OrderRow.module.scss";
+
+const PDF = dynamic(() => import("../OrderCard/PDF/PDF"));
 
 export default function OrderRow({
   calendarTab,
