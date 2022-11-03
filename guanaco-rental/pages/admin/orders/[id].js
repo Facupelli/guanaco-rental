@@ -2,7 +2,7 @@ import Head from "next/head";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
@@ -39,7 +39,7 @@ export default function UserProfile({ orderData }) {
 
   const debouncedGearInput = useDebounce(addGearInputs.search, 500);
 
-  const getEquipment = async () => {
+  const getEquipment = useCallback(async () => {
     if (debouncedGearInput) {
       setLoading(true);
       const getEquipmentBySearch = async () => {
@@ -58,7 +58,7 @@ export default function UserProfile({ orderData }) {
       };
       getEquipmentBySearch();
     }
-  };
+  }, [order.location, debouncedGearInput]);
 
   // getEquipment();
   useEffect(() => {
