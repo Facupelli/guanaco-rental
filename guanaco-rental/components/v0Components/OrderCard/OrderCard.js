@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical, faAdd } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { formatPrice } from "../../utils/price";
+import { formatPrice } from "../../../utils/price";
 
 import {
   generatePdfRows,
@@ -10,18 +10,24 @@ import {
   handleDeleteOrder,
   handleDeliveredChange,
   updateGearFromOrder,
-} from "../../utils/orders";
+} from "../../../utils/orders";
 
-import { useDebounce } from "../../hooks/useDebounce";
+import { useDebounce } from "../../../hooks/useDebounce";
 
-import Gear from "./Gear/Gear";
-import MessageModal from "../MessageModal/MessageModal";
+import Gear from "../../OrderCard/Gear/Gear";
+import MessageModal from "../../MessageModal/MessageModal";
 
 import s from "./OrderCard.module.scss";
 
-const PDF = dynamic(() => import("./PDF/PDF"));
+const PDF = dynamic(() => import("../../OrderCard/PDF/PDF"));
 
-export default function OrderCard({ order, userRole, refetchOrders, token }) {
+export default function OrderCard({
+  order,
+  userRole,
+  refetchOrders,
+  token,
+  indexAdmin,
+}) {
   const [showEquipment, setShowEquipment] = useState(false);
   const [generatePDF, setGeneratePDF] = useState(false);
 
@@ -217,8 +223,12 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
           <p className={s.mobile_bold}>{order.number}</p>
           <p>{order.user.fullName}</p>
           <p>{order.user.phone}</p>
-          <p className={s.mobile_none}>{order.user.dniNumber}</p>
-          <p>{new Date(order.createdAt).toLocaleDateString("es-AR")}</p>
+          {!indexAdmin && (
+            <>
+              <p className={s.mobile_none}>{order.user.dniNumber}</p>
+              <p>{new Date(order.createdAt).toLocaleDateString("es-AR")}</p>
+            </>
+          )}
           <div className={s.flex_b_100}>
             <div className={s.flex}>
               <p>
@@ -230,22 +240,23 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
               devolución: <strong>{returnDay}</strong>
             </p>
           </div>
-          {getOrderStatus(order).status === "EN PROCESO" ? (
-            <div className={s.delivered_btn_wrapper}>
-              <label>ENTREGADO</label>
-              <input
-                type="checkbox"
-                defaultChecked={order.delivered}
-                onClick={() =>
-                  handleDeliveredChange(order.id, true, refetchOrders, token)
-                }
-              />
-            </div>
-          ) : (
-            <p className={`${getOrderStatus(order)?.class}`}>
-              {getOrderStatus(order)?.status}
-            </p>
-          )}
+          {!indexAdmin &&
+            (getOrderStatus(order).status === "EN PROCESO" ? (
+              <div className={s.delivered_btn_wrapper}>
+                <label>ENTREGADO</label>
+                <input
+                  type="checkbox"
+                  defaultChecked={order.delivered}
+                  onClick={() =>
+                    handleDeliveredChange(order.id, true, refetchOrders, token)
+                  }
+                />
+              </div>
+            ) : (
+              <p className={`${getOrderStatus(order)?.class}`}>
+                {getOrderStatus(order)?.status}
+              </p>
+            ))}
           <button
             className={s.show_equipment_btn}
             onClick={() => setShowEquipment(!showEquipment)}
@@ -258,13 +269,15 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
           >
             {formatPrice(order.totalPrice)}
           </p>
-          <button
-            className={`${s.elipsis_menu_btn}`}
-            aria-label="menu-btn"
-            onClick={() => setShowDeleteModal(true)}
-          >
-            <FontAwesomeIcon icon={faEllipsisVertical} />
-          </button>
+          {!indexAdmin && (
+            <button
+              className={`${s.elipsis_menu_btn}`}
+              aria-label="menu-btn"
+              onClick={() => setShowDeleteModal(true)}
+            >
+              <FontAwesomeIcon icon={faEllipsisVertical} />
+            </button>
+          )}
         </div>
         {showEquipment && (
           <>
@@ -274,6 +287,7 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
                 order.equipments.map((gear) => (
                   <Gear
                     editable
+                    indexAdmin={indexAdmin}
                     gear={gear}
                     order={order}
                     key={gear.id}
@@ -282,7 +296,7 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
                   />
                 ))}
             </div>
-            {!order.delivered && (
+            {!indexAdmin && !order.delivered && (
               <div className={s.add_gear_btn_wrapper}>
                 <button
                   type="button"
@@ -295,32 +309,34 @@ export default function OrderCard({ order, userRole, refetchOrders, token }) {
             )}
           </>
         )}
-        <div className={s.remito_wrapper}>
-          {!generatePDF && (
-            <button
-              type="button"
-              onClick={() => {
-                setGeneratePDF(true);
-              }}
-            >
-              Generar Remito
-            </button>
-          )}
-          {generatePDF && (
-            <PDF
-              pickupDay={pickupDay}
-              returnDay={returnDay}
-              order={order}
-              equipmentRows={equipmentRows}
-            />
-          )}
-          <p className={s.location}>
-            {order.location === "MENDOZA" ? "MDZ" : "SJ"}
-          </p>
-          {order.coupon && (
-            <p className={s.coupon_name}>cupón: {order.coupon.name}</p>
-          )}
-        </div>
+        {!indexAdmin && (
+          <div className={s.remito_wrapper}>
+            {!generatePDF && (
+              <button
+                type="button"
+                onClick={() => {
+                  setGeneratePDF(true);
+                }}
+              >
+                Generar Remito
+              </button>
+            )}
+            {generatePDF && (
+              <PDF
+                pickupDay={pickupDay}
+                returnDay={returnDay}
+                order={order}
+                equipmentRows={equipmentRows}
+              />
+            )}
+            <p className={s.location}>
+              {order.location === "MENDOZA" ? "MDZ" : "SJ"}
+            </p>
+            {order.coupon && (
+              <p className={s.coupon_name}>cupón: {order.coupon.name}</p>
+            )}
+          </div>
+        )}
         <div className={s.message_wrapper}>{order.message}</div>
       </div>
     </>

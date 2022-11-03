@@ -1,9 +1,18 @@
 @import "../../../styles/app.scss";
 
 .gear_container {
-  display: grid;
-  grid-template-columns: 90% 5% 5%;
-  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .image_wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .flex_grow_2 {
+    flex-grow: 2;
+  }
 
   .x_btn_wrapper {
     display: flex;
@@ -23,7 +32,5 @@
   .gear_container {
     margin: 0;
     width: 100%;
-    grid-template-columns: 86% 7% 7%;
-    align-items: flex-end;
   }
 }

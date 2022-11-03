@@ -24,6 +24,13 @@
     }
   }
 
+  .table_wrapper {
+    background-color: white;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border-radius: 0.2rem;
+  }
+
   .table_titles {
     margin-top: 2rem;
     margin-bottom: 1rem;
@@ -38,6 +45,14 @@
     padding: 0rem 0.5rem;
     font-weight: 600;
     margin-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .grey_bg {
+    .table_wrapper {
+      overflow: auto;
+    }
   }
 }
 

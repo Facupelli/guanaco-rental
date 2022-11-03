@@ -256,7 +256,7 @@ async function putOrder(req, res, next) {
       const order = await prisma.order.update({
         where: { id: data.orderId },
         data: {
-          totalPrice: newTotalPrice,
+          totalPrice: Math.round(newTotalPrice),
           adminDiscount: true,
           adminDiscountValue: Number(data.newOrderDiscount),
         },
@@ -286,6 +286,7 @@ async function putOrder(req, res, next) {
     } catch (e) {
       next(e);
     }
+    return;
   }
 
   try {
@@ -452,6 +453,9 @@ async function getOrderById(req, res, next) {
           booking: true,
           equipments: { include: { bookings: true } },
           user: true,
+          fixedDiscount: true,
+          orderEarnings: true,
+          coupon: true,
         },
       });
 

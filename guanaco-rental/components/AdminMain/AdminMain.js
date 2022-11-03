@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-import AdminNav from "../AdminNav/AdminNav";
+import AdminNav from "./AdminNav/AdminNav";
 import ArrowBackBtn from "../ArrowBackBtn/ArrowBackBtn";
 
 import s from "./AdminMain.module.scss";

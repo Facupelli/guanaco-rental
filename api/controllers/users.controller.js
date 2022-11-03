@@ -179,7 +179,16 @@ async function getUniqueUser(req, res, next) {
       const user = await prisma.user.findUnique({
         where: { id: email },
         include: {
-          orders: true,
+          orders: {
+            include: {
+              booking: true,
+              equipments: { include: { bookings: true } },
+              user: true,
+              // fixedDiscount: true,
+              // orderEarnings: true,
+              // coupon: true,
+            },
+          },
         },
       });
 

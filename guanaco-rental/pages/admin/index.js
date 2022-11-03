@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Link from "next/link";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useCallback, useEffect, useState } from "react";
-import { formatPrice } from "../../utils/price";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUniqueUser } from "../../utils/fetch_users";
@@ -12,9 +10,20 @@ import { setUserId } from "../../redux/features/user/userSlice";
 import Nav from "../../components/Nav/Nav";
 import Calendar from "react-calendar";
 import AdminMain from "../../components/AdminMain/AdminMain";
-import OrderCard from "../../components/OrderCard/OrderCard";
+import Table from "../../components/Table/Table";
+import OrderRow from "../../components/OrderRow/OrderRow";
 
 import s from "../../styles/AdminPage.module.scss";
+
+const trTitles = [
+  "N°",
+  "NOMBRE",
+  "RETIRO",
+  "DEVOLUCIÓN",
+  "ESTADO",
+  "TOTAL",
+  "CITY",
+];
 
 export default function AdminPage() {
   const dispatch = useDispatch();
@@ -125,50 +134,19 @@ export default function AdminPage() {
               }}
             />
             <div className={s.info_wrapper}>
-              {loading ? (
-                <p>Cargando...</p>
-              ) : (
-                dayBookings.length > 0 &&
-                dayBookings.map((book) => (
-                  // <OrderCard
-                  //   order={book.order}
-                  //   key={book.order.id}
-                  //   userRole={session?.user.role}
-                  //   // refetchOrders={refetchOrders}
-                  //   token={session?.user.token}
-                  // />
-                  <div key={book.id}>
-                    <p className={s.bold}>{book.order.user.fullName}</p>
-                    <div>
-                      <p className={s.flex_10}>
-                        <span className={s.bold}>N°</span> {book.order.number}
-                      </p>
-                      <p className={s.flex_20}>
-                        <span className={s.bold}>Total:</span>{" "}
-                        {formatPrice(book.order.totalPrice)}
-                      </p>
-                      <div className={s.flex_10}>
-                        <p className={s.bold}>Fechas:</p>
-                        <p>{new Date(book.dates[0]).toLocaleDateString()}</p>
-                        <p>
-                          {new Date(book.dates.at(-1)).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div className={s.flex_50}>
-                        <p className={s.bold}>Equipos:</p>
-                        {book.order.equipments.map((gear) => (
-                          <p key={gear.id}>
-                            {gear.name} {gear.brand} {gear.model}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                    <p className={s.location}>
-                      {book.order.location === "MENDOZA" ? "MDZ" : "SJ"}
-                    </p>
-                  </div>
-                ))
-              )}
+              <div className={s.table_wrapper}>
+                <Table trTitles={trTitles}>
+                  {loading && (
+                    <tr>
+                      <td>Cargando...</td>
+                    </tr>
+                  )}
+                  {dayBookings.length > 0 &&
+                    dayBookings.map((book) => (
+                      <OrderRow calendarTab key={book.id} order={book.order} />
+                    ))}
+                </Table>
+              </div>
             </div>
           </section>
         </AdminMain>

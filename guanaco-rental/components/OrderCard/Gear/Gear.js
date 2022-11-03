@@ -5,11 +5,17 @@ import MessageModal from "../../MessageModal/MessageModal";
 import { updateGearFromOrder } from "../../../utils/orders";
 
 import s from "./Gear.module.scss";
+import Image from "next/image";
 
-export default function Gear({ gear, order, editable, refetchOrders, token }) {
+export default function Gear({
+  gear,
+  order,
+  editable,
+  refetchOrders,
+  token,
+  indexAdmin,
+}) {
   const [showModal, setShowModal] = useState(false);
-
-  console.log("GEAR", gear);
 
   return (
     <>
@@ -27,7 +33,16 @@ export default function Gear({ gear, order, editable, refetchOrders, token }) {
         </MessageModal>
       )}
       <div className={s.gear_container}>
-        <p>
+        <div className={s.image_wrapper}>
+          <Image
+            src={`/equipmentPics/${gear.image}`}
+            layout="responsive"
+            height={40}
+            width={40}
+            objectFit="cover"
+          />
+        </div>
+        <p className={s.flex_grow_2}>
           {gear.name} {gear.brand} {gear.model}
         </p>
         <p>
@@ -37,7 +52,7 @@ export default function Gear({ gear, order, editable, refetchOrders, token }) {
               ?.quantity
           }
         </p>
-        {editable && !order.delivered && (
+        {!indexAdmin && editable && !order.delivered && (
           <div className={s.x_btn_wrapper}>
             <XmarkButton handleClose={() => setShowModal(true)} />
           </div>

@@ -1,5 +1,5 @@
 import { getWorkingTotalDays } from "./dates_functions";
-import s from "../components/OrderCard/OrderCard.module.scss";
+import s from "../components/OrderRow/OrderRow.module.scss";
 
 export const fetchAllOrders = (location, skip, sortBy, token) => {
   return fetch(

@@ -10,14 +10,16 @@ import {
 } from "../../../hooks/useFetchUsers";
 
 import AdminMain from "../../../components/AdminMain/AdminMain";
-import ClientCard from "../../../components/ClientCard/ClientCard";
 import ClientPetitionCard from "../../../components/ClientPetitionCard/ClientPetitionCard";
 import ClientPetitionInfo from "../../../components/ClientPetitionCard/ClientPetitionInfo/ClientPetitionInfo";
 import Nav from "../../../components/Nav/Nav";
 import PaginationArrows from "../../../components/Pagination/PaginationArrows";
-import UserTable from "../../../components/UserTable/UserTable";
+import Table from "../../../components/Table/Table";
+import UserRow from "../../../components/UserRow/UserRow";
 
 import s from "../../../styles/AdminUsersPage.module.scss";
+
+const trTitles = ["Alta", "Nombre", "Tel", "DNI", "Provincia", "Pedidos"];
 
 export default function AdminUsersPage({ clients, newClients, admins }) {
   const { data: session } = useSession();
@@ -135,7 +137,12 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
 
             {clientUsers?.length > 0 && (
               <div className={s.table_wrapper}>
-                <UserTable users={clientUsers} />
+                <Table trTitles={trTitles}>
+                  {clientUsers.length > 0 &&
+                    clientUsers.map((user) => (
+                      <UserRow key={user.id} user={user} />
+                    ))}
+                </Table>
               </div>
             )}
 
@@ -159,7 +166,12 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
 
             {adminUsers.length > 0 && (
               <div className={s.table_wrapper}>
-                <UserTable users={adminUsers} />{" "}
+                <Table trTitles={trTitles}>
+                  {adminUsers.length > 0 &&
+                    adminUsers.map((user) => (
+                      <UserRow key={user.id} user={user} />
+                    ))}
+                </Table>
               </div>
             )}
           </section>

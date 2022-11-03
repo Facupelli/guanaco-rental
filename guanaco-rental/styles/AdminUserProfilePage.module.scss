@@ -99,6 +99,10 @@
       .user_info_orders_card {
         padding: 0.8rem;
 
+        .table_wrapper {
+          overflow: auto;
+        }
+
         ul {
           flex-wrap: wrap;
           row-gap: 0.5rem;

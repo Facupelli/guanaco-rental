@@ -1,0 +1,80 @@
+@import "../../styles/app.scss";
+
+.yellow {
+  height: 10px;
+  width: 10px;
+  background-color: rgb(236, 203, 12);
+  border-radius: 100%;
+}
+
+.orange {
+  height: 10px;
+  width: 10px;
+  background-color: rgb(175, 105, 0);
+}
+
+.green {
+  height: 10px;
+  width: 10px;
+  background-color: $m-success;
+  border-radius: 100%;
+}
+
+.row {
+  border-bottom: 1px solid $s-gray;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $hover-gray;
+  }
+
+  td {
+    padding: 1rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+
+    strong {
+      font-weight: 600;
+    }
+
+    .flex {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .show_equipment_btn {
+      @include m-button-orange;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.7em;
+    }
+
+    .generate_pdf_btn {
+      @include m-button-gray;
+      font-size: 0.8em;
+      padding: 0.2rem 0.4rem;
+    }
+  }
+}
+
+.show_active {
+  border-bottom: none;
+}
+
+.equipment_row {
+  border-bottom: 1px solid $s-gray;
+
+  td {
+    padding: 1rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  .row {
+    td {
+      padding: 0.5rem;
+    }
+  }
+}

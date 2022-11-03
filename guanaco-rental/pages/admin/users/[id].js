@@ -6,11 +6,23 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 import Nav from "../../../components/Nav/Nav";
-import ArrowBackBtn from "../../../components/ArrowBackBtn/ArrowBackBtn";
 import MessageModal from "../../../components/MessageModal/MessageModal";
+import AdminMain from "../../../components/AdminMain/AdminMain";
+import Table from "../../../components/Table/Table";
 
 import s from "../../../styles/AdminUserProfilePage.module.scss";
-import AdminMain from "../../../components/AdminMain/AdminMain";
+import OrderRow from "../../../components/OrderRow/OrderRow";
+
+const trTitles = [
+  "N°",
+  "RETIRO",
+  "DEVOLUCIÓN",
+  "ESTADO",
+  // "EQUIPOS",
+  "TOTAL",
+  "REMITO",
+  "CITY",
+];
 
 export default function UserProfile({ userData }) {
   const [user, setUser] = useState(userData);
@@ -85,7 +97,7 @@ export default function UserProfile({ userData }) {
           </div>
         </MessageModal>
       )}
-      <AdminMain title="Usuarios" subtitle="Detalles Usuario" link="/users">
+      <AdminMain title="Usuarios" subtitle="Detalles Usuario" link="users">
         {/* <ArrowBackBtn /> */}
         {user && (
           <>
@@ -183,11 +195,20 @@ export default function UserProfile({ userData }) {
             </div>
             <div className={s.user_info_orders_card}>
               <h3>Pedidos</h3>
-              {user.orders.length === 0 ? (
-                `${user.fullName} no ha hecho ningun pedido.`
-              ) : (
-                <p>{user.orders.map((order) => order.number).join(", ")}</p>
-              )}
+              <div className={s.table_wrapper}>
+                <Table trTitles={trTitles}>
+                  {user.orders.length > 0 &&
+                    user.orders.map((order) => (
+                      <OrderRow
+                        userTab
+                        key={order.id}
+                        order={order}
+                        // refetchOrders={refetchOrders}
+                        token={session?.user.token}
+                      />
+                    ))}
+                </Table>
+              </div>
             </div>
             {session?.user.role === "ADMIN" && (
               <div className={`${s.user_info_orders_card} ${s.danger_div}`}>

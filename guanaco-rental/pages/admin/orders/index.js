@@ -1,20 +1,34 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { unstable_getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]";
-import { useFetchAllOrders } from "../../hooks/useFetchAllOrders";
+import { authOptions } from "../../api/auth/[...nextauth]";
+import { useFetchAllOrders } from "../../../hooks/useFetchAllOrders";
 import { useSession } from "next-auth/react";
-import { getUniqueUser } from "../../utils/fetch_users";
+import { getUniqueUser } from "../../../utils/fetch_users";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserId } from "../../redux/features/user/userSlice";
+import { setUserId } from "../../../redux/features/user/userSlice";
 
-import Nav from "../../components/Nav/Nav";
-import AdminMain from "../../components/AdminMain/AdminMain";
-import OrderCard from "../../components/OrderCard/OrderCard";
-import SelectLoaction from "../../components/SelectLocation/SelectLocation";
+import Nav from "../../../components/Nav/Nav";
+import AdminMain from "../../../components/AdminMain/AdminMain";
+import SelectLoaction from "../../../components/SelectLocation/SelectLocation";
+import PaginationArrows from "../../../components/Pagination/PaginationArrows";
+import Table from "../../../components/Table/Table";
+import OrderRow from "../../../components/OrderRow/OrderRow";
 
-import s from "../../styles/AdminOrdersPage.module.scss";
-import PaginationArrows from "../../components/Pagination/PaginationArrows";
+import s from "../../../styles/AdminOrdersPage.module.scss";
+
+const trTitles = [
+  "N°",
+  "NOMBRE",
+  "CELULAR",
+  "DNI",
+  "RETIRO",
+  "DEVOLUCIÓN",
+  "ESTADO",
+  "TOTAL",
+  "REMITO",
+  "CITY",
+];
 
 export default function AdminOrdersPage({}) {
   const dispatch = useDispatch();
@@ -60,33 +74,18 @@ export default function AdminOrdersPage({}) {
           </div>
         </div>
 
-        <div className={s.table_titles}>
-          <p>N°</p>
-          <p>NOMBRE</p>
-          <p>CELULAR</p>
-          <p>DNI</p>
-          <p>FECHA</p>
-          <p>ALQUILER</p>
-          <p>ESTADO</p>
-          <p>EQUIPOS</p>
-          <p>TOTAL</p>
-        </div>
-        <div>
-          {loading ? (
-            <p>Cargando...</p>
-          ) : orders && orders.length > 0 ? (
-            orders.map((order) => (
-              <OrderCard
-                key={order.id}
-                order={order}
-                userRole={session?.user.role}
-                refetchOrders={refetchOrders}
-                token={session?.user.token}
-              />
-            ))
-          ) : (
-            <p className={s.no_orders_p}>No tienes ningun pedido :(</p>
-          )}
+        <div className={s.table_wrapper}>
+          <Table trTitles={trTitles}>
+            {orders.length > 0 &&
+              orders.map((order) => (
+                <OrderRow
+                  key={order.id}
+                  order={order}
+                  refetchOrders={refetchOrders}
+                  token={session?.user.token}
+                />
+              ))}
+          </Table>
         </div>
         <PaginationArrows
           skip={skip}

@@ -1,0 +1,214 @@
+@import "../styles/app.scss";
+
+.discount_modal_wrapper {
+  strong {
+    font-weight: 600;
+  }
+
+  .input_wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    input {
+      @include input;
+      flex-grow: 2;
+    }
+  }
+
+  .apply_discount_btn_wrapper {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      @include m-button;
+    }
+  }
+}
+
+.bg_grey {
+  background-color: $bg-grey;
+  min-height: 100vh;
+  padding-bottom: 3rem;
+
+  main {
+    .card {
+      margin-top: 1rem;
+      background-color: white;
+      padding: 1rem 2rem 1rem 2rem;
+      border-radius: 0.2rem;
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+
+      .fifty_fifty_grid {
+        display: grid;
+        grid-template-columns: 50% 50%;
+
+        > div {
+          &:first-child {
+            border-right: 1px solid $s-gray;
+          }
+
+          &:last-child {
+            padding-left: 2rem;
+          }
+
+          .apply_discount_btn_wrapper {
+            margin-top: 1rem;
+            button {
+              @include m-button;
+              padding: 0.2rem;
+              font-weight: 300;
+            }
+          }
+        }
+
+        .flex_col {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          > div {
+            > p {
+              &:first-child {
+                color: $m-gray;
+                font-size: 0.9rem;
+                flex-basis: 30%;
+              }
+            }
+          }
+        }
+
+        .margin_b_2 {
+          margin-top: 2rem;
+          padding-top: 1rem;
+          border-top: 1px solid $s-gray;
+
+          .border_none {
+            border: none;
+          }
+        }
+      }
+
+      h3 {
+        font-weight: 500;
+      }
+
+      .card_title {
+        margin-bottom: 2rem;
+
+        > p {
+          font-size: 0.8rem;
+          color: $m-gray;
+        }
+      }
+
+      .flex {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        .item {
+          padding-right: 1rem;
+          border-right: 1px solid $s-gray;
+
+          &:last-child {
+            border-right: none;
+          }
+
+          > p {
+            &:first-child {
+              font-size: 0.8rem;
+              color: $m-gray;
+            }
+          }
+        }
+
+        strong {
+          font-weight: 600;
+        }
+      }
+
+      .margin_b {
+        margin-bottom: 1rem;
+      }
+
+      .equipments_container {
+        padding: 1rem 0rem 0rem 0rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 50%;
+      }
+
+      .add_gear_btn_wrapper {
+        button {
+          margin-top: 1rem;
+          @include cross-button;
+          color: $m-black;
+
+          .add_gear_icon {
+            height: 20px;
+            width: 20px;
+          }
+        }
+      }
+    }
+
+    .danger_div {
+      border: 1px solid $m-danger;
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      button {
+        @include m-button-danger;
+        font-size: 0.7rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .bg_grey {
+    main {
+      .card {
+        padding: 0.8rem;
+
+        .flex {
+          flex-wrap: wrap;
+          row-gap: 0.5rem;
+        }
+
+        .equipments_container {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .bg_grey {
+    main {
+      .card {
+        .fifty_fifty_grid {
+          display: grid;
+          grid-template-columns: 100%;
+
+          > div {
+            &:first-child {
+              border-right: none;
+              border-bottom: 1px solid $s-gray;
+              padding-bottom: 1rem;
+            }
+
+            &:last-child {
+              padding-left: 0rem;
+              padding-top: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

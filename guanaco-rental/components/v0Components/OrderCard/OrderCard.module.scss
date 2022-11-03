@@ -104,17 +104,17 @@
   font-weight: 600;
 }
 
-.yellow {
-  border-bottom: 3px solid rgb(236, 203, 12);
-}
+// .yellow {
+//   border-bottom: 3px solid rgb(236, 203, 12);
+// }
 
-.orange {
-  border-bottom: 3px solid rgb(175, 105, 0);
-}
+// .orange {
+//   border-bottom: 3px solid rgb(175, 105, 0);
+// }
 
-.green {
-  border-bottom: 3px solid $m-success;
-}
+// .green {
+//   border-bottom: 3px solid $m-success;
+// }
 
 .card_container {
   box-shadow: 0px 0px 5px 1px rgba(71, 71, 71, 0.192);
@@ -122,7 +122,8 @@
   padding: 1rem 0.5rem;
   margin: 1rem 0rem;
   background-color: white;
-  overflow-x: auto;
+  // overflow-x: auto;
+  // font-size: 0.9rem;
 
   .info_container {
     display: grid;
