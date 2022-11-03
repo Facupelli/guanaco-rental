@@ -47,6 +47,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
 
   const showDayBookings = async (day) => {
+    setDayBookings([]);
     setLoading(true);
     const localDate = day.toLocaleDateString("en-US");
     try {

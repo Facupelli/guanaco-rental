@@ -307,11 +307,13 @@ export default function UserProfile({ orderData }) {
                       </div>
                     </div>
                   )}
-                  <div className={s.apply_discount_btn_wrapper}>
-                    <button onClick={() => setShowDiscountModal(true)}>
-                      aplicar descuento
-                    </button>
-                  </div>
+                  {session?.user.role === "ADMIN" && (
+                    <div className={s.apply_discount_btn_wrapper}>
+                      <button onClick={() => setShowDiscountModal(true)}>
+                        aplicar descuento
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
