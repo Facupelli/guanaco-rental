@@ -64,7 +64,7 @@ export default function CartPage() {
 
   useEffect(() => {
     if (!pickupHour) {
-      dispatch(setPickupHour("09:00hs"));
+      dispatch(setPickupHour("09:00"));
     }
   }, [location, dispatch, pickupHour]);
 
