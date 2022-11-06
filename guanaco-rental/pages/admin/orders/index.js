@@ -69,6 +69,9 @@ export default function AdminOrdersPage({}) {
               }}
             >
               <option value="booking">Próximos pedidos a entregar</option>
+              <option value="booking-history">
+                Próximos pedidos a entregar - historial
+              </option>
               <option value="desc">Últimos pedidos creados</option>
             </select>
           </div>
