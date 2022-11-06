@@ -416,7 +416,6 @@ async function getOrders(req, res, next) {
       orderByPipeline.booking = {
         pickupDay: "asc",
       };
-      orderByPipeline.createdAt = "desc";
     }
 
     const orders = await prisma.order.findMany({
