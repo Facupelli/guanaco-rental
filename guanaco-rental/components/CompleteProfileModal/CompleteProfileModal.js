@@ -39,7 +39,7 @@ export default function CompleteProfileModal() {
           cloudName: process.env.NEXT_PUBLIC_CL_CLOUD_NAME,
           uploadPreset: process.env.NEXT_PUBLIC_CL_UPLOAD_PRESET,
           sources: ["local", "url", "camera", "dropbox", "goole_drive"],
-          maxFileSize: 1048576,
+          maxFileSize: 5000000,
         },
         (error, result) => {
           if (
@@ -211,7 +211,9 @@ export default function CompleteProfileModal() {
 
             <div className={s.dni_files_wrapper}>
               <div>
-                <label htmlFor="dniFront">Foto de tu DNI anverso (1mb max):</label>
+                <label htmlFor="dniFront">
+                  Foto de tu DNI anverso (1mb max):
+                </label>
                 <button
                   type="button"
                   id="dniFront"

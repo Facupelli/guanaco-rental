@@ -1,4 +1,5 @@
 import Calendar from "react-calendar";
+import { useSession } from "next-auth/react";
 import { useCallback, useRef, useState } from "react";
 import useOnClickOutside from "../../../../hooks/useOnClickOutside";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,8 @@ export default function CalendarComponent({
   daysTaken = [],
   freeTileClass,
 }) {
+  const { data: session } = useSession();
+
   const calendarRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -48,9 +51,13 @@ export default function CalendarComponent({
   };
 
   const weekendDisabled = ({ date }) => {
-    if (new Date().toDateString() === date.toDateString()) {
+    if (
+      session?.user.role !== "ADMIN" &&
+      new Date().toDateString() === date.toDateString()
+    ) {
       return true;
-    } else if (date.getDay() === 6 || date.getDay() === 0) {
+    }
+    if (date.getDay() === 6 || date.getDay() === 0) {
       return true;
     }
     return false;
