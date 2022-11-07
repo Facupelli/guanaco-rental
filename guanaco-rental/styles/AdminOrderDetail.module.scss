@@ -120,6 +120,14 @@
               color: $m-gray;
             }
           }
+
+          .fullName {
+            cursor: pointer;
+
+            &:hover {
+              color: $m-black;
+            }
+          }
         }
 
         strong {

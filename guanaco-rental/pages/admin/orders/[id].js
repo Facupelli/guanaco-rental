@@ -197,7 +197,12 @@ export default function UserProfile({ orderData }) {
               <div className={s.flex}>
                 <div className={s.item}>
                   <p>nombre</p>
-                  <p>{order.user.fullName}</p>
+                  <p
+                    onClick={() => router.push(`/admin/users/${order.user.id}`)}
+                    className={s.fullName}
+                  >
+                    {order.user.fullName}
+                  </p>
                 </div>
                 <div className={s.item}>
                   <p>email</p>
