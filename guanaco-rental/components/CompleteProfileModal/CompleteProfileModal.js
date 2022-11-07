@@ -212,7 +212,7 @@ export default function CompleteProfileModal() {
             <div className={s.dni_files_wrapper}>
               <div>
                 <label htmlFor="dniFront">
-                  Foto de tu DNI anverso (1mb max):
+                  Foto de tu DNI anverso (5mb max):
                 </label>
                 <button
                   type="button"
@@ -224,7 +224,7 @@ export default function CompleteProfileModal() {
               </div>
 
               <div>
-                <label htmlFor="dniBack">Foto de tu DNI dorso (1mb max):</label>
+                <label htmlFor="dniBack">Foto de tu DNI dorso (5mb max):</label>
                 <button
                   type="button"
                   id="dniBack"
