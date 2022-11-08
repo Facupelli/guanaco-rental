@@ -3,6 +3,7 @@ import {
   nextPage,
   previousPage,
 } from "../../redux/features/orders/ordersSlice";
+
 import s from "./PaginationArrows.module.scss";
 
 export default function PaginationArrows({ totalCount }) {
@@ -14,14 +15,22 @@ export default function PaginationArrows({ totalCount }) {
     <div className={s.pagination_btns_wrapper}>
       <button
         type="button"
-        onClick={() => dispatch(nextPage())}
+        onClick={() => {
+          if (skip >= 10) {
+            dispatch(previousPage());
+          }
+        }}
         disabled={skip === 0}
       >
         {"<-"}
       </button>
       <button
         type="button"
-        onClick={() => dispatch(previousPage())}
+        onClick={() => {
+          if (skip + 10 < totalCount) {
+            dispatch(nextPage());
+          }
+        }}
         disabled={skip + 10 >= totalCount}
       >
         {"->"}

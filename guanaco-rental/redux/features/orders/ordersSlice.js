@@ -13,14 +13,10 @@ export const ordersSlice = createSlice({
       state.sortBy = action.payload;
     },
     nextPage: (state, action) => {
-      if (skip + 10 < totalCount) {
-        state.skip = state.skip + 10;
-      }
+      state.skip = state.skip + 10;
     },
     previousPage: (state, action) => {
-      if (skip >= 10) {
-        state.skip = state.skip - 10;
-      }
+      state.skip = state.skip - 10;
     },
     resetPage: (state, action) => {
       state.skip = 0;
