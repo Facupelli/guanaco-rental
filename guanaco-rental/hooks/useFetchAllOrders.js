@@ -4,7 +4,7 @@ import { fetchAllOrders } from "../utils/orders";
 import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 
-export const useFetchAllOrders = (skip, sortBy) => {
+export const useFetchAllOrders = () => {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const [totalOrders, setTotalOrders] = useState(0);
@@ -12,6 +12,8 @@ export const useFetchAllOrders = (skip, sortBy) => {
   const { data: session } = useSession();
 
   const location = useSelector((state) => state.location.city);
+  const skip = useSelector((state) => state.orders.skip);
+  const sortBy = useSelector((state) => state.orders.sortBy);
 
   useEffect(() => {
     if (session) {

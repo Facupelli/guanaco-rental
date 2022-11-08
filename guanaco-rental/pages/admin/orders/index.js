@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]";
 import { useFetchAllOrders } from "../../../hooks/useFetchAllOrders";
@@ -16,6 +16,10 @@ import Table from "../../../components/Table/Table";
 import OrderRow from "../../../components/OrderRow/OrderRow";
 
 import s from "../../../styles/AdminOrdersPage.module.scss";
+import {
+  resetPage,
+  setSortBy,
+} from "../../../redux/features/orders/ordersSlice";
 
 const trTitles = [
   "N°",
@@ -34,6 +38,7 @@ export default function AdminOrdersPage({}) {
   const dispatch = useDispatch();
   const { data: session } = useSession();
   const userData = useSelector((state) => state.user.data);
+  const sortBy = useSelector((state) => state.orders.sortBy);
 
   useEffect(() => {
     if (!userData && session) {
@@ -41,14 +46,7 @@ export default function AdminOrdersPage({}) {
     }
   }, [userData, session, dispatch]);
 
-  //pagination
-  const [skip, setSkip] = useState(0);
-  const [sortBy, setSortBy] = useState("booking");
-
-  const { orders, totalOrders, loading, refetchOrders } = useFetchAllOrders(
-    skip,
-    sortBy
-  );
+  const { orders, totalOrders, loading, refetchOrders } = useFetchAllOrders();
 
   return (
     <div className={s.grey_bg}>
@@ -64,9 +62,10 @@ export default function AdminOrdersPage({}) {
             <label>Ordenar por:</label>
             <select
               onChange={(e) => {
-                setSortBy(e.target.value);
-                setSkip(0);
+                dispatch(setSortBy(e.target.value));
+                dispatch(resetPage());
               }}
+              defaultValue={sortBy}
             >
               <option value="booking">Próximos pedidos a entregar</option>
               <option value="booking-history">
@@ -90,11 +89,7 @@ export default function AdminOrdersPage({}) {
               ))}
           </Table>
         </div>
-        <PaginationArrows
-          skip={skip}
-          setSkip={setSkip}
-          totalCount={totalOrders}
-        />
+        <PaginationArrows totalCount={totalOrders} />
       </AdminMain>
     </div>
   );

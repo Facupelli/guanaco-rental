@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -41,30 +42,48 @@ export default function OrderRow({
   return (
     <>
       <tr className={`${s.row} ${showEquipment ? s.show_active : ""}`}>
-        <td onClick={() => handleClickUser(order.id)}>
-          <strong>{order.number}</strong>
+        <td>
+          <Link href={`/admin/orders/${order.id}`}>
+            <a>
+              <strong>{order.number}</strong>
+            </a>
+          </Link>
         </td>
         {!userTab && (
           <>
-            <td onClick={() => handleClickUser(order.id)}>
-              {order.user.fullName}
+            <td>
+              <Link href={`/admin/orders/${order.id}`}>
+                <a>{order.user.fullName}</a>
+              </Link>
             </td>
             {!calendarTab && (
               <>
-                <td onClick={() => handleClickUser(order.id)}>
-                  {order.user.phone}
+                <td>
+                  <Link href={`/admin/orders/${order.id}`}>
+                    <a>{order.user.phone}</a>
+                  </Link>
                 </td>
-                <td onClick={() => handleClickUser(order.id)}>
-                  {order.user.dniNumber}
+                <td>
+                  <Link href={`/admin/orders/${order.id}`}>
+                    <a>{order.user.dniNumber}</a>
+                  </Link>
                 </td>
               </>
             )}
           </>
         )}
-        <td onClick={() => handleClickUser(order.id)}>
-          {pickupDay} - {order.booking.pickupHour}hs
+        <td>
+          <Link href={`/admin/orders/${order.id}`}>
+            <a>
+              {pickupDay} - {order.booking.pickupHour}hs
+            </a>
+          </Link>
         </td>
-        <td onClick={() => handleClickUser(order.id)}>{returnDay}</td>
+        <td>
+          <Link href={`/admin/orders/${order.id}`}>
+            <a>{returnDay}</a>
+          </Link>
+        </td>
         <td>
           {getOrderStatus(order).status === "EN PROCESO" ? (
             <div className={s.flex}>
