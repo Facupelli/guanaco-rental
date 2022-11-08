@@ -125,7 +125,9 @@ export default function UserProfile({ orderData }) {
   return (
     <div className={s.bg_grey}>
       <Head>
-        <title>Detalle Pedido</title>
+        <title>
+          Detalle n° {order.number} | {order.user.fullName}
+        </title>
         <link rel="icon" href="/logo-favicon.ico" />
         <link
           rel="preconnect"
