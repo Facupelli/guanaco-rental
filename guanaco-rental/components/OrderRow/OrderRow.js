@@ -1,3 +1,5 @@
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,6 +11,8 @@ import {
   handleDeliveredChange,
 } from "../../utils/orders";
 import { formatPrice } from "../../utils/price";
+
+import Gear from "../OrderCard/Gear/Gear";
 
 import s from "./OrderRow.module.scss";
 
@@ -144,45 +148,41 @@ export default function OrderRow({
         <td onClick={() => handleClickUser(order.id)}>
           {order.location === "MENDOZA" ? "MDZ" : "SJ"}
         </td>
+        <td onClick={() => setShowEquipment(!showEquipment)}>
+          <FontAwesomeIcon icon={showEquipment ? faChevronUp : faChevronDown} />
+        </td>
       </tr>
-      {/* {showEquipment && (
-        <table>
-          <tbody>
-            <tr className={`${showEquipment ? s.equipment_row : ""}`}>
-              <td>
-                <div className={s.equipments_container}>
-                  <p>Equipos:</p>
-                  {order.equipments.length > 0 &&
-                    order.equipments.map((gear) => (
-                      <Gear
-                        editable
-                        gear={gear}
-                        order={order}
-                        key={gear.id}
-                        refetchOrders={refetchOrders}
-                        token={token}
-                      />
-                    ))}
-                </div>
-                {!order.delivered && (
-                  <div className={s.add_gear_btn_wrapper}>
-                    <button
-                      type="button"
-                      aria-label="add_gear"
-                      onClick={() => setShowAddEquipmentModal(true)}
-                    >
-                      <FontAwesomeIcon
-                        icon={faAdd}
-                        className={s.add_gear_icon}
-                      />
-                    </button>
-                  </div>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      )} */}
+      {showEquipment && (
+        <tr className={`${showEquipment ? s.equipment_row : ""}`}>
+          <td colspan="8">
+            <div className={s.equipments_container}>
+              <p>Equipos:</p>
+              {order.equipments.length > 0 &&
+                order.equipments.map((gear) => (
+                  <Gear
+                    editable
+                    gear={gear}
+                    order={order}
+                    key={gear.id}
+                    refetchOrders={refetchOrders}
+                    token={token}
+                  />
+                ))}
+            </div>
+            {/* {!order.delivered && (
+              <div className={s.add_gear_btn_wrapper}>
+                <button
+                  type="button"
+                  aria-label="add_gear"
+                  onClick={() => setShowAddEquipmentModal(true)}
+                >
+                  <FontAwesomeIcon icon={faAdd} className={s.add_gear_icon} />
+                </button>
+              </div>
+            )} */}
+          </td>
+        </tr>
+      )}
     </>
   );
 }
