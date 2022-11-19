@@ -156,7 +156,6 @@ export default function OrderRow({
         <tr className={`${showEquipment ? s.equipment_row : ""}`}>
           <td colSpan="8">
             <div className={s.equipments_container}>
-              <p>Equipos:</p>
               {order.equipments.length > 0 &&
                 order.equipments.map((gear) => (
                   <Gear
