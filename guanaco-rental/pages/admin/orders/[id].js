@@ -319,6 +319,12 @@ export default function UserProfile({ orderData }) {
                       <button onClick={() => setShowDiscountModal(true)}>
                         aplicar descuento
                       </button>
+                      <button
+                        className={s.reset_btn}
+                        onClick={() => setShowDiscountModal(true)}
+                      >
+                        resetear descuento
+                      </button>
                     </div>
                   )}
                 </div>

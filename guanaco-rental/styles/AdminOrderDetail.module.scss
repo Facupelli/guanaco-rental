@@ -54,8 +54,17 @@
 
           .apply_discount_btn_wrapper {
             margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+
             button {
               @include m-button;
+              padding: 0.2rem;
+              font-weight: 300;
+            }
+
+            .reset_btn {
+              @include m-button-danger;
               padding: 0.2rem;
               font-weight: 300;
             }

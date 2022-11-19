@@ -241,7 +241,7 @@ async function putOrder(req, res, next) {
   if (data.newOrderDiscount) {
     const orderToUpdate = await prisma.order.findUnique({
       where: { id: data.orderId },
-      select: { totalPrice: true },
+      select: { totalPrice: true, originalTotalPrice: true },
     });
 
     const orderEarningsToUpdate = await prisma.orderEarnings.findUnique({
@@ -250,8 +250,8 @@ async function putOrder(req, res, next) {
     });
 
     const newTotalPrice =
-      orderToUpdate.totalPrice -
-      orderToUpdate.totalPrice * (Number(data.newOrderDiscount) / 100);
+      orderToUpdate.originalTotalPrice -
+      orderToUpdate.originalTotalPrice * (Number(data.newOrderDiscount) / 100);
     try {
       const order = await prisma.order.update({
         where: { id: data.orderId },
