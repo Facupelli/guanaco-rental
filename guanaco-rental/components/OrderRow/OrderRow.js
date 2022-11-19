@@ -154,7 +154,7 @@ export default function OrderRow({
       </tr>
       {showEquipment && (
         <tr className={`${showEquipment ? s.equipment_row : ""}`}>
-          <td colspan="8">
+          <td colSpan="8">
             <div className={s.equipments_container}>
               <p>Equipos:</p>
               {order.equipments.length > 0 &&
