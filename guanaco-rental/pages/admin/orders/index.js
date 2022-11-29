@@ -39,6 +39,7 @@ export default function AdminOrdersPage({}) {
   const { data: session } = useSession();
   const userData = useSelector((state) => state.user.data);
   const sortBy = useSelector((state) => state.orders.sortBy);
+  const skip = useSelector((state) => state.orders.skip);
 
   useEffect(() => {
     if (!userData && session) {
@@ -89,7 +90,7 @@ export default function AdminOrdersPage({}) {
               ))}
           </Table>
         </div>
-        <PaginationArrows totalCount={totalOrders} />
+        <PaginationArrows skip={skip} totalCount={totalOrders} />
       </AdminMain>
     </div>
   );

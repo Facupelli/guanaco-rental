@@ -16,7 +16,7 @@ export default function PaginationArrows({ users, skip, setSkip, totalCount }) {
         onClick={() => {
           if (skip >= 10) {
             if (users) {
-              setSkip((prev) => prev + 10);
+              setSkip((prev) => prev - 10);
             } else {
               dispatch(previousPage());
             }
@@ -29,15 +29,15 @@ export default function PaginationArrows({ users, skip, setSkip, totalCount }) {
       <button
         type="button"
         onClick={() => {
+          if (users) {
+            setSkip((prev) => prev + 10);
+          } else {
+            dispatch(nextPage());
+          }
           if (skip + 10 < totalCount) {
-            if (users) {
-              setSkip((prev) => prev - 10);
-            } else {
-              dispatch(nextPage());
-            }
           }
         }}
-        disabled={skip + 10 >= totalCount}
+        // disabled={skip + 10 >= totalCount}
       >
         {"->"}
       </button>
