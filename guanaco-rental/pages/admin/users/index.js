@@ -43,6 +43,8 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
     refetchClients,
   } = useFetchClients(clients, skip, session?.user.token);
 
+  console.log("SKIP", skip);
+
   const { newClientUsers, newClientsLoading, refetchNewClients } =
     useFetchNewClients(newClients, session?.user.token);
 
