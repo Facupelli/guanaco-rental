@@ -147,7 +147,12 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
             )}
 
             {!search && (
-              <PaginationArrows users skip={skip} totalCount={totalUsers} />
+              <PaginationArrows
+                users
+                skip={skip}
+                setSkip={setSkip}
+                totalCount={totalUsers}
+              />
             )}
           </section>
         )}

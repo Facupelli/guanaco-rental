@@ -6,7 +6,7 @@ import {
 
 import s from "./PaginationArrows.module.scss";
 
-export default function PaginationArrows({ users, skip, totalCount }) {
+export default function PaginationArrows({ users, skip, setSkip, totalCount }) {
   const dispatch = useDispatch();
 
   return (
