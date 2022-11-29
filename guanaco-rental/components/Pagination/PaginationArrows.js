@@ -37,7 +37,7 @@ export default function PaginationArrows({ users, skip, setSkip, totalCount }) {
             }
           }
         }}
-        // disabled={skip + 10 >= totalCount}
+        disabled={skip + 10 >= totalCount}
       >
         {"->"}
       </button>
