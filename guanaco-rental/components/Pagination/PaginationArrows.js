@@ -28,7 +28,9 @@ export default function PaginationArrows({ totalCount }) {
         type="button"
         onClick={() => {
           if (skip + 10 < totalCount) {
+            console.log("after dispatch");
             dispatch(nextPage());
+            console.log("after dispatch");
           }
         }}
         disabled={skip + 10 >= totalCount}
