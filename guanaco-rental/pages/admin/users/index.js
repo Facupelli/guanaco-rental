@@ -43,8 +43,6 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
     refetchClients,
   } = useFetchClients(clients, skip, session?.user.token);
 
-  console.log("SKIP", skip);
-
   const { newClientUsers, newClientsLoading, refetchNewClients } =
     useFetchNewClients(newClients, session?.user.token);
 
@@ -149,11 +147,7 @@ export default function AdminUsersPage({ clients, newClients, admins }) {
             )}
 
             {!search && (
-              <PaginationArrows
-                skip={skip}
-                setSkip={setSkip}
-                totalCount={totalUsers}
-              />
+              <PaginationArrows users skip={skip} totalCount={totalUsers} />
             )}
           </section>
         )}

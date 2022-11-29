@@ -6,10 +6,8 @@ import {
 
 import s from "./PaginationArrows.module.scss";
 
-export default function PaginationArrows({ totalCount }) {
+export default function PaginationArrows({ users, skip, totalCount }) {
   const dispatch = useDispatch();
-
-  const skip = useSelector((state) => state.orders.skip);
 
   return (
     <div className={s.pagination_btns_wrapper}>
@@ -17,7 +15,11 @@ export default function PaginationArrows({ totalCount }) {
         type="button"
         onClick={() => {
           if (skip >= 10) {
-            dispatch(previousPage());
+            if (users) {
+              setSkip((prev) => prev + 10);
+            } else {
+              dispatch(previousPage());
+            }
           }
         }}
         disabled={skip === 0}
@@ -28,9 +30,11 @@ export default function PaginationArrows({ totalCount }) {
         type="button"
         onClick={() => {
           if (skip + 10 < totalCount) {
-            console.log("after dispatch");
-            dispatch(nextPage());
-            console.log("after dispatch");
+            if (users) {
+              setSkip((prev) => prev - 10);
+            } else {
+              dispatch(nextPage());
+            }
           }
         }}
         disabled={skip + 10 >= totalCount}
