@@ -55,7 +55,11 @@ export default function CalendarComponent({
       session?.user.role !== "ADMIN" &&
       new Date().toDateString() === date.toDateString()
     ) {
-      return true;
+      if (new Date().getDay() === 5 && new Date().getHours() < 19) {
+        return false;
+      } else {
+        return true;
+      }
     }
     if (date.getDay() === 6 || date.getDay() === 0) {
       return true;
@@ -91,13 +95,22 @@ export default function CalendarComponent({
         <div className={s.pickup_select_wrapper}>
           <label>Retiro a las</label>
           <select
-            value={pickupHour}
+            value={
+              new Date(dateRange[0]).getDay() === 5 && new Date().getHours() > 8
+                ? "20:00"
+                : pickupHour
+            }
             onChange={(e) => handleChangeHour(e)}
             disabled={
               !dateRange || (dateRange && new Date(dateRange[0]).getDay() !== 5)
             }
           >
-            <option value="09:00">09:00</option>
+            <option
+              disabled={new Date().getDay() === 5 && new Date().getHours() > 8}
+              value="09:00"
+            >
+              09:00
+            </option>
             {location === "SAN_JUAN" ? (
               <option value="20:00">20:00</option>
             ) : (
