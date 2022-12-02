@@ -96,7 +96,11 @@ export default function CalendarComponent({
           <label>Retiro a las</label>
           <select
             value={
-              new Date(dateRange[0]).getDay() === 5 && new Date().getHours() > 8
+              dateRange &&
+              new Date(dateRange[0]).getDay() === 5 &&
+              new Date().toDateString() ===
+                new Date(dateRange[0]).toDateString() &&
+              new Date().getHours() > 8
                 ? "20:00"
                 : pickupHour
             }
@@ -106,7 +110,13 @@ export default function CalendarComponent({
             }
           >
             <option
-              disabled={new Date().getDay() === 5 && new Date().getHours() > 8}
+              disabled={
+                dateRange &&
+                new Date().getDay() === 5 &&
+                new Date().getHours() > 8 &&
+                new Date().toDateString() ===
+                  new Date(dateRange[0]).toDateString()
+              }
               value="09:00"
             >
               09:00
