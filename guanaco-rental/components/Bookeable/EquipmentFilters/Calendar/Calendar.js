@@ -28,6 +28,12 @@ export default function CalendarComponent({
     useCallback(() => setDatePickup(false), [setDatePickup])
   );
 
+  const pickupDayIsToday =
+    dateRange &&
+    new Date().toDateString() === new Date(dateRange[0]).toDateString();
+  const pickupDayIsFriday = dateRange && new Date(dateRange[0]).getDay() === 5;
+  const isFriday = new Date().getDay() === 5;
+
   const handleClickOk = () => {
     setDatePickup(false);
   };
@@ -55,7 +61,11 @@ export default function CalendarComponent({
       session?.user.role !== "ADMIN" &&
       new Date().toDateString() === date.toDateString()
     ) {
-      return true;
+      if (isFriday && new Date().getHours() < 19) {
+        return false;
+      } else {
+        return true;
+      }
     }
     if (date.getDay() === 6 || date.getDay() === 0) {
       return true;
@@ -91,13 +101,28 @@ export default function CalendarComponent({
         <div className={s.pickup_select_wrapper}>
           <label>Retiro a las</label>
           <select
-            value={pickupHour}
-            onChange={(e) => handleChangeHour(e)}
-            disabled={
-              !dateRange || (dateRange && new Date(dateRange[0]).getDay() !== 5)
+            value={
+              dateRange &&
+              pickupDayIsFriday &&
+              pickupDayIsToday &&
+              new Date().getHours() > 8
+                ? "20:00"
+                : pickupHour
             }
+            onChange={(e) => handleChangeHour(e)}
+            disabled={!dateRange || (dateRange && !pickupDayIsFriday)}
           >
-            <option value="09:00">09:00</option>
+            <option
+              disabled={
+                dateRange &&
+                isFriday &&
+                new Date().getHours() > 8 &&
+                pickupDayIsToday
+              }
+              value="09:00"
+            >
+              09:00
+            </option>
             {location === "SAN_JUAN" ? (
               <option value="20:00">20:00</option>
             ) : (

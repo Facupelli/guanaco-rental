@@ -7,6 +7,11 @@
   .form {
     margin-top: 2rem;
 
+    .form_error {
+      color: $m-danger;
+      font-size: 0.9rem;
+    }
+
     fieldset {
       border: none;
     }
@@ -129,7 +134,7 @@
           width: 100%;
         }
 
-        .dni_files_wrapper{
+        .dni_files_wrapper {
           flex-direction: column;
           align-items: flex-start;
         }

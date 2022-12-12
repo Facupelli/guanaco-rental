@@ -20,6 +20,8 @@ export default function CompleteProfileModal() {
     resolver: yupResolver(schema),
   });
 
+  console.log(errors);
+
   const { data: session } = useSession();
 
   const router = useRouter();
@@ -68,18 +70,6 @@ export default function CompleteProfileModal() {
       dniFront: dniFront,
       dniBack: dniBack,
     });
-
-    // try {
-    //   await supabase.storage
-    //     .from("users-dni")
-    //     .upload(`${dniFront.name}`, dniFront);
-
-    //   await supabase.storage
-    //     .from("users-dni")
-    //     .upload(`${dniBack.name}`, dniBack);
-    // } catch (e) {
-    //   console.log(e);
-    // }
 
     const newCustomerPetition = await fetch(
       process.env.NODE_ENV === "production"
@@ -139,7 +129,7 @@ export default function CompleteProfileModal() {
                 defaultValue={session?.user.name}
                 {...register("fullName")}
               />
-              {errors.fullName?.message}
+              <p className={s.form_error}>{errors.fullName?.message}</p>
             </div>
 
             <div className={s.inputs}>
@@ -151,7 +141,7 @@ export default function CompleteProfileModal() {
                 {...register("phone")}
                 placeholder="(código de área + número)"
               />
-              {errors.phone?.message}
+              <p className={s.form_error}>{errors.phone?.message}</p>
             </div>
 
             <div className={s.inputs}>
@@ -162,7 +152,7 @@ export default function CompleteProfileModal() {
                 id="birthDate"
                 {...register("birthDate")}
               />
-              {errors.birthDate?.message}
+              <p className={s.form_error}>{errors.birthDate?.message}</p>
             </div>
 
             <div className={s.inputs}>
@@ -173,7 +163,7 @@ export default function CompleteProfileModal() {
                 id="address"
                 {...register("address")}
               />
-              {errors.address?.message}
+              <p className={s.form_error}>{errors.address?.message}</p>
             </div>
 
             <div className={s.inputs}>
@@ -184,7 +174,7 @@ export default function CompleteProfileModal() {
                 id="addressLocation"
                 {...register("addressLocation")}
               />
-              {errors.addressLocation?.message}
+              <p className={s.form_error}>{errors.addressLocation?.message}</p>
             </div>
 
             <div className={s.inputs}>
@@ -195,7 +185,7 @@ export default function CompleteProfileModal() {
                 id="addressProvince"
                 {...register("addressProvince")}
               />
-              {errors.addressProvince?.message}
+              <p className={s.form_error}>{errors.addressProvince?.message}</p>
             </div>
 
             <div className={s.inputs}>
@@ -206,7 +196,7 @@ export default function CompleteProfileModal() {
                 id="dniNumber"
                 {...register("dniNumber")}
               />
-              {errors.dniNumber?.message}
+              <p className={s.form_error}>{errors.dniNumber?.message}</p>
             </div>
 
             <div className={s.dni_files_wrapper}>
@@ -243,31 +233,31 @@ export default function CompleteProfileModal() {
                 id="occupation"
                 {...register("occupation")}
               />
-              {errors.occupation?.message}
+              <p className={s.form_error}>{errors.occupation?.message}</p>
             </div>
 
             <div className={s.flex}>
               <label htmlFor="student">Estudiante:</label>
               <input type="checkbox" id="student" {...register("student")} />
-              {errors.student?.message}
+              <p className={s.form_error}>{errors.student?.message}</p>
             </div>
 
             <div className={s.flex}>
               <label htmlFor="employee">Empleado R.D:</label>
               <input type="checkbox" id="employee" {...register("employee")} />
-              {errors.employee?.message}
+              <p className={s.form_error}>{errors.employee?.message}</p>
             </div>
 
             <div className={s.inputs}>
               <label htmlFor="company">Empresa:</label>
               <input type="text" id="company" {...register("company")} />
-              {errors.company?.message}
+              <p className={s.form_error}>{errors.company?.message}</p>
             </div>
 
             <div className={s.inputs}>
               <label htmlFor="cuit">CUIT:</label>
               <input type="text" id="cuit" {...register("cuit")} />
-              {errors.cuit?.message}
+              <p className={s.form_error}>{errors.cuit?.message}</p>
             </div>
 
             <div className={s.inputs}>
@@ -277,7 +267,7 @@ export default function CompleteProfileModal() {
                 id="bussinessName"
                 {...register("businessName")}
               />
-              {errors.bussinessName?.message}
+              <p className={s.form_error}>{errors.bussinessName?.message}</p>
             </div>
           </fieldset>
 
@@ -290,10 +280,10 @@ export default function CompleteProfileModal() {
                 id="contact1"
                 {...register("contacts.contact1")}
               />
-              {errors.contact1?.message}
+              <p className={s.form_error}>{errors.contact1?.message}</p>
               <label htmlFor="bond1">Vínculo:</label>
               <input type="text" id="bond1" {...register("contacts.bond1")} />
-              {errors.bond1?.message}
+              <p className={s.form_error}>{errors.bond1?.message}</p>
             </div>
             <div>
               <label htmlFor="contact2">Contacto 2:</label>
@@ -302,10 +292,10 @@ export default function CompleteProfileModal() {
                 id="contact2"
                 {...register("contacts.contact2")}
               />
-              {errors.contact2?.message}
+              <p className={s.form_error}>{errors.contact2?.message}</p>
               <label htmlFor="bond2">Vínculo:</label>
               <input type="text" id="bond2" {...register("contacts.bond2")} />
-              {errors.bond2?.message}
+              <p className={s.form_error}>{errors.bond2?.message}</p>
             </div>
             <div>
               <label htmlFor="contact3">Contacto 3:</label>
@@ -314,10 +304,10 @@ export default function CompleteProfileModal() {
                 id="contact3"
                 {...register("contacts.contact3")}
               />
-              {errors.contact3?.message}
+              <p className={s.form_error}>{errors.contact3?.message}</p>
               <label htmlFor="bond3">Vínculo:</label>
               <input type="text" id="bond3" {...register("contacts.bond3")} />
-              {errors.bond3?.message}
+              <p className={s.form_error}>{errors.bond3?.message}</p>
             </div>
           </fieldset>
 
@@ -325,14 +315,20 @@ export default function CompleteProfileModal() {
             <legend>DATOS DE CUENTA BANCARIA / MERCADOPAGO</legend>
             <div>
               <label htmlFor="bank">Banco:</label>
-              <input type="text" id="bank" {...register("bank")} />
-              {errors.bank?.message}
+              <div>
+                <input type="text" id="bank" {...register("bank")} />
+                <p className={s.form_error}>{errors.bank?.message}</p>
+              </div>
               <label htmlFor="alias">Alias:</label>
-              <input type="text" id="alias" {...register("alias")} />
-              {errors.alias?.message}
+              <div>
+                <input type="text" id="alias" {...register("alias")} />
+                <p className={s.form_error}>{errors.alias?.message}</p>
+              </div>
               <label htmlFor="cbu">CBU/CVU:</label>
-              <input type="text" id="cbu" {...register("cbu")} />
-              {errors.cbu?.message}
+              <div>
+                <input type="text" id="cbu" {...register("cbu")} />
+                <p className={s.form_error}>{errors.cbu?.message}</p>
+              </div>
             </div>
           </fieldset>
 

@@ -3,12 +3,12 @@ import * as yup from "yup";
 export const schema = yup
   .object({
     fullName: yup.string().required(),
-    phone: yup.string().required(),
+    phone: yup.number().typeError("debe ser un número").required(),
     birthDate: yup.date().required(),
     address: yup.string().required(),
     addressLocation: yup.string().required(),
     addressProvince: yup.string().required(),
-    dniNumber: yup.string().required(),
+    dniNumber: yup.number().typeError("debe ser un número").required(),
     occupation: yup.string().required(),
     student: yup.boolean(),
     employee: yup.boolean(),
@@ -25,6 +25,6 @@ export const schema = yup
     }),
     bank: yup.string().required(),
     alias: yup.string().required(),
-    cbu: yup.string().required(),
+    cbu: yup.number().typeError("debe ser un número").required(),
   })
   .required();
