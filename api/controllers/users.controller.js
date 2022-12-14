@@ -16,7 +16,7 @@ async function postUser(req, res, next) {
       update: {
         phone: data.phone,
         fullName: data.fullName,
-        dniNumber: data.dniNumber,
+        dniNumber: String(data.dniNumber),
         dni: { dniFront: data.dniFront, dniBack: data.dniBack },
         birthDate: new Date(data.birthDate),
         address: data.address,
@@ -31,7 +31,7 @@ async function postUser(req, res, next) {
         contacts: data.contacts,
         bank: data.bank,
         alias: data.alias,
-        cbu: data.cbu,
+        cbu: String(data.cbu),
         petitionSent: data.petitionSent,
         customerApproved: data.customerApproved,
       },

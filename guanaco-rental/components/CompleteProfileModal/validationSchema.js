@@ -23,8 +23,11 @@ export const schema = yup
       contact3: yup.string(),
       bond3: yup.string(),
     }),
-    bank: yup.string().required(),
-    alias: yup.string().required(),
-    cbu: yup.number().typeError("debe ser un número").required(),
+    bank: yup.string().required("completa este campo"),
+    alias: yup.string().required("completa este campo"),
+    cbu: yup
+      .number()
+      .typeError("debe ser un número")
+      .required("completa este campo"),
   })
   .required();
