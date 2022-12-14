@@ -275,39 +275,66 @@ export default function CompleteProfileModal() {
             <legend>CONTACTOS RELACIONADOS</legend>
             <div>
               <label htmlFor="contact1">Contacto 1:</label>
-              <input
-                type="text"
-                id="contact1"
-                {...register("contacts.contact1")}
-              />
-              <p className={s.form_error}>{errors.contact1?.message}</p>
+              <div className={s.full_w}>
+                <input
+                  type="text"
+                  id="contact1"
+                  {...register("contacts.contact1")}
+                />
+                <p className={s.form_error}>
+                  {errors.contacts?.contact1?.message}
+                </p>
+              </div>
+
               <label htmlFor="bond1">Vínculo:</label>
-              <input type="text" id="bond1" {...register("contacts.bond1")} />
-              <p className={s.form_error}>{errors.bond1?.message}</p>
+              <div className={s.full_w}>
+                <input type="text" id="bond1" {...register("contacts.bond1")} />
+                <p className={s.form_error}>
+                  {errors.contacts?.bond1?.message}
+                </p>
+              </div>
             </div>
             <div>
               <label htmlFor="contact2">Contacto 2:</label>
-              <input
-                type="text"
-                id="contact2"
-                {...register("contacts.contact2")}
-              />
-              <p className={s.form_error}>{errors.contact2?.message}</p>
+              <div className={s.full_w}>
+                <input
+                  type="text"
+                  id="contact2"
+                  {...register("contacts.contact2")}
+                />
+                <p className={s.form_error}>
+                  {errors.contacts?.contact2?.message}
+                </p>
+              </div>
+
               <label htmlFor="bond2">Vínculo:</label>
-              <input type="text" id="bond2" {...register("contacts.bond2")} />
-              <p className={s.form_error}>{errors.bond2?.message}</p>
+              <div className={s.full_w}>
+                <input type="text" id="bond2" {...register("contacts.bond2")} />
+                <p className={s.form_error}>
+                  {errors.contacts?.bond2?.message}
+                </p>
+              </div>
             </div>
             <div>
               <label htmlFor="contact3">Contacto 3:</label>
-              <input
-                type="text"
-                id="contact3"
-                {...register("contacts.contact3")}
-              />
-              <p className={s.form_error}>{errors.contact3?.message}</p>
+              <div className={s.full_w}>
+                <input
+                  type="text"
+                  id="contact3"
+                  {...register("contacts.contact3")}
+                />
+                <p className={s.form_error}>
+                  {errors.contacts?.contact3?.message}
+                </p>
+              </div>
+
               <label htmlFor="bond3">Vínculo:</label>
-              <input type="text" id="bond3" {...register("contacts.bond3")} />
-              <p className={s.form_error}>{errors.bond3?.message}</p>
+              <div className={s.full_w}>
+                <input type="text" id="bond3" {...register("contacts.bond3")} />
+                <p className={s.form_error}>
+                  {errors.contacts?.bond3?.message}
+                </p>
+              </div>
             </div>
           </fieldset>
 

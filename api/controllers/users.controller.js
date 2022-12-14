@@ -14,7 +14,7 @@ async function postUser(req, res, next) {
         orders: { select: { number: true } },
       },
       update: {
-        phone: data.phone,
+        phone: String(data.phone),
         fullName: data.fullName,
         dniNumber: String(data.dniNumber),
         dni: { dniFront: data.dniFront, dniBack: data.dniBack },
