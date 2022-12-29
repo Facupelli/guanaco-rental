@@ -3,8 +3,8 @@
 .container {
   .cards_wrapper {
     display: grid;
-    grid-template-columns: repeat(3, 30%);
-    row-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 2rem;
     justify-content: space-between;
   }
 
@@ -15,25 +15,6 @@
 
     button {
       @include m-button;
-    }
-  }
-}
-
-@media (max-width: 920px) {
-  .container {
-    .cards_wrapper {
-      grid-template-columns: 50% 50%;
-      justify-items: center;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    .cards_wrapper {
-      grid-template-columns: 100%;
-      justify-items: center;
-      row-gap: 1rem;
     }
   }
 }
