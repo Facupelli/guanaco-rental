@@ -272,6 +272,14 @@ export default function UserProfile({ orderData }) {
                   </div>
                   <div className={`${s.flex_col} ${s.margin_b_2}`}>
                     <div className={s.flex}>
+                      <p>Cupón:</p>
+                      <p className={s.bold}>
+                        {order.coupon
+                          ? `${order.coupon?.name} / ${order.coupon?.discount} %`
+                          : "--"}
+                      </p>
+                    </div>
+                    <div className={s.flex}>
                       <p>Descuento admin:</p>
                       <p className={s.bold}>
                         {order.adminDiscountValue || "--"} %
@@ -282,7 +290,7 @@ export default function UserProfile({ orderData }) {
                       <p className={s.bold}>
                         {order.fixedDiscount
                           ? `${order.fixedDiscount?.name} ${order.fixedDiscount?.discount} %`
-                          : "-- %"}
+                          : "--"}
                       </p>
                     </div>
                     <div className={s.flex}>
