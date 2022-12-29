@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { getWorkingTotalDays } from "../utils/dates_functions";
 
 export const getCartTotalPrice = (cart, date) => {
-  console.log("PICKUP HOUR", date.pickup_hour);
   const workingDays = getWorkingTotalDays(date.date_range, date.pickup_hour);
 
   const totalPrice = cart.reduce((curr, acc) => {
