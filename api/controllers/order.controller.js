@@ -191,10 +191,10 @@ async function postOrder(req, res, next) {
       },
     };
 
-    const mailSentToGuanaco = await sendMail(mailToGuanaco);
-    const mailSentToClient = await sendMail(mailToClient);
-    console.log(mailSentToGuanaco);
-    console.log(mailSentToClient);
+    // const mailSentToGuanaco = await sendMail(mailToGuanaco);
+    // const mailSentToClient = await sendMail(mailToClient);
+    // console.log(mailSentToGuanaco);
+    // console.log(mailSentToClient);
 
     // const msgData = {
     //   phone: orderData.user.phone,
@@ -260,26 +260,49 @@ async function putOrder(req, res, next) {
           adminDiscount: true,
           adminDiscountValue: Number(data.newOrderDiscount),
         },
+        include: {
+          booking: true,
+          fixedDiscount: true,
+          equipments: { include: { bookings: true } },
+          coupon: { select: { name: true, discount: true } },
+        },
       });
 
-      const newFederico =
-        orderEarningsToUpdate.federico -
-        (orderEarningsToUpdate.federico * (data.newOrderDiscount / 100) || 0);
-      const newOscar =
-        orderEarningsToUpdate.oscar -
-        (orderEarningsToUpdate.oscar * (data.newOrderDiscount / 100) || 0);
-      const newSub =
-        orderEarningsToUpdate.sub -
-        (orderEarningsToUpdate.newSub * (data.newOrderDiscount / 100) || 0);
+      const eachEarnings = getOwnerEarningsByOrder(order);
 
       const updatedOrderEarnings = await prisma.orderEarnings.update({
         where: { orderId: data.orderId },
         data: {
-          federico: newFederico,
-          oscar: newOscar,
-          sub: newSub,
+          federico:
+            eachEarnings.totalFederico -
+            (eachEarnings.totalFederico * (data.newOrderDiscount / 100) || 0),
+          oscar:
+            eachEarnings.totalOscar -
+            (eachEarnings.totalOscar * (data.newOrderDiscount / 100) || 0),
+          sub:
+            eachEarnings.totalSub -
+            (eachEarnings.totalSub * (data.newOrderDiscount / 100) || 0),
         },
       });
+
+      // const newFederico =
+      //   orderEarningsToUpdate.federico -
+      //   (orderEarningsToUpdate.federico * (data.newOrderDiscount / 100) || 0);
+      // const newOscar =
+      //   orderEarningsToUpdate.oscar -
+      //   (orderEarningsToUpdate.oscar * (data.newOrderDiscount / 100) || 0);
+      // const newSub =
+      //   orderEarningsToUpdate.sub -
+      //   (orderEarningsToUpdate.newSub * (data.newOrderDiscount / 100) || 0);
+
+      // const updatedOrderEarnings = await prisma.orderEarnings.update({
+      //   where: { orderId: data.orderId },
+      //   data: {
+      //     federico: newFederico,
+      //     oscar: newOscar,
+      //     sub: newSub,
+      //   },
+      // });
 
       res.json({ message: "success" });
       return;

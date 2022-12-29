@@ -84,6 +84,8 @@ async function getEquipment(req, res, next) {
 async function putEquipment(req, res, next) {
   const data = req.body;
 
+  console.log(data);
+
   try {
     if (data.id) {
       const updatedGear = await prisma.equipment.update({
@@ -97,6 +99,7 @@ async function putEquipment(req, res, next) {
           price: Number(data.price),
           location: data.location,
           image: data.image,
+          owner: data.owner,
         },
       });
 
