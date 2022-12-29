@@ -74,69 +74,74 @@ export default function CalendarComponent({
   };
 
   return (
-    <aside className={s.calendar_container} ref={calendarRef}>
-      <Calendar
-        className={s.calendar}
-        onChange={setDateRange}
-        value={dateRange}
-        selectRange={true}
-        locale="es-ES"
-        minDate={new Date()}
-        tileClassName={({ date, view }) => {
-          if (
-            daysTaken.find((day) => new Date(day).getTime() === date.getTime())
-          ) {
-            return s.booked_tile;
-          } else {
-            if (freeTileClass && new Date().getTime() <= date.getTime()) {
-              return s.free_tile;
-            }
-          }
-        }}
-        tileDisabled={
-          daysTaken.length > 0 ? gearBookingDisabled : weekendDisabled
-        }
-      />
-      <div className={s.flex_column}>
-        <div className={s.pickup_select_wrapper}>
-          <label>Retiro a las</label>
-          <select
-            value={
-              dateRange &&
-              pickupDayIsFriday &&
-              pickupDayIsToday &&
-              new Date().getHours() > 8
-                ? "20:00"
-                : pickupHour
-            }
-            onChange={(e) => handleChangeHour(e)}
-            disabled={!dateRange || (dateRange && !pickupDayIsFriday)}
-          >
-            <option
-              disabled={
-                dateRange &&
-                isFriday &&
-                new Date().getHours() > 8 &&
-                pickupDayIsToday
+    <>
+      <aside className={s.calendar_container} ref={calendarRef}>
+        <Calendar
+          className={s.calendar}
+          onChange={setDateRange}
+          value={dateRange}
+          selectRange={true}
+          locale="es-ES"
+          minDate={new Date()}
+          tileClassName={({ date, view }) => {
+            if (
+              daysTaken.find(
+                (day) => new Date(day).getTime() === date.getTime()
+              )
+            ) {
+              return s.booked_tile;
+            } else {
+              if (freeTileClass && new Date().getTime() <= date.getTime()) {
+                return s.free_tile;
               }
-              value="09:00"
+            }
+          }}
+          tileDisabled={
+            daysTaken.length > 0 ? gearBookingDisabled : weekendDisabled
+          }
+        />
+        <div className={s.flex_column}>
+          <div className={s.pickup_select_wrapper}>
+            <label>Retiro a las</label>
+            <select
+              value={
+                dateRange &&
+                pickupDayIsFriday &&
+                pickupDayIsToday &&
+                new Date().getHours() > 8
+                  ? "20:00"
+                  : pickupHour
+              }
+              onChange={(e) => handleChangeHour(e)}
+              disabled={!dateRange || (dateRange && !pickupDayIsFriday)}
             >
-              09:00
-            </option>
-            {location === "SAN_JUAN" ? (
-              <option value="20:00">20:00</option>
-            ) : (
-              <option value="20:30">20:30</option>
-            )}
-          </select>
-          <span>hs</span>
+              <option
+                disabled={
+                  dateRange &&
+                  isFriday &&
+                  new Date().getHours() > 8 &&
+                  pickupDayIsToday
+                }
+                value="09:00"
+              >
+                09:00
+              </option>
+              {location === "SAN_JUAN" ? (
+                <option value="20:00">20:00</option>
+              ) : (
+                <option value="20:30">20:30</option>
+              )}
+            </select>
+            <span>hs</span>
+          </div>
+          <div className={s.btn_container}>
+            <button type="button" onClick={handleClickOk}>
+              OK
+            </button>
+          </div>
         </div>
-        <div className={s.btn_container}>
-          <button type="button" onClick={handleClickOk}>
-            OK
-          </button>
-        </div>
-      </div>
-    </aside>
+      </aside>
+      <div className={s.backdrop}></div>
+    </>
   );
 }
