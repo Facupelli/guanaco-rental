@@ -27,41 +27,48 @@ export default function CartModal({ showCart, setShowCart, setDatePickup }) {
   };
 
   return (
-    <aside
-      className={`${s.cart_container} ${showCart ? s.show : s.hide}`}
-      ref={cartModalRef}
-    >
-      <div className={s.cart_headline}>
-        <h1>MI PEDIDO</h1>
-        <XmarkButton handleClose={handleCloseCart} height={20} />
-      </div>
-      {date.length > 0 ? (
-        <div className={s.date_range}>
-          <p>{new Date(date[0]).toLocaleDateString()}</p>
-          <p>{"->"}</p>
-          <p>{new Date(date.at(-1)).toLocaleDateString()}</p>
+    <>
+      <aside
+        className={`${s.cart_container} ${showCart ? s.show : s.hide}`}
+        ref={cartModalRef}
+      >
+        <div className={s.cart_headline}>
+          <h1>MI PEDIDO</h1>
+          <XmarkButton handleClose={handleCloseCart} height={20} />
         </div>
-      ) : (
-        <button className={s.select_date_btn} onClick={handleSelectDateRange}>
-          seleccionar fecha de alquiler
-        </button>
-      )}
-      <div className={s.cart_list}>
-        {cart && cart.length > 0 ? (
-          cart.map((item) => <CartItem key={item.id} item={item} />)
+        {date.length > 0 ? (
+          <div className={s.date_range}>
+            <p>{new Date(date[0]).toLocaleDateString()}</p>
+            <p>{"->"}</p>
+            <p>{new Date(date.at(-1)).toLocaleDateString()}</p>
+          </div>
         ) : (
-          <p>Tu carrito esta vacio.</p>
+          <button className={s.select_date_btn} onClick={handleSelectDateRange}>
+            seleccionar fecha de alquiler
+          </button>
         )}
-      </div>
-      {/* <button type="button" onClick={handleCloseCart}>
+        <div className={s.cart_list}>
+          {cart && cart.length > 0 ? (
+            cart.map((item) => <CartItem key={item.id} item={item} />)
+          ) : (
+            <p>Tu carrito esta vacio.</p>
+          )}
+        </div>
+        {/* <button type="button" onClick={handleCloseCart}>
         seguir alquilando
       </button> */}
-      <div className={s.next_btn_wrapper}>
-        <Link href="/cart">
-          <button type="button">VER CARRITO</button>
-        </Link>
-        {/* <button type="button">ALQUILAR</button> */}
-      </div>
-    </aside>
+        <div className={s.next_btn_wrapper}>
+          <Link href="/cart">
+            <button type="button">VER CARRITO</button>
+          </Link>
+          {/* <button type="button">ALQUILAR</button> */}
+        </div>
+      </aside>
+      <div
+        className={`${s.backdrop} ${
+          showCart ? s.show_backdrop : s.hide_backdrop
+        }`}
+      ></div>
+    </>
   );
 }

@@ -8,7 +8,6 @@ import {
 import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useSelector } from "react-redux";
 import { useCallback, useRef } from "react";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
