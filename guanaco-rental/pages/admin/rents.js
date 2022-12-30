@@ -15,64 +15,30 @@ import s from "../../styles/AdminRentsPage.module.scss";
 export default function AdminRents({ session }) {
   const { orders, totalPrice, loading } = useFetchRents();
 
-  const [totalFinished, setTotalFinished] = useState({});
-  const [totalPending, setTotalPending] = useState({});
-  const [totalCustom, setTotalCustom] = useState({});
+  const [ordersFinished, setOrdersFinished] = useState({});
+  const [ordersPending, setOrdersPending] = useState({});
 
-  const [selectedDate, setSelectedDate] = useState();
+  const todayTime = useMemo(() => new Date().getTime(), []);
 
-  const today = useMemo(() => new Date(), []);
+  const filterOrders = useCallback(
+    (orders, finished) => {
+      return orders.filter((order) => {
+        const lastRentDayTime = new Date(
+          order.booking.dates[order.booking.dates.length - 1]
+        ).getTime();
 
-  const getFilteredOrders = useCallback(
-    ({ finished, date }) => {
-      const todayTime = today.getTime();
-      const filterDateTime = new Date(date).getTime();
-
-      let filteredOrders;
-      if (!date) {
-        filteredOrders = orders.filter((order) => {
-          const lastRentDayTime = new Date(
-            order.booking.dates[order.booking.dates.length - 1]
-          ).getTime();
-
-          return finished
-            ? lastRentDayTime < (date ? filterDateTime : todayTime)
-            : lastRentDayTime > todayTime;
-        });
-      } else {
-        filteredOrders = orders.filter((order) => {
-          const lastRentDayTime = new Date(
-            order.booking.dates[order.booking.dates.length - 1]
-          ).getTime();
-
-          return (
-            lastRentDayTime < todayTime && lastRentDayTime > filterDateTime
-          );
-        });
-      }
-      return filteredOrders;
+        return finished
+          ? lastRentDayTime < todayTime
+          : lastRentDayTime > todayTime;
+      });
     },
-    [today, orders]
+    [todayTime]
   );
 
   useEffect(() => {
-    if (orders?.length > 0) {
-      const finishedOrders = getFilteredOrders({ finished: true });
-      setTotalFinished(getEachEarnings(finishedOrders));
-      const pendingOrders = getFilteredOrders({ finished: false });
-      setTotalPending(getEachEarnings(pendingOrders));
-    }
-  }, [getFilteredOrders, orders?.length]);
-
-  useEffect(() => {
-    if (selectedDate && orders?.length > 0) {
-      const customOrders = getFilteredOrders({
-        finished: false,
-        date: selectedDate,
-      });
-      setTotalCustom(getEachEarnings(customOrders));
-    }
-  }, [selectedDate, getFilteredOrders, orders?.length]);
+    setOrdersFinished(filterOrders(orders, true));
+    setOrdersPending(filterOrders(orders, false));
+  }, [orders, filterOrders]);
 
   return (
     <div className={s.grey_bg}>
@@ -88,7 +54,7 @@ export default function AdminRents({ session }) {
         <section className={s.section}>
           <div className={s.flex}>
             <RentsCard>
-              <h3>TODAS</h3>
+              <h3>TODAS - 2023</h3>
               <p>
                 <span className={s.bold}>Total:</span>
                 {loading ? "..." : formatPrice(totalPrice)}
@@ -109,24 +75,51 @@ export default function AdminRents({ session }) {
               </p>
             </RentsCard>
 
-            <RentsCard>
-              <h3>FINALIZADAS</h3>
-              <p>Total: {formatPrice(totalFinished.total)}</p>
-              <p>Federico: {formatPrice(totalFinished.federico)}</p>
-              <p>Oscar: {formatPrice(totalFinished.oscar)}</p>
-              <p>Subalquiler: {formatPrice(totalFinished.sub)}</p>
-            </RentsCard>
+            {ordersFinished.length > 0 ||
+              (ordersPending.length > 0 && (
+                <>
+                  <RentsCard>
+                    <h3>FINALIZADAS</h3>
+                    <p>
+                      Total:{" "}
+                      {formatPrice(getEachEarnings(ordersFinished).total)}
+                    </p>
+                    <p>
+                      Federico:{" "}
+                      {formatPrice(getEachEarnings(ordersFinished).federico)}
+                    </p>
+                    <p>
+                      Oscar:{" "}
+                      {formatPrice(getEachEarnings(ordersFinished).oscar)}
+                    </p>
+                    <p>
+                      Subalquiler:{" "}
+                      {formatPrice(getEachEarnings(ordersFinished).sub)}
+                    </p>
+                  </RentsCard>
 
-            <RentsCard>
-              <h3>PENDIENTES</h3>
-              <p>TOTAL: {formatPrice(totalPending.total)}</p>
-              <p>Federico: {formatPrice(totalPending.federico)}</p>
-              <p>Oscar: {formatPrice(totalPending.oscar)}</p>
-              <p>Subalquiler: {formatPrice(totalPending.sub)}</p>
-            </RentsCard>
+                  <RentsCard>
+                    <h3>PENDIENTES</h3>
+                    <p>
+                      TOTAL: {formatPrice(getEachEarnings(ordersPending).total)}
+                    </p>
+                    <p>
+                      Federico:{" "}
+                      {formatPrice(getEachEarnings(ordersPending).federico)}
+                    </p>
+                    <p>
+                      Oscar: {formatPrice(getEachEarnings(ordersPending).oscar)}
+                    </p>
+                    <p>
+                      Subalquiler:{" "}
+                      {formatPrice(getEachEarnings(ordersPending).sub)}
+                    </p>
+                  </RentsCard>
+                </>
+              ))}
           </div>
 
-          <RentsCard>
+          {/* <RentsCard>
             <div className={s.title_wrapper}>
               <h3>FINALIZADAS - PERSONALIZADO</h3>
               <div className={s.select_wrapper}>
@@ -210,7 +203,7 @@ export default function AdminRents({ session }) {
                 ? formatPrice(totalCustom.sub)
                 : formatPrice(0)}
             </p>
-          </RentsCard>
+          </RentsCard> */}
         </section>
       </AdminMain>
     </div>

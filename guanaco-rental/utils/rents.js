@@ -27,7 +27,7 @@ const fetchTotalPrice = (location, token) => {
 export const useFetchRents = () => {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
-  const [totalPrice, setTotalPrice] = useState();
+  // const [totalPrice, setTotalPrice] = useState();
 
   const location = useSelector((state) => state.location.city);
 
@@ -35,13 +35,25 @@ export const useFetchRents = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetchOrders(location, session?.user.token).then((ordersList) =>
-      setOrders(ordersList)
-    );
-    fetchTotalPrice(location, session?.user.token)
-      .then((total) => setTotalPrice(total._sum.totalPrice))
-      .then(() => setLoading(false));
+    fetchOrders(location, session?.user.token).then((ordersList) => {
+      const filteredOrders = ordersList.filter((order) => {
+        const lastRentDayTime = new Date(
+          order.booking.dates[order.booking.dates.length - 1]
+        ).getTime();
+
+        return new Date("1/1/2023").getTime() < lastRentDayTime;
+      });
+      setOrders(filteredOrders);
+      setLoading(false);
+    });
+    // fetchTotalPrice(location, session?.user.token)
+    //   .then((total) => setTotalPrice(total._sum.totalPrice))
+    //   .then(() => setLoading(false));
   }, [location]);
+
+  const totalPrice = orders?.reduce((acc, curr) => {
+    return acc + curr.totalPrice;
+  }, 0);
 
   return { orders, totalPrice, loading };
 };
