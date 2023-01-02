@@ -75,48 +75,45 @@ export default function AdminRents({ session }) {
               </p>
             </RentsCard>
 
-            {ordersFinished.length > 0 ||
-              (ordersPending.length > 0 && (
-                <>
-                  <RentsCard>
-                    <h3>FINALIZADAS</h3>
-                    <p>
-                      Total:{" "}
-                      {formatPrice(getEachEarnings(ordersFinished).total)}
-                    </p>
-                    <p>
-                      Federico:{" "}
-                      {formatPrice(getEachEarnings(ordersFinished).federico)}
-                    </p>
-                    <p>
-                      Oscar:{" "}
-                      {formatPrice(getEachEarnings(ordersFinished).oscar)}
-                    </p>
-                    <p>
-                      Subalquiler:{" "}
-                      {formatPrice(getEachEarnings(ordersFinished).sub)}
-                    </p>
-                  </RentsCard>
+            {(ordersFinished.length > 0 || ordersPending.length > 0) && (
+              <>
+                <RentsCard>
+                  <h3>FINALIZADAS</h3>
+                  <p>
+                    Total: {formatPrice(getEachEarnings(ordersFinished).total)}
+                  </p>
+                  <p>
+                    Federico:{" "}
+                    {formatPrice(getEachEarnings(ordersFinished).federico)}
+                  </p>
+                  <p>
+                    Oscar: {formatPrice(getEachEarnings(ordersFinished).oscar)}
+                  </p>
+                  <p>
+                    Subalquiler:{" "}
+                    {formatPrice(getEachEarnings(ordersFinished).sub)}
+                  </p>
+                </RentsCard>
 
-                  <RentsCard>
-                    <h3>PENDIENTES</h3>
-                    <p>
-                      TOTAL: {formatPrice(getEachEarnings(ordersPending).total)}
-                    </p>
-                    <p>
-                      Federico:{" "}
-                      {formatPrice(getEachEarnings(ordersPending).federico)}
-                    </p>
-                    <p>
-                      Oscar: {formatPrice(getEachEarnings(ordersPending).oscar)}
-                    </p>
-                    <p>
-                      Subalquiler:{" "}
-                      {formatPrice(getEachEarnings(ordersPending).sub)}
-                    </p>
-                  </RentsCard>
-                </>
-              ))}
+                <RentsCard>
+                  <h3>PENDIENTES</h3>
+                  <p>
+                    TOTAL: {formatPrice(getEachEarnings(ordersPending).total)}
+                  </p>
+                  <p>
+                    Federico:{" "}
+                    {formatPrice(getEachEarnings(ordersPending).federico)}
+                  </p>
+                  <p>
+                    Oscar: {formatPrice(getEachEarnings(ordersPending).oscar)}
+                  </p>
+                  <p>
+                    Subalquiler:{" "}
+                    {formatPrice(getEachEarnings(ordersPending).sub)}
+                  </p>
+                </RentsCard>
+              </>
+            )}
           </div>
 
           {/* <RentsCard>
