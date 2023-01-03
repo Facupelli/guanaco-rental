@@ -191,10 +191,10 @@ async function postOrder(req, res, next) {
       },
     };
 
-    // const mailSentToGuanaco = await sendMail(mailToGuanaco);
-    // const mailSentToClient = await sendMail(mailToClient);
-    // console.log(mailSentToGuanaco);
-    // console.log(mailSentToClient);
+    const mailSentToGuanaco = await sendMail(mailToGuanaco);
+    const mailSentToClient = await sendMail(mailToClient);
+    console.log(mailSentToGuanaco);
+    console.log(mailSentToClient);
 
     // const msgData = {
     //   phone: orderData.user.phone,
