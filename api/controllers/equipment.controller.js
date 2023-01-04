@@ -57,7 +57,7 @@ async function getEquipment(req, res, next) {
         AND: wherePipeline,
       },
       include: { bookings: { include: { book: true } } },
-      orderBy: { bookings: { _count: "desc" } },
+      orderBy: { price: "desc" },
     };
 
     if (category && category !== "undefined" && category !== "all") {
