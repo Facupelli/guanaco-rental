@@ -35,9 +35,12 @@ export default function EquipmentCard({ gear, setShowCart }) {
     //localStorage
     const localCart = localStorage.getItem("cart");
     if (localCart) {
-      localStorage.setItem("cart", JSON.stringify([...JSON.parse(localCart), gear]));
-    }else{
-      localStorage.setItem("cart", JSON.stringify([gear]));
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([...JSON.parse(localCart), { ...gear, quantity: 1 }])
+      );
+    } else {
+      localStorage.setItem("cart", JSON.stringify([{ ...gear, quantity: 1 }]));
     }
   };
 

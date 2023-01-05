@@ -9,7 +9,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      state.items = [...state.items, action.payload];
+      state.items = [...state.items, { ...action.payload, quantity: 1 }];
     },
     removeFromCart: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
@@ -41,15 +41,21 @@ export const cartSlice = createSlice({
       state.items = newState;
     },
     setCart: (state, action) => {
-      state.items = action.payload
+      state.items = action.payload;
     },
     cleanCart: (state, action) => {
-      state.items = []
-    }
+      state.items = [];
+    },
   },
 });
 
-export const { addToCart, removeFromCart, addQuantity, substractQuantity, cleanCart, setCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  addQuantity,
+  substractQuantity,
+  cleanCart,
+  setCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -21,11 +21,8 @@ async function postOrder(req, res, next) {
     );
 
     newCart = data.cart.map((item) => {
-      if (!item.quantity) {
-        return { ...updatedCart.find((el) => el.id === item.id), quantity: 1 };
-      }
       return {
-        ...updatedCart.find((el) => el.id === item.id),
+        ...updatedCart.find((updatedItem) => updatedItem.id === item.id),
         quantity: item.quantity,
       };
     });
