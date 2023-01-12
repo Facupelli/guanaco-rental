@@ -533,7 +533,18 @@ async function deleteOrderById(req, res, next) {
         },
       };
 
+      const mailToGuanaco = {
+        from: `Guanaco Rental <${CLIENT_EMAIL}>`,
+        to: "hola@guanacorental.com",
+        subject: `NUEVO PEDIDO`,
+        template: "orderDeleteToGuanaco",
+        context: {
+          fullName: `${deletedOrder.order.user.fullName}`,
+        },
+      };
+
       const sendMailToClient = sendMail(mailToClient);
+      const sendMailToGuanaco = sendMail(mailToGuanaco);
 
       res.json({ message: "success", deletedOrder });
     }
