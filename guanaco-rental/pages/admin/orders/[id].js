@@ -333,28 +333,28 @@ export default function UserProfile({ orderData }) {
               </div>
             </div>
 
-            {session?.user.role === "ADMIN" ||
-              (session?.user.role === "EMPLOYEE" && (
-                <div className={`${s.card} ${s.danger_div}`}>
-                  <h3 className={s.margin_b}>Cancelar Pedido</h3>
-                  <p>
-                    El pedido sera cancelado. Se notificará al usuario via mail.
-                  </p>
-                  <button
-                    onClick={() => {
-                      router.push("/admin/orders");
-                      handleDeleteOrder(
-                        order.bookingId,
-                        order.id,
-                        refetchOrders,
-                        session?.user.token
-                      );
-                    }}
-                  >
-                    CANCELAR
-                  </button>
-                </div>
-              ))}
+            {(session?.user.role === "ADMIN" ||
+              session?.user.role === "EMPLOYEE") && (
+              <div className={`${s.card} ${s.danger_div}`}>
+                <h3 className={s.margin_b}>Cancelar Pedido</h3>
+                <p>
+                  El pedido sera cancelado. Se notificará al usuario via mail.
+                </p>
+                <button
+                  onClick={() => {
+                    router.push("/admin/orders");
+                    handleDeleteOrder(
+                      order.bookingId,
+                      order.id,
+                      refetchOrders,
+                      session?.user.token
+                    );
+                  }}
+                >
+                  CANCELAR
+                </button>
+              </div>
+            )}
           </>
         )}
       </AdminMain>
