@@ -3,10 +3,10 @@ const getWorkingTotalDays = (dates, pickupHour) => {
   let weekendDay = 0;
   let bookedDates = dates.slice(0, -1);
 
-  console.log("BOOKED DATES", bookedDates);
-
   for (let day of bookedDates) {
     const newDay = new Date(day).getDay();
+    const isPickupDay =
+      new Date(day).getTime() === new Date(bookedDates[0]).getTime();
 
     //si es sabado o domingo
     if (newDay === 6 || newDay === 0) {
@@ -15,16 +15,16 @@ const getWorkingTotalDays = (dates, pickupHour) => {
       //si es el primer dia
       if (
         //si el retiro es viernes a las 9
-        new Date(day).getTime() === new Date(bookedDates[0]).getTime() &&
+        isPickupDay &&
         newDay === 5 &&
         pickupHour === "09:00"
       ) {
         weekDay += 0.5;
       } else if (
         //si el retiro es viernes a las 20
-        new Date(day).getTime() === new Date(bookedDates[0]).getTime() &&
+        isPickupDay &&
         newDay === 5 &&
-        pickupHour === "20:00"
+        (pickupHour === "20:00" || pickupHour === "20:30")
       ) {
         weekDay += 0;
       }
