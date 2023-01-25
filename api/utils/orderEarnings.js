@@ -61,13 +61,12 @@ const getOwnerEarningsByOrder = (order) => {
       totalFederico += (workingsDays * gear.price * gearQty) / 2;
       totalOscar += (workingsDays * gear.price * gearQty) / 2;
     }
+    console.log("DEVOLUCION GET OWNER EARNINGS BY ORDER", {
+      totalFederico,
+      totalOscar,
+      totalSub,
+    });
   }
-
-  console.log("DEVOLUCION GET OWNER EARNINGS BY ORDER", {
-    totalFederico,
-    totalOscar,
-    totalSub,
-  });
 
   if (order.fixedDiscount) {
     const discount = order.fixedDiscount.discount / 100;
