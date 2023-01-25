@@ -62,7 +62,8 @@ const getOwnerEarningsByOrder = (order) => {
         "DEVOLUCION GET OWNER EARNINGS BY ORDER",
         workingsDays,
         gear.price,
-        gearQty(workingsDays * gear.price * gearQty) / 2
+        gearQty,
+        (workingsDays * gear.price * gearQty) / 2
       );
       totalFederico += (workingsDays * gear.price * gearQty) / 2;
       totalOscar += (workingsDays * gear.price * gearQty) / 2;
