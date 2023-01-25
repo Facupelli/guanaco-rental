@@ -81,6 +81,12 @@ const getOwnerEarningsByOrder = (order) => {
     };
   }
 
+  console.log("DEVOLUCION GET OWNER EARNINGS BY ORDER", {
+    totalFederico,
+    totalOscar,
+    totalSub,
+  });
+
   return {
     totalFederico,
     totalOscar,
