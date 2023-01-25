@@ -3,6 +3,8 @@ const getWorkingTotalDays = (dates, pickupHour) => {
   let weekendDay = 0;
   let bookedDates = dates.slice(0, -1);
 
+  console.log("BOOKED DATES", bookedDates);
+
   for (let day of bookedDates) {
     const newDay = new Date(day).getDay();
 
@@ -12,12 +14,14 @@ const getWorkingTotalDays = (dates, pickupHour) => {
     } else {
       //si es el primer dia
       if (
+        //si el retiro es viernes a las 9
         new Date(day).getTime() === new Date(bookedDates[0]).getTime() &&
         newDay === 5 &&
         pickupHour === "09:00"
       ) {
         weekDay += 0.5;
       } else if (
+        //si el retiro es viernes a las 20
         new Date(day).getTime() === new Date(bookedDates[0]).getTime() &&
         newDay === 5 &&
         pickupHour === "20:00"
@@ -30,6 +34,8 @@ const getWorkingTotalDays = (dates, pickupHour) => {
       }
     }
   }
+
+  console.log("return by BOOKED DATES", weekDay + weekendDay / 2);
 
   return weekDay + weekendDay / 2;
 };
