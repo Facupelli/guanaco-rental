@@ -35,8 +35,6 @@ const getWorkingTotalDays = (dates, pickupHour) => {
     }
   }
 
-  console.log("return by BOOKED DATES", weekDay + weekendDay / 2);
-
   return weekDay + weekendDay / 2;
 };
 
@@ -64,15 +62,9 @@ const getOwnerEarningsByOrder = (order) => {
       totalFederico += workingsDays * gear.price * gearQty * 0.15;
       totalOscar += workingsDays * gear.price * gearQty * 0.15;
     } else {
-      console.log("DIVISION", (workingsDays * gear.price * gearQty) / 2);
       totalFederico += (workingsDays * gear.price * gearQty) / 2;
       totalOscar += (workingsDays * gear.price * gearQty) / 2;
     }
-    console.log("DEVOLUCION GET OWNER EARNINGS BY ORDER", {
-      totalFederico,
-      totalOscar,
-      totalSub,
-    });
   }
 
   if (order.fixedDiscount) {
@@ -92,12 +84,6 @@ const getOwnerEarningsByOrder = (order) => {
       totalSub: totalSub - totalSub * discount,
     };
   }
-
-  console.log("final", {
-    totalFederico,
-    totalOscar,
-    totalSub,
-  });
 
   return {
     totalFederico,
