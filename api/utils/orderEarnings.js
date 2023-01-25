@@ -58,6 +58,7 @@ const getOwnerEarningsByOrder = (order) => {
       totalFederico += workingsDays * gear.price * gearQty * 0.15;
       totalOscar += workingsDays * gear.price * gearQty * 0.15;
     } else {
+      console.log("DIVISION", (workingsDays * gear.price * gearQty) / 2);
       totalFederico += (workingsDays * gear.price * gearQty) / 2;
       totalOscar += (workingsDays * gear.price * gearQty) / 2;
     }

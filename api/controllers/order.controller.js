@@ -537,7 +537,7 @@ async function deleteOrderById(req, res, next) {
         from: `Guanaco Rental <${CLIENT_EMAIL}>`,
         to: "hola@guanacorental.com",
         subject: `NUEVO PEDIDO`,
-        template: "orderDeleteToGuanaco",
+        template: "orderDeletedToGuanaco",
         context: {
           fullName: `${deletedOrder.order.user.fullName}`,
         },
