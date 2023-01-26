@@ -161,7 +161,7 @@ export default function CartPage() {
       .catch((e) => {
         setShowMessageModal((prev) => ({
           ...prev,
-          error: "error, vuelve a intentarlo",
+          error: `error, refresque la página y vuelva a intentarlo`,
           loading: false,
         }));
       });
