@@ -35,11 +35,10 @@ async function postOrder(req, res, next) {
       });
     }
   } catch (e) {
-    res.json({
+    return res.json({
       message: "error when checking bookings for equipment",
       error: e,
     });
-    return;
   }
 
   let book;
@@ -71,7 +70,7 @@ async function postOrder(req, res, next) {
         where: { id: book.id },
       });
     }
-    next(e);
+    return next(e);
   }
 
   let newOrder;
@@ -111,7 +110,7 @@ async function postOrder(req, res, next) {
     if (book) {
       await prisma.book.delete({ where: { id: book.id } });
     }
-    next(e);
+    return next(e);
   }
 
   // CREATE ORDER EARNINGS AND CONNECT
@@ -135,7 +134,7 @@ async function postOrder(req, res, next) {
       });
       await prisma.book.delete({ where: { id: book.id } });
     }
-    next(e);
+    return next(e);
   }
 
   // SEND EMAIL TO ADMINS & WS MESSAGE TO USER
