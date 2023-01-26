@@ -29,11 +29,10 @@ async function postOrder(req, res, next) {
 
     //check availability for dates
     if (!areAllItemsAvailable(newCart, data.dates)) {
-      res.json({
+      return res.status(400).json({
         error: true,
         message: "some equipment is booked for that date, refresh page",
       });
-      return;
     }
   } catch (e) {
     res.json({
@@ -67,6 +66,11 @@ async function postOrder(req, res, next) {
       )
     );
   } catch (e) {
+    if (book) {
+      await prisma.book.delete({
+        where: { id: book.id },
+      });
+    }
     next(e);
   }
 
@@ -104,7 +108,9 @@ async function postOrder(req, res, next) {
       },
     });
   } catch (e) {
-    const bookDeleted = await prisma.book.delete({ where: { id: book.id } });
+    if (book) {
+      await prisma.book.delete({ where: { id: book.id } });
+    }
     next(e);
   }
 
@@ -123,6 +129,12 @@ async function postOrder(req, res, next) {
 
     res.json({ message: "success", newOrder });
   } catch (e) {
+    if (newOrder) {
+      await prisma.order.delete({
+        where: { id: newOrder.id },
+      });
+      await prisma.book.delete({ where: { id: book.id } });
+    }
     next(e);
   }
 
