@@ -117,248 +117,271 @@ export default function CompleteProfileModal() {
       <div className={s.container}>
         <h1>FORMULARIO ALTA DE CLIENTE </h1>
         <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-          <fieldset className={s.personal_info_wrapper}>
-            <legend>INFORMACIÓN CLIENTE</legend>
+          <div>
+            <fieldset className={s.personal_info_wrapper}>
+              <legend>INFORMACIÓN CLIENTE</legend>
 
-            <div className={s.inputs}>
-              <label htmlFor="fullName">Nombre Completo:</label>
-              <input
-                required
-                type="text"
-                id="fullName"
-                defaultValue={session?.user.name}
-                {...register("fullName")}
-              />
-              <p className={s.form_error}>{errors.fullName?.message}</p>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="phone">Número de celular: (+54)</label>
-              <input
-                required
-                type="tel"
-                id="phone"
-                {...register("phone")}
-                placeholder="(código de área + número)"
-              />
-              <p className={s.form_error}>{errors.phone?.message}</p>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="birthDate">Fecha de nacimiento:</label>
-              <input
-                required
-                type="date"
-                id="birthDate"
-                {...register("birthDate")}
-              />
-              <p className={s.form_error}>{errors.birthDate?.message}</p>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="address">Domicilio Real:</label>
-              <input
-                required
-                type="text"
-                id="address"
-                {...register("address")}
-              />
-              <p className={s.form_error}>{errors.address?.message}</p>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="addressLocation">Localidad:</label>
-              <input
-                required
-                type="text"
-                id="addressLocation"
-                {...register("addressLocation")}
-              />
-              <p className={s.form_error}>{errors.addressLocation?.message}</p>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="addressProvince">Provincia:</label>
-              <input
-                required
-                type="text"
-                id="addressProvince"
-                {...register("addressProvince")}
-              />
-              <p className={s.form_error}>{errors.addressProvince?.message}</p>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="dniNumber">DNI:</label>
-              <input
-                required
-                type="text"
-                id="dniNumber"
-                {...register("dniNumber")}
-              />
-              <p className={s.form_error}>{errors.dniNumber?.message}</p>
-            </div>
-
-            <div className={s.dni_files_wrapper}>
-              <div>
-                <label htmlFor="dniFront">
-                  Foto de tu DNI anverso (5mb max):
-                </label>
-                <button
-                  type="button"
-                  id="dniFront"
-                  onClick={() => openWidget(setDniFront)}
-                >
-                  {dniFront ? "arhivo cargado" : "subir archivo"}
-                </button>
-              </div>
-
-              <div>
-                <label htmlFor="dniBack">Foto de tu DNI dorso (5mb max):</label>
-                <button
-                  type="button"
-                  id="dniBack"
-                  onClick={() => openWidget(setDniBack)}
-                >
-                  {dniBack ? "archivo cargado" : "subir archivo"}
-                </button>
-              </div>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="occupation">Ocupación:</label>
-              <input
-                required
-                type="text"
-                id="occupation"
-                {...register("occupation")}
-              />
-              <p className={s.form_error}>{errors.occupation?.message}</p>
-            </div>
-
-            <div className={s.flex}>
-              <label htmlFor="student">Estudiante:</label>
-              <input type="checkbox" id="student" {...register("student")} />
-              <p className={s.form_error}>{errors.student?.message}</p>
-            </div>
-
-            <div className={s.flex}>
-              <label htmlFor="employee">Empleado R.D:</label>
-              <input type="checkbox" id="employee" {...register("employee")} />
-              <p className={s.form_error}>{errors.employee?.message}</p>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="company">Empresa:</label>
-              <input type="text" id="company" {...register("company")} />
-              <p className={s.form_error}>{errors.company?.message}</p>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="cuit">CUIT:</label>
-              <input type="text" id="cuit" {...register("cuit")} />
-              <p className={s.form_error}>{errors.cuit?.message}</p>
-            </div>
-
-            <div className={s.inputs}>
-              <label htmlFor="bussinessName">Razón Social:</label>
-              <input
-                type="text"
-                id="bussinessName"
-                {...register("businessName")}
-              />
-              <p className={s.form_error}>{errors.bussinessName?.message}</p>
-            </div>
-          </fieldset>
-
-          <fieldset className={s.contacts_wrapper}>
-            <legend>CONTACTOS RELACIONADOS</legend>
-            <div>
-              <label htmlFor="contact1">Contacto 1:</label>
-              <div className={s.full_w}>
+              <div className={s.form_group}>
+                <label htmlFor="fullName">Nombre Completo:</label>
                 <input
+                  required
                   type="text"
-                  id="contact1"
-                  {...register("contacts.contact1")}
+                  id="fullName"
+                  defaultValue={session?.user.name}
+                  {...register("fullName")}
+                />
+                <p className={s.form_error}>{errors.fullName?.message}</p>
+              </div>
+
+              <div className={s.form_group}>
+                <label htmlFor="phone">Número de celular: (+54)</label>
+                <input
+                  required
+                  type="tel"
+                  id="phone"
+                  {...register("phone")}
+                  placeholder="(código de área + número)"
+                />
+                <p className={s.form_error}>{errors.phone?.message}</p>
+              </div>
+
+              <div className={s.form_group}>
+                <label htmlFor="birthDate">Fecha de nacimiento:</label>
+                <input
+                  required
+                  type="date"
+                  id="birthDate"
+                  {...register("birthDate")}
+                />
+                <p className={s.form_error}>{errors.birthDate?.message}</p>
+              </div>
+
+              <div className={s.form_group}>
+                <label htmlFor="address">Domicilio Real:</label>
+                <input
+                  required
+                  type="text"
+                  id="address"
+                  {...register("address")}
+                />
+                <p className={s.form_error}>{errors.address?.message}</p>
+              </div>
+
+              <div className={s.form_group}>
+                <label htmlFor="addressLocation">Localidad:</label>
+                <input
+                  required
+                  type="text"
+                  id="addressLocation"
+                  {...register("addressLocation")}
                 />
                 <p className={s.form_error}>
-                  {errors.contacts?.contact1?.message}
+                  {errors.addressLocation?.message}
                 </p>
               </div>
 
-              <label htmlFor="bond1">Vínculo:</label>
-              <div className={s.full_w}>
-                <input type="text" id="bond1" {...register("contacts.bond1")} />
-                <p className={s.form_error}>
-                  {errors.contacts?.bond1?.message}
-                </p>
-              </div>
-            </div>
-            <div>
-              <label htmlFor="contact2">Contacto 2:</label>
-              <div className={s.full_w}>
+              <div className={s.form_group}>
+                <label htmlFor="addressProvince">Provincia:</label>
                 <input
+                  required
                   type="text"
-                  id="contact2"
-                  {...register("contacts.contact2")}
+                  id="addressProvince"
+                  {...register("addressProvince")}
                 />
                 <p className={s.form_error}>
-                  {errors.contacts?.contact2?.message}
+                  {errors.addressProvince?.message}
                 </p>
               </div>
 
-              <label htmlFor="bond2">Vínculo:</label>
-              <div className={s.full_w}>
-                <input type="text" id="bond2" {...register("contacts.bond2")} />
-                <p className={s.form_error}>
-                  {errors.contacts?.bond2?.message}
-                </p>
+              <div className={s.form_group}>
+                <label htmlFor="dniNumber">DNI:</label>
+                <input
+                  required
+                  type="text"
+                  id="dniNumber"
+                  {...register("dniNumber")}
+                />
+                <p className={s.form_error}>{errors.dniNumber?.message}</p>
               </div>
-            </div>
-            <div>
-              <label htmlFor="contact3">Contacto 3:</label>
-              <div className={s.full_w}>
+
+              <div className={s.dni_files_wrapper}>
+                <div>
+                  <label htmlFor="dniFront">
+                    Foto de tu DNI anverso (5mb max):
+                  </label>
+                  <button
+                    type="button"
+                    id="dniFront"
+                    onClick={() => openWidget(setDniFront)}
+                  >
+                    {dniFront ? "arhivo cargado" : "subir archivo"}
+                  </button>
+                </div>
+
+                <div>
+                  <label htmlFor="dniBack">
+                    Foto de tu DNI dorso (5mb max):
+                  </label>
+                  <button
+                    type="button"
+                    id="dniBack"
+                    onClick={() => openWidget(setDniBack)}
+                  >
+                    {dniBack ? "archivo cargado" : "subir archivo"}
+                  </button>
+                </div>
+              </div>
+
+              <div className={s.form_group}>
+                <label htmlFor="occupation">Ocupación:</label>
+                <input
+                  required
+                  type="text"
+                  id="occupation"
+                  {...register("occupation")}
+                />
+                <p className={s.form_error}>{errors.occupation?.message}</p>
+              </div>
+
+              <div className={s.flex}>
+                <label htmlFor="student">Estudiante:</label>
+                <input type="checkbox" id="student" {...register("student")} />
+                <p className={s.form_error}>{errors.student?.message}</p>
+              </div>
+
+              <div className={s.flex}>
+                <label htmlFor="employee">Empleado R.D:</label>
+                <input
+                  type="checkbox"
+                  id="employee"
+                  {...register("employee")}
+                />
+                <p className={s.form_error}>{errors.employee?.message}</p>
+              </div>
+
+              <div className={s.form_group}>
+                <label htmlFor="company">Empresa:</label>
+                <input type="text" id="company" {...register("company")} />
+                <p className={s.form_error}>{errors.company?.message}</p>
+              </div>
+
+              <div className={s.form_group}>
+                <label htmlFor="cuit">CUIT:</label>
+                <input type="text" id="cuit" {...register("cuit")} />
+                <p className={s.form_error}>{errors.cuit?.message}</p>
+              </div>
+
+              <div className={s.form_group}>
+                <label htmlFor="bussinessName">Razón Social:</label>
                 <input
                   type="text"
-                  id="contact3"
-                  {...register("contacts.contact3")}
+                  id="bussinessName"
+                  {...register("businessName")}
                 />
-                <p className={s.form_error}>
-                  {errors.contacts?.contact3?.message}
-                </p>
+                <p className={s.form_error}>{errors.bussinessName?.message}</p>
               </div>
+            </fieldset>
 
-              <label htmlFor="bond3">Vínculo:</label>
-              <div className={s.full_w}>
-                <input type="text" id="bond3" {...register("contacts.bond3")} />
-                <p className={s.form_error}>
-                  {errors.contacts?.bond3?.message}
-                </p>
-              </div>
-            </div>
-          </fieldset>
+            <fieldset className={s.contacts_wrapper}>
+              <legend>CONTACTOS RELACIONADOS</legend>
+              <div>
+                <label htmlFor="contact1">Contacto 1:</label>
+                <div className={s.full_w}>
+                  <input
+                    type="text"
+                    id="contact1"
+                    {...register("contacts.contact1")}
+                  />
+                  <p className={s.form_error}>
+                    {errors.contacts?.contact1?.message}
+                  </p>
+                </div>
 
-          <fieldset className={s.bank_info_wrapper}>
-            <legend>DATOS DE CUENTA BANCARIA / MERCADOPAGO</legend>
-            <div>
-              <label htmlFor="bank">Banco:</label>
-              <div>
-                <input type="text" id="bank" {...register("bank")} />
-                <p className={s.form_error}>{errors.bank?.message}</p>
+                <label htmlFor="bond1">Vínculo 1:</label>
+                <div className={s.full_w}>
+                  <input
+                    type="text"
+                    id="bond1"
+                    {...register("contacts.bond1")}
+                  />
+                  <p className={s.form_error}>
+                    {errors.contacts?.bond1?.message}
+                  </p>
+                </div>
               </div>
-              <label htmlFor="alias">Alias:</label>
               <div>
-                <input type="text" id="alias" {...register("alias")} />
-                <p className={s.form_error}>{errors.alias?.message}</p>
-              </div>
-              <label htmlFor="cbu">CBU/CVU:</label>
-              <div>
-                <input type="text" id="cbu" {...register("cbu")} />
-                <p className={s.form_error}>{errors.cbu?.message}</p>
-              </div>
-            </div>
-          </fieldset>
+                <label htmlFor="contact2">Contacto 2:</label>
+                <div className={s.full_w}>
+                  <input
+                    type="text"
+                    id="contact2"
+                    {...register("contacts.contact2")}
+                  />
+                  <p className={s.form_error}>
+                    {errors.contacts?.contact2?.message}
+                  </p>
+                </div>
 
+                <label htmlFor="bond2">Vínculo 2:</label>
+                <div className={s.full_w}>
+                  <input
+                    type="text"
+                    id="bond2"
+                    {...register("contacts.bond2")}
+                  />
+                  <p className={s.form_error}>
+                    {errors.contacts?.bond2?.message}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <label htmlFor="contact3">Contacto 3:</label>
+                <div className={s.full_w}>
+                  <input
+                    type="text"
+                    id="contact3"
+                    {...register("contacts.contact3")}
+                  />
+                  <p className={s.form_error}>
+                    {errors.contacts?.contact3?.message}
+                  </p>
+                </div>
+
+                <label htmlFor="bond3">Vínculo 3:</label>
+                <div className={s.full_w}>
+                  <input
+                    type="text"
+                    id="bond3"
+                    {...register("contacts.bond3")}
+                  />
+                  <p className={s.form_error}>
+                    {errors.contacts?.bond3?.message}
+                  </p>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset className={s.bank_info_wrapper}>
+              <legend>DATOS DE CUENTA BANCARIA / MERCADOPAGO</legend>
+              <div>
+                <label htmlFor="bank">Banco:</label>
+                <div>
+                  <input type="text" id="bank" {...register("bank")} />
+                  <p className={s.form_error}>{errors.bank?.message}</p>
+                </div>
+                <label htmlFor="alias">Alias:</label>
+                <div>
+                  <input type="text" id="alias" {...register("alias")} />
+                  <p className={s.form_error}>{errors.alias?.message}</p>
+                </div>
+                <label htmlFor="cbu">CBU/CVU:</label>
+                <div>
+                  <input type="text" id="cbu" {...register("cbu")} />
+                  <p className={s.form_error}>{errors.cbu?.message}</p>
+                </div>
+              </div>
+            </fieldset>
+          </div>
           <div className={s.btn_wrapper}>
             <button type="submit">siguiente</button>
           </div>

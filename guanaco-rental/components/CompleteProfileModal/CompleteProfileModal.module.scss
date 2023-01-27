@@ -2,10 +2,17 @@
 
 .container {
   @include app_width;
-  padding: 3rem 0rem;
+  padding: 3rem 1rem;
 
   .form {
     margin-top: 2rem;
+    > div {
+      display: grid;
+      gap: 1.25em;
+      @media (min-width: 768px) {
+        grid-template-columns: 55%;
+      }
+    }
 
     .form_error {
       color: $m-danger;
@@ -18,6 +25,10 @@
 
     legend {
       margin-bottom: 1rem;
+      font-weight: 600;
+      background-color: $m-white;
+      padding: 0.2em 0.4em;
+      border-radius: 0.1em;
     }
 
     input[type="text"],
@@ -31,27 +42,24 @@
     }
 
     .personal_info_wrapper {
-      display: flex;
-      flex-direction: column;
-      row-gap: 1.5rem;
-      width: 50%;
+      display: grid;
+      gap: 1.5rem;
+      // width: 100%;
 
-      .inputs {
-        display: flex;
-        flex-direction: column;
-        row-gap: 0.5rem;
+      .form_group {
+        display: grid;
+        gap: 0.5em;
       }
 
       .dni_files_wrapper {
-        display: flex;
-        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 2rem;
 
         > div {
-          display: flex;
-          flex-direction: column;
-          row-gap: 0.5rem;
-          // flex-basis: 50%;
+          display: grid;
+          gap: 0.5rem;
+
           input {
             &::file-selector-button {
               @include m-button;
@@ -73,12 +81,6 @@
     }
 
     .contacts_wrapper {
-      margin-top: 2rem;
-
-      > p {
-        margin-bottom: 1rem;
-      }
-
       > div {
         display: flex;
         align-items: baseline;
@@ -99,20 +101,13 @@
     }
 
     .bank_info_wrapper {
-      margin-top: 2rem;
-
-      > p {
-        margin-bottom: 1rem;
-      }
-
+      // margin-top: 2rem;
       > div {
         display: grid;
-        grid-template-columns: 10% 90%;
-        column-gap: 0%;
-        align-items: baseline;
+        gap: 0.5em;
 
         input[type="text"] {
-          width: 50%;
+          width: 100%;
           margin-bottom: 0.5rem;
         }
       }
@@ -134,38 +129,10 @@
 @media (max-width: 920px) {
   .container {
     .form {
-      .personal_info_wrapper {
-        width: 100%;
-
-        .flex {
-          width: 100%;
-        }
-
-        .dni_files_wrapper {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-      }
-
       .contacts_wrapper {
         > div {
           flex-direction: column;
           gap: 0.5rem;
-
-          input {
-            width: 100%;
-          }
-        }
-      }
-
-      .bank_info_wrapper {
-        > div {
-          grid-template-columns: 15% 80%;
-          column-gap: 5%;
-
-          input[type="text"] {
-            width: 100%;
-          }
         }
       }
     }

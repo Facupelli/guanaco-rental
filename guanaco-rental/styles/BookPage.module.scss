@@ -10,6 +10,7 @@
   font-family: "Panton";
   background-color: #ebebeb;
   min-height: 100vh;
+  min-height: 100dvh;
   padding-top: 70px;
 }
 
@@ -29,7 +30,7 @@
   button {
     font-size: 0.9em;
     flex-grow: 1;
-    text-align: center
+    text-align: center;
   }
 
   button {
@@ -44,7 +45,7 @@
 @media (max-width: 768px) {
   .modal_links {
     gap: 1rem;
-  
+
     a,
     button {
       width: 100%;
