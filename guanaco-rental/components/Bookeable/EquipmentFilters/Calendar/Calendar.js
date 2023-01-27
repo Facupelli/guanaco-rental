@@ -34,6 +34,15 @@ export default function CalendarComponent({
   const pickupDayIsFriday = dateRange && new Date(dateRange[0]).getDay() === 5;
   const isFriday = new Date().getDay() === 5;
 
+  if (
+    dateRange &&
+    pickupDayIsFriday &&
+    pickupDayIsToday &&
+    new Date().getHours() > 8
+  ) {
+    dispatch(setPickupHour("20:00"));
+  }
+
   const handleClickOk = () => {
     setDatePickup(false);
   };
@@ -104,14 +113,7 @@ export default function CalendarComponent({
           <div className={s.pickup_select_wrapper}>
             <label>Retiro a las</label>
             <select
-              value={
-                dateRange &&
-                pickupDayIsFriday &&
-                pickupDayIsToday &&
-                new Date().getHours() > 8
-                  ? "20:00"
-                  : pickupHour
-              }
+              value={pickupHour}
               onChange={(e) => handleChangeHour(e)}
               disabled={!dateRange || (dateRange && !pickupDayIsFriday)}
             >
