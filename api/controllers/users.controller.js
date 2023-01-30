@@ -47,6 +47,7 @@ async function postUser(req, res, next) {
 
     res.json(response);
   } catch (e) {
+    console.log("USERS UPSERT CONTROLLER ERRROr", e);
     next(e);
   }
 }
@@ -77,10 +78,10 @@ async function putUser(req, res, next) {
         },
       };
 
-      const sendConfirmationMail = await sendMail(mailOptions);
+      if (data.customerApproved) await sendMail(mailOptions);
     }
 
-    res.json({ message: "success", updatedUser });
+    return res.json({ message: "success", updatedUser });
   } catch (e) {
     next(e);
   }

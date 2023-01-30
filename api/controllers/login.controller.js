@@ -37,6 +37,7 @@ async function login(req, res, next) {
       token,
     });
   } catch (e) {
+    console.log("LOGIN CONTROLLER ERROR", e);
     next(e);
   }
 }
