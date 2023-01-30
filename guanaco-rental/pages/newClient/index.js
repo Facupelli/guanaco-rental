@@ -83,6 +83,8 @@ export async function getServerSideProps(ctx) {
     authOptions
   );
 
+  console.log("new  client session", session);
+
   if (!session) {
     return {
       props: {
