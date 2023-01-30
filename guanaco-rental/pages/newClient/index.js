@@ -22,8 +22,6 @@ export default function NewClientPage({ loginModal }) {
   const [showModal, setShowModal] = useState(true);
   const [showLoginModal, setShowLoginModal] = useState(loginModal);
 
-  console.log("SHOW LOGIN MODAL", showLoginModal);
-
   return (
     <div>
       <Head>
@@ -36,7 +34,7 @@ export default function NewClientPage({ loginModal }) {
         async
       ></Script>
       {showLoginModal && (
-        <LoadingModal btnFunc={() => setShowLoginModal(false)}>
+        <MessageModal btnFunc={() => setShowLoginModal(false)}>
           <p>Para poder enviar tu alta de cliente debes iniciar sesión.</p>
           <div className={s.sesion_btns_wrapper}>
             <button
@@ -58,7 +56,7 @@ export default function NewClientPage({ loginModal }) {
               </p>
             </button>
           </div>
-        </LoadingModal>
+        </MessageModal>
       )}
       {showModal && !showLoginModal && (
         <MessageModal showButton btnFunc={() => setShowModal(false)}>
@@ -84,8 +82,6 @@ export async function getServerSideProps(ctx) {
     ctx.res,
     authOptions
   );
-
-  console.log("new  client session", session);
 
   if (!session) {
     return {
