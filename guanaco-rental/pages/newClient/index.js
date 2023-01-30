@@ -22,6 +22,8 @@ export default function NewClientPage({ loginModal }) {
   const [showModal, setShowModal] = useState(true);
   const [showLoginModal, setShowLoginModal] = useState(loginModal);
 
+  console.log("SHOW LOGIN MODAL", showLoginModal);
+
   return (
     <div>
       <Head>
