@@ -9,39 +9,39 @@ import {
 } from "@react-pdf/renderer";
 import { formatPrice } from "../../utils/price";
 
-// Font.register({
-//   family: "Open Sans",
-//   fonts: [
-//     {
-//       src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf",
-//     },
-//     {
-//       src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf",
-//       fontWeight: 600,
-//     },
-//     {
-//       src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-700.ttf",
-//       fontWeight: 700,
-//     },
-//   ],
-// });
-
 Font.register({
-  family: "Panton",
+  family: "Open Sans",
   fonts: [
     {
-      src: "https://db.onlinewebfonts.com/t/5920187ef0bf42859293e1ea01545b96.ttf",
+      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf",
     },
     {
-      src: "https://db.onlinewebfonts.com/t/d5a58cd8ad7ce7bbe4716dc5b95fb0fb.ttf",
+      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf",
       fontWeight: 600,
     },
     {
-      src: "https://db.onlinewebfonts.com/t/24398819ac2f8f57d97b6d2c131686fe.ttf",
+      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-700.ttf",
       fontWeight: 700,
     },
   ],
 });
+
+// Font.register({
+//   family: "Panton",
+//   fonts: [
+//     {
+//       src: "https://db.onlinewebfonts.com/t/5920187ef0bf42859293e1ea01545b96.ttf",
+//     },
+//     {
+//       src: "https://db.onlinewebfonts.com/t/d5a58cd8ad7ce7bbe4716dc5b95fb0fb.ttf",
+//       fontWeight: 600,
+//     },
+//     {
+//       src: "https://db.onlinewebfonts.com/t/24398819ac2f8f57d97b6d2c131686fe.ttf",
+//       fontWeight: 700,
+//     },
+//   ],
+// });
 
 const MyDocument = Document;
 const MyPage = Page;
