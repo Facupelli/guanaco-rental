@@ -49,7 +49,7 @@ const MyPage = Page;
 const styles = StyleSheet.create({
   page: {
     fontSize: 12,
-    fontFamily: "Panton",
+    fontFamily: "Open Sans",
     position: "relative",
     zIndex: 0,
   },
