@@ -120,6 +120,13 @@ export default function CartPage() {
       }));
       return;
     }
+    if (userData.petitionSent === "PENDING") {
+      // alta todavia no fue aprobada ni denegada
+      setShowMessageModal((prev) => ({
+        ...prev,
+        error: "Tu alta de cliente todavía esta en revisión",
+      }));
+    }
     if (!userData.customerApproved) {
       //alta de cliente no aprobada
       setShowMessageModal((prev) => ({
