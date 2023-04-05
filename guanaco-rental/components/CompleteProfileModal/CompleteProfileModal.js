@@ -20,8 +20,6 @@ export default function CompleteProfileModal() {
     resolver: yupResolver(schema),
   });
 
-  console.log(errors);
-
   const { data: session } = useSession();
 
   const router = useRouter();
@@ -57,6 +55,12 @@ export default function CompleteProfileModal() {
   };
 
   const onSubmit = async (data) => {
+    console.log("SESSION", session);
+    if (!session) {
+      setMessage("Debes iniciar sesión para enviar el alta!");
+      return;
+    }
+
     setLoading(true);
 
     // const dniFront = data.dniFront[0];
@@ -108,7 +112,9 @@ export default function CompleteProfileModal() {
           showButton
           btnFunc={() => {
             setMessage("");
-            router.push("/book");
+            if (message !== "Debes iniciar sesión para enviar el alta!") {
+              router.push("/book");
+            }
           }}
         >
           <p>{message}</p>
