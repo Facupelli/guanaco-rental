@@ -7,7 +7,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=G-8GJD0Z0ETR`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
             strategy="afterInteractive"
           />
           <Script
@@ -18,7 +18,7 @@ class MyDocument extends Document {
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', 'G-8GJD0Z0ETR');
+                gtag('config', '${NEXT_PUBLIC_GOOGLE_ANALYTICS}');
               `,
             }}
           />

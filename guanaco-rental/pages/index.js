@@ -21,32 +21,7 @@ export default function Home() {
           content="Guanaco rental web, alquiler de equipos para cine y fotografía. San Juan, Argentina."
         />
         <link rel="icon" href="/logo-favicon.ico" />
-        <link
-          rel="dns-prefetch"
-          href="https://www.googletagmanager.com/gtag/"
-        />
       </Head>
-
-      <Script
-        id="ga-script"
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-      />
-      <Script
-        id="ga-script2"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-              page_path: window.location.pathname,
-            });
-            gtag('set', 'transport', 'beacon');
-            gtag('send', 'pageview');
-            gtag('js', new Date());
-          `,
-        }}
-      />
 
       <Nav route="home">
         <li>

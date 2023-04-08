@@ -79,33 +79,7 @@ export default function Home({ showNewModal }) {
           content="Aquiler de equipos para cine y fotografía."
         />
         <link rel="icon" href="/logo-favicon.ico" />
-        <link
-          rel="preconnect"
-          href="https://www.guanacorental.shop/rentalapi"
-        />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com/gtag" />
       </Head>
-
-      <Script
-        id="ga-script"
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-      />
-      <Script
-        id="ga-script2"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-              page_path: window.location.pathname,
-            });
-            gtag('set', 'transport', 'beacon');
-            gtag('send', 'pageview');
-            gtag('js', new Date());
-          `,
-        }}
-      />
 
       <Nav setShowCart={setShowCart} route="book">
         <li>
