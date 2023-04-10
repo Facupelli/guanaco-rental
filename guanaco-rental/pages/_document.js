@@ -3,6 +3,7 @@ import Script from "next/script";
 
 class MyDocument extends Document {
   render() {
+    console.log(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS);
     return (
       <Html>
         <Head>
