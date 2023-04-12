@@ -21,16 +21,19 @@ export default function Gear({
   return (
     <>
       {showModal && (
-        <MessageModal
-          showButton
-          btnFunc={() => {
-            updateGearFromOrder(order, gear, "remove", 0, token).then(() =>
-              refetchOrders()
-            );
-            setShowModal(false);
-          }}
-        >
+        <MessageModal>
           Seguro que quieres eliminar este equipo del pedido?
+          <button
+            onClick={() => {
+              updateGearFromOrder(order, gear, "remove", 0, token).then(() =>
+                refetchOrders()
+              );
+              setShowModal(false);
+            }}
+          >
+            OK
+          </button>
+          <button onClick={() => setShowModal(false)}>CANCELAR</button>
         </MessageModal>
       )}
       <div className={s.gear_container}>
