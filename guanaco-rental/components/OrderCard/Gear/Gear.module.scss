@@ -1,5 +1,22 @@
 @import "../../../styles/app.scss";
 
+.modal {
+  display: grid;
+
+  > div {
+    display: flex;
+    gap: 2em;
+
+    button {
+      @include m-button;
+    }
+
+    button::last-child {
+      @include m-button-danger;
+    }
+  }
+}
+
 .gear_container {
   display: flex;
   align-items: center;

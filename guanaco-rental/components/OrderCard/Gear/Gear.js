@@ -22,18 +22,22 @@ export default function Gear({
     <>
       {showModal && (
         <MessageModal>
-          Seguro que quieres eliminar este equipo del pedido?
-          <button
-            onClick={() => {
-              updateGearFromOrder(order, gear, "remove", 0, token).then(() =>
-                refetchOrders()
-              );
-              setShowModal(false);
-            }}
-          >
-            OK
-          </button>
-          <button onClick={() => setShowModal(false)}>CANCELAR</button>
+          <div className={s.modal}>
+            Seguro que quieres eliminar este equipo del pedido?
+            <div>
+              <button
+                onClick={() => {
+                  updateGearFromOrder(order, gear, "remove", 0, token).then(
+                    () => refetchOrders()
+                  );
+                  setShowModal(false);
+                }}
+              >
+                OK
+              </button>
+              <button onClick={() => setShowModal(false)}>CANCELAR</button>
+            </div>
+          </div>
         </MessageModal>
       )}
       <div className={s.gear_container}>
