@@ -237,7 +237,7 @@ export default function UserProfile({ orderData }) {
                       />
                     ))}
                 </div>
-                {!order.delivered && (
+                {session?.user.role === "ADMIN" && (
                   <div className={s.add_gear_btn_wrapper}>
                     <button
                       type="button"
