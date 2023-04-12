@@ -33,7 +33,7 @@ export default function Gear({
                   setShowModal(false);
                 }}
               >
-                OK
+                ELIMINAR
               </button>
               <button onClick={() => setShowModal(false)}>CANCELAR</button>
             </div>
