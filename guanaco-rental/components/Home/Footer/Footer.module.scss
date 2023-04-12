@@ -5,14 +5,22 @@ $h-gray: #2f2e2e;
 .footer {
   background-color: $h-gray;
   padding: 2rem 0rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: $m-white;
+  display: grid;
+  justify-items: center;
+  gap: 1em;
   font-weight: 300;
+  color: $m-white;
 
-  > p {
-    margin-top: 1rem;
-    font-size: 0.9em;
+  .brand {
+    display: grid;
+    justify-items: center;
+    gap: 0.2em;
+    > p {
+      font-size: 0.9em;
+    }
+
+    .privacy_link {
+      font-size: 10px;
+    }
   }
 }
