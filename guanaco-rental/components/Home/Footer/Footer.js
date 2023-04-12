@@ -9,7 +9,7 @@ export default function Footer() {
       <div className={s.brand}>
         <p>© 2021. Guanaco Rental. San Juan, Argentina.</p>
         <div className={s.privacy_link}>
-          <Link href="/policiy">Política de privacidad.</Link>
+          <Link href="/policy">Política de privacidad.</Link>
         </div>
       </div>
     </footer>
