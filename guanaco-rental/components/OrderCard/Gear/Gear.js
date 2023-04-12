@@ -14,6 +14,7 @@ export default function Gear({
   refetchOrders,
   token,
   indexAdmin,
+  role,
 }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -53,7 +54,7 @@ export default function Gear({
               ?.quantity
           }
         </p>
-        {!indexAdmin && editable && !order.delivered && (
+        {!indexAdmin && editable && role === "ADMIN" && (
           <div className={s.x_btn_wrapper}>
             <XmarkButton handleClose={() => setShowModal(true)} />
           </div>

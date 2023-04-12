@@ -234,6 +234,7 @@ export default function UserProfile({ orderData }) {
                         key={gear.id}
                         refetchOrders={refetchOrders}
                         token={session?.user.token}
+                        role={session?.user.role}
                       />
                     ))}
                 </div>
