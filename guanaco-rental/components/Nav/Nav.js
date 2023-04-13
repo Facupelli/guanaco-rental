@@ -100,7 +100,12 @@ export default function Nav({ setShowCart, cartPage, route, children }) {
                   onClick={async () => await signIn("google")}
                 >
                   <div className={s.logo_wrapper}>
-                    <Image src="/google/g-logo.png" width={18} height={18} />
+                    <Image
+                      src="/google/g-logo.png"
+                      width={18}
+                      height={18}
+                      alt="google g logo"
+                    />
                   </div>
                   <p>Acceder con Google</p>
                 </button>
