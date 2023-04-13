@@ -5,7 +5,7 @@ import {
   faBars,
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
-import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useCallback, useRef } from "react";
@@ -96,24 +96,24 @@ export default function Nav({ setShowCart, cartPage, route, children }) {
             <>
               <li>
                 <button
-                  className={s.link_icon_google}
+                  className={s.google_sign}
                   onClick={async () => await signIn("google")}
                 >
-                  <p>ENTRAR CON</p>
-                  <p className={s.justify_between}>
-                    GOOGLE <FontAwesomeIcon icon={faGoogle} />
-                  </p>
+                  <div className={s.logo_wrapper}>
+                    <Image src="/google/g-logo.png" width={18} height={18} />
+                  </div>
+                  <p>Acceder con Google</p>
                 </button>
               </li>
               <li>
                 <button
-                  className={s.link_icon_google}
+                  className={s.facebook_sign}
                   onClick={() => signIn("facebook")}
                 >
-                  <p>ENTRAR CON</p>
-                  <p className={s.justify_between}>
-                    FACEBOOK <FontAwesomeIcon icon={faFacebook} />
-                  </p>
+                  <div className={s.logo_wrapper}>
+                    <FontAwesomeIcon icon={faFacebook} />
+                  </div>
+                  <p>Acceder con Facebook</p>
                 </button>
               </li>
             </>
