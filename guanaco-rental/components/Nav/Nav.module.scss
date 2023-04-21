@@ -108,9 +108,9 @@
         cursor: pointer;
         font-weight: 300;
 
-        &:hover {
-          color: $m-orange;
-        }
+        // &:hover {
+        //   color: $m-orange;
+        // }
       }
 
       a {
@@ -186,7 +186,7 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
-      padding: 2rem;
+      padding: 2rem 1rem;
       background-color: $m-black;
       margin: 0;
 
